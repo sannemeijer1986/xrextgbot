@@ -441,7 +441,75 @@ async def handle_web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE
     if update.message and update.message.web_app_data:
         data = update.message.web_app_data.data
         logger.info(f"Received web app data: {data}")
-        await update.message.reply_text("✅ Web app data received: " + str(data))
+        
+        try:
+            # Parse the JSON data from the mini app
+            quote_data = json.loads(data)
+            user_name = update.effective_user.first_name
+            user_username = update.effective_user.username
+            user_id = update.effective_user.id
+            is_group = update.message.chat.type in ['group', 'supergroup']
+            
+            # Create user display name (with username if available)
+            user_display = f"{user_name}"
+            if user_username:
+                user_display += f" (@{user_username})"
+            
+            # Extract quote information
+            have_currency = quote_data['have']['currency']
+            have_amount = quote_data['have']['amount']
+            want_currency = quote_data['want']['currency']
+            want_amount = quote_data['want']['amount']
+            
+            # Create formatted amounts
+            have_amount_str = f"{have_amount:,.2f}" if have_amount else "Market Rate"
+            want_amount_str = f"{want_amount:,.2f}" if want_amount else "Market Rate"
+            
+            # Create the order message
+            if is_group:
+                order_header = "📢 **NEW OTC ORDER REQUEST**"
+                context_text = f"Group: {update.effective_chat.title or 'Group Chat'}"
+            else:
+                order_header = "🚀 **OTC ORDER REQUEST**"
+                context_text = "Private Chat"
+            
+            order_message = (
+                f"{order_header}\n\n"
+                f"👤 **Trader:** {user_display}\n"
+                f"📱 **User ID:** `{user_id}`\n"
+                f"🏢 **Context:** {context_text}\n"
+                f"⏰ **Time:** {update.message.date.strftime('%H:%M:%S UTC')}\n\n"
+                f"💰 **I have:** {have_amount_str} {have_currency}\n"
+                f"🎯 **I want:** {want_amount_str} {want_currency}\n\n"
+                f"🔄 **Processing quote request...**\n"
+                f"Expected waiting time: 1–2 minutes\n\n"
+                f"*Order submitted via Mini App*"
+            )
+            
+            logger.info(f"Sending OTC order message to chat {update.message.chat_id}")
+            
+            # Send the public order message
+            await update.message.reply_text(
+                order_message,
+                parse_mode='Markdown'
+            )
+            
+            # Send confirmation to user
+            await context.bot.send_message(
+                chat_id=update.message.chat_id,
+                text=f"✅ {user_name}, your OTC quote request has been submitted!\n"
+                     f"📊 **Summary:** {have_amount_str} {have_currency} → {want_amount_str} {want_currency}"
+            )
+            
+            logger.info(f"Processed OTC quote request from mini app for user {user_id}")
+            
+        except json.JSONDecodeError:
+            # Handle legacy format or simple text data
+            logger.info(f"Received simple web app data (not JSON): {data}")
+            await update.message.reply_text("✅ Quote request received: " + str(data))
+        except Exception as e:
+            logger.error(f"Error processing web app data: {str(e)}")
+            await update.message.reply_text("❌ Error processing your quote request. Please try again.")
     else:
         logger.info("No web app data found in message.")
 
