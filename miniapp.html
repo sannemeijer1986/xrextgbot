@@ -10,28 +10,41 @@
     </style>
 </head>
 <body>
-    <h2>Minimal Mini App</h2>
-    <button id="sendBtn">Send Test Data</button>
+    <div class="container">
+        <h1>OTC Mini App</h1>
+        <div id="status" style="margin: 20px 0; color: #333; font-weight: bold;"></div>
+        <button class="main-button" id="mainButton" style="display:none;">Request Quote</button>
+        <div id="timestamp"></div>
+    </div>
     <script>
         Telegram.WebApp.ready();
         const tg = window.Telegram.WebApp;
+        const statusDiv = document.getElementById('status');
 
-        tg.MainButton.setText("Request Quote");
+        // Remove auto-send on load. Only send data on MainButton click.
+        tg.expand();
+        tg.MainButton.setText('Request Quote');
         tg.MainButton.show();
-
         tg.MainButton.onClick(function() {
-            console.log("MainButton clicked, sending data...");
+            statusDiv.textContent = 'Sending...';
+            tg.MainButton.setText('Sending...');
+            tg.MainButton.disable();
             try {
                 tg.sendData("QUOTE_REQUEST");
-                tg.MainButton.setText("Sent! ✅");
+                statusDiv.textContent = 'Sent! ✅ Waiting for bot...';
+                tg.MainButton.setText('Sent! ✅');
+                // Wait 3 seconds before closing
                 setTimeout(() => {
                     tg.close();
-                }, 3000); // Wait 3 seconds before closing
-            } catch (e) {
-                console.error("Error sending data:", e);
-                alert("Failed to send data: " + e);
+                }, 3000);
+            } catch (error) {
+                statusDiv.textContent = 'Error sending data: ' + error;
+                tg.MainButton.setText('Error');
+                tg.MainButton.enable();
             }
         });
+        // Timestamp for cache busting
+        document.getElementById('timestamp').textContent = 'Build: ' + new Date().toLocaleString();
     </script>
 </body>
 </html> 

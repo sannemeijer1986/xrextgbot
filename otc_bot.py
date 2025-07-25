@@ -579,10 +579,24 @@ async def main():
         await application.initialize()
         await check_webhook(application.bot)
         
-        application.add_handler(CommandHandler("start", start))
-        application.add_handler(CallbackQueryHandler(handle_callback))
-        application.add_handler(MessageHandler(filters.StatusUpdate.WEB_APP_DATA, handle_web_app_data))
-        application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
+        # Register handlers in correct order: web app data first, then others, debug last
+        application.add_handler(MessageHandler(filters.StatusUpdate.WEB_APP_DATA, handle_web_app_data), group=0)
+        application.add_handler(CommandHandler("start", start), group=1)
+        application.add_handler(CallbackQueryHandler(handle_callback), group=2)
+        application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text), group=3)
+        
+        # Add debug handler to catch ALL messages for logging only (never blocks)
+        async def debug_all_updates(update: Update, context: ContextTypes.DEFAULT_TYPE):
+            logger.info(f"=== DEBUG: Received update type: {type(update.message).__name__ if update.message else 'No message'}")
+            if update.message:
+                logger.info(f"=== DEBUG: Message content_type: {getattr(update.message, 'content_type', 'Unknown')}")
+                logger.info(f"=== DEBUG: Message text: {getattr(update.message, 'text', 'No text')}")
+                logger.info(f"=== DEBUG: Has web_app_data: {hasattr(update.message, 'web_app_data') and update.message.web_app_data}")
+                if hasattr(update.message, 'web_app_data') and update.message.web_app_data:
+                    logger.info(f"=== DEBUG: Web app data: {update.message.web_app_data.data}")
+
+        application.add_handler(MessageHandler(filters.ALL, debug_all_updates), group=1, block=False)
+
         logger.info("Bot handlers registered, starting polling...")
         await application.start()  # Start the application explicitly
         await application.updater.start_polling(
