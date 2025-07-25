@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XREX OTC Mini App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #000000);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            margin: 0;
+            color: var(--tg-theme-text-color, #000000);
+            font-size: 24px;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            color: var(--tg-theme-subtitle-text-color, #666666);
+        }
+        
+        .card {
+            background: var(--tg-theme-secondary-bg-color, #f8f9fa);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--tg-theme-section-separator-color, #e9ecef);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--tg-theme-text-color, #000000);
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .radio-option {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid var(--tg-theme-button-color, #007bff);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+            color: var(--tg-theme-button-color, #007bff);
+        }
+        
+        .radio-option.selected {
+            background: var(--tg-theme-button-color, #007bff);
+            color: var(--tg-theme-button-text-color, #ffffff);
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--tg-theme-section-separator-color, #e9ecef);
+            border-radius: 8px;
+            font-size: 16px;
+            background: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #000000);
+            box-sizing: border-box;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--tg-theme-button-color, #007bff);
+        }
+        
+        .quote-result {
+            background: var(--tg-theme-secondary-bg-color, #f8f9fa);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .quote-result.show {
+            display: block;
+        }
+        
+        .user-info {
+            font-size: 12px;
+            color: var(--tg-theme-subtitle-text-color, #666666);
+            text-align: center;
+            margin-top: 30px;
+            padding: 10px;
+            background: var(--tg-theme-secondary-bg-color, #f8f9fa);
+            border-radius: 8px;
+        }
+        
+        .main-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px);
+            max-width: 360px;
+            padding: 15px;
+            background: var(--tg-theme-button-color, #007bff);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: none;
+        }
+        
+        .main-button.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏦 XREX OTC</h1>
+            <p>Fast Telegram OTC Trading</p>
+        </div>
+        
+        <div class="card">
+            <div class="form-group">
+                <label>What do you want to trade?</label>
+                <div class="radio-group">
+                    <div class="radio-option" data-value="usd_usdt">
+                        <div>Want USD</div>
+                        <small>Have USDT</small>
+                    </div>
+                    <div class="radio-option" data-value="usdt_usd">
+                        <div>Want USDT</div>
+                        <small>Have USD</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Amount</label>
+                <input type="number" class="input-field" id="amount" placeholder="Enter amount" step="0.01" min="0">
+            </div>
+        </div>
+        
+        <div class="quote-result" id="quoteResult">
+            <h3>Quote Preview</h3>
+            <div id="quoteDetails"></div>
+        </div>
+        
+        <div class="user-info">
+            <div>User: <span id="userName">Loading...</span></div>
+            <div>User ID: <span id="userId">Loading...</span></div>
+        </div>
+    </div>
+    
+    <button class="main-button" id="mainButton">Request Quote</button>
+    
+    <script>
+        // Initialize Telegram Web App
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.ready();
+        
+        // Set theme
+        document.body.style.backgroundColor = tg.themeParams.bg_color || '#ffffff';
+        
+        // Get user info
+        const user = tg.initDataUnsafe?.user;
+        if (user) {
+            document.getElementById('userName').textContent = user.first_name + (user.last_name ? ' ' + user.last_name : '');
+            document.getElementById('userId').textContent = user.id;
+        }
+        
+        // App state
+        let selectedDirection = null;
+        let amount = 0;
+        
+        // Handle direction selection
+        document.querySelectorAll('.radio-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedDirection = this.dataset.value;
+                updateMainButton();
+                updateQuote();
+            });
+        });
+        
+        // Handle amount input
+        document.getElementById('amount').addEventListener('input', function() {
+            amount = parseFloat(this.value) || 0;
+            updateMainButton();
+            updateQuote();
+        });
+        
+        // Update main button visibility and text
+        function updateMainButton() {
+            const button = document.getElementById('mainButton');
+            if (selectedDirection && amount > 0) {
+                button.classList.add('show');
+                const direction = selectedDirection === 'usd_usdt' ? 'USD/USDT' : 'USDT/USD';
+                button.textContent = `Request ${direction} Quote`;
+            } else {
+                button.classList.remove('show');
+            }
+        }
+        
+        // Update quote preview
+        function updateQuote() {
+            const quoteResult = document.getElementById('quoteResult');
+            const quoteDetails = document.getElementById('quoteDetails');
+            
+            if (selectedDirection && amount > 0) {
+                const isWantUSD = selectedDirection === 'usd_usdt';
+                const wantCurrency = isWantUSD ? 'USD' : 'USDT';
+                const haveCurrency = isWantUSD ? 'USDT' : 'USD';
+                
+                // Mock exchange rate (in real app, you'd fetch this)
+                const mockRate = isWantUSD ? 0.9995 : 1.0005;
+                const estimatedReceive = (amount * mockRate).toFixed(2);
+                
+                quoteDetails.innerHTML = `
+                    <div><strong>You want:</strong> ${wantCurrency}</div>
+                    <div><strong>You have:</strong> ${haveCurrency}</div>
+                    <div><strong>Amount:</strong> ${amount.toLocaleString()} ${haveCurrency}</div>
+                    <div><strong>Estimated receive:</strong> ~${estimatedReceive} ${wantCurrency}</div>
+                    <div style="margin-top: 10px; font-size: 12px; color: #666;">
+                        *Final rate will be provided by dealer
+                    </div>
+                `;
+                quoteResult.classList.add('show');
+            } else {
+                quoteResult.classList.remove('show');
+            }
+        }
+        
+        // Handle main button click
+        document.getElementById('mainButton').addEventListener('click', function() {
+            if (!selectedDirection || amount <= 0) return;
+            
+            // Prepare data to send back to bot
+            const tradeData = {
+                direction: selectedDirection,
+                amount: amount,
+                user_id: user?.id,
+                user_name: user?.first_name
+            };
+            
+            // Send data back to bot
+            tg.sendData(JSON.stringify(tradeData));
+            
+            // Show haptic feedback
+            tg.HapticFeedback.impactOccurred('medium');
+            
+            // Close the mini app
+            tg.close();
+        });
+        
+        // Handle back button
+        tg.onEvent('backButtonClicked', function() {
+            tg.close();
+        });
+        
+        // Show back button
+        tg.BackButton.show();
+        
+        // Set main button (alternative to custom button)
+        tg.MainButton.setText('Request Quote');
+        tg.MainButton.hide(); // We'll use custom button for now
+    </script>
+</body>
+</html> 
