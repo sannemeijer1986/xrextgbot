@@ -137,25 +137,18 @@
             margin-top: 30px;
         }
         
-        .quote-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 16px;
-            padding: 16px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            opacity: 0.5;
-            pointer-events: none;
-        }
-        
-        .quote-btn.active {
-            opacity: 1;
-            pointer-events: all;
-        }
+                 .quote-btn {
+             width: 100%;
+             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+             color: white;
+             border: none;
+             border-radius: 16px;
+             padding: 16px;
+             font-size: 16px;
+             font-weight: 600;
+             cursor: pointer;
+             transition: all 0.3s ease;
+         }
         
         .quote-btn:hover.active {
             transform: translateY(-2px);
@@ -307,9 +300,8 @@
                 return;
             }
             
-            hideStatus();
-            updateQuoteButton();
-        };
+                         hideStatus();
+         };
         
         // Wait for DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
@@ -401,17 +393,14 @@
              // Amount input handlers
              haveAmountInput.addEventListener('input', function() {
                  haveAmount = this.value.trim();
-                 updateQuoteButton();
              });
              
              wantAmountInput.addEventListener('input', function() {
                  wantAmount = this.value.trim();
-                 updateQuoteButton();
              });
              
              // Quote button handler
              quoteBtn.addEventListener('click', function() {
-                 if (!validateInputs()) return;
                  
                  const quoteData = {
                      have: {
@@ -449,17 +438,7 @@
              document.getElementById('timestamp').textContent = new Date().toLocaleString();
          }
          
-         function updateQuoteButton() {
-             const hasValidInputs = selectedHave && selectedWant && 
-                                  selectedHave !== selectedWant && 
-                                  (haveAmount || wantAmount);
-             
-             if (hasValidInputs) {
-                 document.getElementById('quoteBtn').classList.add('active');
-             } else {
-                 document.getElementById('quoteBtn').classList.remove('active');
-             }
-         }
+
          
          function validateInputs() {
              if (!selectedHave || !selectedWant) {
