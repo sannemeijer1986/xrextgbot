@@ -271,30 +271,16 @@
         // Handle main button click
         document.getElementById('mainButton').addEventListener('click', function() {
             console.log('Main button clicked!');
-            console.log('Selected direction:', selectedDirection);
-            console.log('Amount:', amount);
             
-            if (!selectedDirection || amount <= 0) {
-                console.log('Validation failed - missing direction or invalid amount');
-                alert('Please select a direction and enter a valid amount');
-                return;
-            }
+            // Send the simplest possible data
+            const simpleData = "QUOTE_REQUEST";
             
-            // Prepare data to send back to bot
-            const tradeData = {
-                direction: selectedDirection,
-                amount: amount,
-                user_id: user?.id,
-                user_name: user?.first_name
-            };
-            
-            console.log('Preparing to send trade data:', tradeData);
-            console.log('JSON string:', JSON.stringify(tradeData));
+            console.log('Preparing to send simple data:', simpleData);
             
             try {
                 // Send data back to bot
                 console.log('Calling tg.sendData...');
-                tg.sendData(JSON.stringify(tradeData));
+                tg.sendData(simpleData);
                 console.log('tg.sendData called successfully');
                 
                 // Show haptic feedback

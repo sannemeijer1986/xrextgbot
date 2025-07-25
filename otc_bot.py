@@ -395,99 +395,64 @@ async def handle_web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE
     logger.debug(f"Received web app data from user {user_id}: {update.message.web_app_data.data}")
     
     try:
-        # Parse the JSON data sent from the mini app
-        trade_data = json.loads(update.message.web_app_data.data)
-        logger.info(f"Parsed trade data: {trade_data}")
-        
-        direction = trade_data.get('direction')
-        amount = trade_data.get('amount')
-        
-        # Format the direction text and currencies
-        if direction == 'usd_usdt':
-            want_currency = "USD"
-            have_currency = "USDT"
-            trade_symbol = "USD/USDT"
-        else:
-            want_currency = "USDT"
-            have_currency = "USD"
-            trade_symbol = "USDT/USD"
-        
-        formatted_amount = "{:,.2f}".format(float(amount))
+        # Get the simple data
+        data = update.message.web_app_data.data
+        logger.info(f"Received data: {data}")
         
         # Create user display name (with username if available)
         user_display = f"{user_name}"
         if user_username:
             user_display += f" (@{user_username})"
         
-        # Store in user state for potential follow-up
-        user_state[user_id] = {
-            'direction': direction,
-            'amount': amount,
-            'mini_app_request': True,
-            'chat_id': chat_id,
-            'is_group': is_group
-        }
-        
-        # Create the public order message
-        if is_group:
-            order_header = "📢 **NEW OTC ORDER REQUEST**"
-            context_text = f"Group: {update.effective_chat.title or 'Group Chat'}"
+        # Simple static message
+        if data == "QUOTE_REQUEST":
+            # Create the simple order message
+            if is_group:
+                order_header = "📢 **NEW OTC ORDER REQUEST**"
+                context_text = f"Group: {update.effective_chat.title or 'Group Chat'}"
+            else:
+                order_header = "🚀 **OTC ORDER REQUEST**"
+                context_text = "Private Chat"
+            
+            # Create a basic order message
+            order_message = (
+                f"{order_header}\n\n"
+                f"👤 **Trader:** {user_display}\n"
+                f"📱 **User ID:** `{user_id}`\n"
+                f"🏢 **Context:** {context_text}\n"
+                f"⏰ **Time:** {update.message.date.strftime('%H:%M:%S UTC')}\n\n"
+                f"🔄 **Processing Quote Request...**\n"
+                f"Expected waiting time: 1–2 minutes\n\n"
+                f"*Order submitted via XREX Mini App*"
+            )
+            
+            logger.info(f"Sending order message to chat {chat_id}")
+            
+            # Send the public order message
+            await context.bot.send_message(
+                chat_id=chat_id,
+                text=order_message,
+                parse_mode='Markdown'
+            )
+            
+            logger.info(f"Order message sent successfully")
+            
+            # Also send a brief confirmation to the user
+            confirmation_message = (
+                f"✅ Your quote request has been submitted and broadcast to the chat!\n\n"
+                f"**Status:** Processing request..."
+            )
+            
+            await update.message.reply_text(
+                confirmation_message,
+                parse_mode='Markdown'
+            )
+            
+            logger.info(f"Processed simple quote request for user {user_id} in {'group' if is_group else 'private'} chat {chat_id}")
         else:
-            order_header = "🚀 **OTC ORDER REQUEST**"
-            context_text = "Private Chat"
+            logger.warning(f"Unknown data received: {data}")
+            await update.message.reply_text(f"{user_name}, received unknown request.")
         
-        # Calculate estimated receive amount (using mock rates)
-        mock_rate = 0.9995 if direction == 'usd_usdt' else 1.0005
-        estimated_receive = float(amount) * mock_rate
-        formatted_receive = "{:,.2f}".format(estimated_receive)
-        
-        # Create the comprehensive order message
-        order_message = (
-            f"{order_header}\n\n"
-            f"👤 **Trader:** {user_display}\n"
-            f"📱 **User ID:** `{user_id}`\n"
-            f"💱 **Pair:** {trade_symbol}\n"
-            f"💰 **Amount:** {formatted_amount} {have_currency}\n"
-            f"🎯 **Wants:** ~{formatted_receive} {want_currency}\n"
-            f"📊 **Rate:** ~{mock_rate:.4f}\n"
-            f"🏢 **Context:** {context_text}\n"
-            f"⏰ **Time:** {update.message.date.strftime('%H:%M:%S UTC')}\n\n"
-            f"🔄 **Processing RFQ...**\n"
-            f"Expected waiting time: 1–2 minutes\n\n"
-            f"*Order submitted via XREX Mini App*"
-        )
-        
-        logger.info(f"Sending order message to chat {chat_id}")
-        
-        # Send the public order message
-        await context.bot.send_message(
-            chat_id=chat_id,
-            text=order_message,
-            parse_mode='Markdown'
-        )
-        
-        logger.info(f"Order message sent successfully")
-        
-        # Also send a brief confirmation to the user (as a reply to their mini app submission)
-        confirmation_message = (
-            f"✅ Your order has been submitted and broadcast to the chat!\n\n"
-            f"**Quick Summary:**\n"
-            f"• {trade_symbol}: {formatted_amount} {have_currency} → ~{formatted_receive} {want_currency}\n"
-            f"• Status: Processing RFQ"
-        )
-        
-        await update.message.reply_text(
-            confirmation_message,
-            parse_mode='Markdown'
-        )
-        
-        logger.info(f"Processed and broadcast mini app quote request for user {user_id} in {'group' if is_group else 'private'} chat {chat_id}: {direction} - {amount}")
-        
-    except json.JSONDecodeError as e:
-        logger.error(f"Error parsing web app data from user {user_id}: {str(e)}")
-        await update.message.reply_text(
-            f"{user_name}, there was an error processing your request. Please try again."
-        )
     except Exception as e:
         logger.error(f"Error handling web app data for user {user_id}: {str(e)}")
         logger.error(f"Exception details: {type(e).__name__}: {str(e)}")
