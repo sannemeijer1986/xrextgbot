@@ -131,11 +131,11 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            display: none;
+            display: none; /* Always hidden since we use Telegram's MainButton */
         }
         
         .main-button.show {
-            display: block;
+            display: none; /* Always hidden since we use Telegram's MainButton */
         }
     </style>
 </head>
@@ -226,17 +226,11 @@
         
         // Update main button visibility and text
         function updateMainButton() {
-            const button = document.getElementById('mainButton');
-            console.log('Updating main button. Direction:', selectedDirection, 'Amount:', amount);
-            if (selectedDirection && amount > 0) {
-                button.classList.add('show');
-                const direction = selectedDirection === 'usd_usdt' ? 'USD/USDT' : 'USDT/USD';
-                button.textContent = `Request ${direction} Quote`;
-                console.log('Main button shown with text:', button.textContent);
-            } else {
-                button.classList.remove('show');
-                console.log('Main button hidden');
-            }
+            console.log('Updating main button. Always showing now for testing');
+            // Show the Telegram main button
+            tg.MainButton.setText('Request Quote');
+            tg.MainButton.show();
+            console.log('Telegram MainButton shown');
         }
         
         // Update quote preview
@@ -268,9 +262,9 @@
             }
         }
         
-        // Handle main button click
-        document.getElementById('mainButton').addEventListener('click', function() {
-            console.log('Main button clicked!');
+        // Handle Telegram MainButton click
+        tg.MainButton.onClick(function() {
+            console.log('Telegram MainButton clicked!');
             
             // Send the simplest possible data
             const simpleData = "QUOTE_REQUEST";
@@ -307,13 +301,14 @@
         // Show back button
         tg.BackButton.show();
         
-        // Set main button (alternative to custom button)
+        // Show the main button immediately for testing
         tg.MainButton.setText('Request Quote');
-        tg.MainButton.hide(); // We'll use custom button for now
+        tg.MainButton.show();
         
         // Debug: Log when script is fully loaded
         console.log('Mini app script loaded successfully');
         console.log('Telegram WebApp available:', !!window.Telegram?.WebApp);
+        console.log('MainButton available:', !!tg.MainButton);
     </script>
 </body>
 </html> 
