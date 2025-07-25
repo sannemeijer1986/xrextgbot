@@ -434,129 +434,24 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         except Exception as reply_e:
             logger.error(f"Failed to send error message to user {user_id}: {str(reply_e)}")
 
+# --- Web App Data Handler ---
+async def debug_all_updates(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    import pprint
+    logger.info(f"=== DEBUG: Received update: {pprint.pformat(update.to_dict())}")
+    if hasattr(update.message, 'web_app_data') and update.message.web_app_data:
+        logger.info(f"=== DEBUG: Web app data: {update.message.web_app_data.data}")
+    else:
+        logger.info(f"=== DEBUG: No web_app_data in this message.")
+
 async def handle_web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Handle data sent from the mini app"""
-    user_id = update.effective_user.id
-    user_name = update.effective_user.first_name
-    user_username = update.effective_user.username
-    chat_id = update.effective_chat.id
-    is_group = update.message.chat.type in ['group', 'supergroup']
-    
-    logger.info(f"WEB APP DATA HANDLER TRIGGERED for user {user_id}")
-    logger.debug(f"Received web app data from user {user_id}: {update.message.web_app_data.data}")
-    
-    try:
-        # Get the simple data
+    logger.info("=== WEB APP DATA HANDLER TRIGGERED ===")
+    if update.message and update.message.web_app_data:
         data = update.message.web_app_data.data
-        logger.info(f"Received data: {data}")
-        
-        # Create user display name (with username if available)
-        user_display = f"{user_name}"
-        if user_username:
-            user_display += f" (@{user_username})"
-        
-        # Simple static message
-        if data == "QUOTE_REQUEST":
-            # Create the simple order message
-            if is_group:
-                order_header = "📢 **NEW OTC ORDER REQUEST**"
-                context_text = f"Group: {update.effective_chat.title or 'Group Chat'}"
-            else:
-                order_header = "🚀 **OTC ORDER REQUEST**"
-                context_text = "Private Chat"
-            
-            # Create a basic order message
-            order_message = (
-                f"{order_header}\n\n"
-                f"👤 **Trader:** {user_display}\n"
-                f"📱 **User ID:** `{user_id}`\n"
-                f"🏢 **Context:** {context_text}\n"
-                f"⏰ **Time:** {update.message.date.strftime('%H:%M:%S UTC')}\n\n"
-                f"🔄 **Processing Quote Request...**\n"
-                f"Expected waiting time: 1–2 minutes\n\n"
-                f"*Order submitted via XREX Mini App (Button Click)*"
-            )
-            
-            logger.info(f"Sending order message to chat {chat_id}")
-            
-            # Send the public order message
-            await context.bot.send_message(
-                chat_id=chat_id,
-                text=order_message,
-                parse_mode='Markdown'
-            )
-            
-            logger.info(f"Order message sent successfully")
-            
-            # Also send a brief confirmation to the user
-            confirmation_message = (
-                f"✅ Your quote request has been submitted and broadcast to the chat!\n\n"
-                f"**Status:** Processing request..."
-            )
-            
-            await update.message.reply_text(
-                confirmation_message,
-                parse_mode='Markdown'
-            )
-            
-            logger.info(f"Processed simple quote request for user {user_id} in {'group' if is_group else 'private'} chat {chat_id}")
-            
-        elif data == "QUOTE_REQUEST_AUTO":
-            # Handle auto-send from mini app load
-            if is_group:
-                order_header = "📢 **NEW OTC ORDER REQUEST (AUTO)**"
-                context_text = f"Group: {update.effective_chat.title or 'Group Chat'}"
-            else:
-                order_header = "🚀 **OTC ORDER REQUEST (AUTO)**"
-                context_text = "Private Chat"
-            
-            # Create a basic order message
-            order_message = (
-                f"{order_header}\n\n"
-                f"👤 **Trader:** {user_display}\n"
-                f"📱 **User ID:** `{user_id}`\n"
-                f"🏢 **Context:** {context_text}\n"
-                f"⏰ **Time:** {update.message.date.strftime('%H:%M:%S UTC')}\n\n"
-                f"🔄 **Processing Auto Quote Request...**\n"
-                f"Expected waiting time: 1–2 minutes\n\n"
-                f"*Order auto-submitted via XREX Mini App (On Load)*"
-            )
-            
-            logger.info(f"Sending auto order message to chat {chat_id}")
-            
-            # Send the public order message
-            await context.bot.send_message(
-                chat_id=chat_id,
-                text=order_message,
-                parse_mode='Markdown'
-            )
-            
-            logger.info(f"Auto order message sent successfully")
-            
-            # Also send a brief confirmation to the user
-            confirmation_message = (
-                f"✅ Your auto quote request has been submitted and broadcast to the chat!\n\n"
-                f"**Status:** Processing auto request..."
-            )
-            
-            await update.message.reply_text(
-                confirmation_message,
-                parse_mode='Markdown'
-            )
-            
-            logger.info(f"Processed auto quote request for user {user_id} in {'group' if is_group else 'private'} chat {chat_id}")
-        else:
-            logger.warning(f"Unknown data received: {data}")
-            await update.message.reply_text(f"{user_name}, received unknown request.")
-        
-    except Exception as e:
-        logger.error(f"Error handling web app data for user {user_id}: {str(e)}")
-        logger.error(f"Exception details: {type(e).__name__}: {str(e)}")
-        import traceback
-        logger.error(f"Traceback: {traceback.format_exc()}")
-        await update.message.reply_text(
-            f"{user_name}, an error occurred. Please try again."
-        )
+        logger.info(f"=== WEB APP DATA: {data}")
+        await update.message.reply_text(f"Web app data received: {data}")
+    else:
+        logger.info(f"=== NO WEB APP DATA FOUND ===")
+        await update.message.reply_text("No web app data found.")
 
 async def test_webapp(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Test web app functionality"""
@@ -692,23 +587,20 @@ async def main():
         await application.initialize()
         await check_webhook(application.bot)
         
-        # Add debug handler to catch ALL messages first
-        async def debug_all_updates(update: Update, context: ContextTypes.DEFAULT_TYPE):
-            logger.info(f"=== DEBUG: Received update type: {type(update.message).__name__ if update.message else 'No message'}")
-            if update.message:
-                logger.info(f"=== DEBUG: Message content_type: {getattr(update.message, 'content_type', 'Unknown')}")
-                logger.info(f"=== DEBUG: Message text: {getattr(update.message, 'text', 'No text')}")
-                logger.info(f"=== DEBUG: Has web_app_data: {hasattr(update.message, 'web_app_data') and update.message.web_app_data}")
-                if hasattr(update.message, 'web_app_data') and update.message.web_app_data:
-                    logger.info(f"=== DEBUG: Web app data: {update.message.web_app_data.data}")
-        
-        application.add_handler(MessageHandler(filters.ALL, debug_all_updates), group=-1)  # Process first
-        
         application.add_handler(CommandHandler("start", start))
         application.add_handler(CallbackQueryHandler(handle_callback))
         application.add_handler(MessageHandler(filters.StatusUpdate.WEB_APP_DATA, handle_web_app_data))
+        
+        # Catch-all handler for debugging, but do not block further processing
+        async def debug_all_updates(update: Update, context: ContextTypes.DEFAULT_TYPE):
+            logger.info(f"=== DEBUG: Received update: {update}")
+            if hasattr(update, 'message') and update.message:
+                logger.info(f"=== DEBUG: Message: {update.message}")
+                if hasattr(update.message, 'web_app_data') and update.message.web_app_data:
+                    logger.info(f"=== DEBUG: Web app data: {update.message.web_app_data.data}")
+            # Do not return early; allow other handlers to process
+        application.add_handler(MessageHandler(filters.ALL, debug_all_updates), group=1)
         application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
-        application.add_handler(CommandHandler("test_webapp", test_webapp))
         logger.info("Bot handlers registered, starting polling...")
         await application.start()  # Start the application explicitly
         await application.updater.start_polling(

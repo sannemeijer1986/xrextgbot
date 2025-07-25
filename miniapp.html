@@ -51,108 +51,46 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🏦 XREX OTC</h1>
-            <p>Fast Telegram OTC Trading</p>
-        </div>
-        
-        <div class="instructions">
-            <p><strong>Simple Test:</strong></p>
-            <p>Click the "Request Quote" button at the bottom to send a quote request to the chat.</p>
-        </div>
-        
-        <div class="user-info">
-            <div><strong>User:</strong> <span id="userName">Loading...</span></div>
-            <div><strong>User ID:</strong> <span id="userId">Loading...</span></div>
-            <div><strong>Timestamp:</strong> <span id="timestamp">Loading...</span></div>
-        </div>
+    <div id="app">
+        <h2>OTC Mini App</h2>
+        <div id="status" style="color: red; font-weight: bold;"></div>
+        <button id="mainButton">Request Quote</button>
+        <div id="feedback" style="margin-top: 20px; color: green;"></div>
     </div>
-    
     <script>
-        // Add timestamp for cache busting
-        document.getElementById('timestamp').textContent = new Date().toLocaleString();
-        
-        // Initialize Telegram Web App
-        let tg = window.Telegram.WebApp;
-        console.log('=== MINI APP DEBUG ===');
-        console.log('Telegram WebApp object:', tg);
-        console.log('WebApp version:', tg.version);
-        console.log('WebApp available:', !!window.Telegram?.WebApp);
-        
-        tg.expand();
-        tg.ready();
-        
-        // Get user info
-        const user = tg.initDataUnsafe?.user;
-        console.log('User data:', user);
-        if (user) {
-            document.getElementById('userName').textContent = user.first_name + (user.last_name ? ' ' + user.last_name : '');
-            document.getElementById('userId').textContent = user.id;
+        const statusDiv = document.getElementById('status');
+        const feedbackDiv = document.getElementById('feedback');
+        let tg;
+        if (window.Telegram && window.Telegram.WebApp) {
+            tg = window.Telegram.WebApp;
+            statusDiv.textContent = '';
         } else {
-            document.getElementById('userName').textContent = 'Unknown';
-            document.getElementById('userId').textContent = 'Unknown';
+            statusDiv.textContent = '⚠️ Please open this mini app from Telegram.';
         }
-        
-        // Show Telegram's MainButton immediately
+
+        // Ensure MainButton is always visible and enabled
         tg.MainButton.setText('Request Quote');
         tg.MainButton.show();
-        console.log('MainButton shown');
-        
-        // ALTERNATIVE APPROACH: Send data immediately on load for testing
-        setTimeout(() => {
-            console.log('=== TESTING AUTO-SEND ON LOAD ===');
-            try {
-                tg.sendData("QUOTE_REQUEST_AUTO");
-                console.log('Auto data sent successfully - waiting for transmission...');
-                
-                // Don't close immediately - let it stay open for debugging
-                console.log('Auto-send completed, app will stay open for debugging');
-            } catch (error) {
-                console.error('Auto send failed:', error);
-            }
-        }, 2000); // Wait 2 seconds then auto-send
-        
-        // Handle MainButton click (keep this as backup)
+        tg.MainButton.enable();
+
+        // Handle MainButton click
         tg.MainButton.onClick(function() {
             console.log('=== BUTTON CLICKED ===');
-            console.log('Sending QUOTE_REQUEST...');
-            
-            // Show immediate feedback
             tg.MainButton.setText('Sending...');
-            
             try {
-                tg.sendData("QUOTE_REQUEST");
-                console.log('Data sent successfully - allowing time for transmission...');
-                
-                // Show success feedback
+                tg.sendData('QUOTE_REQUEST');
+                console.log('Data sent successfully');
                 tg.MainButton.setText('Sent! ✅');
-                
-                // Haptic feedback
-                if (tg.HapticFeedback) {
-                    tg.HapticFeedback.impactOccurred('medium');
-                }
-                
-                // Close after a longer delay to ensure data transmission
+                // Wait 3 seconds before closing
                 setTimeout(() => {
-                    console.log('Closing mini app after data transmission...');
                     tg.close();
-                }, 3000); // 3 seconds should be enough for data to reach bot
-                
+                }, 3000);
             } catch (error) {
-                console.error('Error:', error);
-                tg.MainButton.setText('Error ❌');
-                alert('Error: ' + error.message);
+                console.error('Error sending data:', error);
+                tg.MainButton.setText('Error! ❌');
+                alert('Failed to send data to bot.');
             }
         });
-        
-        // Show back button
-        tg.BackButton.show();
-        tg.onEvent('backButtonClicked', function() {
-            tg.close();
-        });
-        
-        console.log('=== INITIALIZATION COMPLETE ===');
     </script>
 </body>
 </html> 
