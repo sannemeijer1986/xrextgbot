@@ -99,7 +99,18 @@
         tg.MainButton.show();
         console.log('MainButton shown');
         
-        // Handle MainButton click
+        // ALTERNATIVE APPROACH: Send data immediately on load for testing
+        setTimeout(() => {
+            console.log('=== TESTING AUTO-SEND ON LOAD ===');
+            try {
+                tg.sendData("QUOTE_REQUEST_AUTO");
+                console.log('Auto data sent successfully');
+            } catch (error) {
+                console.error('Auto send failed:', error);
+            }
+        }, 2000); // Wait 2 seconds then auto-send
+        
+        // Handle MainButton click (keep this as backup)
         tg.MainButton.onClick(function() {
             console.log('=== BUTTON CLICKED ===');
             console.log('Sending QUOTE_REQUEST...');

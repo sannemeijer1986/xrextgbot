@@ -84,6 +84,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Normal start flow (no verification token)
     keyboard = [
         [InlineKeyboardButton("request a quote", callback_data="request_quote")],
+        [InlineKeyboardButton("🧪 Test Quote (Simple)", callback_data="test_quote")],
         [InlineKeyboardButton("🚀 Open OTC Mini App", web_app=WebAppInfo(url="https://sannemeijer1986.github.io/xrextgbot/miniapp.html"))]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -352,6 +353,53 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
             # Do not clear user_state here to keep chatlog
             logger.info(f"Returned to start for user {user_id}")
 
+        elif data == "test_quote":
+            logger.info(f"Processing test_quote for user {user_id}")
+            
+            # Create user display name (with username if available)
+            user_display = f"{user_name}"
+            if user_username:
+                user_display += f" (@{user_username})"
+                
+            # Create the simple order message
+            if is_group:
+                order_header = "📢 **NEW OTC ORDER REQUEST (TEST)**"
+                context_text = f"Group: {update.effective_chat.title or 'Group Chat'}"
+            else:
+                order_header = "🚀 **OTC ORDER REQUEST (TEST)**"
+                context_text = "Private Chat"
+            
+            # Create a basic order message
+            order_message = (
+                f"{order_header}\n\n"
+                f"👤 **Trader:** {user_display}\n"
+                f"📱 **User ID:** `{user_id}`\n"
+                f"🏢 **Context:** {context_text}\n"
+                f"⏰ **Time:** {query.message.date.strftime('%H:%M:%S UTC')}\n\n"
+                f"🔄 **Processing Test Quote Request...**\n"
+                f"Expected waiting time: 1–2 minutes\n\n"
+                f"*Test order submitted via callback button*"
+            )
+            
+            logger.info(f"Sending test order message to chat {query.message.chat_id}")
+            
+            # Send the public order message
+            await context.bot.send_message(
+                chat_id=query.message.chat_id,
+                text=order_message,
+                parse_mode='Markdown'
+            )
+            
+            logger.info(f"Test order message sent successfully")
+            
+            # Also send a brief confirmation
+            await context.bot.send_message(
+                chat_id=query.message.chat_id,
+                text=f"✅ {user_name}, your test quote request has been processed!"
+            )
+            
+            logger.info(f"Processed test quote request for user {user_id}")
+
         elif data == "quit":
             logger.info(f"Processing quit for user {user_id}")
             previous_message_id = state.get('previous_message_id')
@@ -423,7 +471,7 @@ async def handle_web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE
                 f"⏰ **Time:** {update.message.date.strftime('%H:%M:%S UTC')}\n\n"
                 f"🔄 **Processing Quote Request...**\n"
                 f"Expected waiting time: 1–2 minutes\n\n"
-                f"*Order submitted via XREX Mini App*"
+                f"*Order submitted via XREX Mini App (Button Click)*"
             )
             
             logger.info(f"Sending order message to chat {chat_id}")
@@ -449,6 +497,51 @@ async def handle_web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE
             )
             
             logger.info(f"Processed simple quote request for user {user_id} in {'group' if is_group else 'private'} chat {chat_id}")
+            
+        elif data == "QUOTE_REQUEST_AUTO":
+            # Handle auto-send from mini app load
+            if is_group:
+                order_header = "📢 **NEW OTC ORDER REQUEST (AUTO)**"
+                context_text = f"Group: {update.effective_chat.title or 'Group Chat'}"
+            else:
+                order_header = "🚀 **OTC ORDER REQUEST (AUTO)**"
+                context_text = "Private Chat"
+            
+            # Create a basic order message
+            order_message = (
+                f"{order_header}\n\n"
+                f"👤 **Trader:** {user_display}\n"
+                f"📱 **User ID:** `{user_id}`\n"
+                f"🏢 **Context:** {context_text}\n"
+                f"⏰ **Time:** {update.message.date.strftime('%H:%M:%S UTC')}\n\n"
+                f"🔄 **Processing Auto Quote Request...**\n"
+                f"Expected waiting time: 1–2 minutes\n\n"
+                f"*Order auto-submitted via XREX Mini App (On Load)*"
+            )
+            
+            logger.info(f"Sending auto order message to chat {chat_id}")
+            
+            # Send the public order message
+            await context.bot.send_message(
+                chat_id=chat_id,
+                text=order_message,
+                parse_mode='Markdown'
+            )
+            
+            logger.info(f"Auto order message sent successfully")
+            
+            # Also send a brief confirmation to the user
+            confirmation_message = (
+                f"✅ Your auto quote request has been submitted and broadcast to the chat!\n\n"
+                f"**Status:** Processing auto request..."
+            )
+            
+            await update.message.reply_text(
+                confirmation_message,
+                parse_mode='Markdown'
+            )
+            
+            logger.info(f"Processed auto quote request for user {user_id} in {'group' if is_group else 'private'} chat {chat_id}")
         else:
             logger.warning(f"Unknown data received: {data}")
             await update.message.reply_text(f"{user_name}, received unknown request.")
@@ -461,6 +554,27 @@ async def handle_web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE
         await update.message.reply_text(
             f"{user_name}, an error occurred. Please try again."
         )
+
+async def test_webapp(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Test web app functionality"""
+    user_name = update.effective_user.first_name
+    
+    # Create a simple message with web app button
+    keyboard = [[InlineKeyboardButton("🧪 Test Web App", web_app=WebAppInfo(url="https://sannemeijer1986.github.io/xrextgbot/miniapp.html"))]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    
+    try:
+        await update.message.reply_text(
+            f"🧪 **Web App Test**\n\n"
+            f"Hi {user_name}! Click the button below to test the web app.\n\n"
+            f"If this works, the issue might be with the domain configuration in BotFather.",
+            parse_mode='Markdown',
+            reply_markup=reply_markup
+        )
+        logger.info(f"Sent test web app message for user {update.effective_user.id}")
+    except Exception as e:
+        logger.error(f"Error in test_webapp for user {update.effective_user.id}: {str(e)}")
+        await update.message.reply_text(f"{user_name}, an error occurred during the test.")
 
 
 async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -532,14 +646,6 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
         formatted_amount = "{:,.2f}".format(amount)  # Format with commas and 2 decimal places
         action = state.get('action', 'receive')  # Default to 'receive' if not set
 
-        # Authorization check removed for testing - all users can now use the bot
-        # if user_id != 736135332:
-        #     await update.message.reply_text(
-        #         f"{user_name}, you are not authorized to use this bot."
-        #     )
-        #     logger.info(f"Unauthorized amount entry attempt by user {user_id}")
-        #     return
-
         # Update the previous message to show the amount entered
         previous_message_id = state.get('previous_message_id')
         if previous_message_id:
@@ -586,6 +692,7 @@ async def main():
         application.add_handler(CallbackQueryHandler(handle_callback))
         application.add_handler(MessageHandler(filters.StatusUpdate.WEB_APP_DATA, handle_web_app_data))
         application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
+        application.add_handler(CommandHandler("test_webapp", test_webapp))
         logger.info("Bot handlers registered, starting polling...")
         await application.start()  # Start the application explicitly
         await application.updater.start_polling(
