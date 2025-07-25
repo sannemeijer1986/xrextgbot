@@ -3,92 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XREX OTC Mini App</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>Minimal Telegram Mini App</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: var(--tg-theme-bg-color, #ffffff);
-            color: var(--tg-theme-text-color, #000000);
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .header h1 {
-            margin: 0;
-            color: var(--tg-theme-text-color, #000000);
-            font-size: 24px;
-        }
-        
-        .user-info {
-            font-size: 14px;
-            color: var(--tg-theme-subtitle-text-color, #666666);
-            text-align: center;
-            margin: 30px 0;
-            padding: 20px;
-            background: var(--tg-theme-secondary-bg-color, #f8f9fa);
-            border-radius: 8px;
-        }
-        
-        .instructions {
-            margin: 20px 0;
-            padding: 15px;
-            background: var(--tg-theme-secondary-bg-color, #f8f9fa);
-            border-radius: 8px;
-        }
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        #sendBtn { font-size: 1.5em; padding: 1em 2em; }
     </style>
 </head>
 <body>
-    <div id="app">
-        <h2>OTC Mini App</h2>
-        <div id="status" style="color: red; font-weight: bold;"></div>
-        <button id="mainButton">Request Quote</button>
-        <div id="feedback" style="margin-top: 20px; color: green;"></div>
-    </div>
+    <h2>Minimal Mini App</h2>
+    <button id="sendBtn">Send Test Data</button>
     <script>
-        const statusDiv = document.getElementById('status');
-        const feedbackDiv = document.getElementById('feedback');
-        let tg;
-        if (window.Telegram && window.Telegram.WebApp) {
-            tg = window.Telegram.WebApp;
-            statusDiv.textContent = '';
-        } else {
-            statusDiv.textContent = '⚠️ Please open this mini app from Telegram.';
-        }
+        Telegram.WebApp.ready();
+        const tg = window.Telegram.WebApp;
 
-        // Ensure MainButton is always visible and enabled
-        tg.MainButton.setText('Request Quote');
+        tg.MainButton.setText("Request Quote");
         tg.MainButton.show();
-        tg.MainButton.enable();
 
-        // Handle MainButton click
         tg.MainButton.onClick(function() {
-            console.log('=== BUTTON CLICKED ===');
-            tg.MainButton.setText('Sending...');
+            console.log("MainButton clicked, sending data...");
             try {
-                tg.sendData('QUOTE_REQUEST');
-                console.log('Data sent successfully');
-                tg.MainButton.setText('Sent! ✅');
-                // Wait 3 seconds before closing
+                tg.sendData("QUOTE_REQUEST");
+                tg.MainButton.setText("Sent! ✅");
                 setTimeout(() => {
                     tg.close();
-                }, 3000);
-            } catch (error) {
-                console.error('Error sending data:', error);
-                tg.MainButton.setText('Error! ❌');
-                alert('Failed to send data to bot.');
+                }, 3000); // Wait 3 seconds before closing
+            } catch (e) {
+                console.error("Error sending data:", e);
+                alert("Failed to send data: " + e);
             }
         });
     </script>

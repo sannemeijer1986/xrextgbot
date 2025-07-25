@@ -8,6 +8,7 @@ import asyncio
 import random
 import string
 import json
+import traceback
 
 # Configure detailed logging
 logging.basicConfig(
@@ -435,23 +436,14 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
             logger.error(f"Failed to send error message to user {user_id}: {str(reply_e)}")
 
 # --- Web App Data Handler ---
-async def debug_all_updates(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    import pprint
-    logger.info(f"=== DEBUG: Received update: {pprint.pformat(update.to_dict())}")
-    if hasattr(update.message, 'web_app_data') and update.message.web_app_data:
-        logger.info(f"=== DEBUG: Web app data: {update.message.web_app_data.data}")
-    else:
-        logger.info(f"=== DEBUG: No web_app_data in this message.")
-
 async def handle_web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    logger.info("=== WEB APP DATA HANDLER TRIGGERED ===")
+    logger.info("WEB APP DATA HANDLER TRIGGERED")
     if update.message and update.message.web_app_data:
         data = update.message.web_app_data.data
-        logger.info(f"=== WEB APP DATA: {data}")
-        await update.message.reply_text(f"Web app data received: {data}")
+        logger.info(f"Received web app data: {data}")
+        await update.message.reply_text("✅ Web app data received: " + str(data))
     else:
-        logger.info(f"=== NO WEB APP DATA FOUND ===")
-        await update.message.reply_text("No web app data found.")
+        logger.info("No web app data found in message.")
 
 async def test_webapp(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Test web app functionality"""
@@ -590,16 +582,6 @@ async def main():
         application.add_handler(CommandHandler("start", start))
         application.add_handler(CallbackQueryHandler(handle_callback))
         application.add_handler(MessageHandler(filters.StatusUpdate.WEB_APP_DATA, handle_web_app_data))
-        
-        # Catch-all handler for debugging, but do not block further processing
-        async def debug_all_updates(update: Update, context: ContextTypes.DEFAULT_TYPE):
-            logger.info(f"=== DEBUG: Received update: {update}")
-            if hasattr(update, 'message') and update.message:
-                logger.info(f"=== DEBUG: Message: {update.message}")
-                if hasattr(update.message, 'web_app_data') and update.message.web_app_data:
-                    logger.info(f"=== DEBUG: Web app data: {update.message.web_app_data.data}")
-            # Do not return early; allow other handlers to process
-        application.add_handler(MessageHandler(filters.ALL, debug_all_updates), group=1)
         application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
         logger.info("Bot handlers registered, starting polling...")
         await application.start()  # Start the application explicitly
