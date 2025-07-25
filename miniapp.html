@@ -104,7 +104,10 @@
             console.log('=== TESTING AUTO-SEND ON LOAD ===');
             try {
                 tg.sendData("QUOTE_REQUEST_AUTO");
-                console.log('Auto data sent successfully');
+                console.log('Auto data sent successfully - waiting for transmission...');
+                
+                // Don't close immediately - let it stay open for debugging
+                console.log('Auto-send completed, app will stay open for debugging');
             } catch (error) {
                 console.error('Auto send failed:', error);
             }
@@ -115,23 +118,30 @@
             console.log('=== BUTTON CLICKED ===');
             console.log('Sending QUOTE_REQUEST...');
             
+            // Show immediate feedback
+            tg.MainButton.setText('Sending...');
+            
             try {
                 tg.sendData("QUOTE_REQUEST");
-                console.log('Data sent successfully');
+                console.log('Data sent successfully - allowing time for transmission...');
+                
+                // Show success feedback
+                tg.MainButton.setText('Sent! ✅');
                 
                 // Haptic feedback
                 if (tg.HapticFeedback) {
                     tg.HapticFeedback.impactOccurred('medium');
                 }
                 
-                // Close after a short delay
+                // Close after a longer delay to ensure data transmission
                 setTimeout(() => {
-                    console.log('Closing mini app...');
+                    console.log('Closing mini app after data transmission...');
                     tg.close();
-                }, 500);
+                }, 3000); // 3 seconds should be enough for data to reach bot
                 
             } catch (error) {
                 console.error('Error:', error);
+                tg.MainButton.setText('Error ❌');
                 alert('Error: ' + error.message);
             }
         });

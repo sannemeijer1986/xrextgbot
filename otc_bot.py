@@ -196,6 +196,56 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
             state['previous_message_id'] = sent_message.message_id
             logger.info(f"Sent need/have message for user {user_id}")
 
+        elif data == "test_quote":
+            logger.info(f"Processing test_quote for user {user_id}")
+            
+            # Get username from query
+            user_username = query.from_user.username
+            
+            # Create user display name (with username if available)
+            user_display = f"{user_name}"
+            if user_username:
+                user_display += f" (@{user_username})"
+                
+            # Create the simple order message
+            if is_group:
+                order_header = "📢 **NEW OTC ORDER REQUEST (TEST)**"
+                context_text = f"Group: {update.effective_chat.title or 'Group Chat'}"
+            else:
+                order_header = "🚀 **OTC ORDER REQUEST (TEST)**"
+                context_text = "Private Chat"
+            
+            # Create a basic order message
+            order_message = (
+                f"{order_header}\n\n"
+                f"👤 **Trader:** {user_display}\n"
+                f"📱 **User ID:** `{user_id}`\n"
+                f"🏢 **Context:** {context_text}\n"
+                f"⏰ **Time:** {query.message.date.strftime('%H:%M:%S UTC')}\n\n"
+                f"🔄 **Processing Test Quote Request...**\n"
+                f"Expected waiting time: 1–2 minutes\n\n"
+                f"*Test order submitted via callback button*"
+            )
+            
+            logger.info(f"Sending test order message to chat {query.message.chat_id}")
+            
+            # Send the public order message
+            await context.bot.send_message(
+                chat_id=query.message.chat_id,
+                text=order_message,
+                parse_mode='Markdown'
+            )
+            
+            logger.info(f"Test order message sent successfully")
+            
+            # Also send a brief confirmation
+            await context.bot.send_message(
+                chat_id=query.message.chat_id,
+                text=f"✅ {user_name}, your test quote request has been processed!"
+            )
+            
+            logger.info(f"Processed test quote request for user {user_id}")
+
         elif data in ("usd_usdt", "usdt_usd"):
             logger.info(f"Processing {data} for user {user_id}")
             state['direction'] = "usd_usdt" if data == "usd_usdt" else "usdt_usd"
@@ -352,53 +402,6 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
             
             # Do not clear user_state here to keep chatlog
             logger.info(f"Returned to start for user {user_id}")
-
-        elif data == "test_quote":
-            logger.info(f"Processing test_quote for user {user_id}")
-            
-            # Create user display name (with username if available)
-            user_display = f"{user_name}"
-            if user_username:
-                user_display += f" (@{user_username})"
-                
-            # Create the simple order message
-            if is_group:
-                order_header = "📢 **NEW OTC ORDER REQUEST (TEST)**"
-                context_text = f"Group: {update.effective_chat.title or 'Group Chat'}"
-            else:
-                order_header = "🚀 **OTC ORDER REQUEST (TEST)**"
-                context_text = "Private Chat"
-            
-            # Create a basic order message
-            order_message = (
-                f"{order_header}\n\n"
-                f"👤 **Trader:** {user_display}\n"
-                f"📱 **User ID:** `{user_id}`\n"
-                f"🏢 **Context:** {context_text}\n"
-                f"⏰ **Time:** {query.message.date.strftime('%H:%M:%S UTC')}\n\n"
-                f"🔄 **Processing Test Quote Request...**\n"
-                f"Expected waiting time: 1–2 minutes\n\n"
-                f"*Test order submitted via callback button*"
-            )
-            
-            logger.info(f"Sending test order message to chat {query.message.chat_id}")
-            
-            # Send the public order message
-            await context.bot.send_message(
-                chat_id=query.message.chat_id,
-                text=order_message,
-                parse_mode='Markdown'
-            )
-            
-            logger.info(f"Test order message sent successfully")
-            
-            # Also send a brief confirmation
-            await context.bot.send_message(
-                chat_id=query.message.chat_id,
-                text=f"✅ {user_name}, your test quote request has been processed!"
-            )
-            
-            logger.info(f"Processed test quote request for user {user_id}")
 
         elif data == "quit":
             logger.info(f"Processing quit for user {user_id}")
@@ -688,6 +691,19 @@ async def main():
         application = ApplicationBuilder().token(BOT_TOKEN).build()
         await application.initialize()
         await check_webhook(application.bot)
+        
+        # Add debug handler to catch ALL messages first
+        async def debug_all_updates(update: Update, context: ContextTypes.DEFAULT_TYPE):
+            logger.info(f"=== DEBUG: Received update type: {type(update.message).__name__ if update.message else 'No message'}")
+            if update.message:
+                logger.info(f"=== DEBUG: Message content_type: {getattr(update.message, 'content_type', 'Unknown')}")
+                logger.info(f"=== DEBUG: Message text: {getattr(update.message, 'text', 'No text')}")
+                logger.info(f"=== DEBUG: Has web_app_data: {hasattr(update.message, 'web_app_data') and update.message.web_app_data}")
+                if hasattr(update.message, 'web_app_data') and update.message.web_app_data:
+                    logger.info(f"=== DEBUG: Web app data: {update.message.web_app_data.data}")
+        
+        application.add_handler(MessageHandler(filters.ALL, debug_all_updates), group=-1)  # Process first
+        
         application.add_handler(CommandHandler("start", start))
         application.add_handler(CallbackQueryHandler(handle_callback))
         application.add_handler(MessageHandler(filters.StatusUpdate.WEB_APP_DATA, handle_web_app_data))
