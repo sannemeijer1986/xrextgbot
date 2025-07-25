@@ -18,7 +18,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Hardcode bot token for testing
-BOT_TOKEN = "8052956286:AAEpC6pkI776nKtGiNjdmPNJ2QkPQFbLfXQ"
+BOT_TOKEN = "8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY"
 
 user_state = {}
 
@@ -653,7 +653,7 @@ async def main():
         application.add_handler(CallbackQueryHandler(handle_callback), group=2)
         application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text), group=3)
         
-        # Add debug handler to catch ALL messages for logging only (never blocks)
+        # Add debug handler to catch ALL messages for logging only
         async def debug_all_updates(update: Update, context: ContextTypes.DEFAULT_TYPE):
             logger.info(f"=== DEBUG: Received update type: {type(update.message).__name__ if update.message else 'No message'}")
             if update.message:
@@ -663,7 +663,7 @@ async def main():
                 if hasattr(update.message, 'web_app_data') and update.message.web_app_data:
                     logger.info(f"=== DEBUG: Web app data: {update.message.web_app_data.data}")
 
-        application.add_handler(MessageHandler(filters.ALL, debug_all_updates), group=1, block=False)
+        application.add_handler(MessageHandler(filters.ALL, debug_all_updates), group=4)
 
         logger.info("Bot handlers registered, starting polling...")
         await application.start()  # Start the application explicitly
