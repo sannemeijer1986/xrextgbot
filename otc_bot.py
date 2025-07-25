@@ -391,11 +391,13 @@ async def handle_web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE
     chat_id = update.effective_chat.id
     is_group = update.message.chat.type in ['group', 'supergroup']
     
+    logger.info(f"WEB APP DATA HANDLER TRIGGERED for user {user_id}")
     logger.debug(f"Received web app data from user {user_id}: {update.message.web_app_data.data}")
     
     try:
         # Parse the JSON data sent from the mini app
         trade_data = json.loads(update.message.web_app_data.data)
+        logger.info(f"Parsed trade data: {trade_data}")
         
         direction = trade_data.get('direction')
         amount = trade_data.get('amount')
@@ -455,12 +457,16 @@ async def handle_web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE
             f"*Order submitted via XREX Mini App*"
         )
         
+        logger.info(f"Sending order message to chat {chat_id}")
+        
         # Send the public order message
         await context.bot.send_message(
             chat_id=chat_id,
             text=order_message,
             parse_mode='Markdown'
         )
+        
+        logger.info(f"Order message sent successfully")
         
         # Also send a brief confirmation to the user (as a reply to their mini app submission)
         confirmation_message = (
@@ -484,9 +490,13 @@ async def handle_web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE
         )
     except Exception as e:
         logger.error(f"Error handling web app data for user {user_id}: {str(e)}")
+        logger.error(f"Exception details: {type(e).__name__}: {str(e)}")
+        import traceback
+        logger.error(f"Traceback: {traceback.format_exc()}")
         await update.message.reply_text(
             f"{user_name}, an error occurred. Please try again."
         )
+
 
 async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.message.from_user.id

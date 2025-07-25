@@ -183,6 +183,9 @@
     <script>
         // Initialize Telegram Web App
         let tg = window.Telegram.WebApp;
+        console.log('Telegram WebApp object:', tg);
+        console.log('WebApp version:', tg.version);
+        
         tg.expand();
         tg.ready();
         
@@ -191,6 +194,7 @@
         
         // Get user info
         const user = tg.initDataUnsafe?.user;
+        console.log('User data:', user);
         if (user) {
             document.getElementById('userName').textContent = user.first_name + (user.last_name ? ' ' + user.last_name : '');
             document.getElementById('userId').textContent = user.id;
@@ -203,6 +207,7 @@
         // Handle direction selection
         document.querySelectorAll('.radio-option').forEach(option => {
             option.addEventListener('click', function() {
+                console.log('Direction selected:', this.dataset.value);
                 document.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
                 this.classList.add('selected');
                 selectedDirection = this.dataset.value;
@@ -214,6 +219,7 @@
         // Handle amount input
         document.getElementById('amount').addEventListener('input', function() {
             amount = parseFloat(this.value) || 0;
+            console.log('Amount entered:', amount);
             updateMainButton();
             updateQuote();
         });
@@ -221,12 +227,15 @@
         // Update main button visibility and text
         function updateMainButton() {
             const button = document.getElementById('mainButton');
+            console.log('Updating main button. Direction:', selectedDirection, 'Amount:', amount);
             if (selectedDirection && amount > 0) {
                 button.classList.add('show');
                 const direction = selectedDirection === 'usd_usdt' ? 'USD/USDT' : 'USDT/USD';
                 button.textContent = `Request ${direction} Quote`;
+                console.log('Main button shown with text:', button.textContent);
             } else {
                 button.classList.remove('show');
+                console.log('Main button hidden');
             }
         }
         
@@ -261,7 +270,15 @@
         
         // Handle main button click
         document.getElementById('mainButton').addEventListener('click', function() {
-            if (!selectedDirection || amount <= 0) return;
+            console.log('Main button clicked!');
+            console.log('Selected direction:', selectedDirection);
+            console.log('Amount:', amount);
+            
+            if (!selectedDirection || amount <= 0) {
+                console.log('Validation failed - missing direction or invalid amount');
+                alert('Please select a direction and enter a valid amount');
+                return;
+            }
             
             // Prepare data to send back to bot
             const tradeData = {
@@ -271,18 +288,33 @@
                 user_name: user?.first_name
             };
             
-            // Send data back to bot
-            tg.sendData(JSON.stringify(tradeData));
+            console.log('Preparing to send trade data:', tradeData);
+            console.log('JSON string:', JSON.stringify(tradeData));
             
-            // Show haptic feedback
-            tg.HapticFeedback.impactOccurred('medium');
-            
-            // Close the mini app
-            tg.close();
+            try {
+                // Send data back to bot
+                console.log('Calling tg.sendData...');
+                tg.sendData(JSON.stringify(tradeData));
+                console.log('tg.sendData called successfully');
+                
+                // Show haptic feedback
+                if (tg.HapticFeedback) {
+                    tg.HapticFeedback.impactOccurred('medium');
+                    console.log('Haptic feedback triggered');
+                }
+                
+                // Close the mini app
+                console.log('Closing mini app...');
+                tg.close();
+            } catch (error) {
+                console.error('Error sending data:', error);
+                alert('Error sending data: ' + error.message);
+            }
         });
         
         // Handle back button
         tg.onEvent('backButtonClicked', function() {
+            console.log('Back button clicked');
             tg.close();
         });
         
@@ -292,6 +324,10 @@
         // Set main button (alternative to custom button)
         tg.MainButton.setText('Request Quote');
         tg.MainButton.hide(); // We'll use custom button for now
+        
+        // Debug: Log when script is fully loaded
+        console.log('Mini app script loaded successfully');
+        console.log('Telegram WebApp available:', !!window.Telegram?.WebApp);
     </script>
 </body>
 </html> 
