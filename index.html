@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XREX OTC Mini App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .trade-section {
+            margin-bottom: 24px;
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 20px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .trade-section.active {
+            border-color: #667eea;
+            background: #667eea0a;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title .icon {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+        
+        .currency-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+                 .currency-btn {
+             background: white;
+             border: 2px solid #e1e8ed;
+             border-radius: 12px;
+             padding: 12px 8px;
+             text-align: center;
+             cursor: pointer;
+             transition: all 0.3s ease;
+             font-weight: 600;
+             font-size: 14px;
+             color: #2c3e50;
+             user-select: none;
+             -webkit-user-select: none;
+             -webkit-tap-highlight-color: transparent;
+         }
+        
+        .currency-btn:hover {
+            border-color: #667eea;
+            background: #667eea0a;
+        }
+        
+        .currency-btn.selected {
+            background: #667eea;
+            border-color: #667eea;
+            color: white;
+        }
+        
+        .amount-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            font-size: 16px;
+            background: white;
+            transition: border-color 0.3s ease;
+        }
+        
+        .amount-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .amount-input::placeholder {
+            color: #95a5a6;
+        }
+        
+        .exchange-icon {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 24px;
+            color: #667eea;
+        }
+        
+        .submit-section {
+            margin-top: 30px;
+        }
+        
+                 .quote-btn {
+             width: 100%;
+             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+             color: white;
+             border: none;
+             border-radius: 16px;
+             padding: 16px;
+             font-size: 16px;
+             font-weight: 600;
+             cursor: pointer;
+             transition: all 0.3s ease;
+         }
+        
+        .quote-btn:hover.active {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .quote-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .status {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .status.info {
+            background: #cce7ff;
+            color: #004085;
+            border: 1px solid #99d5ff;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #95a5a6;
+            font-size: 12px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .container {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔄 OTC Exchange</h1>
+            <p>Fast and secure peer-to-peer trading</p>
+        </div>
+        
+        <!-- I Have Section -->
+        <div class="trade-section" id="haveSection">
+            <div class="section-title">
+                <span class="icon">💰</span>
+                I have
+            </div>
+                         <div class="currency-grid">
+                 <button class="currency-btn" data-section="have" data-currency="USD" onclick="selectCurrency('have', 'USD', this)">USD</button>
+                 <button class="currency-btn" data-section="have" data-currency="USDT" onclick="selectCurrency('have', 'USDT', this)">USDT</button>
+                 <button class="currency-btn" data-section="have" data-currency="SGD" onclick="selectCurrency('have', 'SGD', this)">SGD</button>
+             </div>
+            <input type="number" class="amount-input" id="haveAmount" placeholder="Enter amount..." min="0" step="0.01">
+        </div>
+        
+        <div class="exchange-icon">⇅</div>
+        
+        <!-- I Want Section -->
+        <div class="trade-section" id="wantSection">
+            <div class="section-title">
+                <span class="icon">🎯</span>
+                I want
+            </div>
+                         <div class="currency-grid">
+                 <button class="currency-btn" data-section="want" data-currency="USD" onclick="selectCurrency('want', 'USD', this)">USD</button>
+                 <button class="currency-btn" data-section="want" data-currency="USDT" onclick="selectCurrency('want', 'USDT', this)">USDT</button>
+                 <button class="currency-btn" data-section="want" data-currency="SGD" onclick="selectCurrency('want', 'SGD', this)">SGD</button>
+             </div>
+            <input type="number" class="amount-input" id="wantAmount" placeholder="Enter amount..." min="0" step="0.01">
+        </div>
+        
+        <!-- Submit Section -->
+        <div class="submit-section">
+            <button class="quote-btn" id="quoteBtn">Request Quote</button>
+            <div class="status" id="status"></div>
+        </div>
+        
+        <div class="footer">
+            <p>Build: <span id="timestamp"></span></p>
+        </div>
+    </div>
+
+    <script>
+        console.log('Script loading...');
+        Telegram.WebApp.ready();
+        const tg = window.Telegram.WebApp;
+        
+        let selectedHave = null;
+        let selectedWant = null;
+        let haveAmount = '';
+        let wantAmount = '';
+        
+        // Global function for inline onclick handlers
+        window.selectCurrency = function(section, currency, buttonElement) {
+            console.log('selectCurrency called:', section, currency);
+            
+            // Remove selection from same section
+            document.querySelectorAll(`[data-section="${section}"]`).forEach(b => {
+                b.classList.remove('selected');
+            });
+            
+            // Add selection to clicked button
+            buttonElement.classList.add('selected');
+            console.log('Added selected class to button');
+            
+            // Update selection
+            if (section === 'have') {
+                selectedHave = currency;
+                document.getElementById('haveSection').classList.add('active');
+                console.log('Updated selectedHave to:', selectedHave);
+            } else {
+                selectedWant = currency;
+                document.getElementById('wantSection').classList.add('active');
+                console.log('Updated selectedWant to:', selectedWant);
+            }
+            
+            // Prevent same currency selection
+            if (selectedHave && selectedWant && selectedHave === selectedWant) {
+                showStatus('Please select different currencies for "have" and "want"', 'error');
+                buttonElement.classList.remove('selected');
+                if (section === 'have') {
+                    selectedHave = null;
+                    document.getElementById('haveSection').classList.remove('active');
+                } else {
+                    selectedWant = null;
+                    document.getElementById('wantSection').classList.remove('active');
+                }
+                return;
+            }
+            
+                         hideStatus();
+         };
+        
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing...');
+            initializeApp();
+        });
+        
+        // Also run immediately in case DOM is already loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeApp);
+        } else {
+            initializeApp();
+        }
+        
+        function initializeApp() {
+            console.log('Initializing app...');
+            
+            // DOM elements
+            const currencyBtns = document.querySelectorAll('.currency-btn');
+            const haveAmountInput = document.getElementById('haveAmount');
+            const wantAmountInput = document.getElementById('wantAmount');
+            const quoteBtn = document.getElementById('quoteBtn');
+            const statusDiv = document.getElementById('status');
+            const haveSection = document.getElementById('haveSection');
+            const wantSection = document.getElementById('wantSection');
+            
+            console.log('Found currency buttons:', currencyBtns.length);
+            
+            // Initialize
+            tg.expand();
+            tg.MainButton.hide(); // Hide default main button, we'll use our custom one
+            
+            // Currency selection handlers
+            currencyBtns.forEach((btn, index) => {
+                console.log('Attaching event to button', index, btn);
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    console.log('Button clicked:', this);
+                    const section = this.getAttribute('data-section');
+                    const currency = this.getAttribute('data-currency');
+                    console.log('Section:', section, 'Currency:', currency);
+                    
+                    // Remove selection from same section
+                    document.querySelectorAll(`[data-section="${section}"]`).forEach(b => {
+                        b.classList.remove('selected');
+                    });
+                    
+                    // Add selection to clicked button
+                    this.classList.add('selected');
+                    console.log('Added selected class to button');
+                    
+                    // Update selection
+                    if (section === 'have') {
+                        selectedHave = currency;
+                        haveSection.classList.add('active');
+                        console.log('Updated selectedHave to:', selectedHave);
+                    } else {
+                        selectedWant = currency;
+                        wantSection.classList.add('active');
+                        console.log('Updated selectedWant to:', selectedWant);
+                    }
+                    
+                    // Prevent same currency selection
+                    if (selectedHave && selectedWant && selectedHave === selectedWant) {
+                        showStatus('Please select different currencies for "have" and "want"', 'error');
+                        this.classList.remove('selected');
+                        if (section === 'have') {
+                            selectedHave = null;
+                            haveSection.classList.remove('active');
+                        } else {
+                            selectedWant = null;
+                            wantSection.classList.remove('active');
+                        }
+                        return;
+                    }
+                    
+                    hideStatus();
+                    updateQuoteButton();
+                });
+                
+                                 // Also add touch event for mobile
+                 btn.addEventListener('touchstart', function(e) {
+                     console.log('Touch start on button');
+                 });
+             });
+             
+             // Amount input handlers
+             haveAmountInput.addEventListener('input', function() {
+                 haveAmount = this.value.trim();
+             });
+             
+             wantAmountInput.addEventListener('input', function() {
+                 wantAmount = this.value.trim();
+             });
+             
+             // Quote button handler
+             quoteBtn.addEventListener('click', function() {
+                 
+                 const quoteData = {
+                     have: {
+                         currency: selectedHave,
+                         amount: parseFloat(haveAmount) || null
+                     },
+                     want: {
+                         currency: selectedWant,
+                         amount: parseFloat(wantAmount) || null
+                     },
+                     timestamp: new Date().toISOString()
+                 };
+                 
+                 showStatus('Sending quote request...', 'info');
+                 quoteBtn.disabled = true;
+                 quoteBtn.textContent = 'Sending...';
+                 
+                 try {
+                     tg.sendData(JSON.stringify(quoteData));
+                     showStatus('Quote request sent! ✅ Closing app...', 'success');
+                     
+                     // Close after 1 second (reduced from 3 seconds)
+                     setTimeout(() => {
+                         tg.close();
+                     }, 1000);
+                     
+                 } catch (error) {
+                     showStatus('Error sending request: ' + error.message, 'error');
+                     quoteBtn.disabled = false;
+                     quoteBtn.textContent = 'Request Quote';
+                 }
+             });
+             
+             // Set timestamp
+             document.getElementById('timestamp').textContent = new Date().toLocaleString();
+         }
+         
+
+         
+         function validateInputs() {
+             if (!selectedHave || !selectedWant) {
+                 showStatus('Please select both currencies', 'error');
+                 return false;
+             }
+             
+             if (selectedHave === selectedWant) {
+                 showStatus('Please select different currencies', 'error');
+                 return false;
+             }
+             
+             if (!haveAmount && !wantAmount) {
+                 showStatus('Please enter at least one amount', 'error');
+                 return false;
+             }
+             
+             if (haveAmount && parseFloat(haveAmount) <= 0) {
+                 showStatus('Please enter a valid amount for "have"', 'error');
+                 return false;
+             }
+             
+             if (wantAmount && parseFloat(wantAmount) <= 0) {
+                 showStatus('Please enter a valid amount for "want"', 'error');
+                 return false;
+             }
+             
+             return true;
+         }
+         
+         function showStatus(message, type) {
+             const statusDiv = document.getElementById('status');
+             statusDiv.textContent = message;
+             statusDiv.className = `status ${type}`;
+             statusDiv.style.display = 'block';
+         }
+         
+         function hideStatus() {
+             const statusDiv = document.getElementById('status');
+             statusDiv.style.display = 'none';
+         }
+    </script>
+</body>
+</html> 
