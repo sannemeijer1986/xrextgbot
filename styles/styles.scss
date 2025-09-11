@@ -237,6 +237,7 @@ body {
   body.state-menu .mobile-back { display: none; }
   body.state-menu .mobile-menu-header { display: block; }
   body.state-menu .sidebar { display: block; }
+  body.state-menu .sidebar .menu-item.active .menu-item-icon { background: #EBF2FF; }
 
   body.state-content .mobile-menu-header { display: none; }
   body.state-content .sidebar { display: none; }
@@ -261,6 +262,77 @@ body {
 .sidebar {
   // hidden on mobile by default
   display: none;
+
+  // shared sidebar styles (apply on all breakpoints)
+  .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    color: #797A7B;
+    cursor: pointer;
+    border: 1px solid transparent;
+    font-family: $font-manrope;
+    font-weight: 500;
+    font-size: 16px;
+
+    &:hover { background: transparent; }
+
+    &.active {
+      color: #194AF9;
+      .menu-item-icon { background: #EBF2FF; }
+    }
+
+    .menu-item-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 9999px;
+      background: #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img { width: 24px; height: 24px; }
+      svg { width: 24px; height: 24px; display: block; }
+    }
+
+    .menu-title { flex: 1; }
+
+    .menu-chevron {
+      background: transparent;
+      border: none;
+      color: inherit;
+      cursor: pointer;
+      transition: transform .2s ease;
+      display: grid;
+      place-items: center;
+      padding: 4px;
+    }
+    &.open .menu-chevron { transform: rotate(180deg); }
+  }
+
+  .submenu {
+    display: flex;
+    flex-direction: column;
+    margin-left: 52px;
+    gap: 8px;
+    padding: 6px 0 12px;
+
+    &[hidden] { display: none; }
+
+    .submenu-item {
+      color: #797A7B;
+      text-decoration: none;
+      font-family: $font-manrope;
+      font-size: 16px;
+    }
+  }
 
   @media (min-width: $bp-md) {
     display: block;
@@ -295,6 +367,7 @@ body {
 
       &.active {
         color: #194AF9;
+        .menu-item-icon { background: #EBF2FF; }
       }
 
       .menu-item-icon {
@@ -305,10 +378,8 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
-        img {
-          width: 24px;
-          height: 24px;
-        }
+        img { width: 24px; height: 24px; }
+        svg { width: 24px; height: 24px; display: block; }
       }
 
       .menu-title {

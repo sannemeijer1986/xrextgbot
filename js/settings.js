@@ -82,6 +82,13 @@
     try {
       var params = new URLSearchParams(window.location.search);
       var page = params.get('page') || 'telegram';
+      // Toggle active class on sidebar items
+      try {
+        document.querySelectorAll('.menu .menu-item[data-page]').forEach(function(mi){
+          var isActive = mi.getAttribute('data-page') === page;
+          mi.classList.toggle('active', isActive);
+        });
+      } catch(_){}
       function showTelegram(){
         if (pageTitle) pageTitle.textContent = 'XREX Pay · Telegram bot';
         if (statusRow) statusRow.style.display = '';
