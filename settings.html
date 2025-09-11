@@ -37,7 +37,7 @@
         </div>
         <aside class="sidebar">
             <nav class="menu">
-                <div class="menu-item" data-link="index.html" role="link" tabindex="0">
+                <div class="menu-item" data-link="settings.html?view=content&page=account" data-page="account" role="link" tabindex="0">
                     <div class="menu-item-icon">
                         <img src="assets/icon_user.svg" alt="Account" width="20" height="20">
                     </div>
@@ -86,7 +86,7 @@
                     <a class="submenu-item" href="#">• Monthly statement</a>
                     <a class="submenu-item" href="#">• Customised statement</a>
                 </div>
-                <div class="menu-item active" data-link="settings.html?view=content" role="link" tabindex="0">
+                <div class="menu-item active" data-link="settings.html?view=content&page=telegram" data-page="telegram" role="link" tabindex="0">
                     <div class="menu-item-icon">
                         <img src="assets/icon_telegram.svg" alt="Telegram" width="20" height="20">
                     </div>
@@ -105,14 +105,14 @@
                 </a>
             </div>
             <div class="content-header">
-                <h1>XREX Pay · Telegram bot</h1>
+                <h1 id="pageTitle">XREX Pay · Telegram bot</h1>
                 <button class="btn btn-secondary btn-sm" id="shareBtn">
                     <img src="assets/icon_share.svg" alt="share" width="14" height="14">
                     <span>Share</span>
                 </button>
             </div>
 
-            <div class="status-row">
+            <div class="status-row" id="statusRow">
                 <div class="status-line">
                     <span class="status-label">Status :</span>
                     <span class="status-value">Not linked</span>
@@ -124,7 +124,7 @@
                 <button class="btn btn-primary btn-md mobile-btn-sm" id="startLinkBtn">Start linking</button>
             </div>
 
-            <div class="tabs" role="tablist">
+            <div class="tabs" id="tabs" role="tablist">
                 <button class="tab active" role="tab" aria-selected="true" id="tab-intro">Introduction</button>
                 <button class="tab" role="tab" aria-selected="false" id="tab-setup">Setup</button>
             </div>
