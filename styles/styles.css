@@ -223,8 +223,11 @@ body {
   body.state-menu .sidebar {
     display: block;
   }
+  body.state-menu .sidebar .menu-item.active {
+    color: #797A7B;
+  }
   body.state-menu .sidebar .menu-item.active .menu-item-icon {
-    background: #EBF2FF;
+    background: #f3f4f6;
   }
   body.state-menu .container {
     flex-direction: column;

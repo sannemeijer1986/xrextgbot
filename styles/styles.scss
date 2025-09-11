@@ -237,7 +237,9 @@ body {
   body.state-menu .mobile-back { display: none; }
   body.state-menu .mobile-menu-header { display: block; }
   body.state-menu .sidebar { display: block; }
-  body.state-menu .sidebar .menu-item.active .menu-item-icon { background: #EBF2FF; }
+  // In State 1 (menu view) on mobile, suppress active styling
+  body.state-menu .sidebar .menu-item.active { color: #797A7B; }
+  body.state-menu .sidebar .menu-item.active .menu-item-icon { background: #f3f4f6; }
   body.state-menu .container { flex-direction: column; gap: 12px; }
   body.state-menu .mobile-menu-header { width: 100%; }
   body.state-menu .mobile-menu-header .link-close-menu { width: 100%; display: inline-flex; }
