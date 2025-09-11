@@ -9,7 +9,7 @@
 $color-bg: #fcfcfc;
 $color-text-primary: #2d2f2f;
 $color-border: #EEEEEE;
-$color-muted: #64748b;
+$color-muted: #797a7b;
 $color-link: #2563eb;
 $color-footer-link: #797a7b;
 $color-footer-copy: #2d2f2f;
@@ -441,6 +441,14 @@ body {
     margin-top: 12px;
   }
 
+  .content-header-home {
+    display: none !important;
+
+    @media (min-width: $bp-md) {
+      display: flex !important;
+    }
+  }
+
   .content-header {
     display: flex;
     align-items: center;
@@ -638,10 +646,10 @@ body {
     }
   }
   .feature-section-title {
-    margin: 8px 0 16px 0;
+    margin: 16px 0 16px 0;
     color: $color-text-primary;
     font-family: $font-manrope;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 16px;
     @media (max-width: $bp-md) { // reuse existing mobile hiding behavior for assets title via selector below
     }
@@ -658,6 +666,11 @@ body {
     // mobile first
     display: flex;
     gap: 16px;
+    margin-bottom: 40px;
+
+    @media (min-width: $bp-md) { // reuse existing mobile hiding behavior for assets title via selector below
+      margin-bottom: 4px;
+    }
   }
 
   .feature-card {
@@ -670,7 +683,7 @@ body {
     width: 160px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 6px;
 
     @media (min-width: $bp-md) {
@@ -681,8 +694,10 @@ body {
 
   .fc-title {
     text-align: left;
+    font-family: $font-manrope;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 18px;
+    color: $color-text-primary;
     line-height: 1.2;
   }
 
@@ -764,7 +779,7 @@ body {
 // Metrics in Assets header
 .metric-label {
   color: $color-footer-link;
-  font: 600 14px $font-manrope;
+  font: 500 14px $font-manrope;
 }
 .metric-amount {
   color: $color-text-primary;
@@ -772,19 +787,44 @@ body {
 }
 .metric-subtext {
   color: $color-footer-link;
-  font: 600 14px $font-manrope;
+  font: 500 14px $font-manrope;
 }
 
 // Asset card internals
 .asset-card {
-  .asset-icon { margin-bottom: 6px; }
-  .asset-fiat {
-    color: $color-muted;
-    font-size: 12px;
+  .asset-top {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: flex-start;
   }
-  .asset-meta {
-    margin-top: 8px;
+  .asset-bottom {
+    margin-top: auto; // push to bottom
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .asset-icon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 12px;
+  }
+  .asset-fiat {
+    color: $color-footer-link;
+    font-family: $font-manrope;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  .asset-meta1 {
+    color: $color-text-primary;
+    font-family: $font-manrope;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  .asset-meta2 {
     color: $color-muted;
+    font-family: $font-manrope;
+    font-weight: 400;
     font-size: 12px;
   }
 }
