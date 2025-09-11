@@ -838,8 +838,10 @@ body {
   .market-head {
     display: flex;
     gap: 16px;
-    color: $color-muted;
-    font: 600 12px $font-manrope;
+    color: $color-footer-link;
+    font-family: $font-manrope;
+    font-weight: 600;
+    font-size: 14px;
     margin-bottom: 12px;
     > div { flex: 1; }
   }
@@ -848,8 +850,10 @@ body {
     gap: 16px;
     align-items: center;
     color: $color-text-primary;
-    font: 600 14px $font-manrope;
-    padding: 6px 0;
+    font-family: $font-manrope;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 12px 0;
     > div { flex: 1; }
   }
   .market-currency {
@@ -857,7 +861,28 @@ body {
     gap: 10px;
     align-items: center;
   }
-  .market-value { }
+  .market-value {
+    font-family: $font-manrope;
+    font-weight: 600;
+    font-size: 16px;
+    color: $color-text-primary;
+  }
+}
+
+// Currency label parts within market
+.currency-label {
+  .cl-primary {
+    font-family: $font-manrope;
+    font-weight: 600;
+    font-size: 16px;
+    color: $color-text-primary;
+  }
+  .cl-secondary {
+    font-family: $font-manrope;
+    font-weight: 400;
+    font-size: 14px;
+    color: $color-text-primary;
+  }
 }
 
 .app-footer {
