@@ -659,7 +659,11 @@ body {
     background: #fff;
     border: 1px solid $color-border;
     border-radius: 12px;
-    padding: 32px;
+    padding: 16px;
+
+    @media (min-width: $bp-md) { // reuse existing mobile hiding behavior for assets title via selector below
+      padding: 32px;
+    }
   }
 
   .feature-cardcontainer {
