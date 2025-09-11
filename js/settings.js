@@ -36,6 +36,13 @@
   var startLinkBtn = document.getElementById('startLinkBtn');
   if (startLinkBtn) startLinkBtn.addEventListener('click', function () { activate('setup'); });
 
+  // Back button - simple history back
+  var backLink = document.getElementById('backLink');
+  if (backLink) backLink.addEventListener('click', function(e){
+    e.preventDefault();
+    if (window.history.length > 1) window.history.back();
+  });
+
   // Sidebar collapsible toggles
   document.querySelectorAll('.menu-chevron').forEach(function(btn){
     btn.addEventListener('click', function(){

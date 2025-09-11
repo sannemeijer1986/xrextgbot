@@ -49,6 +49,16 @@ body {
   border-radius: 8px;
 }
 
+@media (max-width: 1280px) {
+  .mobile-btn-sm {
+    height: 32px;
+    min-width: 100px;
+    font-size: 12px;
+    padding: 0 16px;
+    border-radius: 9999px;
+  }
+}
+
 .btn-primary {
   background: #2F5BFF;
   color: #fff;
@@ -147,8 +157,8 @@ body {
 }
 .app-header .header-actions .account-chip .chevron {
   display: none;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20ed px;
   margin-top: 3px;
 }
 @media (min-width: 1280px) {
@@ -180,6 +190,7 @@ body {
   margin: 0 auto;
   padding: 20px;
   display: flex;
+  width: 100%;
   gap: 48px;
   flex: 1 1 auto;
 }
@@ -274,11 +285,17 @@ body {
 }
 
 .content {
-  flex: 1;
+  flex: 1 1 auto;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  margin-top: 12px;
+  margin-top: 8px;
+}
+@media (min-width: 1280px) {
+  .content {
+    margin-top: 12px;
+  }
 }
 .content .content-header {
   display: flex;
@@ -326,6 +343,30 @@ body {
     width: 16px;
     height: 16px;
   }
+}
+.content .mobile-back {
+  display: block;
+  margin: 0 0 0 -4px;
+}
+@media (min-width: 1280px) {
+  .content .mobile-back {
+    display: none;
+  }
+}
+.content .mobile-back .link-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #2250F7;
+  text-decoration: none;
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+}
+.content .mobile-back .link-back .icon-back {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
 }
 .content .status-row {
   display: flex;
@@ -441,25 +482,29 @@ body {
   appearance: none;
   background: transparent;
   border: none;
-  padding: 10px 0;
+  padding: 10px 20px;
   margin: 0;
-  color: #64748b;
+  color: #797A7B;
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   position: relative;
 }
 .content .tabs .tab.active {
-  color: #111827;
+  color: #2D2F2F;
 }
 .content .tabs .tab.active:after {
   content: "";
   position: absolute;
-  left: 0;
+  left: 50%;
+  margin-left: -20px;
   right: 0;
   bottom: -1px;
   height: 2px;
   background: #6366f1;
   border-radius: 2px;
+  width: 40px;
 }
 .content .feature-wrapper {
   background: #fff;

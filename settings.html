@@ -90,6 +90,14 @@
         </aside>
 
         <section class="content">
+            <div class="mobile-back">
+                <a href="#" class="link-back" id="backLink" aria-label="Back">
+                    <svg class="icon-back" width="16" height="16" viewBox="0 0 25 25" aria-hidden="true" focusable="false">
+                        <path d="M15.7,16.3l-4.2-4.2,4.2-4.2c.4-.4.4-1.1,0-1.5-.4-.4-1.1-.4-1.5,0l-5.1,5.1c-.3.3-.3.9,0,1.2l5.1,5.1c.4.4,1.1.4,1.5,0,.4-.4.4-1.1,0-1.5Z" fill="currentColor"/>
+                    </svg>
+                    <span>Back</span>
+                </a>
+            </div>
             <div class="content-header">
                 <h1>XREX Pay · Telegram bot</h1>
                 <button class="btn btn-secondary btn-sm" id="shareBtn">
@@ -107,7 +115,7 @@
                         <div class="status-tooltip below" id="statusTip" role="tooltip" hidden>Link your Telegram to manage transactions directly in chat.</div>
                     </span>
                 </div>
-                <button class="btn btn-primary btn-md" id="startLinkBtn">Start linking</button>
+                <button class="btn btn-primary btn-md mobile-btn-sm" id="startLinkBtn">Start linking</button>
             </div>
 
             <div class="tabs" role="tablist">
