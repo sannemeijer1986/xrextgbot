@@ -29,9 +29,15 @@
     </header>
 
     <main class="container">
+        <div class="mobile-menu-header">
+            <a href="index.html" class="link-close-menu" id="closeMenuLink" aria-label="Close menu">
+                <span class="x">×</span>
+                <span>Close menu</span>
+            </a>
+        </div>
         <aside class="sidebar">
             <nav class="menu">
-                <div class="menu-item">
+                <div class="menu-item" data-link="index.html" role="link" tabindex="0">
                     <div class="menu-item-icon">
                         <img src="assets/icon_user.svg" alt="Account" width="20" height="20">
                     </div>
@@ -80,7 +86,7 @@
                     <a class="submenu-item" href="#">• Monthly statement</a>
                     <a class="submenu-item" href="#">• Customised statement</a>
                 </div>
-                <div class="menu-item active">
+                <div class="menu-item active" data-link="settings.html?view=content" role="link" tabindex="0">
                     <div class="menu-item-icon">
                         <img src="assets/icon_telegram.svg" alt="Telegram" width="20" height="20">
                     </div>

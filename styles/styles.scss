@@ -182,7 +182,7 @@ body {
       .chevron {
         display: none; // hide by default on mobile
         width: 20px;
-        height: 20ed px;
+        height: 20px;
         margin-top: 3px;
       }
     }
@@ -212,6 +212,34 @@ body {
       }
     }
   }
+}
+
+.mobile-menu-header {
+  display: none;
+  margin: 8px 0 12px 0;
+  @media (min-width: $bp-md) { display: none; }
+  .link-close-menu {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #2250F7;
+    text-decoration: none;
+    font-family: $font-manrope;
+    font-weight: 700;
+    font-size: 16px;
+    .x { font-weight: 700; font-size: 18px; line-height: 1; }
+  }
+}
+
+// Mobile state switching - toggle between menu and content views
+@media (max-width: 1279.98px) {
+  body.state-menu .content { display: none; }
+  body.state-menu .mobile-back { display: none; }
+  body.state-menu .mobile-menu-header { display: block; }
+  body.state-menu .sidebar { display: block; }
+
+  body.state-content .mobile-menu-header { display: none; }
+  body.state-content .sidebar { display: none; }
 }
 
 .container {

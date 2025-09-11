@@ -1,5 +1,43 @@
 // moved from assets/js/settings.js
 (function () {
+  // Mobile state switching via URL param `view` = 'menu' | 'content'
+  try {
+    var mqDesktop = window.matchMedia('(min-width: 1280px)');
+    var isDesktop = function(){ return mqDesktop.matches; };
+    var getView = function(){ return new URLSearchParams(window.location.search).get('view'); };
+    var applyMobileState = function(){
+      if (isDesktop()) {
+        document.body.classList.remove('state-menu');
+        document.body.classList.remove('state-content');
+        return;
+      }
+      var viewNow = getView();
+      if (viewNow === 'menu') {
+        document.body.classList.add('state-menu');
+        document.body.classList.remove('state-content');
+      } else {
+        document.body.classList.add('state-content');
+        document.body.classList.remove('state-menu');
+      }
+    };
+
+    // Initial apply and on viewport changes
+    applyMobileState();
+    mqDesktop.addEventListener('change', applyMobileState);
+
+    // Back link should go to menu state on mobile
+    var backLinkEl = document.getElementById('backLink');
+    if (backLinkEl) {
+      backLinkEl.addEventListener('click', function(e){
+        if (!isDesktop()) {
+          e.preventDefault();
+          var url = new URL(window.location.href);
+          url.searchParams.set('view','menu');
+          window.location.replace(url.toString());
+        }
+      });
+    }
+  } catch (_) {}
   var tabIntro = document.getElementById('tab-intro');
   var tabSetup = document.getElementById('tab-setup');
   var panelIntro = document.getElementById('panel-intro');
@@ -36,11 +74,13 @@
   var startLinkBtn = document.getElementById('startLinkBtn');
   if (startLinkBtn) startLinkBtn.addEventListener('click', function () { activate('setup'); });
 
-  // Back button - simple history back
+  // Back button history behavior retained for desktop (no state switching)
   var backLink = document.getElementById('backLink');
   if (backLink) backLink.addEventListener('click', function(e){
-    e.preventDefault();
-    if (window.history.length > 1) window.history.back();
+    if (window.matchMedia('(min-width: 1280px)').matches) {
+      e.preventDefault();
+      if (window.history.length > 1) window.history.back();
+    }
   });
 
   // Sidebar collapsible toggles
@@ -57,6 +97,20 @@
         target.setAttribute('hidden','');
         btn.closest('.menu-item') && btn.closest('.menu-item').classList.remove('open');
         btn.setAttribute('aria-expanded','false');
+      }
+    });
+  });
+
+  // Make menu items navigable via data-link on both mobile and desktop
+  document.querySelectorAll('.menu .menu-item[data-link]').forEach(function(item){
+    var to = item.getAttribute('data-link');
+    if (!to) return;
+    function go(){ window.location.href = to; }
+    item.addEventListener('click', go);
+    item.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        go();
       }
     });
   });
