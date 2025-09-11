@@ -83,7 +83,7 @@ body {
   top: 0;
   z-index: 10;
   background: #fcfcfc;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #EEEEEE;
   height: 64px;
   display: flex;
   align-items: center;
@@ -532,7 +532,7 @@ body {
   justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
-  margin-bottom: 20px;
+  margin-bottom: 48px;
 }
 .content .status-line {
   color: #2d2f2f;
@@ -595,7 +595,7 @@ body {
   padding: 8px 10px;
   background: #ffffff;
   color: #2d2f2f;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #EEEEEE;
   border-radius: 8px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 12px;
@@ -634,7 +634,7 @@ body {
 .content .tabs {
   display: flex;
   gap: 16px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #EEEEEE;
   margin-top: 8px;
 }
 .content .tabs .tab {
@@ -677,14 +677,14 @@ body {
   margin: 8px 0 16px 0;
   color: #2d2f2f;
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 16px;
 }
 .content .feature-wrapper {
   background: #fff;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #EEEEEE;
   border-radius: 12px;
-  padding: 24px;
+  padding: 32px;
 }
 .content .feature-cardcontainer {
   display: flex;
@@ -692,11 +692,11 @@ body {
 }
 .content .feature-card {
   background: #ffffff;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #EEEEEE;
   border-radius: 12px;
-  padding: 20px;
+  padding: 16px;
   color: #2d2f2f;
-  min-height: auto;
+  min-height: 200px;
   width: 160px;
   display: flex;
   flex-direction: column;
@@ -706,6 +706,7 @@ body {
 @media (min-width: 1280px) {
   .content .feature-card {
     width: 216px;
+    min-height: 200px;
   }
 }
 .content .fc-title {
@@ -769,6 +770,7 @@ body {
 .assets-ctas-top {
   display: none;
   margin-top: 24px;
+  gap: 16px;
 }
 @media (min-width: 1280px) {
   .assets-ctas-top {

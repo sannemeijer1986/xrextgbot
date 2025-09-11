@@ -109,7 +109,7 @@
         if (tabs) tabs.style.display = 'none';
         if (panelIntro) {
           panelIntro.style.display = '';
-          panelIntro.innerHTML = '<div style="padding:12px;color:#64748b">Account details and preferences will appear here.</div>';
+          panelIntro.innerHTML = '<div style="color:#64748b">Account details and preferences will appear here.</div>';
         }
         if (panelSetup) panelSetup.style.display = 'none';
       }

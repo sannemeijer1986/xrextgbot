@@ -8,7 +8,7 @@
 // Design tokens
 $color-bg: #fcfcfc;
 $color-text-primary: #2d2f2f;
-$color-border: #e5e7eb;
+$color-border: #EEEEEE;
 $color-muted: #64748b;
 $color-link: #2563eb;
 $color-footer-link: #797a7b;
@@ -506,7 +506,7 @@ body {
     justify-content: space-between;
     gap: 12px;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin-bottom: 48px;
   }
   .status-line {
     color: $color-text-primary;
@@ -641,7 +641,7 @@ body {
     margin: 8px 0 16px 0;
     color: $color-text-primary;
     font-family: $font-manrope;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 16px;
     @media (max-width: $bp-md) { // reuse existing mobile hiding behavior for assets title via selector below
     }
@@ -651,7 +651,7 @@ body {
     background: #fff;
     border: 1px solid $color-border;
     border-radius: 12px;
-    padding: 24px;
+    padding: 32px;
   }
 
   .feature-cardcontainer {
@@ -664,9 +664,9 @@ body {
     background: #ffffff;
     border: 1px solid $color-border;
     border-radius: 12px;
-    padding: 20px;
+    padding: 16px;
     color: $color-text-primary;
-    min-height: auto;
+    min-height: 200px;
     width: 160px;
     display: flex;
     flex-direction: column;
@@ -675,6 +675,7 @@ body {
 
     @media (min-width: $bp-md) {
       width: 216px;
+      min-height: 200px;
     }
   }
 
@@ -731,6 +732,7 @@ body {
 .assets-ctas-top { // buttons inside status row
   display: none; // hidden on mobile
   margin-top: 24px;
+  gap: 16px;
   @media (min-width: $bp-md) { display: flex; }
 }
 .assets-ctas { // buttons below cards (mobile only)
