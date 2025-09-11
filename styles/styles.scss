@@ -46,7 +46,7 @@ body {
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    padding: 0;
+    padding: 0 20px;
   }
 
   .brand {
@@ -107,11 +107,13 @@ body {
       }
 
       .chip-name {
+        display: none; // hide by default on mobile
         font-family: $font-manrope;
         font-weight: 600;
       }
 
       .chevron {
+        display: none; // hide by default on mobile
         width: 24px;
         height: 24px;
         margin-top: 3px;
@@ -138,10 +140,8 @@ body {
       gap: 32px;
 
       .account-chip {
-        .chip-name,
-        .chevron {
-          display: initial;
-        }
+        .chip-name { display: inline; }
+        .chevron { display: inline; }
       }
     }
   }
@@ -177,7 +177,7 @@ body {
     .menu {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 0; // no vertical gap between items
     }
 
     .menu-item {
@@ -494,6 +494,29 @@ body {
     padding: 0;
     height: 40px;
     
+    .footer-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: nowrap;
+      padding: 0 40px;
+      width: 100%;
+    }
+
+    .footer-links {
+      order: 0;
+      width: auto;
+      justify-content: flex-end;
+    }
+
+    .footer-copy {
+      order: 0;
+      width: auto;
+      text-align: left;
+    }
   }
 }
 
