@@ -35,6 +35,24 @@
 
   var startLinkBtn = document.getElementById('startLinkBtn');
   if (startLinkBtn) startLinkBtn.addEventListener('click', function () { activate('setup'); });
+
+  // Sidebar collapsible toggles
+  document.querySelectorAll('.menu-chevron').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var target = document.querySelector(btn.getAttribute('data-target'));
+      if (!target) return;
+      var open = target.hasAttribute('hidden');
+      if (open) {
+        target.removeAttribute('hidden');
+        btn.closest('.menu-item') && btn.closest('.menu-item').classList.add('open');
+        btn.setAttribute('aria-expanded','true');
+      } else {
+        target.setAttribute('hidden','');
+        btn.closest('.menu-item') && btn.closest('.menu-item').classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+  });
 })();
 
 

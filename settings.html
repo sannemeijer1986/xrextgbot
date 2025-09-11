@@ -22,7 +22,7 @@
                 <div class="account-chip">
                     <div class="chip-avatar"><img src="assets/logo_agp.svg" alt="AGP"></div>
                     <div class="chip-name">AGP Technology</div>
-                    <img class="chevron" src="assets/icon_chevronright.svg" alt="more" width="20" height="20">
+                    <img class="chevron" src="assets/icon_chevron_right.svg" alt="more" width="20" height="20">
                 </div>
             </div>
         </div>
@@ -47,7 +47,38 @@
                     <div class="menu-item-icon">
                         <img src="assets/icon_bank.svg" alt="Bank" width="20" height="20">
                     </div>
-                    <div>Custodian &amp; Bank</div>
+                    <div class="menu-title">Custodian &amp; Bank</div>
+                    <button class="menu-chevron" aria-label="Toggle" aria-expanded="false" data-target="#submenu-bank">
+                        <img src="assets/icon_chevron_down.svg" alt="expand" width="20" height="20">
+                    </button>
+                </div>
+                <div class="submenu" id="submenu-bank" hidden>
+                    <a class="submenu-item" href="#">• USD bank accounts</a>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-icon">
+                        <img src="assets/icon_blockchain.svg" alt="Address book" width="20" height="20">
+                    </div>
+                    <div class="menu-title">Address book</div>
+                    <button class="menu-chevron" aria-label="Toggle" aria-expanded="false" data-target="#submenu-address">
+                        <img src="assets/icon_chevron_down.svg" alt="expand" width="20" height="20">
+                    </button>
+                </div>
+                <div class="submenu" id="submenu-address" hidden>
+                    <a class="submenu-item" href="#">• USDT addresses</a>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-icon">
+                        <img src="assets/icon_statements.svg" alt="Statements" width="20" height="20">
+                    </div>
+                    <div class="menu-title">Statements</div>
+                    <button class="menu-chevron" aria-label="Toggle" aria-expanded="false" data-target="#submenu-statements">
+                        <img src="assets/icon_chevron_down.svg" alt="expand" width="20" height="20">
+                    </button>
+                </div>
+                <div class="submenu" id="submenu-statements" hidden>
+                    <a class="submenu-item" href="#">• Monthly statement</a>
+                    <a class="submenu-item" href="#">• Customised statement</a>
                 </div>
                 <div class="menu-item active">
                     <div class="menu-item-icon">
