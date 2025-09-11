@@ -25,6 +25,15 @@
     applyMobileState();
     mqDesktop.addEventListener('change', applyMobileState);
 
+    // Dynamic account chip link target based on viewport
+    var chip = document.getElementById('accountChipLink');
+    var setChipHref = function(){
+      if (!chip) return;
+      chip.setAttribute('href', isDesktop() ? 'settings.html?view=content&page=account' : 'settings.html?view=menu');
+    };
+    setChipHref();
+    mqDesktop.addEventListener('change', setChipHref);
+
     // Back link should go to menu state on mobile
     var backLinkEl = document.getElementById('backLink');
     if (backLinkEl) {

@@ -130,6 +130,8 @@ body {
   height: 20px;
 }
 .app-header .header-actions .account-chip {
+  text-decoration: none;
+  color: inherit;
   height: 32px;
   display: flex;
   align-items: center;
