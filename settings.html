@@ -32,7 +32,7 @@
     <main class="container">
         <div class="mobile-menu-header">
             <a href="index.html" class="link-close-menu" id="closeMenuLink" aria-label="Close menu">
-                <span class="x">×</span>
+                <img src="assets/icon_close.svg" alt="Close" width="20" height="20">
                 <span>Close menu</span>
             </a>
         </div>
@@ -117,7 +117,7 @@
                 </button>
             </div>
 
-            <div class="status-row" id="statusRow">
+            <div class="status-row" id="statusRow" style="display:none;">
                 <div class="status-line">
                     <span class="status-label">Status :</span>
                     <span class="status-value">Not linked</span>
@@ -129,9 +129,13 @@
                 <button class="btn btn-primary btn-md mobile-btn-sm" id="startLinkBtn">Start linking</button>
             </div>
 
-            <div class="tabs" id="tabs" role="tablist">
+            <div class="tabs" id="tabs" role="tablist" style="display:none;">
                 <button class="tab active" role="tab" aria-selected="true" id="tab-intro">Introduction</button>
                 <button class="tab" role="tab" aria-selected="false" id="tab-setup">Setup</button>
+            </div>
+
+            <div id="panel-account" class="feature-wrapper" role="tabpanel" aria-label="Account" >
+                <div style="color:#64748b;">Account details and preferences will appear here.</div>
             </div>
 
             <div id="panel-intro" role="tabpanel" aria-labelledby="tab-intro" class="feature-wrapper">

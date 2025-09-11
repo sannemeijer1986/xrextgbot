@@ -212,7 +212,7 @@ body {
   line-height: 1;
 }
 
-@media (max-width: 1279.98px) {
+@media (max-width: 1279px) {
   body.state-menu .content {
     display: none;
   }
@@ -247,9 +247,22 @@ body {
   }
   body.state-menu .sidebar .menu {
     background: #ffffff;
-    padding: 12px;
+    border: 1px solid #EEEEEE;
+    padding: 0px;
     border-radius: 8px;
     width: 100%;
+  }
+  body.state-menu .sidebar .menu-item {
+    border-bottom: 1px solid #EEEEEE;
+    border-radius: 0px;
+    padding: 20px 12px;
+  }
+  body.state-menu .sidebar .menu-item:last-child {
+    border-bottom: none;
+  }
+  body.state-menu .sidebar .menu-item-icon {
+    width: 32px;
+    height: 32px;
   }
   body.state-content .mobile-menu-header {
     display: none;

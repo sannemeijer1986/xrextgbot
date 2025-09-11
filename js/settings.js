@@ -51,6 +51,7 @@
   var tabSetup = document.getElementById('tab-setup');
   var panelIntro = document.getElementById('panel-intro');
   var panelSetup = document.getElementById('panel-setup');
+  var panelAccount = document.getElementById('panel-account');
   var pageTitle = document.getElementById('pageTitle');
   var statusRow = document.getElementById('statusRow');
   var tabs = document.getElementById('tabs');
@@ -102,16 +103,17 @@
         if (pageTitle) pageTitle.textContent = 'XREX Pay · Telegram bot';
         if (statusRow) statusRow.style.display = '';
         if (tabs) tabs.style.display = '';
+        if (panelAccount) panelAccount.style.display = 'none';
+        if (shareBtn) shareBtn.style.display = '';
       }
       function showAccount(){
         if (pageTitle) pageTitle.textContent = 'Account';
         if (statusRow) statusRow.style.display = 'none';
         if (tabs) tabs.style.display = 'none';
-        if (panelIntro) {
-          panelIntro.style.display = '';
-          panelIntro.innerHTML = '<div style="color:#64748b">Account details and preferences will appear here.</div>';
-        }
+        if (panelAccount) panelAccount.style.display = '';
+        if (panelIntro) panelIntro.style.display = 'none';
         if (panelSetup) panelSetup.style.display = 'none';
+        if (shareBtn) shareBtn.style.display = 'none';
       }
       if (page === 'account') showAccount(); else showTelegram();
     } catch(_){}
