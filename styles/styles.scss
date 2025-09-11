@@ -636,15 +636,10 @@ body {
     padding: 16px;
   }
 
-  .feature-grid {
+  .feature-cardcontainer {
     // mobile first
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
     gap: 16px;
-
-    @media (min-width: $bp-sm) {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
   }
 
   .feature-card {
@@ -653,10 +648,15 @@ body {
     padding: 16px;
     color: #fff;
     min-height: 270px;
+    width: 160px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+
+    @media (min-width: $bp-md) {
+      width: 216px;
+    }
   }
 
   .fc-title {
@@ -686,6 +686,51 @@ body {
       background: #111827;
       box-shadow: 0 0 0 2px #1f2937;
     }
+  }
+}
+
+.home-greeting { @media (max-width: $bp-md) { display: none; } }
+.assets-title { @media (max-width: $bp-md) { display: none; } }
+.assets-block {
+  @media (max-width: $bp-md) {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+}
+// Ensure asset cards read left-aligned inside the grid
+.assets-block {
+  .feature-card { align-items: flex-start; }
+  .fc-title { text-align: left; }
+}
+// Assets CTA placement
+.assets-ctas-top { // buttons inside status row
+  display: none; // hidden on mobile
+  @media (min-width: $bp-md) { display: flex; }
+}
+.assets-ctas { // buttons below cards (mobile only)
+  display: flex;
+  gap: 12px;
+  @media (min-width: $bp-md) {
+    display: none; // hidden on desktop
+  }
+}
+// Keep previous desktop tweak for legacy layout where CTAs are above
+@media (min-width: $bp-md) {
+  .assets-ctas {
+    margin-top: -52px !important;
+    justify-content: flex-end;
+  }
+}
+
+// Currency labels: stack sublabel on mobile, inline on desktop
+.currency-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  @media (min-width: $bp-md) {
+    flex-direction: row;
+    gap: 4px;
   }
 }
 
