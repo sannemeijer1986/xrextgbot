@@ -506,7 +506,7 @@ body {
     justify-content: space-between;
     gap: 12px;
     flex-wrap: wrap;
-    margin-bottom: 48px;
+    margin-bottom: 20px;
   }
   .status-line {
     color: $color-text-primary;
@@ -630,11 +630,28 @@ body {
     }
   }
 
+  // Feature section wrapper and title
+  .feature-section {
+    margin-top: 8px;
+    @media (min-width: $bp-md) {
+      margin-top: 12px;
+    }
+  }
+  .feature-section-title {
+    margin: 8px 0 16px 0;
+    color: $color-text-primary;
+    font-family: $font-manrope;
+    font-weight: 600;
+    font-size: 16px;
+    @media (max-width: $bp-md) { // reuse existing mobile hiding behavior for assets title via selector below
+    }
+  }
+
   .feature-wrapper {
     background: #fff;
     border: 1px solid $color-border;
     border-radius: 12px;
-    padding: 32px;
+    padding: 24px;
   }
 
   .feature-cardcontainer {
@@ -644,16 +661,17 @@ body {
   }
 
   .feature-card {
-    background: #5b8ef7;
+    background: #ffffff;
+    border: 1px solid $color-border;
     border-radius: 12px;
-    padding: 16px;
-    color: #fff;
-    min-height: 270px;
+    padding: 20px;
+    color: $color-text-primary;
+    min-height: auto;
     width: 160px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+    align-items: flex-start;
+    gap: 6px;
 
     @media (min-width: $bp-md) {
       width: 216px;
@@ -661,9 +679,9 @@ body {
   }
 
   .fc-title {
-    text-align: center;
-    font-weight: 800;
-    font-size: 20px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 16px;
     line-height: 1.2;
   }
 
@@ -692,6 +710,7 @@ body {
 
 .home-greeting { @media (max-width: $bp-md) { display: none; } }
 .assets-title { @media (max-width: $bp-md) { display: none; } }
+.feature-section-title { @media (max-width: $bp-md) { /* allow individual pages to override if needed */ } }
 .assets-block {
   @media (max-width: $bp-md) {
     background: transparent !important;
@@ -701,8 +720,12 @@ body {
 }
 // Ensure asset cards read left-aligned inside the grid
 .assets-block {
-  .feature-card { align-items: flex-start; }
-  .fc-title { text-align: left; }
+  .feature-card {
+    align-items: flex-start;
+  }
+  .fc-title {
+    text-align: left;
+  }
 }
 // Assets CTA placement
 .assets-ctas-top { // buttons inside status row
@@ -734,6 +757,61 @@ body {
     flex-direction: row;
     gap: 4px;
   }
+}
+
+// Metrics in Assets header
+.metric-label {
+  color: $color-footer-link;
+  font: 600 14px $font-manrope;
+}
+.metric-amount {
+  color: $color-text-primary;
+  font: 600 32px $font-manrope;
+}
+.metric-subtext {
+  color: $color-footer-link;
+  font: 600 14px $font-manrope;
+}
+
+// Asset card internals
+.asset-card {
+  .asset-icon { margin-bottom: 6px; }
+  .asset-fiat {
+    color: $color-muted;
+    font-size: 12px;
+  }
+  .asset-meta {
+    margin-top: 8px;
+    color: $color-muted;
+    font-size: 12px;
+  }
+}
+
+// Market block table-like rows
+.market-block {
+  .market-head {
+    display: flex;
+    gap: 16px;
+    color: $color-muted;
+    font: 600 12px $font-manrope;
+    margin-bottom: 12px;
+    > div { flex: 1; }
+  }
+  .market-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    color: $color-text-primary;
+    font: 600 14px $font-manrope;
+    padding: 6px 0;
+    > div { flex: 1; }
+  }
+  .market-currency {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .market-value { }
 }
 
 .app-footer {

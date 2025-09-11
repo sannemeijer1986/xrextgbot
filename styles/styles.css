@@ -532,7 +532,7 @@ body {
   justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
-  margin-bottom: 48px;
+  margin-bottom: 20px;
 }
 .content .status-line {
   color: #2d2f2f;
@@ -665,27 +665,43 @@ body {
   border-radius: 2px;
   width: 40px;
 }
+.content .feature-section {
+  margin-top: 8px;
+}
+@media (min-width: 1280px) {
+  .content .feature-section {
+    margin-top: 12px;
+  }
+}
+.content .feature-section-title {
+  margin: 8px 0 16px 0;
+  color: #2d2f2f;
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
 .content .feature-wrapper {
   background: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
-  padding: 32px;
+  padding: 24px;
 }
 .content .feature-cardcontainer {
   display: flex;
   gap: 16px;
 }
 .content .feature-card {
-  background: #5b8ef7;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 12px;
-  padding: 16px;
-  color: #fff;
-  min-height: 270px;
+  padding: 20px;
+  color: #2d2f2f;
+  min-height: auto;
   width: 160px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-start;
+  gap: 6px;
 }
 @media (min-width: 1280px) {
   .content .feature-card {
@@ -693,9 +709,9 @@ body {
   }
 }
 .content .fc-title {
-  text-align: center;
-  font-weight: 800;
-  font-size: 20px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 16px;
   line-height: 1.2;
 }
 .content .phone {
@@ -729,6 +745,10 @@ body {
   .assets-title {
     display: none;
   }
+}
+
+@media (max-width: 1280px) {
+  .feature-section-title { /* allow individual pages to override if needed */ }
 }
 
 @media (max-width: 1280px) {
@@ -784,6 +804,60 @@ body {
   }
 }
 
+.metric-label {
+  color: #797a7b;
+  font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.metric-amount {
+  color: #2d2f2f;
+  font: 600 32px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.metric-subtext {
+  color: #797a7b;
+  font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.asset-card .asset-icon {
+  margin-bottom: 6px;
+}
+.asset-card .asset-fiat {
+  color: #64748b;
+  font-size: 12px;
+}
+.asset-card .asset-meta {
+  margin-top: 8px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.market-block .market-head {
+  display: flex;
+  gap: 16px;
+  color: #64748b;
+  font: 600 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin-bottom: 12px;
+}
+.market-block .market-head > div {
+  flex: 1;
+}
+.market-block .market-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  color: #2d2f2f;
+  font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  padding: 6px 0;
+}
+.market-block .market-row > div {
+  flex: 1;
+}
+.market-block .market-currency {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
 .app-footer {
   background: #ffffff;
   border-top: none;
