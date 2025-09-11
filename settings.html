@@ -4,213 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Settings</title>
-    <style>
-        * { box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f7f8fb;
-            color: #0f172a;
-            margin: 0;
-        }
-
-        .app-header {
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            background: #fff;
-            border-bottom: 1px solid #e5e7eb;
-            height: 64px;
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-        }
-        .brand { font-weight: 800; letter-spacing: 0.2px; }
-
-        .header-inner {
-            width: 100%;
-            max-width: 1440px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-        }
-        .badges { display: none; gap: 12px; align-items: center; }
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            height: 32px;
-            padding: 0 10px;
-            border-radius: 9999px;
-            font-size: 12px;
-            font-weight: 600;
-            border: 1px solid transparent;
-            white-space: nowrap;
-        }
-        .badge-orange { background: #fff7ed; color: #c2410c; border-color: #fed7aa; }
-        .badge-secondary { background: #f3f4f6; color: #374151; }
-
-        .header-actions { display: flex; align-items: center; gap: 12px; }
-        .circle-icon { width: 32px; height: 32px; border-radius: 9999px; display: flex; align-items: center; justify-content: center; background: #f3f4f6; color: #1f2937; }
-        .account-chip { display: flex; align-items: center; gap: 6px; cursor: pointer; }
-        .chip-avatar { width: 32px; height: 32px; border-radius: 9999px; display: grid; place-items: center; background: #dbeafe; font-weight: 700; color: #0f172a; }
-        .chip-name { font-weight: 600; }
-        .chevron { width: 20px; height: 20px; fill: #1f2937; }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 24px 20px 40px;
-            display: flex;
-            gap: 24px;
-            min-height: calc(100vh - 64px);
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 260px;
-            flex-shrink: 0;
-            position: sticky;
-            top: 88px;
-            align-self: flex-start;
-        }
-        .menu {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            border-radius: 10px;
-            color: #111827;
-            cursor: pointer;
-            border: 1px solid transparent;
-        }
-        .menu-item:hover { background: #f3f4f6; }
-        .menu-item.active {
-            background: #eef2ff;
-            border-color: #c7d2fe;
-            color: #3730a3;
-        }
-        .menu-item-icon { width: 40px; height: 40px; border-radius: 9999px; background: #f3f4f6; display: flex; align-items: center; justify-content: center; }
-        .menu-item.active .menu-item-icon { background: #e0e7ff; }
-
-        /* Content */
-        .content { flex: 1; display: flex; flex-direction: column; gap: 24px; }
-        .page-title { display: flex; align-items: center; gap: 8px; }
-        .page-title h1 { font-size: 28px; margin: 0; }
-
-        .section-title { font-size: 18px; color: #64748b; margin-top: 4px; }
-
-        .card {
-            background: #fff;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 16px;
-        }
-
-        .row { display: flex; gap: 24px; flex-wrap: wrap; }
-        .col { flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 8px; }
-        .label { font-size: 12px; color: #64748b; }
-        .field {
-            height: 60px;
-            border: 1px solid #e5e7eb;
-            border-radius: 10px;
-            background: #f9fafb;
-            padding: 0 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .field.primary { background: #fff; }
-
-        .divider { height: 1px; background: #e5e7eb; }
-
-        .status-ok { color: #059669; }
-
-        .avatar-box { display: flex; align-items: center; gap: 16px; }
-        .avatar {
-            width: 60px; height: 60px; border-radius: 50%;
-            background: #dbeafe; color: #1e293b; display: grid; place-items: center;
-            font-weight: 700; font-size: 24px;
-        }
-        .name { font-size: 20px; font-weight: 600; }
-        .handle { color: #64748b; font-size: 14px; }
-
-        .btn-secondary {
-            height: 52px; border-radius: 12px; border: 1px solid #e5e7eb;
-            background: #f3f4f6; color: #111827; font-weight: 600; cursor: pointer;
-        }
-        .btn-secondary:hover { background: #e5e7eb; }
-
-        /* Switch */
-        .switch { position: relative; width: 44px; height: 24px; background: #e5e7eb; border-radius: 999px; transition: background .2s; }
-        .switch[data-on="true"] { background: #4f46e5; }
-        .thumb { position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: transform .2s; }
-        .switch[data-on="true"] .thumb { transform: translateX(20px); }
-
-        /* Content header, actions, tabs */
-        .content-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-        .content-header h1 { margin: 0; font-size: 28px; }
-        .content-actions { display: flex; align-items: center; gap: 10px; }
-        .btn-ghost { height: 40px; padding: 0 12px; border-radius: 10px; border: 1px solid #e5e7eb; background: #fff; color: #111827; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
-        .btn-ghost:hover { background: #f9fafb; }
-        .btn-primary { height: 40px; padding: 0 14px; border-radius: 10px; border: none; background: #2563eb; color: #fff; font-weight: 600; cursor: pointer; }
-        .btn-primary:hover { background: #1d4ed8; }
-        .status-line { color: #0f172a; }
-        .status-link { color: #2563eb; font-weight: 600; cursor: default; }
-        .status-info { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; font-size: 12px; color: #64748b; border: 1px solid #e5e7eb; border-radius: 9999px; margin-left: 4px; }
-        .tabs { display: flex; gap: 16px; border-bottom: 1px solid #e5e7eb; margin-top: 8px; }
-        .tab { appearance: none; background: transparent; border: none; padding: 10px 0; margin: 0; color: #64748b; font-weight: 600; cursor: pointer; position: relative; }
-        .tab.active { color: #111827; }
-        .tab.active:after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: #6366f1; border-radius: 2px; }
-
-        /* Feature cards */
-        .feature-wrapper { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; }
-        .feature-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-        .feature-card { background: #5b8ef7; border-radius: 12px; padding: 16px; color: #fff; min-height: 270px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; }
-        .fc-title { text-align: center; font-weight: 800; font-size: 20px; line-height: 1.2; }
-        .phone { width: 82%; height: 180px; border-radius: 24px; background: #0f172a; position: relative; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.06); }
-        .phone:before { content: ""; position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; border-radius: 9999px; background: #111827; box-shadow: 0 0 0 2px #1f2937; }
-        .feature-note { margin-top: 16px; font-size: 16px; font-weight: 700; }
-        .feature-desc { color: #111827; }
-
-        @media (max-width: 900px) {
-            .feature-grid { grid-template-columns: 1fr; }
-        }
-
-        @media (max-width: 960px) {
-            .sidebar { display: none; }
-            .container { padding: 16px; }
-            .badges { display: none; }
-        }
-        @media (min-width: 1024px) {
-            .badges { display: inline-flex; }
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Manrope:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/settings.css">
 </head>
 <body>
     <header class="app-header">
         <div class="header-inner">
-            <div class="brand">XREX</div>
-            <div class="badges">
-                <div class="badge badge-orange">
-                    <svg width="20" height="20" viewBox="0 0 100 100" fill="currentColor"><path d="M24.997 49.094v-4.558c-.006-4.9 1.73-9.585 4.818-13.411 2.113-2.62 4.781-4.744 7.784-6.295.16-1.195.514-2.352 1.042-3.43l.297-.562a11.8 11.8 0 0 1 2.767-3.308l.972-.732a12.8 12.8 0 0 1 3.243-1.575c1.52-.49 3.118-.696 4.704-.622l.097.004.094.004c2.989.23 5.921 1.457 8.146 3.63 1.797 1.754 3.027 4.045 3.41 6.579 3.014 1.552 5.693 3.68 7.813 6.307 3.087 3.827 4.823 8.512 4.817 13.411v4.18c-.003.867.344 1.855 1.225 2.754l1.827 1.827c1.977 2.02 3.198 4.753 3.198 7.727v.228c0 3.315-1.513 6.295-3.861 8.35-2.323 2.03-5.313 3.055-8.285 3.055H64.56c-.22 3.572-1.936 6.789-4.553 9.078-2.78 2.431-6.388 3.682-10.006 3.683s-7.23-1.251-10.01-3.683c-2.616-2.29-4.33-5.507-4.549-9.078h-4.317a13 13 0 0 1-6.23-1.522c-1.956-1.048-3.66-2.629-4.793-4.659l-.024-.049-.029-.048a10.85 10.85 0 0 1-1.09-7.26l.228-.915c.612-2.103 1.83-3.929 3.418-5.322l.008-.008.862-.757c1.096-.962 1.522-2.073 1.522-3.023m16.667 22.782c0 1.933.88 3.788 2.441 5.155 1.368 1.197 3.163 1.934 5.07 2.1l.826.037c2.21 0 4.33-.77 5.892-2.137s2.442-3.222 2.442-5.155zM31.186 50.172c-.283 2.502-1.544 4.854-3.593 6.649l-.866.756c-.858.753-1.428 1.72-1.636 2.767a4.6 4.6 0 0 0 .468 3.085c.507.908 1.302 1.67 2.287 2.197a6.75 6.75 0 0 0 3.28.781h37.98c1.367 0 2.686-.416 3.735-1.168l.435-.341c.967-.847 1.563-1.957 1.697-3.138l.028-.508v-.228c0-1.23-.502-2.419-1.416-3.353l-1.823-1.823c-1.952-1.992-3.02-4.534-3.01-7.157v-4.155c.005-2.972-.912-5.882-2.641-8.423l-.794-1.062c-2.239-2.774-5.406-4.873-9.066-6.005V26.62c.031-1.26-.42-2.489-1.27-3.495l-.386-.415c-1.098-1.072-2.62-1.74-4.26-1.868a7.1 7.1 0 0 0-2.498.33l-.582.22c-.57.244-1.097.56-1.559.944a5.5 5.5 0 0 0-1.44 1.81 4.9 4.9 0 0 0-.509 2.165v2.735c-3.66 1.132-6.827 3.23-9.065 6.005l-.794 1.062c-1.73 2.54-2.646 5.451-2.64 8.423v4.558z"></path></svg>
-                    <span>1 Funds locked</span>
-                </div>
-                <div class="badge badge-secondary">
-                    <svg width="20" height="20" viewBox="0 0 100 100" fill="currentColor"><path d="M67.292 16.666c6.903 0 12.5 5.596 12.5 12.5v3.332c0 .46-.374.835-.835.835h-4.581a.835.835 0 0 1-.834-.834v-3.333a6.25 6.25 0 0 0-6.25-6.25H28.125a6.25 6.25 0 0 0-6.25 6.25v41.667a6.25 6.25 0 0 0 6.25 6.25h39.167a6.25 6.25 0 0 0 6.25-6.25V67.5c0-.46.374-.834.834-.834h4.581c.46 0 .835.374.835.834v3.333c0 6.688-5.253 12.149-11.857 12.483l-.643.017H28.125l-.643-.017c-6.605-.334-11.857-5.795-11.857-12.483V29.166c0-6.904 5.596-12.5 12.5-12.5z"></path><path d="M39.946 33.333c.688 0 1.248.542 1.249 1.208v1.2c0 .567.414 1.047.972 1.217q.565.172 1.09.403a8.9 8.9 0 0 1 3.467 2.592c.688.825 1.236 1.788 1.648 2.88.248.66-.213 1.347-.927 1.47l-2.739.472c-.66.114-1.286-.312-1.57-.9a4.829 4.829 0 0 0-2.372-2.307q-1.051-.506-2.344-.54c-.825-.025-1.58.087-2.255.341q-.99.38-1.59 1.066a2.28 2.28 0 0 0-.583 1.526c0 .628.277 1.177.827 1.636q.827.668 2.624 1.155l4.765 1.31q3.576.997 5.151 2.698c1.062 1.136 1.599 2.644 1.6 4.517q-.002 2.465-1.295 4.333t-3.617 2.922q-.857.389-1.819.627c-.588.146-1.032.645-1.033 1.232v1.066c-.001.667-.56 1.208-1.25 1.209h-2.6c-.69 0-1.252-.541-1.253-1.209v-1.11c-.001-.579-.429-1.069-1.005-1.225q-.835-.225-1.599-.57-2.288-1.053-3.731-2.958a9.5 9.5 0 0 1-1.6-3.36c-.165-.643.31-1.257.985-1.36l2.686-.399c.647-.097 1.255.308 1.501.895q.587 1.406 1.77 2.34 1.632 1.27 3.882 1.27 2.12-.002 3.508-.965 1.403-.96 1.403-2.372c0-.64-.202-1.172-.614-1.583-.4-.422-1.038-.768-1.9-1.033l-6.67-1.994q-5.773-1.723-5.773-6.82 0-2.392 1.16-4.15 1.181-1.759 3.32-2.702a9.7 9.7 0 0 1 1.64-.557c.592-.147 1.037-.642 1.037-1.233v-1.03c.001-.667.564-1.208 1.253-1.208zM75.62 39.168a3.126 3.126 0 0 1 4.172.378l.203.244 5.838 8.334a3.13 3.13 0 0 1 0 3.751l-5.838 8.334a3.125 3.125 0 0 1-4.997-3.752l2.499-3.333H57.292a3.125 3.125 0 0 1 0-6.25h20.205l-2.499-3.332-.179-.265a3.124 3.124 0 0 1 .802-4.11"></path></svg>
-                    <span>6 Pending BitChecks</span>
-                </div>
-            </div>
+            <div class="brand"><img src="assets/logo_xrexpay.svg" alt="XREX Pay" style="height:22px;"></div>
+            
             <div class="header-actions">
                 <div class="circle-icon">
-                    <svg width="18" height="18" viewBox="0 0 100 100" fill="#0ea5e9"><path fill-rule="evenodd" d="M23.764 33.754c9.732-22.43 41.568-22.778 51.988-1.048l.479 1.048.773 1.786c3.696 1.387 6.326 4.909 6.327 9.047v7.749c0 4.337-2.886 8.005-6.863 9.24v.447c0 9.094-7.462 16.467-16.667 16.467h-.574a7.84 7.84 0 0 1-7.269 4.843h-3.921c-4.332 0-7.843-3.47-7.843-7.75 0-4.278 3.511-7.749 7.843-7.749h3.921a7.84 7.84 0 0 1 7.269 4.844h.574c5.956 0 10.785-4.77 10.785-10.655v-.447c-3.977-1.235-6.863-4.903-6.863-9.24v-7.75c0-4.31 2.853-7.957 6.794-9.213l-.073-.162c-8.167-17.03-32.902-16.974-40.966.162 3.94 1.256 6.793 4.903 6.794 9.214v7.749c0 5.35-4.39 9.687-9.804 9.687s-9.804-4.337-9.804-9.687v-7.75c0-4.136 2.629-7.658 6.323-9.046zm26.233 38.48a3.9 3.9 0 0 0-1.432 1.412h-.528a1.95 1.95 0 0 0-1.961 1.938 1.95 1.95 0 0 0 1.96 1.937h.53c.343.586.838 1.071 1.431 1.411a3.9 3.9 0 0 0 1.433-1.411h.528a1.95 1.95 0 0 0 1.961-1.937c0-.936-.673-1.72-1.566-1.9l-.395-.038h-.528a3.9 3.9 0 0 0-1.433-1.411M26.468 40.713c-2.165 0-3.92 1.736-3.922 3.875v7.749c0 2.14 1.756 3.875 3.922 3.875 2.03 0 3.701-1.524 3.902-3.478l.02-.397v-7.75c-.001-2.138-1.757-3.874-3.922-3.874m47.059 0c-2.165 0-3.92 1.736-3.922 3.875v7.749c0 2.14 1.756 3.875 3.922 3.875 2.03 0 3.7-1.524 3.902-3.478l.02-.397v-7.75c-.001-2.138-1.757-3.874-3.922-3.874"></path></svg>
+                    <img src="assets/icon_trade.svg" alt="notify" width="18" height="18">
                 </div>
+                <a class="circle-icon" href="#" title="Support">
+                    <img src="assets/icon_support.svg" alt="support" width="18" height="18">
+                </a>
                 <div class="account-chip">
                     <div class="chip-avatar">Q</div>
                     <div class="chip-name">QA Test</div>
@@ -223,35 +33,29 @@
     <main class="container">
         <aside class="sidebar">
             <nav class="menu">
-                <div class="menu-item active">
+                <div class="menu-item">
                     <div class="menu-item-icon">
-                        <svg width="20" height="20" viewBox="0 0 100 100" fill="currentColor"><path d="M22.912 83.333c-3.515-.001-5.93-2.2-6.218-5.567l-.03-.688v-4.17c0-10.402 16.273-18.771 33.331-18.772s33.336 8.37 33.336 18.771l-.005 4.171-.025.688c-.27 3.144-2.395 5.268-5.535 5.537l-.687.03zm36.484-51.027c0-4.928-4.1-9.123-9.4-9.123s-9.396 4.195-9.397 9.123c0 4.929 4.095 9.126 9.396 9.127 5.302 0 9.401-4.198 9.401-9.127m-36.222 44.51h53.642l.004-3.909-.016-.313c-.174-1.646-1.73-4.446-6.867-7.256-5.14-2.812-12.38-4.684-19.942-4.684s-14.802 1.872-19.942 4.684c-5.475 2.996-6.879 5.983-6.879 7.57zm42.711-43.704c-.426 8.265-7.378 14.838-15.89 14.838-8.51 0-15.46-6.574-15.885-14.838l-.022-.806c.001-8.638 7.122-15.64 15.907-15.64s15.91 7.002 15.911 15.64z"></path></svg>
+                        <img src="assets/icon_user.svg" alt="Account" width="20" height="20">
                     </div>
                     <div>Account</div>
                 </div>
                 <div class="menu-item">
                     <div class="menu-item-icon">
-                        <svg width="20" height="20" viewBox="0 0 100 100" fill="currentColor"><path d="M35.445 50.62a2.944 2.944 0 0 1 4.129.513 2.944 2.944 0 0 1-.514 4.128l-10.884 8.464h44.372a2.941 2.941 0 1 1 0 5.882H28.176L39.06 78.07l.226.196a2.944 2.944 0 0 1 .288 3.933 2.944 2.944 0 0 1-4.129.513L17.798 68.987a3 3 0 0 1-.613-.655l-.027-.039a3 3 0 0 1-.283-.544 3 3 0 0 1-.146-.47q-.015-.08-.027-.161a3 3 0 0 1-.038-.452q.001-.22.034-.437.013-.09.031-.18a2.9 2.9 0 0 1 .43-1.015l.026-.038c.168-.244.373-.465.613-.651zM64.551 17.286a2.944 2.944 0 0 0-4.128.513 2.944 2.944 0 0 0 .513 4.129L71.82 30.39H27.449a2.941 2.941 0 1 0 0 5.883H71.82l-10.884 8.463-.226.195a2.944 2.944 0 0 0-.287 3.933 2.944 2.944 0 0 0 4.128.514l17.647-13.726c.24-.187.445-.41.613-.655q.014-.018.027-.038a3 3 0 0 0 .284-.544q.091-.229.145-.47.016-.081.027-.162.036-.222.038-.452-.001-.221-.034-.436a2.942 2.942 0 0 0-.46-1.195l-.027-.038a3 3 0 0 0-.613-.651z"></path></svg>
+                        <img src="assets/icon_trade.svg" alt="Limits" width="20" height="20">
                     </div>
                     <div>Limits</div>
                 </div>
                 <div class="menu-item">
                     <div class="menu-item-icon">
-                        <svg width="20" height="20" viewBox="0 0 100 100" fill="currentColor"><path d="M80.206 77.083a3.125 3.125 0 0 1 0 6.25H19.789a3.125 3.125 0 1 1 0-6.25zM33.33 44.791c1.727 0 3.126 1.4 3.126 3.125v22.917a3.125 3.125 0 1 1-6.25 0V47.916c0-1.725 1.399-3.125 3.125-3.125M49.997 44.791c1.726 0 3.125 1.4 3.125 3.125v22.917a3.125 3.125 0 1 1-6.25 0V47.916c0-1.725 1.4-3.125 3.125-3.125M66.664 44.791c1.726 0 3.125 1.4 3.125 3.125v22.917a3.125 3.125 0 1 1-6.25 0V47.916c0-1.725 1.4-3.125 3.125-3.125"></path><path fill-rule="evenodd" d="M48.638 16.976c1-.483 2.2-.4 3.134.244L81.98 38.053l.252.195a3.123 3.123 0 0 1-3.528 5.12l-.272-.172-6.75-4.659-.017.004H28.33l-.02-.004-6.747 4.66a3.124 3.124 0 1 1-3.548-5.144L48.223 17.22zM37.371 32.29h25.252l-12.626-8.707z" clip-rule="evenodd"></path></svg>
+                        <img src="assets/icon_bank.svg" alt="Bank" width="20" height="20">
                     </div>
                     <div>Custodian &amp; Bank</div>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item active">
                     <div class="menu-item-icon">
-                        <svg width="20" height="20" viewBox="0 0 100 100" fill="currentColor"><path d="M54.4 58.312a9.53 9.53 0 0 1-8.577.11L22.914 47.208v15.678l27.083 13.598 27.084-13.598V46.467zM49.44 16.8a1.24 1.24 0 0 1 1.115 0L77.02 30.09c.913.458.922 1.765.016 2.238l-26.53 13.846-.273.102c-.282.071-.583.041-.85-.09l-27.34-13.374c-.931-.456-.938-1.785-.012-2.25zM33.835 31.62l16.02 7.836L65.5 31.295 49.993 23.51zm49.447 34.692a1.25 1.25 0 0 1-.643.773L50.555 83.198a1.24 1.24 0 0 1-.842.102l-.273-.102-32.084-16.113a1.25 1.25 0 0 1-.643-.773l-.049-.346V39.204c0-.928.968-1.537 1.799-1.131l30.102 14.734c.929.453 2.026.44 2.942-.037L81.504 37.11a1.25 1.25 0 0 1 1.827 1.115v27.742z"></path></svg>
+                        <img src="assets/icon_telegram.svg" alt="Telegram" width="20" height="20">
                     </div>
-                    <div>Address book</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-icon">
-                        <svg width="20" height="20" viewBox="0 0 100 100" fill="currentColor"><path d="M58.333 63.542a3.125 3.125 0 1 1 0 6.25h-25a3.125 3.125 0 1 1 0-6.25zM52.083 48.958a3.125 3.125 0 1 1 0 6.25h-18.75a3.125 3.125 0 1 1 0-6.25z"></path><path fill-rule="evenodd" d="M59.912 12.5c1.152 0 2.252.478 3.04 1.318l17.17 18.315a4.17 4.17 0 0 1 1.128 2.848v48.352a4.167 4.167 0 0 1-4.167 4.167H22.917a4.167 4.167 0 0 1-4.167-4.167V16.667a4.167 4.167 0 0 1 4.167-4.167zm-32.829 6.25c-1.15 0-2.083.933-2.083 2.083v58.334c0 1.15.933 2.083 2.083 2.083h45.834c1.15 0 2.083-.933 2.083-2.083V40.625H58.333a3.125 3.125 0 0 1-3.125-3.125V18.75zm34.375 15.625h12.203L61.458 21.358z" clip-rule="evenodd"></path></svg>
-                    </div>
-                    <div>Statements</div>
+                    <div>Telegram bot</div>
                 </div>
             </nav>
         </aside>
@@ -312,32 +116,7 @@
         </div>
     </footer>
 
-    <script>
-        // Tabs
-        const tabIntro = document.getElementById('tab-intro');
-        const tabSetup = document.getElementById('tab-setup');
-        const panelIntro = document.getElementById('panel-intro');
-        const panelSetup = document.getElementById('panel-setup');
-        function activate(tab) {
-            const isIntro = tab === 'intro';
-            tabIntro.classList.toggle('active', isIntro);
-            tabIntro.setAttribute('aria-selected', String(isIntro));
-            tabSetup.classList.toggle('active', !isIntro);
-            tabSetup.setAttribute('aria-selected', String(!isIntro));
-            panelIntro.style.display = isIntro ? '' : 'none';
-            panelSetup.style.display = isIntro ? 'none' : '';
-        }
-        tabIntro.addEventListener('click', () => activate('intro'));
-        tabSetup.addEventListener('click', () => activate('setup'));
-
-        // Buttons
-        document.getElementById('shareBtn').addEventListener('click', function() {
-            alert('Share link copied');
-        });
-        document.getElementById('startLinkBtn').addEventListener('click', function() {
-            activate('setup');
-        });
-    </script>
+    <script src="js/settings.js"></script>
 </body>
 </html>
 
