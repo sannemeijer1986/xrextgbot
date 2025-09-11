@@ -837,12 +837,16 @@ body {
   .currency-label {
     flex-direction: row;
     gap: 4px;
+    justify-items: center;
+    align-items: center;
   }
 }
 
 .metric-label {
   color: #797a7b;
   font: 500 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  align-items: center;
 }
 
 .metric-amount {
@@ -853,6 +857,11 @@ body {
 .metric-subtext {
   color: #797a7b;
   font: 500 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.metric-eye {
+  margin-left: 2px;
+  display: inline-block;
 }
 
 .asset-card .asset-top {

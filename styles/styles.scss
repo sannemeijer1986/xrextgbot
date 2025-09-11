@@ -780,6 +780,8 @@ body {
   @media (min-width: $bp-md) {
     flex-direction: row;
     gap: 4px;
+    justify-items: center;
+    align-items: center;
   }
 }
 
@@ -787,6 +789,8 @@ body {
 .metric-label {
   color: $color-footer-link;
   font: 500 14px $font-manrope;
+  display: flex;
+  align-items: center;
 }
 .metric-amount {
   color: $color-text-primary;
@@ -795,6 +799,12 @@ body {
 .metric-subtext {
   color: $color-footer-link;
   font: 500 14px $font-manrope;
+}
+
+// Small eye icon next to total assets label
+.metric-eye {
+  margin-left: 2px;
+  display: inline-block;
 }
 
 // Asset card internals
