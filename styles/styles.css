@@ -532,6 +532,7 @@ body {
   justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
+  margin-bottom: 48px;
 }
 .content .status-line {
   color: #2d2f2f;
@@ -668,7 +669,7 @@ body {
   background: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
-  padding: 16px;
+  padding: 32px;
 }
 .content .feature-cardcontainer {
   display: flex;
@@ -747,6 +748,7 @@ body {
 
 .assets-ctas-top {
   display: none;
+  margin-top: 24px;
 }
 @media (min-width: 1280px) {
   .assets-ctas-top {

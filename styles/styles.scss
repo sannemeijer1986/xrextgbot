@@ -506,6 +506,7 @@ body {
     justify-content: space-between;
     gap: 12px;
     flex-wrap: wrap;
+    margin-bottom: 48px;
   }
   .status-line {
     color: $color-text-primary;
@@ -633,7 +634,7 @@ body {
     background: #fff;
     border: 1px solid $color-border;
     border-radius: 12px;
-    padding: 16px;
+    padding: 32px;
   }
 
   .feature-cardcontainer {
@@ -706,6 +707,7 @@ body {
 // Assets CTA placement
 .assets-ctas-top { // buttons inside status row
   display: none; // hidden on mobile
+  margin-top: 24px;
   @media (min-width: $bp-md) { display: flex; }
 }
 .assets-ctas { // buttons below cards (mobile only)
