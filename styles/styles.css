@@ -226,6 +226,26 @@ body {
   body.state-menu .sidebar .menu-item.active .menu-item-icon {
     background: #EBF2FF;
   }
+  body.state-menu .container {
+    flex-direction: column;
+    gap: 12px;
+  }
+  body.state-menu .mobile-menu-header {
+    width: 100%;
+  }
+  body.state-menu .mobile-menu-header .link-close-menu {
+    width: 100%;
+    display: inline-flex;
+  }
+  body.state-menu .sidebar {
+    width: 100%;
+  }
+  body.state-menu .sidebar .menu {
+    background: #ffffff;
+    padding: 12px;
+    border-radius: 8px;
+    width: 100%;
+  }
   body.state-content .mobile-menu-header {
     display: none;
   }

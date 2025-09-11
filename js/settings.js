@@ -31,9 +31,9 @@
       backLinkEl.addEventListener('click', function(e){
         if (!isDesktop()) {
           e.preventDefault();
-          var url = new URL(window.location.href);
-          url.searchParams.set('view','menu');
-          window.location.replace(url.toString());
+          // Only keep view=menu; drop other params like page
+          var base = window.location.origin + window.location.pathname + '?view=menu';
+          window.location.replace(base);
         }
       });
     }
@@ -81,7 +81,7 @@
   (function(){
     try {
       var params = new URLSearchParams(window.location.search);
-      var page = params.get('page') || 'telegram';
+      var page = params.get('page') || 'account';
       // Toggle active class on sidebar items
       try {
         document.querySelectorAll('.menu .menu-item[data-page]').forEach(function(mi){
@@ -95,7 +95,7 @@
         if (tabs) tabs.style.display = '';
       }
       function showAccount(){
-        if (pageTitle) pageTitle.textContent = 'Account settings';
+        if (pageTitle) pageTitle.textContent = 'Account';
         if (statusRow) statusRow.style.display = 'none';
         if (tabs) tabs.style.display = 'none';
         if (panelIntro) {
