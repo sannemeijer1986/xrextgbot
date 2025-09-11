@@ -1,3 +1,10 @@
+.btn-secondary {
+  background: #EBF2FF;
+  color: #2563eb;
+}
+.btn-secondary:hover {
+  background: #f5f9ff;
+}
 // Design tokens
 $color-bg: #fcfcfc;
 $color-text-primary: #2d2f2f;
@@ -7,6 +14,20 @@ $color-link: #2563eb;
 $color-footer-link: #797a7b;
 $color-footer-copy: #2d2f2f;
 $color-chip-bg: #dbeafe;
+
+// Button tokens
+$color-primary: #2F5BFF;
+$color-primary-hover: #336AFF;
+$color-secondary-bg: #EBF2FF;
+$color-secondary-hover: #F5F9FF;
+$color-secondary-text: #2563eb;
+$btn-height: 32px;
+$btn-padding-x: 16px;
+$btn-radius: 9999px;
+$btn-min-width: 100px;
+$btn-md-height: 40px;
+$btn-md-font-size: 14px;
+$btn-md-min-width: 160px;
 
 $font-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 $font-sora: 'Sora', $font-system;
@@ -27,6 +48,39 @@ body {
   margin: 0;
 }
 
+// Global button styles (usable anywhere)
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: $btn-height;
+  min-width: $btn-min-width;
+  padding: 0 $btn-padding-x;
+  border-radius: $btn-radius;
+  font-family: $font-manrope;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.btn-sm { height: $btn-height; }
+.btn-md {
+  height: $btn-md-height;
+  min-width: $btn-md-min_width; /* fallback if var misspelled */
+  min-width: $btn-md-min-width;
+  font-size: $btn-md-font-size;
+  border-radius: 8px;
+}
+.btn-primary {
+  background: $color-primary;
+  color: #fff;
+  white-space: nowrap;
+}
+.btn-primary:hover { background: $color-primary-hover; }
+.btn-secondary { background: $color-secondary-bg; color: $color-secondary-text; }
+.btn-secondary:hover { background: #EFF5FF; }
+
 .app-header {
   position: sticky;
   top: 0;
@@ -36,7 +90,7 @@ body {
   height: 64px;
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  padding: 0;
 
   .header-inner {
     width: 100%;
@@ -151,11 +205,10 @@ body {
   // mobile first
   max-width: 768px;
   margin: 0 auto;
-  padding: 16px;
+  padding: 20px;
   display: flex;
   gap: 48px;
-  min-height: calc(100vh - 64px);
-
+  
   @media (min-width: $bp-md) {
     max-width: 1280px;
     padding: 64px 40px 40px;
@@ -269,53 +322,65 @@ body {
 
     h1 {
       margin: 0;
-      font-size: 32px;
+      font-size: 20px;
       font-weight: 700;
       color: #2D2F2F;
       font-family: $font-sora;
-    }
-
-    .content-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-
-      .btn-ghost {
-        height: 40px;
-        padding: 0 12px;
-        border-radius: 10px;
-        border: 1px solid $color-border;
-        background: #fff;
-        color: #111827;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        cursor: pointer;
-
-        &:hover {
-          background: #f9fafb;
-        }
-      }
-
-      .btn-primary {
-        height: 40px;
-        padding: 0 14px;
-        border-radius: 10px;
-        border: none;
-        background: #2563eb;
-        color: #fff;
-        font-weight: 600;
-        cursor: pointer;
-
-        &:hover {
-          background: #1d4ed8;
-        }
+      @media (min-width: $bp-md) {
+        font-size: 32px;
       }
     }
+
+    // Share button exception: hide text on < md
+    #shareBtn {
+      width: $btn-height;
+      height: $btn-height;
+      min-width: $btn-height;
+      padding: 0;
+      span { display: none; }
+      img {
+        width: 20px;
+        height: 20px;
+      }
+      @media (min-width: $bp-md) {
+        width: auto;
+        height: $btn-height;
+        min-width: $btn-min-width;
+        padding: 0 $btn-padding-x;
+        span { display: inline; }
+        img { width: 16px; height: 16px; }
+      }
+    }
+    // buttons are global (.btn, .btn-primary, .btn-secondary)
   }
 
+  .status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
   .status-line {
     color: $color-text-primary;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .status-label {
+    font-family: $font-manrope;
+    font-weight: 600;
+    font-size: 16px;
+    color: #2D2F2F;
+    @media (min-width: $bp-md) { font-size: 22px; }
+  }
+  .status-value {
+    font-family: $font-manrope;
+    font-weight: 600;
+    font-size: 16px;
+    color: #8FB8FF;
+    @media (min-width: $bp-md) { font-size: 22px; }
   }
 
   .status-link {
@@ -324,18 +389,60 @@ body {
     cursor: default;
   }
 
-  .status-info {
+  .status-info-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 18px;
     height: 18px;
     font-size: 12px;
-    color: $color-muted;
-    border: 1px solid $color-border;
+    color: #8FB8FF;
+    background: transparent;
+    border: 1px solid #8FB8FF;
     border-radius: 9999px;
     margin-left: 4px;
+    cursor: pointer;
+    @media (min-width: $bp-md) {
+      width: 20px;
+      height: 20px;
+    }
   }
+  .status-tooltip {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 10px;
+    background: #ffffff;
+    color: $color-text-primary;
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    font-family: $font-system;
+    font-size: 12px;
+    max-width: 280px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    z-index: 20;
+    &.below { top: calc(100% + 8px); }
+    &.above { bottom: calc(100% + 8px); }
+    &::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+    }
+    &.below::after {
+      top: -6px;
+      border-bottom: 6px solid #ffffff;
+    }
+    &.above::after {
+      bottom: -6px;
+      border-top: 6px solid #ffffff;
+    }
+  }
+  .status-tip-wrap { position: relative; display: inline-flex; }
 
   .tabs {
     display: flex;

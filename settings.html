@@ -6,7 +6,7 @@
     <title>Account Settings</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Manrope:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Manrope:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
@@ -92,16 +92,23 @@
         <section class="content">
             <div class="content-header">
                 <h1>XREX Pay · Telegram bot</h1>
-                <div class="content-actions">
-                    <button class="btn-ghost" id="shareBtn">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7 7v10a4 4 0 1 0 2-3.466V10.47A4 4 0 1 0 7 7Zm10 2a2 2 0 1 1 0-4 2 2 0 0 1 0 4ZM7 19a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" stroke="#111827" stroke-width="1.5"/></svg>
-                        <span>Share</span>
-                    </button>
-                    <button class="btn-primary" id="startLinkBtn">Start linking</button>
-                </div>
+                <button class="btn btn-secondary btn-sm" id="shareBtn">
+                    <img src="assets/icon_share.svg" alt="share" width="14" height="14">
+                    <span>Share</span>
+                </button>
             </div>
 
-            <div class="status-line">Status : <span class="status-link">Not linked</span><span class="status-info">i</span></div>
+            <div class="status-row">
+                <div class="status-line">
+                    <span class="status-label">Status :</span>
+                    <span class="status-value">Not linked</span>
+                    <span class="status-tip-wrap">
+                        <button class="status-info-btn" id="statusInfoBtn" aria-expanded="false" aria-controls="statusTip" type="button">i</button>
+                        <div class="status-tooltip below" id="statusTip" role="tooltip" hidden>Link your Telegram to manage transactions directly in chat.</div>
+                    </span>
+                </div>
+                <button class="btn btn-primary btn-md" id="startLinkBtn">Start linking</button>
+            </div>
 
             <div class="tabs" role="tablist">
                 <button class="tab active" role="tab" aria-selected="true" id="tab-intro">Introduction</button>

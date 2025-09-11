@@ -53,6 +53,36 @@
       }
     });
   });
+
+  // Status tooltip: hover on desktop, click/tap toggle on mobile
+  var statusBtn = document.getElementById('statusInfoBtn');
+  var statusTip = document.getElementById('statusTip');
+  if (statusBtn && statusTip) {
+    function isDesktop() { return window.matchMedia('(min-width: 1280px)').matches; }
+    function showTip() { statusTip.hidden = false; statusBtn.setAttribute('aria-expanded','true'); }
+    function hideTip() { statusTip.hidden = true; statusBtn.setAttribute('aria-expanded','false'); }
+
+    // Hover for desktop
+    statusBtn.addEventListener('mouseenter', function(){ if (isDesktop()) showTip(); });
+    statusBtn.addEventListener('mouseleave', function(){ if (isDesktop()) hideTip(); });
+    statusTip.addEventListener('mouseenter', function(){ if (isDesktop()) showTip(); });
+    statusTip.addEventListener('mouseleave', function(){ if (isDesktop()) hideTip(); });
+
+    // Toggle for mobile/tablet
+    statusBtn.addEventListener('click', function(){
+      if (!isDesktop()) {
+        var isHidden = statusTip.hidden;
+        if (isHidden) showTip(); else hideTip();
+      }
+    });
+
+    // Click outside to dismiss
+    document.addEventListener('click', function(e){
+      if (statusTip.hidden) return;
+      var wrap = statusBtn.parentElement;
+      if (!wrap.contains(e.target)) hideTip();
+    });
+  }
 })();
 
 
