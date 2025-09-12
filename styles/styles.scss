@@ -526,7 +526,11 @@ body {
     justify-content: space-between;
     gap: 12px;
     flex-wrap: wrap;
-    margin-bottom: 48px;
+    margin-bottom: 8px;
+
+    @media (min-width: $bp-md) {
+      margin-bottom: 24px;
+    }
   }
   .status-line {
     color: $color-text-primary;
@@ -615,7 +619,6 @@ body {
     display: flex;
     gap: 16px;
     border-bottom: 1px solid $color-border;
-    margin-top: 8px;
 
     .tab {
       appearance: none;
@@ -691,7 +694,7 @@ body {
 
   // Intro slider styles
   .intro-slider {
-    margin-top: 32px;
+    margin-top: 20px;
     width: 100%;
     --intro-slide-max-width: 320px;
     .swiper-wrapper { align-items: stretch; }
@@ -706,7 +709,7 @@ body {
       width: 100%;
       aspect-ratio: 4 / 4;
       height: auto;
-      border-radius: 12px;
+      border-radius: 4px;
       background: linear-gradient(135deg, #8fb8ff 0%, #4f46e5 100%);
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
       max-width: 100%;
@@ -717,23 +720,26 @@ body {
     .swiper-button-next { color: #1f2937; }
 
     @media (min-width: $bp-md) {
-      .intro-slide-media { max-width: 880px; }
+      margin-top: 32px;
+
+      .intro-slide-media { max-width: 880px; 
+        border-radius: 8px;}
     }
   }
 
   // Intro content below slider
   .intro-content {
-    padding: 32px;
+    padding: 20px;
     .intro-title {
       color: $color-text-primary;
     }
     .intro-title-part1 {
-      margin: 0 0 16px 0;
+      margin: 8px 0 16px 0;
       font-weight: 700;
       font-size: 24px;
       font-family: $font-sora;
       line-height: 1.4;
-      @media (min-width: $bp-md) { font-size: 28px; }
+      @media (min-width: $bp-md) { font-size: 28px; margin: 16px 0 16px 0; }
     }
     .intro-title-part2 {
       margin: 0 0 40px 0;
@@ -787,6 +793,10 @@ body {
       margin-top: 32px;
     }
     .cmd { color: $color-link; font-weight: 300; }
+
+    @media (min-width: $bp-md) {
+      padding: 32px;
+    }
   }
 
   .feature-cardcontainer {

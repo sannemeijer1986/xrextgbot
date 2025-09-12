@@ -174,8 +174,11 @@
         slidesPerView: 'auto',
         spaceBetween: 12,
         loop: false,
-        slidesOffsetBefore: 16,
+        slidesOffsetBefore: 20,
         slidesOffsetAfter: 16,
+        grabCursor: true,
+        simulateTouch: true,
+        mousewheel: { forceToAxis: true, sensitivity: 1, releaseOnEdges: true },
         pagination: { el: container.querySelector('.swiper-pagination'), clickable: true },
         navigation: { nextEl: container.querySelector('.swiper-button-next'), prevEl: container.querySelector('.swiper-button-prev') },
         breakpoints: {
