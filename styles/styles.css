@@ -965,6 +965,128 @@ body {
     margin-bottom: 4px;
   }
 }
+.content .timeline {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+@media (min-width: 1280px) {
+  .content .timeline {
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+}
+.content .timeline-main {
+  display: block;
+}
+.content .timeline-aside {
+  display: block;
+}
+.content .aside-box {
+  background: #f3f4f6;
+  border-radius: 12px;
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+  color: #797a7b;
+  font: 600 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.content .timeline-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.content .timeline-steps .step {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 16px;
+  align-items: stretch;
+  position: relative;
+  padding: 8px 8px;
+  --node-offset: 8px;
+}
+.content .timeline-steps .step + .step {
+  margin-top: 24px;
+}
+.content .timeline-steps .track {
+  position: relative;
+  height: 100%;
+  z-index: 1;
+}
+.content .timeline-steps .track::before {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 0;
+  bottom: -24px;
+  width: 2px;
+  background: #EEEEEE;
+}
+.content .timeline-steps .step:last-child .track::before {
+  bottom: 0;
+}
+.content .timeline-steps .node {
+  position: absolute;
+  z-index: 2;
+  left: 7px;
+  top: var(--node-offset);
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 2px solid #d1d5db;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 8px 8px;
+}
+.content .timeline-steps .is-active .node {
+  background-color: #2250F7;
+  border-color: #2250F7;
+  box-shadow: 0 0 0 4px rgba(34, 80, 247, 0.15);
+  background-image: url("../assets/icon_swiper_chevron_right.svg");
+  --node-offset: 34px;
+}
+.content .timeline-steps .step-content {
+  padding-top: 0;
+  position: relative;
+  z-index: 1;
+}
+.content .timeline-steps .step.is-active::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #F4F7FF;
+  border-radius: 16px;
+  z-index: 0;
+}
+.content .timeline-steps .step-meta {
+  font: 600 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #797a7b;
+  margin-bottom: 6px;
+}
+.content .timeline-steps .step-title {
+  font: 700 18px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #2d2f2f;
+}
+.content .timeline-steps .step-title.muted {
+  color: #797a7b;
+  font-weight: 600;
+}
+.content .timeline-steps .step-desc {
+  color: #797a7b;
+  font: 400 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin-top: 6px;
+}
+.content .timeline-steps .step-actions {
+  margin-top: 12px;
+}
+.content .step-card {
+  background: #F4F7FF;
+  border: 1px solid #EEEEEE;
+  border-radius: 14px;
+  padding: 16px;
+}
 .content .feature-card {
   background: #ffffff;
   border: 1px solid #EEEEEE;
