@@ -704,7 +704,7 @@ body {
     }
     .intro-slide-media {
       width: 100%;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 4 / 4;
       height: auto;
       border-radius: 12px;
       background: linear-gradient(135deg, #8fb8ff 0%, #4f46e5 100%);
@@ -745,7 +745,7 @@ body {
     }
     .intro-section { margin-top: 20px; }
     .intro-item { 
-      margin-bottom: 14px; 
+      padding: 8px 0; 
       display: grid; 
       grid-template-columns: 32px 1fr; 
       grid-column-gap: 12px;
@@ -762,7 +762,7 @@ body {
     .intro-section-title {
       color: $color-text-primary;
       font: 700 18px $font-manrope;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
     .intro-subtitle {
       margin-top: 4px;
@@ -777,16 +777,16 @@ body {
       margin: 0 0 8px 0;
       
     }
-    .intro-divider { height: 1px; background: $color-border; margin: 28px 0; }
+    .intro-divider { height: 1px; background: $color-border; margin: 24px 0 40px 0; }
     .intro-cta {
       .intro-cta-buttons { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
     }
     .intro-footnote {
       color: $color-text-placeholder;
       font: 300 12px $font-manrope;
-      margin-top: 24px;
+      margin-top: 32px;
     }
-    .cmd { color: $color-link; font-weight: 600; }
+    .cmd { color: $color-link; font-weight: 300; }
   }
 
   .feature-cardcontainer {
