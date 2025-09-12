@@ -9,6 +9,7 @@
     <link rel="icon" href="assets/favicons/xrex-favicon-16x16.png" sizes="16x16" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Manrope:wght@300;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
 <body>
     <header class="app-header">
@@ -209,7 +210,22 @@
             </div>
 
             <div id="panel-intro" role="tabpanel" aria-labelledby="tab-intro" class="feature-wrapper">
-                <div style="color:#64748b;">Intro placeholder</div>
+                <div class="intro-slider swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="intro-slide-media" role="img" aria-label="Feature image 1"></div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="intro-slide-media" role="img" aria-label="Feature image 2"></div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="intro-slide-media" role="img" aria-label="Feature image 3"></div>
+                        </div>
+                    </div>
+                    <div class="swiper-button-prev" aria-label="Previous slide"></div>
+                    <div class="swiper-button-next" aria-label="Next slide"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
             </div>
 
             <div id="panel-setup" role="tabpanel" aria-labelledby="tab-setup" class="feature-wrapper" style="display:none;">
@@ -229,6 +245,7 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/settings.js"></script>
 </body>
 </html>

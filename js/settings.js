@@ -146,6 +146,51 @@
     });
   });
 
+  // Initialize Intro Swiper when intro panel is visible and Swiper is available
+  (function initIntroSwiper(){
+    try {
+      if (typeof Swiper === 'undefined') return; // CDN not loaded
+      var container = document.querySelector('.intro-slider.swiper');
+      if (!container) return;
+      // Avoid duplicate init
+      if (container.__swiper_inited) return; 
+      container.__swiper_inited = true;
+      var isDesktop = window.matchMedia('(min-width: 1280px)');
+      var swiper = new Swiper(container, {
+        slidesPerView: 'auto',
+        spaceBetween: 12,
+        loop: false,
+        slidesOffsetBefore: 16,
+        slidesOffsetAfter: 16,
+        pagination: { el: container.querySelector('.swiper-pagination'), clickable: true },
+        navigation: { nextEl: container.querySelector('.swiper-button-next'), prevEl: container.querySelector('.swiper-button-prev') },
+        breakpoints: {
+          600: { spaceBetween: 14, slidesOffsetBefore: 16, slidesOffsetAfter: 16 },
+          900: { spaceBetween: 16, slidesOffsetBefore: 24, slidesOffsetAfter: 24 },
+          1280: { spaceBetween: 20, slidesOffsetBefore: 32, slidesOffsetAfter: 32 }
+        },
+        // Show arrows on desktop; pagination on mobile
+        on: {
+          afterInit: function(){ toggleControls(); },
+          resize: function(){ toggleControls(); }
+        }
+      });
+      function toggleControls(){
+        var isDesk = isDesktop.matches;
+        var prev = container.querySelector('.swiper-button-prev');
+        var next = container.querySelector('.swiper-button-next');
+        var pag  = container.querySelector('.swiper-pagination');
+        if (prev && next) {
+          prev.style.display = isDesk ? '' : 'none';
+          next.style.display = isDesk ? '' : 'none';
+        }
+        if (pag) {
+          pag.style.display = isDesk ? 'none' : '';
+        }
+      }
+    } catch(_) {}
+  })();
+
   // Make menu items navigable via data-link on both mobile and desktop
   document.querySelectorAll('.menu .menu-item[data-link]').forEach(function(item){
     var to = item.getAttribute('data-link');

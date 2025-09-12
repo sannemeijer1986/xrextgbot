@@ -6,7 +6,7 @@
   background: #f5f9ff;
 }
 // Design tokens
-$color-bg: #fcfcfc;
+$color-bg: #fafafa;
 $color-text-primary: #2d2f2f;
 $color-border: #EEEEEE;
 $color-muted: #797a7b;
@@ -249,7 +249,7 @@ body {
   body.state-menu .sidebar { display: block; }
   // In State 1 (menu view) on mobile, suppress active styling
   body.state-menu .sidebar .menu-item.active { color: #797A7B; }
-  body.state-menu .sidebar .menu-item.active .menu-item-icon { background: #f3f4f6; }
+  body.state-menu .sidebar .menu-item.active .menu-item-icon { background: #f0f1f3; }
   body.state-menu .container { flex-direction: column; gap: 12px; }
   body.state-menu .mobile-menu-header { width: 100%; }
   body.state-menu .mobile-menu-header .link-close-menu { width: 100%; display: inline-flex; }
@@ -674,6 +674,49 @@ body {
 
     @media (min-width: $bp-md) { // reuse existing mobile hiding behavior for assets title via selector below
       padding: 32px;
+    }
+  }
+
+  // Intro panel overrides so slides can touch the card edge
+  #panel-intro.feature-wrapper {
+    padding: 0; // flush to the card edges per request
+    overflow: hidden; // keep peeking slides clipped to rounded corners
+    border: 0px solid;
+  }
+
+  #panel-setup.feature-wrapper {
+    border: 0px solid;
+  }
+
+  // Intro slider styles
+  .intro-slider {
+    margin-top: 32px;
+    width: 100%;
+    --intro-slide-max-width: 320px;
+    .swiper-wrapper { align-items: stretch; }
+    .swiper-slide { 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      width: min(100%, var(--intro-slide-max-width));
+      flex: 0 0 auto;
+    }
+    .intro-slide-media {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      height: auto;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #8fb8ff 0%, #4f46e5 100%);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
+      max-width: 100%;
+      margin: 0;
+    }
+    .swiper-pagination { margin-top: 8px; position: static; }
+    .swiper-button-prev,
+    .swiper-button-next { color: #1f2937; }
+
+    @media (min-width: $bp-md) {
+      .intro-slide-media { max-width: 880px; }
     }
   }
 
