@@ -815,8 +815,8 @@ body {
   place-items: center;
 }
 .content .intro-content .intro-icon img {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 }
 .content .intro-content .intro-subtitle, .content .intro-content .intro-paragraph {
   grid-column: 2;
