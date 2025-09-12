@@ -19,6 +19,26 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  scrollbar-color: #c7c9d1 transparent;
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #c7c9d1;
+  border-radius: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html {
+  overflow-y: scroll;
 }
 
 .btn {
@@ -1004,7 +1024,7 @@ body {
   align-items: stretch;
   position: relative;
   padding: 8px 8px;
-  --node-offset: 8px;
+  --node-offset: 10px;
 }
 .content .timeline-steps .step + .step {
   margin-top: 24px;
@@ -1018,10 +1038,13 @@ body {
   content: "";
   position: absolute;
   left: 13px;
-  top: 0;
-  bottom: -24px;
+  top: -28px;
+  bottom: -28px;
   width: 2px;
   background: #EEEEEE;
+}
+.content .timeline-steps .step:first-child .track::before {
+  top: 0;
 }
 .content .timeline-steps .step:last-child .track::before {
   bottom: 0;
@@ -1029,23 +1052,27 @@ body {
 .content .timeline-steps .node {
   position: absolute;
   z-index: 2;
-  left: 7px;
+  left: 5px;
   top: var(--node-offset);
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   border-radius: 9999px;
   background: #ffffff;
   border: 2px solid #d1d5db;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 8px 8px;
+  background-size: 10px 10px;
 }
 .content .timeline-steps .is-active .node {
   background-color: #2250F7;
   border-color: #2250F7;
-  box-shadow: 0 0 0 4px rgba(34, 80, 247, 0.15);
+  width: 22px;
+  height: 22px;
+  left: 2px;
+  box-shadow: 0 0 0 6px rgba(34, 80, 247, 0.12);
   background-image: url("../assets/icon_swiper_chevron_right.svg");
-  --node-offset: 34px;
+  background-size: 12px 12px;
+  --node-offset: 42px;
 }
 .content .timeline-steps .step-content {
   padding-top: 0;
@@ -1083,7 +1110,7 @@ body {
 }
 .content .step-card {
   background: #F4F7FF;
-  border: 1px solid #EEEEEE;
+  border: none;
   border-radius: 14px;
   padding: 16px;
 }
