@@ -9,7 +9,8 @@
 $color-bg: #fafafa;
 $color-text-primary: #2d2f2f;
 $color-border: #EEEEEE;
-$color-muted: #797a7b;
+$color-text-secondary: #797a7b;
+$color-text-placeholder: #BCBDBD;
 $color-link: #2563eb;
 $color-footer-link: #797a7b;
 $color-footer-copy: #2d2f2f;
@@ -720,6 +721,74 @@ body {
     }
   }
 
+  // Intro content below slider
+  .intro-content {
+    padding: 32px;
+    .intro-title {
+      color: $color-text-primary;
+    }
+    .intro-title-part1 {
+      margin: 0 0 16px 0;
+      font-weight: 700;
+      font-size: 24px;
+      font-family: $font-sora;
+      line-height: 1.4;
+      @media (min-width: $bp-md) { font-size: 28px; }
+    }
+    .intro-title-part2 {
+      margin: 0 0 40px 0;
+      font-weight: 600;
+      font-family: $font-manrope;
+      font-size: 18px;
+      line-height: 1.4;
+      @media (min-width: $bp-md) { font-size: 22px; }
+    }
+    .intro-section { margin-top: 20px; }
+    .intro-item { 
+      margin-bottom: 14px; 
+      display: grid; 
+      grid-template-columns: 32px 1fr; 
+      grid-column-gap: 12px;
+      align-items: start;
+    }
+    .intro-icon {
+      width: 28px; height: 28px; border-radius: 9999px; background: $color-bg; display: grid; place-items: center;
+    }
+    .intro-icon img {
+      width: 20px;
+      height: 20px;
+    }
+    .intro-subtitle, .intro-paragraph { grid-column: 2; }
+    .intro-section-title {
+      color: $color-text-primary;
+      font: 700 18px $font-manrope;
+      margin-bottom: 24px;
+    }
+    .intro-subtitle {
+      margin-top: 4px;
+      color: $color-text-primary;
+      text-align: left;
+      font: 500 16px $font-manrope;
+    }
+    .intro-paragraph {
+      color: $color-text-secondary;
+      font: 300 14px $font-manrope;
+      line-height: 1.6;
+      margin: 0 0 8px 0;
+      
+    }
+    .intro-divider { height: 1px; background: $color-border; margin: 28px 0; }
+    .intro-cta {
+      .intro-cta-buttons { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
+    }
+    .intro-footnote {
+      color: $color-text-placeholder;
+      font: 300 12px $font-manrope;
+      margin-top: 24px;
+    }
+    .cmd { color: $color-link; font-weight: 600; }
+  }
+
   .feature-cardcontainer {
     // mobile first
     display: flex;
@@ -880,7 +949,7 @@ body {
   }
   .field { display: flex; flex-direction: column; gap: 8px; }
   .field-disabled .input-card { background-color: #F8F8F8; }
-  .field-disabled .value { color: $color-muted }
+  .field-disabled .value { color: $color-text-secondary }
   .field-label { 
     font-family: $font-manrope; font-weight: 500; font-size: 13px; color: $color-footer-link; 
 
@@ -1022,7 +1091,7 @@ body {
     font-size: 14px;
   }
   .asset-meta2 {
-    color: $color-muted;
+    color: $color-text-secondary;
     font-family: $font-manrope;
     font-weight: 400;
     font-size: 12px;

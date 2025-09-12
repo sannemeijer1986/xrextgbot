@@ -68,6 +68,16 @@
       panelIntro.style.display = isIntro ? '' : 'none';
       panelSetup.style.display = isIntro ? 'none' : '';
     }
+    // Hide top Start linking button when viewing Setup
+    try {
+      if (typeof startLinkBtn !== 'undefined' && startLinkBtn) {
+        var hidden = !isIntro;
+        startLinkBtn.style.opacity = hidden ? '0' : '1';
+        startLinkBtn.style.pointerEvents = hidden ? 'none' : '';
+        startLinkBtn.setAttribute('aria-hidden', hidden ? 'true' : 'false');
+
+      }
+    } catch(_){}
   }
 
   if (tabIntro) tabIntro.addEventListener('click', function () { activate('intro'); });
@@ -86,6 +96,10 @@
 
   var startLinkBtn = document.getElementById('startLinkBtn');
   if (startLinkBtn) startLinkBtn.addEventListener('click', function () { activate('setup'); });
+  // CTA button in intro content should also switch to Setup
+  document.querySelectorAll('.js-start-link').forEach(function(btn){
+    btn.addEventListener('click', function(){ activate('setup'); });
+  });
 
   // Page routing: telegram vs account using `page` query param
   (function(){

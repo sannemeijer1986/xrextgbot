@@ -766,6 +766,98 @@ body {
     max-width: 880px;
   }
 }
+.content .intro-content {
+  padding: 32px;
+}
+.content .intro-content .intro-title {
+  color: #2d2f2f;
+}
+.content .intro-content .intro-title-part1 {
+  margin: 0 0 16px 0;
+  font-weight: 700;
+  font-size: 24px;
+  font-family: "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.4;
+}
+@media (min-width: 1280px) {
+  .content .intro-content .intro-title-part1 {
+    font-size: 28px;
+  }
+}
+.content .intro-content .intro-title-part2 {
+  margin: 0 0 40px 0;
+  font-weight: 600;
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 18px;
+  line-height: 1.4;
+}
+@media (min-width: 1280px) {
+  .content .intro-content .intro-title-part2 {
+    font-size: 22px;
+  }
+}
+.content .intro-content .intro-section {
+  margin-top: 20px;
+}
+.content .intro-content .intro-item {
+  margin-bottom: 14px;
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  grid-column-gap: 12px;
+  align-items: start;
+}
+.content .intro-content .intro-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  background: #fafafa;
+  display: grid;
+  place-items: center;
+}
+.content .intro-content .intro-icon img {
+  width: 20px;
+  height: 20px;
+}
+.content .intro-content .intro-subtitle, .content .intro-content .intro-paragraph {
+  grid-column: 2;
+}
+.content .intro-content .intro-section-title {
+  color: #2d2f2f;
+  font: 700 18px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin-bottom: 24px;
+}
+.content .intro-content .intro-subtitle {
+  margin-top: 4px;
+  color: #2d2f2f;
+  text-align: left;
+  font: 500 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.content .intro-content .intro-paragraph {
+  color: #797a7b;
+  font: 300 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  margin: 0 0 8px 0;
+}
+.content .intro-content .intro-divider {
+  height: 1px;
+  background: #EEEEEE;
+  margin: 28px 0;
+}
+.content .intro-content .intro-cta .intro-cta-buttons {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.content .intro-content .intro-footnote {
+  color: #BCBDBD;
+  font: 300 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin-top: 24px;
+}
+.content .intro-content .cmd {
+  color: #2563eb;
+  font-weight: 600;
+}
 .content .feature-cardcontainer {
   display: flex;
   gap: 16px;
