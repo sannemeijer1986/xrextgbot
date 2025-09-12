@@ -75,6 +75,14 @@ body {
   font-size: $btn-md-font-size;
   border-radius: 8px;
 }
+// Large button
+.btn-lg {
+  height: 52px;
+  font-size: 16px;
+  font-family: $font-manrope;
+  font-weight: 700;
+  border-radius: 8px;
+}
 // Utility: force medium button to small on mobile
 .mobile-btn-sm {
   @media (max-width: $bp-md) {
@@ -761,8 +769,12 @@ body {
     margin: 40px 0 12px 0;
     font-family: $font-manrope;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 16px;
     color: $color-footer-link;
+
+    @media (min-width: $bp-md) {
+      font-size: 18px;
+    }  
   }
 
   .card {
@@ -777,34 +789,74 @@ body {
   .editable .icon-btn { margin-left: auto; background: transparent; border: none; cursor: pointer; }
 
   .avatar {
-    width: 60px;
-    height: 60px;
+    width: 48px;
+    height: 48px;
     border-radius: 9999px;
     background: $color-chip-bg;
     display: grid;
     place-items: center;
+ 
+    @media (min-width: $bp-md) {
+      width: 60px;
+      height: 60px;
+    }
     .avatar-initial { font-family: $font-manrope; font-weight: 700; color: #2d4b9f; }
   }
-  .name-block { display: flex; flex-direction: column; gap: 2px; }
-  .name { font-family: $font-manrope; font-weight: 700; font-size: 22px; color: $color-text-primary; }
-  .caption { font-family: $font-manrope; font-weight: 400; font-size: 16px; color: $color-footer-link; }
 
-  .grid-2 { display: grid; grid-template-columns: 1fr; gap: 16px; @media (min-width: $bp-md) { grid-template-columns: 1fr 1fr; } }
+  .avatar img {
+    width: 48px;
+    height: 48px;
+     
+    @media (min-width: $bp-md) {
+      width: 60px;
+      height: 60px;
+    }
+  }
+  .name-block { display: flex; flex-direction: column; gap: 2px; }
+  .name { 
+    font-family: $font-manrope; font-weight: 700; font-size: 16px; color: $color-text-primary; 
+
+    @media (min-width: $bp-md) {
+      font-size: 22px;
+    }
+  }
+  .caption { 
+    font-family: $font-manrope; font-weight: 400; font-size: 14px; color: $color-footer-link; 
+
+    @media (min-width: $bp-md) {
+      font-size: 16px;
+    }
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr; gap: 32px; margin-bottom: 40px;
+    @media (min-width: $bp-md) { 
+      grid-template-columns: 1fr 1fr; 
+      gap: 16px; 
+      margin-bottom: 48px;
+    } 
+  }
   .field { display: flex; flex-direction: column; gap: 8px; }
   .field-disabled .input-card { background-color: #F8F8F8; }
   .field-disabled .value { color: $color-muted }
-  .field-label { font-family: $font-manrope; font-weight: 500; font-size: 15px; color: $color-footer-link; }
+  .field-label { 
+    font-family: $font-manrope; font-weight: 500; font-size: 13px; color: $color-footer-link; 
+
+    @media (min-width: $bp-md) {
+      font-size: 15px;
+    }    
+  }
   .input-card { display: flex; align-items: center; gap: 12px; border: 1px solid $color-border; border-radius: 12px; padding: 14px 16px; background: #fff; min-height: 60px; }
   .input-card-split { justify-content: space-between; }
-  .value { font-family: $font-manrope; font-weight: 500; font-size: 14px; color: $color-text-primary; }
+  .value { font-family: $font-manrope; font-weight: 500; font-size: 16px; color: $color-text-primary; }
   .name-card { margin-bottom: 32px; }
   .auth-row { display: flex; align-items: center; gap: 8px; }
-  .auth-state.enabled { color: #16a34a; font-family: $font-manrope; font-weight: 600; font-size: 14px; }
+  .auth-state.enabled { color: #2F9752; font-family: $font-manrope; font-weight: 600; font-size: 14px; }
 
   .divider { height: 1px; background: $color-border; margin: 24px 0; }
 
-  .logout-row { margin-top: 24px; }
+  .logout-row { margin: 56px 0 24px 0; }
   .btn-block { width: 100%; justify-content: center; }
+  .btn-secondary.btn-lg { max-width: 100%; width: 100%; @media (min-width: $bp-md) { max-width: 250px; } }
 
   // iOS-like switch
   .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
@@ -813,6 +865,10 @@ body {
   .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 2px; bottom: 2px; background-color: white; transition: .2s; border-radius: 50%; }
   .switch input:checked + .slider { background-color: #2563eb; }
   .switch input:checked + .slider:before { transform: translateX(20px); }
+
+  // Ensure currency row stays on one line inside account panel
+  .market-currency { display: flex; align-items: center; gap: 10px; flex-wrap: nowrap; white-space: nowrap; }
+  .market-currency .currency-label { display: inline-flex; flex-direction: row; gap: 4px; }
 }
 
 .home-greeting { @media (max-width: $bp-md) { display: none; } }

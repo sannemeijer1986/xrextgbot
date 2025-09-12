@@ -49,6 +49,14 @@ body {
   border-radius: 8px;
 }
 
+.btn-lg {
+  height: 52px;
+  font-size: 16px;
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 700;
+  border-radius: 8px;
+}
+
 @media (max-width: 1280px) {
   .mobile-btn-sm {
     height: 32px;
@@ -809,8 +817,13 @@ body {
   margin: 40px 0 12px 0;
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
   color: #797a7b;
+}
+@media (min-width: 1280px) {
+  .account-panel .section-heading {
+    font-size: 18px;
+  }
 }
 .account-panel .card {
   display: flex;
@@ -828,17 +841,33 @@ body {
   cursor: pointer;
 }
 .account-panel .avatar {
-  width: 60px;
-  height: 60px;
+  width: 48px;
+  height: 48px;
   border-radius: 9999px;
   background: #dbeafe;
   display: grid;
   place-items: center;
 }
+@media (min-width: 1280px) {
+  .account-panel .avatar {
+    width: 60px;
+    height: 60px;
+  }
+}
 .account-panel .avatar .avatar-initial {
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 700;
   color: #2d4b9f;
+}
+.account-panel .avatar img {
+  width: 48px;
+  height: 48px;
+}
+@media (min-width: 1280px) {
+  .account-panel .avatar img {
+    width: 60px;
+    height: 60px;
+  }
 }
 .account-panel .name-block {
   display: flex;
@@ -848,23 +877,36 @@ body {
 .account-panel .name {
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 700;
-  font-size: 22px;
+  font-size: 16px;
   color: #2d2f2f;
+}
+@media (min-width: 1280px) {
+  .account-panel .name {
+    font-size: 22px;
+  }
 }
 .account-panel .caption {
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   color: #797a7b;
+}
+@media (min-width: 1280px) {
+  .account-panel .caption {
+    font-size: 16px;
+  }
 }
 .account-panel .grid-2 {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 32px;
+  margin-bottom: 40px;
 }
 @media (min-width: 1280px) {
   .account-panel .grid-2 {
     grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 48px;
   }
 }
 .account-panel .field {
@@ -881,8 +923,13 @@ body {
 .account-panel .field-label {
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 13px;
   color: #797a7b;
+}
+@media (min-width: 1280px) {
+  .account-panel .field-label {
+    font-size: 15px;
+  }
 }
 .account-panel .input-card {
   display: flex;
@@ -900,7 +947,7 @@ body {
 .account-panel .value {
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
   color: #2d2f2f;
 }
 .account-panel .name-card {
@@ -912,7 +959,7 @@ body {
   gap: 8px;
 }
 .account-panel .auth-state.enabled {
-  color: #16a34a;
+  color: #2F9752;
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 600;
   font-size: 14px;
@@ -923,11 +970,20 @@ body {
   margin: 24px 0;
 }
 .account-panel .logout-row {
-  margin-top: 24px;
+  margin: 56px 0 24px 0;
 }
 .account-panel .btn-block {
   width: 100%;
   justify-content: center;
+}
+.account-panel .btn-secondary.btn-lg {
+  max-width: 100%;
+  width: 100%;
+}
+@media (min-width: 1280px) {
+  .account-panel .btn-secondary.btn-lg {
+    max-width: 250px;
+  }
 }
 .account-panel .switch {
   position: relative;
@@ -967,6 +1023,18 @@ body {
 }
 .account-panel .switch input:checked + .slider:before {
   transform: translateX(20px);
+}
+.account-panel .market-currency {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+.account-panel .market-currency .currency-label {
+  display: inline-flex;
+  flex-direction: row;
+  gap: 4px;
 }
 
 @media (max-width: 1280px) {
