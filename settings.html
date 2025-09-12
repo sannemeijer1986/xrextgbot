@@ -106,7 +106,7 @@
                     <svg class="icon-back" width="16" height="16" viewBox="0 0 25 25" aria-hidden="true" focusable="false">
                         <path d="M15.7,16.3l-4.2-4.2,4.2-4.2c.4-.4.4-1.1,0-1.5-.4-.4-1.1-.4-1.5,0l-5.1,5.1c-.3.3-.3.9,0,1.2l5.1,5.1c.4.4,1.1.4,1.5,0,.4-.4.4-1.1,0-1.5Z" fill="currentColor"/>
                     </svg>
-                    <span>Back to menu</span>
+                    <span>Back</span>
                 </a>
             </div>
             <div class="content-header">
@@ -134,8 +134,78 @@
                 <button class="tab" role="tab" aria-selected="false" id="tab-setup">Setup</button>
             </div>
 
-            <div id="panel-account" class="feature-wrapper" role="tabpanel" aria-label="Account" >
-                <div style="color:#64748b;">Account details and preferences will appear here.</div>
+            <div id="panel-account" class="account-panel" role="tabpanel" aria-label="Account">
+                <div class="acct-status-line">
+                    <span class="acct-status-label">Account status :</span>
+                    <span class="acct-status-value verified">Verified</span>
+                </div>
+
+                <h3 class="section-heading">Information</h3>
+                <div class="field-row card editable name-card">
+                    <div class="avatar">
+                        <img src="assets/logo_agp.svg" alt="AGP" width="60" height="60">
+                    </div>
+                    <div class="name-block">
+                        <div class="name">AGP Technology</div>
+                        <div class="caption">@AGPTECH</div>
+                    </div>
+                    <button class="icon-btn" aria-label="Edit profile"><img src="assets/icon_chevron_right.svg" width="20" height="20" alt="edit"></button>
+                </div>
+
+                <div class="grid-2">
+                    <div class="field field-disabled">
+                        <div class="field-label">Email</div>
+                        <div class="input-card editable">
+                            <div class="value">i***@agptechnology.com</div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Mobile number</div>
+                        <div class="input-card editable">
+                            <div class="value">******5678</div>
+                            <button class="icon-btn" aria-label="Edit mobile"><img src="assets/icon_chevron_right.svg" width="20" height="20" alt="edit"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <h3 class="section-heading mb-32">Security</h3>
+                <div class="grid-2">
+                    <div class="field">
+                        <div class="field-label">Password</div>
+                        <div class="input-card editable">
+                            <div class="value">************</div>
+                            <button class="icon-btn" aria-label="Edit password"><img src="assets/icon_chevron_right.svg" width="20" height="20" alt="edit"></button>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Authenticator app</div>
+                        <div class="input-card input-card-split">
+                            <div class="auth-row">
+                                <span class="auth-state enabled">Enabled</span>
+                            </div>
+                            <label class="switch" aria-label="Toggle authenticator">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <h3 class="section-heading mb-32">Preferred currency</h3>
+                <div class="field">
+                    <div class="field-label">Currency</div>
+                    <div class="input-card">
+                        <div class="market-currency"><img src="assets/icon_USD.svg" width="20" height="20" alt="USD"> <div class="currency-label"><span class="cl-primary">USD</span><span class="cl-secondary">(US Dollar)</span></div></div>
+                    </div>
+                </div>
+
+                <div class="logout-row">
+                    <button class="btn btn-secondary btn-md btn-block">Log out</button>
+                </div>
             </div>
 
             <div id="panel-intro" role="tabpanel" aria-labelledby="tab-intro" class="feature-wrapper">

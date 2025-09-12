@@ -262,7 +262,7 @@ body {
   padding: 20px;
   display: flex;
   width: 100%;
-  gap: 48px;
+  gap: 56px;
   flex: 1 1 auto;
   
   @media (min-width: $bp-md) {
@@ -730,6 +730,90 @@ body {
     }
   }
 }
+// Account panel (no white card wrapper)
+.account-panel {
+  background: transparent;
+  border: none;
+  padding: 0;
+
+  .acct-status-wrap { margin: 20px 0 16px 0; }
+  .acct-status-line { display: flex; gap: 6px; align-items: center; }
+  .acct-status-label {
+    font-family: $font-manrope;
+    font-weight: 600;
+    font-size: 16px;
+    color: $color-text-primary;
+    @media (min-width: $bp-md) {
+      font-size: 22px;
+    }
+  }
+  .acct-status-value {
+    font-family: $font-manrope;
+    font-weight: 600;
+    font-size: 16px;
+    color: #2F9752;
+    @media (min-width: $bp-md) {
+      font-size: 22px;
+    }
+  }
+
+  .section-heading {
+    margin: 40px 0 12px 0;
+    font-family: $font-manrope;
+    font-weight: 600;
+    font-size: 18px;
+    color: $color-footer-link;
+  }
+
+  .card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid $color-border;
+    border-radius: 12px;
+    padding: 16px;
+    background: #fff;
+  }
+  .editable .icon-btn { margin-left: auto; background: transparent; border: none; cursor: pointer; }
+
+  .avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 9999px;
+    background: $color-chip-bg;
+    display: grid;
+    place-items: center;
+    .avatar-initial { font-family: $font-manrope; font-weight: 700; color: #2d4b9f; }
+  }
+  .name-block { display: flex; flex-direction: column; gap: 2px; }
+  .name { font-family: $font-manrope; font-weight: 700; font-size: 22px; color: $color-text-primary; }
+  .caption { font-family: $font-manrope; font-weight: 400; font-size: 16px; color: $color-footer-link; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr; gap: 16px; @media (min-width: $bp-md) { grid-template-columns: 1fr 1fr; } }
+  .field { display: flex; flex-direction: column; gap: 8px; }
+  .field-disabled .input-card { background-color: #F8F8F8; }
+  .field-disabled .value { color: $color-muted }
+  .field-label { font-family: $font-manrope; font-weight: 500; font-size: 15px; color: $color-footer-link; }
+  .input-card { display: flex; align-items: center; gap: 12px; border: 1px solid $color-border; border-radius: 12px; padding: 14px 16px; background: #fff; min-height: 60px; }
+  .input-card-split { justify-content: space-between; }
+  .value { font-family: $font-manrope; font-weight: 500; font-size: 14px; color: $color-text-primary; }
+  .name-card { margin-bottom: 32px; }
+  .auth-row { display: flex; align-items: center; gap: 8px; }
+  .auth-state.enabled { color: #16a34a; font-family: $font-manrope; font-weight: 600; font-size: 14px; }
+
+  .divider { height: 1px; background: $color-border; margin: 24px 0; }
+
+  .logout-row { margin-top: 24px; }
+  .btn-block { width: 100%; justify-content: center; }
+
+  // iOS-like switch
+  .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+  .switch input { opacity: 0; width: 0; height: 0; }
+  .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #e5e7eb; transition: .2s; border-radius: 9999px; }
+  .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 2px; bottom: 2px; background-color: white; transition: .2s; border-radius: 50%; }
+  .switch input:checked + .slider { background-color: #2563eb; }
+  .switch input:checked + .slider:before { transform: translateX(20px); }
+}
 
 .home-greeting { @media (max-width: $bp-md) { display: none; } }
 .assets-title { @media (max-width: $bp-md) { display: none; } }
@@ -987,3 +1071,12 @@ body {
   }
 }
 
+
+
+.mb-24 {
+  margin-bottom: 24px !important;
+}
+
+.mb-32 {
+  margin-bottom: 32px !important;
+}

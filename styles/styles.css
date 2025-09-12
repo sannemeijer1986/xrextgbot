@@ -277,7 +277,7 @@ body {
   padding: 20px;
   display: flex;
   width: 100%;
-  gap: 48px;
+  gap: 56px;
   flex: 1 1 auto;
 }
 @media (min-width: 1280px) {
@@ -770,6 +770,205 @@ body {
   box-shadow: 0 0 0 2px #1f2937;
 }
 
+.account-panel {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+.account-panel .acct-status-wrap {
+  margin: 20px 0 16px 0;
+}
+.account-panel .acct-status-line {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.account-panel .acct-status-label {
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #2d2f2f;
+}
+@media (min-width: 1280px) {
+  .account-panel .acct-status-label {
+    font-size: 22px;
+  }
+}
+.account-panel .acct-status-value {
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #2F9752;
+}
+@media (min-width: 1280px) {
+  .account-panel .acct-status-value {
+    font-size: 22px;
+  }
+}
+.account-panel .section-heading {
+  margin: 40px 0 12px 0;
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: #797a7b;
+}
+.account-panel .card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #EEEEEE;
+  border-radius: 12px;
+  padding: 16px;
+  background: #fff;
+}
+.account-panel .editable .icon-btn {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.account-panel .avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 9999px;
+  background: #dbeafe;
+  display: grid;
+  place-items: center;
+}
+.account-panel .avatar .avatar-initial {
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 700;
+  color: #2d4b9f;
+}
+.account-panel .name-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.account-panel .name {
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: #2d2f2f;
+}
+.account-panel .caption {
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: #797a7b;
+}
+.account-panel .grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 1280px) {
+  .account-panel .grid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.account-panel .field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.account-panel .field-disabled .input-card {
+  background-color: #F8F8F8;
+}
+.account-panel .field-disabled .value {
+  color: #797a7b;
+}
+.account-panel .field-label {
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: #797a7b;
+}
+.account-panel .input-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #EEEEEE;
+  border-radius: 12px;
+  padding: 14px 16px;
+  background: #fff;
+  min-height: 60px;
+}
+.account-panel .input-card-split {
+  justify-content: space-between;
+}
+.account-panel .value {
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #2d2f2f;
+}
+.account-panel .name-card {
+  margin-bottom: 32px;
+}
+.account-panel .auth-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.account-panel .auth-state.enabled {
+  color: #16a34a;
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+}
+.account-panel .divider {
+  height: 1px;
+  background: #EEEEEE;
+  margin: 24px 0;
+}
+.account-panel .logout-row {
+  margin-top: 24px;
+}
+.account-panel .btn-block {
+  width: 100%;
+  justify-content: center;
+}
+.account-panel .switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+.account-panel .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.account-panel .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e5e7eb;
+  transition: 0.2s;
+  border-radius: 9999px;
+}
+.account-panel .slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.2s;
+  border-radius: 50%;
+}
+.account-panel .switch input:checked + .slider {
+  background-color: #2563eb;
+}
+.account-panel .switch input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
 @media (max-width: 1280px) {
   .home-greeting {
     display: none;
@@ -1027,4 +1226,12 @@ body {
     width: auto;
     text-align: left;
   }
+}
+
+.mb-24 {
+  margin-bottom: 24px !important;
+}
+
+.mb-32 {
+  margin-bottom: 32px !important;
 }
