@@ -255,8 +255,11 @@ body {
   body.state-menu .mobile-menu-header { width: 100%; }
   body.state-menu .mobile-menu-header .link-close-menu { width: 100%; display: inline-flex; }
   body.state-menu .sidebar { width: 100%; }
-  body.state-menu .sidebar .menu { background: #ffffff; border: 1px solid $color-border; padding: 0px; border-radius: 8px; width: 100%; }
-  body.state-menu .sidebar .menu-item { border-bottom: 1px solid $color-border; border-radius: 0px; padding: 20px 12px;}
+  body.state-menu .sidebar .menu { background: #ffffff; padding: 0px; border-radius: 8px; width: 100%; }
+  // show a divider under each menu item on mobile without changing spacing (except last)
+  body.state-menu .sidebar .menu-item { position: relative; border-radius: 0px; padding: 20px 20px; }
+  body.state-menu .sidebar .menu-item::after { content: ""; position: absolute; left: 20px; right: 20px; bottom: 0; height: 1px; background: $color-border; }
+  body.state-menu .sidebar .menu-item:last-child::after { display: none; }
   body.state-menu .sidebar .menu-item:last-child { border-bottom: none; }
   body.state-menu .sidebar .menu-item-icon { width: 32px; height: 32px; }
 

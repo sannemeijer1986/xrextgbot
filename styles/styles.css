@@ -255,15 +255,26 @@ body {
   }
   body.state-menu .sidebar .menu {
     background: #ffffff;
-    border: 1px solid #EEEEEE;
     padding: 0px;
     border-radius: 8px;
     width: 100%;
   }
   body.state-menu .sidebar .menu-item {
-    border-bottom: 1px solid #EEEEEE;
+    position: relative;
     border-radius: 0px;
-    padding: 20px 12px;
+    padding: 20px 20px;
+  }
+  body.state-menu .sidebar .menu-item::after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 0;
+    height: 1px;
+    background: #EEEEEE;
+  }
+  body.state-menu .sidebar .menu-item:last-child::after {
+    display: none;
   }
   body.state-menu .sidebar .menu-item:last-child {
     border-bottom: none;
