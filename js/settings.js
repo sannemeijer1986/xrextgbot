@@ -84,14 +84,60 @@
   if (tabSetup) tabSetup.addEventListener('click', function () { activate('setup'); });
 
   var shareBtn = document.getElementById('shareBtn');
+  function showSnackbar(message) {
+    try {
+      var bar = document.getElementById('snackbar');
+      if (!bar) return;
+      var textNode = bar.querySelector('.snackbar-text');
+      if (textNode && typeof message === 'string') textNode.textContent = message;
+      bar.hidden = false;
+      bar.setAttribute('aria-hidden','false');
+      // reflow
+      void bar.offsetWidth;
+      bar.classList.add('show');
+      clearTimeout(bar._hideTimer);
+      bar._hideTimer = setTimeout(function(){
+        bar.classList.add('leaving');
+        bar.classList.remove('show');
+        setTimeout(function(){
+          bar.classList.remove('leaving');
+          bar.setAttribute('aria-hidden','true');
+        }, 220);
+      }, 2000);
+    } catch(_) {}
+  }
+
   if (shareBtn) shareBtn.addEventListener('click', function () {
     try {
       var url = window.location.href;
-      navigator.clipboard && navigator.clipboard.writeText(url);
-      alert('Share link copied');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url);
+      }
+      showSnackbar('Page link copied to clipboard');
     } catch (_) {
-      alert('Share link');
+      // noop
     }
+  });
+
+  // Copy command text spans and show snackbar
+  document.querySelectorAll('.cmd').forEach(function(cmd){
+    cmd.addEventListener('click', function(){
+      try {
+        var text = (cmd.textContent || '').trim();
+        if (text && navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text);
+        }
+        showSnackbar('Command copied to clipboard');
+      } catch(_){ showSnackbar('Command copied to clipboard'); }
+    });
+    cmd.setAttribute('role','button');
+    cmd.setAttribute('tabindex','0');
+    cmd.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        cmd.click();
+      }
+    });
   });
 
   var startLinkBtn = document.getElementById('startLinkBtn');

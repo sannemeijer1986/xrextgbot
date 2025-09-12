@@ -865,7 +865,8 @@ body {
 }
 .content .intro-content .cmd {
   color: #2563eb;
-  font-weight: 300;
+  font-weight: 400;
+  cursor: pointer;
 }
 @media (min-width: 1280px) {
   .content .intro-content {
@@ -1454,4 +1455,71 @@ body {
 
 .mb-32 {
   margin-bottom: 32px !important;
+}
+
+.snackbar {
+  position: fixed;
+  top: 64px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: #2b303b;
+  color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  z-index: 1200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.24s cubic-bezier(0.22, 0.61, 0.36, 1);
+  max-width: 540px;
+}
+@media (min-width: 1280px) {
+  .snackbar {
+    min-width: 400px;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+.snackbar.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.snackbar.leaving {
+  opacity: 0;
+  transform: translateX(-50%) translateY(8px);
+}
+
+.snackbar .snackbar-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  flex: 0 0 auto;
+}
+
+.snackbar .snackbar-text {
+  line-height: 1.4;
+}
+
+@media (max-width: 1279px) {
+  .snackbar {
+    width: calc(100% - 32px);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%) translateY(-6px);
+  }
+  .snackbar.show {
+    transform: translateX(-50%) translateY(0);
+  }
+  .snackbar.leaving {
+    transform: translateX(-50%) translateY(8px);
+  }
 }
