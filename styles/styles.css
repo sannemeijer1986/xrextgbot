@@ -1137,6 +1137,19 @@ html {
   color: #BCBDBD;
   opacity: 0.9;
 }
+.content .timeline-steps .step.is-completed .step-row.step-title .track-wrapper .node {
+  background-color: #5AC47D;
+  border-color: #5AC47D;
+  border: 0px transparent;
+  width: 24px;
+  height: 24px;
+  background-position: center center;
+  background-image: url("../assets/icon_timeline_completed.svg");
+  background-size: 20px 20px;
+}
+.content .timeline-steps .step.is-completed .step-row.step-title .track-wrapper .track {
+  background: #5AC47D;
+}
 .content .timeline-steps > .step:first-child .step-label .track-wrapper .track {
   opacity: 0;
 }

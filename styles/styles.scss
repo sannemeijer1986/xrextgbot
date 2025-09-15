@@ -1012,6 +1012,20 @@ html { overflow-y: scroll; } // force scrollbar to always show
     color: $color-text-placeholder;
     opacity: .9;
   }
+  // Completed node + connecting tracks styling
+  .timeline-steps .step.is-completed .step-row.step-title .track-wrapper .node {
+    background-color: #5AC47D;
+    border-color: #5AC47D;
+    border: 0px transparent;
+    width: 24px;
+    height: 24px;
+    background-position: center center;
+    background-image: url('../assets/icon_timeline_completed.svg');
+    background-size: 20px 20px;
+  }
+  .timeline-steps .step.is-completed .step-row.step-title .track-wrapper .track {
+    background: #5AC47D;
+  }
 
   // Track visibility rules for first and last steps
   // First step: hide the step-label track and the first (top) track in step-title
