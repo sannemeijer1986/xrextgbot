@@ -56,6 +56,100 @@
   var statusRow = document.getElementById('statusRow');
   var tabs = document.getElementById('tabs');
 
+  // Progress storage (prototype): localStorage only
+  var PROGRESS_KEY = 'xrex.progress.v1';
+  function nowIso(){ try { return new Date().toISOString(); } catch(_) { return '';} }
+  function defaultProgress(){ return { version: 1, state: 1, updatedAt: nowIso(), code: null, history: [] }; }
+  function getProgress(){
+    try {
+      var raw = localStorage.getItem(PROGRESS_KEY);
+      if (!raw) return defaultProgress();
+      var obj = JSON.parse(raw);
+      if (!obj || typeof obj !== 'object') return defaultProgress();
+      if (!obj.state) obj.state = 1;
+      return obj;
+    } catch(_) { return defaultProgress(); }
+  }
+  function saveProgress(next){
+    try {
+      var prev = getProgress();
+      var merged = Object.assign({}, prev, next, { updatedAt: nowIso() });
+      merged.history = (prev.history || []).concat([{ state: merged.state, at: merged.updatedAt }]);
+      localStorage.setItem(PROGRESS_KEY, JSON.stringify(merged));
+      return merged;
+    } catch(_) { return next; }
+  }
+  function setState(newState){
+    var s = Math.max(1, Math.min(5, Number(newState)||1));
+    // generate a code on entering state 3 if missing
+    var p = getProgress();
+    if (s === 3 && !p.code) {
+      try { p.code = Math.random().toString(36).slice(2, 8).toUpperCase(); } catch(_) {}
+    }
+    return saveProgress({ state: s, code: p.code || null });
+  }
+
+  // Apply progress to the timeline (no UI text changes yet; class toggles only)
+  function applyTimelineFromProgress(){
+    try {
+      var p = getProgress();
+      var steps = document.querySelectorAll('.timeline-steps .step');
+      if (!steps || !steps.length) return;
+      var activeIdx = Math.max(0, Math.min(steps.length - 1, (p.state|0) - 1));
+      steps.forEach(function(stepEl, idx){
+        stepEl.classList.toggle('is-active', idx === activeIdx);
+        stepEl.classList.toggle('is-muted', idx > activeIdx);
+      });
+    } catch(_) {}
+  }
+
+  // Tiny admin tool to override state (fixed bottom-left)
+  function mountAdminStateTool(){
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var page = params.get('page') || 'account';
+      // Only show on Telegram page to avoid clutter
+      if (page !== 'telegram') return;
+      var tool = document.createElement('div');
+      tool.id = 'adminStateTool';
+      tool.style.position = 'fixed';
+      tool.style.left = '16px';
+      tool.style.bottom = '16px';
+      tool.style.zIndex = '1201';
+      tool.style.background = '#111827CC';
+      tool.style.color = '#fff';
+      tool.style.fontFamily = 'system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
+      tool.style.fontSize = '12px';
+      tool.style.padding = '10px 12px';
+      tool.style.borderRadius = '10px';
+      tool.style.boxShadow = '0 8px 18px rgba(0,0,0,0.35)';
+      tool.style.display = 'flex';
+      tool.style.alignItems = 'center';
+      tool.style.gap = '8px';
+      tool.setAttribute('role','group');
+      var label = document.createElement('span');
+      label.textContent = 'State:';
+      var val = document.createElement('strong');
+      val.id = 'adminStateValue';
+      val.style.minWidth = '12px';
+      val.style.textAlign = 'center';
+      var btnDown = document.createElement('button');
+      btnDown.type = 'button';
+      btnDown.textContent = '−';
+      btnDown.style.cssText = 'background:#fff;color:#111;border:0;border-radius:6px;padding:2px 8px;cursor:pointer;font-weight:700;';
+      var btnUp = document.createElement('button');
+      btnUp.type = 'button';
+      btnUp.textContent = '+';
+      btnUp.style.cssText = btnDown.style.cssText;
+      function update(){ val.textContent = String(getProgress().state); applyTimelineFromProgress(); }
+      btnDown.addEventListener('click', function(){ var s = getProgress().state; setState(Math.max(1, s-1)); update(); });
+      btnUp.addEventListener('click', function(){ var s = getProgress().state; setState(Math.min(5, s+1)); update(); });
+      tool.appendChild(label); tool.appendChild(val); tool.appendChild(btnDown); tool.appendChild(btnUp);
+      document.body.appendChild(tool);
+      update();
+    } catch(_) {}
+  }
+
   function activate(tab) {
     var isIntro = tab === 'intro';
     if (tabIntro && tabSetup) {
@@ -218,6 +312,9 @@
             activate(tabParam);
           }
         } catch(_) {}
+        // Apply progress-driven timeline and mount admin tool on Telegram page
+        applyTimelineFromProgress();
+        mountAdminStateTool();
       }
     } catch(_){}
   })();
