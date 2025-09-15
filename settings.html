@@ -403,24 +403,32 @@
 
     <!-- Simple Modal for Enable 2FA -->
     <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" hidden>
-        <div class="modal-wrapper modal-wrapper--small">
+        <div class="modal-wrapper">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2>Two-factor authentication</h2>
-                    <button class="modal-close" id="modalClose" aria-label="Close modal">×</button>
+                    <button class="modal-close" id="modalClose" aria-label="Close modal">
+                        <img src="assets/icon_modal_close.svg" width="24" height="24" alt="close" />
+                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="m-step">
                         <div class="m-step-meta">Step1</div>
                         <div class="m-step-title">Copy and paste the security key in your authenticator app</div>
-                        <div class="m-field">
-                            <label class="m-label" for="secKeyInput">Security key</label>
-                            <div class="m-input-row" id="secKeyField" role="button" tabindex="0" aria-label="Copy security key">
-                                <input id="secKeyInput" class="m-input" type="text" readonly value="" />
-                                <button class="m-copy" id="copyKeyBtn" aria-label="Copy">
-                                    <img src="assets/icon_copy.svg" width="16" height="16" alt="copy" />
-                                </button>
-                                <div class="m-qr" aria-hidden="true"></div>
+                        <div class="m-field-with-qr">
+                            <div class="m-field">
+                                <div class="m-field-group">
+                                    <label class="m-label" for="secKeyInput">Security key</label>
+                                    <div class="m-input-row" id="secKeyField" role="button" tabindex="0" aria-label="Copy security key">
+                                        <input id="secKeyInput" class="m-input" type="text" readonly value="" />
+                                        <button class="m-copy" id="copyKeyBtn" aria-label="Copy">
+                                            <img src="assets/icon_modal_copy.svg" width="24" height="24" alt="copy" />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-qr" aria-hidden="true">
+                                <img src="assets/icon_modal_2faqr.png" width="72" height="72" alt="QR" />
                             </div>
                         </div>
                     </div>
@@ -430,8 +438,12 @@
                         <div class="m-step-title">Come back to XREX Pay and verify your 6-digit code</div>
                         <div class="m-desc">Copy the 6‑digit code from your authenticator app and enter it below.</div>
                         <div class="m-field">
-                            <label class="m-label" for="authCodeInput">Authentication code</label>
-                            <input id="authCodeInput" class="m-input" type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="Enter the authentication code" maxlength="6" />
+                            <div class="m-field-group">
+                                <label class="m-label" for="authCodeInput">Authentication code</label>
+                                <div class="m-input-row m-input-row--plain">
+                                    <input id="authCodeInput" class="m-input" type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="Enter the authentication code" maxlength="6" />
+                                </div>
+                            </div>
                             <div id="authCodeError" class="m-error" aria-live="polite" hidden>Please enter a 6‑digit code.</div>
                         </div>
                     </div>

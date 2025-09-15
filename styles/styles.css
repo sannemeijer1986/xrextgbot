@@ -29,7 +29,7 @@
   background: #ffffff;
   border-radius: 12px;
   width: calc(100% - 32px);
-  max-width: 520px;
+  max-width: 600px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
 }
 
@@ -40,27 +40,36 @@
 .modal-content {
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  padding: 32px;
 }
 
 .modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 32px;
 }
 
 .modal-header h2 {
   margin: 0;
-  font: 700 18px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font: 800 20px "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #2d2f2f;
 }
 
 .modal-close {
   background: transparent;
   border: none;
-  font-size: 20px;
   cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+}
+
+.modal-close img {
+  width: 24px;
+  height: 24px;
+  display: block;
 }
 
 .modal-body {
@@ -83,18 +92,18 @@
 }
 
 .m-step-meta {
-  color: #2563eb;
-  font: 700 13px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #73A2F5;
+  font: 500 13px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .m-step-title {
   color: #2d2f2f;
-  font: 700 18px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font: 600 18px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .m-desc {
   color: #797a7b;
-  font: 400 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font: 300 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .m-field {
@@ -103,19 +112,56 @@
   gap: 8px;
 }
 
+.m-field-with-qr {
+  margin-top: 24px;
+  display: flex;
+  gap: 32px;
+  align-items: flex-end;
+}
+
+.m-field-with-qr .m-field {
+  flex: 1 1 auto;
+}
+
+.m-field-with-qr .m-qr {
+  flex: 0 0 72px;
+}
+
+.m-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .m-label {
   color: #797a7b;
-  font: 600 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font: 500 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.m-key-row {
+  display: grid;
+  grid-template-columns: 1fr 88px;
+  gap: 12px;
+  align-items: center;
 }
 
 .m-input-row {
+  height: 56px;
   display: grid;
-  grid-template-columns: 1fr 32px 80px;
+  grid-template-columns: 1fr 32px;
   align-items: center;
   gap: 8px;
   border: 1px solid #EEEEEE;
   border-radius: 10px;
   padding: 10px 12px;
+}
+
+.m-input-row--plain {
+  grid-template-columns: 1fr;
+}
+
+#secKeyField, #secKeyInput {
+  cursor: pointer;
 }
 
 .m-input {
@@ -131,17 +177,29 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   display: grid;
   place-items: center;
 }
 
+.m-copy img {
+  width: 24px;
+  height: 24px;
+}
+
 .m-qr {
-  width: 72px;
-  height: 72px;
-  background: #eee;
+  width: 100px;
+  height: 100px;
   border-radius: 6px;
+  display: grid;
+  place-items: center;
+}
+
+.m-qr img {
+  width: 100px;
+  height: 100px;
+  display: block;
 }
 
 .m-error {
@@ -154,7 +212,7 @@
   border: none;
   height: 1px;
   background: #EEEEEE;
-  margin: 16px 0;
+  margin: 32px 0;
 }
 
 body {
@@ -185,6 +243,17 @@ body {
 
 html {
   overflow-y: scroll;
+}
+
+html.modal-open, body.modal-open {
+  overflow: hidden !important;
+}
+
+body.modal-locked {
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
 }
 
 .btn {
@@ -767,7 +836,7 @@ html {
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 600;
   font-size: 16px;
-  color: #8FB8FF;
+  color: #73A2F5;
 }
 @media (min-width: 1280px) {
   .content .status-value {
@@ -788,7 +857,7 @@ html {
   font-size: 12px;
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 600;
-  color: #8FB8FF;
+  color: #73A2F5;
   background: transparent;
   border: 1.5px solid #8FB8FF;
   border-radius: 9999px;
@@ -1264,7 +1333,7 @@ html {
   padding: 4px 0px 4px 0px;
 }
 .content .timeline-steps .step-actions {
-  padding: 8px 0px 24px 0px;
+  padding: 16px 0px 24px 0px;
 }
 .content .timeline-steps .step.is-muted .label, .content .timeline-steps .step.is-muted .title {
   color: #BCBDBD;
@@ -1272,6 +1341,11 @@ html {
 .content .timeline-steps .step.is-completed .label,
 .content .timeline-steps .step.is-completed .title {
   color: #2F9752;
+}
+.content .timeline-steps .step-desc {
+  margin-top: -4px;
+  font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #2d2f2f;
 }
 .content .timeline-steps .step.is-completed .step-actions {
   display: none;

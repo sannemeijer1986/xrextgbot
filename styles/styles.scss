@@ -57,30 +57,42 @@ $bp-md: 1280px;     // main responsive breakpoint
   background: #ffffff;
   border-radius: 12px;
   width: calc(100% - 32px);
-  max-width: 520px;
+  max-width: 600px;
   box-shadow: 0 8px 24px rgba(0,0,0,.18);
 }
 .modal-wrapper--small { max-width: 480px; }
-.modal-content { display: flex; flex-direction: column; padding: 16px; }
-.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-.modal-header h2 { margin: 0; font: 700 18px $font-manrope; color: $color-text-primary; }
-.modal-close { background: transparent; border: none; font-size: 20px; cursor: pointer; }
+.modal-content { display: flex; flex-direction: column; padding: 32px; }
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+.modal-header h2 { margin: 0; font: 800 20px $font-sora; color: $color-text-primary; }
+.modal-close { background: transparent; border: none; cursor: pointer; width: 32px; height: 32px; display: grid; place-items: center; }
+.modal-close img { width: 24px; height: 24px; display: block; }
 .modal-body { color: $color-text-primary; font: 400 14px $font-manrope; }
 .modal-footer { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
 
 // Modal content styles
 .m-step { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
-.m-step-meta { color: #2563eb; font: 700 13px $font-manrope; }
-.m-step-title { color: $color-text-primary; font: 700 18px $font-manrope; }
-.m-desc { color: $color-text-secondary; font: 400 14px $font-manrope; }
+.m-step-meta { color: #73A2F5; font: 500 13px $font-manrope; }
+.m-step-title { color: $color-text-primary; font: 600 18px $font-manrope; }
+.m-desc { color: $color-text-secondary; font: 300 14px $font-manrope; }
 .m-field { display: flex; flex-direction: column; gap: 8px; }
-.m-label { color: $color-text-secondary; font: 600 12px $font-manrope; }
-.m-input-row { display: grid; grid-template-columns: 1fr 32px 80px; align-items: center; gap: 8px; border: 1px solid $color-border; border-radius: 10px; padding: 10px 12px; }
+.m-field-with-qr { margin-top: 24px; display: flex; gap: 32px; align-items: flex-end; }
+.m-field-with-qr .m-field { flex: 1 1 auto; }
+.m-field-with-qr .m-qr { flex: 0 0 72px; }
+.m-field-group { display: flex; flex-direction: column; gap: 8px; }
+.m-label { color: $color-text-secondary; font: 500 14px $font-manrope; }
+.m-key-row { display: grid; grid-template-columns: 1fr 88px; gap: 12px; align-items: center; }
+.m-input-row { height: 56px; display: grid; grid-template-columns: 1fr 32px; align-items: center; gap: 8px; border: 1px solid $color-border; border-radius: 10px; padding: 10px 12px; }
+.m-input-row--plain { grid-template-columns: 1fr; }
+#secKeyField, #secKeyInput {
+  cursor: pointer; 
+}
 .m-input { border: none; outline: none; font: 600 14px $font-manrope; color: $color-text-primary; background: transparent; min-width: 0; }
-.m-copy { background: transparent; border: none; cursor: pointer; width: 28px; height: 28px; display: grid; place-items: center; }
-.m-qr { width: 72px; height: 72px; background: #eee; border-radius: 6px; }
+.m-copy { background: transparent; border: none; cursor: pointer; width: 32px; height: 32px; display: grid; place-items: center; }
+.m-copy img { width: 24px; height: 24px; }
+.m-qr { width: 100px; height: 100px; border-radius: 6px; display: grid; place-items: center; }
+.m-qr img { width: 100px; height: 100px; display: block; }
 .m-error { color: #ef4444; font: 600 12px $font-manrope; margin-top: -4px; }
-.m-divider { border: none; height: 1px; background: $color-border; margin: 16px 0; }
+.m-divider { border: none; height: 1px; background: $color-border; margin: 32px 0; }
 
 body {
   font-family: $font-system;
@@ -100,6 +112,10 @@ body {
 *::-webkit-scrollbar-thumb { background: #c7c9d1; border-radius: 8px; }
 *::-webkit-scrollbar-track { background: transparent; }
 html { overflow-y: scroll; } // force scrollbar to always show
+// Prevent background scroll when modal is open
+html.modal-open, body.modal-open { overflow: hidden !important; }
+// Alternative lock: fixed body to prevent layout shift and keep sticky elements stable
+body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 
 // Global button styles (usable anywhere)
 .btn {
@@ -602,7 +618,7 @@ html { overflow-y: scroll; } // force scrollbar to always show
     font-family: $font-manrope;
     font-weight: 600;
     font-size: 16px;
-    color: #8FB8FF;
+    color: #73A2F5;
     @media (min-width: $bp-md) { font-size: 22px; }
   }
 
@@ -621,7 +637,7 @@ html { overflow-y: scroll; } // force scrollbar to always show
     font-size: 12px;
     font-family: $font-manrope;
     font-weight: 600;
-    color: #8FB8FF;
+    color: #73A2F5;
     background: transparent;
     border: 1.5px solid #8FB8FF;
     border-radius: 9999px;
@@ -1035,7 +1051,7 @@ html { overflow-y: scroll; } // force scrollbar to always show
     padding: 4px 0px 4px 0px;
   }
   .timeline-steps .step-actions { 
-    padding: 8px 0px 24px 0px; 
+    padding: 16px 0px 24px 0px; 
   }
 
   .timeline-steps .step.is-muted .label, .timeline-steps .step.is-muted .title {
@@ -1047,6 +1063,13 @@ html { overflow-y: scroll; } // force scrollbar to always show
   .timeline-steps .step.is-completed .title {
     color: #2F9752;
   }
+
+.timeline-steps .step-desc {
+  margin-top: -4px;
+  font: 600 14px $font-manrope;
+  color: $color-text-primary;
+}
+
   .timeline-steps .step.is-completed .step-actions { display: none; }
   .timeline-steps .step.is-completed .step-desc { display: none; }
   .timeline-steps .step-datestamp {

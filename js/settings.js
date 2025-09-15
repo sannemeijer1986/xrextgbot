@@ -193,14 +193,16 @@
       var btn = first.querySelector('.step-row.step-content .step-actions .btn');
       if (!labelEl || !titleEl || !btn) return;
       if (state >= 2) {
-        labelEl.textContent = 'Start';
-        titleEl.textContent = 'Generate unique link';
-        if (descWrap) { descWrap.style.display = 'none'; descWrap.setAttribute('aria-hidden','true'); }
+        labelEl.textContent = 'XREX Pay';
+        titleEl.textContent = 'Start';
+        descWrap.textContent = 'Generate unique link';
+        if (descWrap) { descWrap.style.display = ''; descWrap.removeAttribute('aria-hidden'); }
         btn.textContent = 'Generate link';
       } else {
         // default for state 1 and others
         labelEl.textContent = 'XREX Pay';
         titleEl.textContent = 'Enable 2FA';
+        descWrap.textContent = 'Two-factor authentication is required';
         if (descWrap) { descWrap.style.display = ''; descWrap.removeAttribute('aria-hidden'); }
         btn.textContent = 'Enable 2FA';
       }
@@ -221,8 +223,25 @@
       var secKeyField = document.getElementById('secKeyField');
       var authCodeInput = document.getElementById('authCodeInput');
       var authCodeError = document.getElementById('authCodeError');
-      function open(){ modal.hidden = false; modal.setAttribute('aria-hidden','false'); }
-      function close(){ modal.setAttribute('aria-hidden','true'); modal.hidden = true; }
+      function open(){
+        modal.hidden = false; modal.setAttribute('aria-hidden','false');
+        try {
+          var y = window.scrollY || window.pageYOffset || 0;
+          document.body.dataset.scrollY = String(y);
+          document.body.style.top = '-' + y + 'px';
+          document.body.classList.add('modal-locked');
+        } catch(_) {}
+      }
+      function close(){
+        modal.setAttribute('aria-hidden','true'); modal.hidden = true;
+        try {
+          var y = parseInt(document.body.dataset.scrollY || '0', 10) || 0;
+          document.body.classList.remove('modal-locked');
+          document.body.style.top = '';
+          delete document.body.dataset.scrollY;
+          window.scrollTo(0, y);
+        } catch(_) {}
+      }
       // Generate a random-looking key and fake QR when opening
       function prime(){
         try {
