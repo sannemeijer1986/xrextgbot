@@ -1020,6 +1020,7 @@ html {
 .content .timeline-steps .step {
   display: block;
   position: relative;
+  padding: 0px 10px;
   --rail-width: 44px;
   --track-x: 24px;
   --node-size: 16px;
@@ -1030,7 +1031,7 @@ html {
 .content .timeline-steps .step-row {
   display: grid;
   grid-template-columns: var(--rail-width) 1fr;
-  gap: 16px;
+  gap: 8px;
   align-items: start;
   position: relative;
 }
@@ -1103,7 +1104,7 @@ html {
 .content .timeline-steps .label {
   font: 500 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #2d2f2f;
-  margin-bottom: 2px;
+  margin-bottom: -5px;
 }
 .content .timeline-steps .title {
   font: 600 22px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;

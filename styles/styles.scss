@@ -892,6 +892,7 @@ html { overflow-y: scroll; } // force scrollbar to always show
   .timeline-steps .step {
     display: block;
     position: relative;
+    padding: 0px 10px;
     --rail-width: 44px;     // width of the left rail column
     --track-x: 24px;        // legacy var (not used when non-absolute)
     --node-size: 16px;      // default node size
@@ -903,7 +904,7 @@ html { overflow-y: scroll; } // force scrollbar to always show
   .timeline-steps .step-row {
     display: grid;
     grid-template-columns: var(--rail-width) 1fr;
-    gap: 16px;
+    gap: 8px;
     align-items: start;
     position: relative;
   }
@@ -979,7 +980,7 @@ html { overflow-y: scroll; } // force scrollbar to always show
   .timeline-steps .label {
     font: 500 12px $font-manrope;
     color: $color-text-primary;
-    margin-bottom: 2px;
+    margin-bottom: -5px;
   }
   .timeline-steps .title { 
     font: 600 22px $font-manrope; 
