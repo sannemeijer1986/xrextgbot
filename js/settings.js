@@ -293,17 +293,15 @@
           if (successModal) { successModal.hidden = false; successModal.setAttribute('aria-hidden','false'); }
         } catch(_) {}
       });
-      function closeSuccess(){
-        if (!successModal) return;
-        successModal.setAttribute('aria-hidden','true');
-        successModal.hidden = true;
+      function finalizeSuccess(){
+        // Advance state and refresh UI, hide modal, then redirect
+        setState(2); refreshStateUI();
+        if (successModal) { successModal.setAttribute('aria-hidden','true'); successModal.hidden = true; }
+        try { window.location.href = 'index.html'; } catch(_) {}
       }
-      if (successClose) successClose.addEventListener('click', closeSuccess);
-      if (successModal) successModal.addEventListener('click', function(e){ if (e.target === successModal) closeSuccess(); });
-      if (successCta) successCta.addEventListener('click', function(){
-        // Advance state and refresh UI, then close success modal
-        setState(2); refreshStateUI(); closeSuccess();
-      });
+      if (successClose) successClose.addEventListener('click', finalizeSuccess);
+      if (successModal) successModal.addEventListener('click', function(e){ if (e.target === successModal) finalizeSuccess(); });
+      if (successCta) successCta.addEventListener('click', finalizeSuccess);
       modal.addEventListener('click', function(e){ if (e.target === modal) close(); });
       document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
       // Copy key and show snackbar

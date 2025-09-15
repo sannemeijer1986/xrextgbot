@@ -98,10 +98,10 @@ $bp-md: 1280px;     // main responsive breakpoint
 
 // Success modal
 .m-success { text-align: center; padding: 8px 8px 0; }
-.m-success-icon { width: 160px; height: 160px; margin: 0 auto 12px; border-radius: 50%; background: rgba(115,162,245,0.12); display: grid; place-items: center; }
-.m-success-shield { width: 72px; height: 72px; border-radius: 16px; background: #73A2F5; mask: url('assets/icon_snackbar_success.svg') center/contain no-repeat; -webkit-mask: url('assets/icon_snackbar_success.svg') center/contain no-repeat; }
+.m-success-icon { width: 160px; height: 160px; margin: 0 auto 12px; border-radius: 50%; display: grid; place-items: center; overflow: hidden; }
+.m-success-icon img { width: 120px; height: 120px; display: block; }
 .m-success-title { font: 800 22px $font-sora; color: $color-text-primary; margin: 12px 0 8px; }
-.m-success-desc { font: 400 14px $font-manrope; color: $color-text-secondary; }
+.m-success-desc { font: 300 16px $font-manrope; color: $color-text-primary; margin-bottom: 24px; }
 
 body {
   font-family: $font-system;
