@@ -209,6 +209,22 @@
     } catch(_) {}
   }
 
+  // Toggle initiate-bot segmented control (visual only)
+  function initInitiateBotUI(){
+    try {
+      var container = document.getElementById('step-initiate-bot');
+      if (!container) return;
+      var seg = container.querySelector('.initiate-bot .ib-segment');
+      if (!seg || seg.__wired) return; seg.__wired = true;
+      seg.addEventListener('click', function(e){
+        var btn = e.target.closest('.ib-option');
+        if (!btn) return;
+        seg.querySelectorAll('.ib-option').forEach(function(b){ b.classList.remove('is-active'); b.setAttribute('aria-selected','false'); });
+        btn.classList.add('is-active'); btn.setAttribute('aria-selected','true');
+      });
+    } catch(_) {}
+  }
+
   // Modal wiring (prototype)
   (function initModal(){
     try {
@@ -505,6 +521,7 @@
         if (tabs) tabs.style.display = '';
         if (panelAccount) panelAccount.style.display = 'none';
         if (shareBtn) shareBtn.style.display = '';
+        initInitiateBotUI();
       }
       function showAccount(){
         if (pageTitle) pageTitle.textContent = 'Account';

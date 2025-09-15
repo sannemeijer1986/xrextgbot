@@ -1130,6 +1130,26 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .timeline-steps > .step:last-child .step-row.step-content .track-wrapper .track { opacity: 0; }
 
 
+  // Initiate Bot (state 3) styles
+  .initiate-bot { background: #F6F9FF; border: 1px solid $color-border; border-radius: 16px; padding: 20px; }
+  // subtitle replaced by .step-desc styling
+  .initiate-bot .ib-question { font: 700 18px $font-sora; color: $color-text-primary; margin: 12px 0 8px; }
+  .initiate-bot .ib-segment { display: flex; gap: 12px; background: #fff; padding: 6px; border-radius: 999px; border: 1px solid $color-border; width: fit-content; }
+  .initiate-bot .ib-option { appearance: none; background: transparent; border: 1px solid transparent; color: #2B63F1; font: 700 16px $font-manrope; padding: 10px 16px; border-radius: 999px; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; }
+  .initiate-bot .ib-option.is-active { background: rgba(43, 99, 241, 0.08); border-color: rgba(43, 99, 241, 0.22); }
+  .initiate-bot .ib-icon { width: 20px; height: 20px; display: inline-block; }
+  .initiate-bot .ib-qr-section { margin-top: 20px; }
+  .initiate-bot .ib-qr-title { font: 800 20px $font-sora; color: $color-text-primary; margin-bottom: 10px; }
+  .initiate-bot .ib-qr { width: 196px; height: 196px; display: grid; place-items: center; background: #fff; border-radius: 16px; border: 1px solid $color-border; }
+  .initiate-bot .ib-qr img { width: 180px; height: 180px; display: block; }
+  .initiate-bot .ib-links { display: flex; gap: 24px; margin-top: 20px; }
+  .initiate-bot .ib-link { color: #2B63F1; font: 700 14px $font-manrope; text-decoration: none; }
+  .initiate-bot .ib-link:hover { text-decoration: underline; }
+
+  // Only show Initiate Bot content when that step is active
+  .timeline-steps #step-initiate-bot:not(.is-active) .step-actions.initiate-bot { display: none; }
+
+
   .step-card {
     background: #F4F7FF;
     border: none;

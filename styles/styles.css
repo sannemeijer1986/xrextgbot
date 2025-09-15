@@ -1444,6 +1444,86 @@ body.modal-locked {
 .content .timeline-steps > .step:last-child .step-row.step-content .track-wrapper .track {
   opacity: 0;
 }
+.content .initiate-bot {
+  background: #F6F9FF;
+  border: 1px solid #EEEEEE;
+  border-radius: 16px;
+  padding: 20px;
+}
+.content .initiate-bot .ib-question {
+  font: 700 18px "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #2d2f2f;
+  margin: 12px 0 8px;
+}
+.content .initiate-bot .ib-segment {
+  display: flex;
+  gap: 12px;
+  background: #fff;
+  padding: 6px;
+  border-radius: 999px;
+  border: 1px solid #EEEEEE;
+  width: fit-content;
+}
+.content .initiate-bot .ib-option {
+  appearance: none;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #2B63F1;
+  font: 700 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  padding: 10px 16px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.content .initiate-bot .ib-option.is-active {
+  background: rgba(43, 99, 241, 0.08);
+  border-color: rgba(43, 99, 241, 0.22);
+}
+.content .initiate-bot .ib-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+.content .initiate-bot .ib-qr-section {
+  margin-top: 20px;
+}
+.content .initiate-bot .ib-qr-title {
+  font: 800 20px "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #2d2f2f;
+  margin-bottom: 10px;
+}
+.content .initiate-bot .ib-qr {
+  width: 196px;
+  height: 196px;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #EEEEEE;
+}
+.content .initiate-bot .ib-qr img {
+  width: 180px;
+  height: 180px;
+  display: block;
+}
+.content .initiate-bot .ib-links {
+  display: flex;
+  gap: 24px;
+  margin-top: 20px;
+}
+.content .initiate-bot .ib-link {
+  color: #2B63F1;
+  font: 700 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  text-decoration: none;
+}
+.content .initiate-bot .ib-link:hover {
+  text-decoration: underline;
+}
+.content .timeline-steps #step-initiate-bot:not(.is-active) .step-actions.initiate-bot {
+  display: none;
+}
 .content .step-card {
   background: #F4F7FF;
   border: none;
