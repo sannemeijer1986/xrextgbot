@@ -1121,6 +1121,15 @@ html {
 .content .timeline-steps .step.is-muted .label, .content .timeline-steps .step.is-muted .title {
   color: #BCBDBD;
 }
+.content .timeline-steps > .step:first-child .step-label .track-wrapper .track {
+  opacity: 0;
+}
+.content .timeline-steps > .step:first-child .step-title .track-wrapper .track:first-of-type {
+  opacity: 0;
+}
+.content .timeline-steps > .step:last-child .step-title .track-wrapper .track:last-of-type {
+  opacity: 0;
+}
 .content .timeline-steps .step.is-muted .title {
   font-weight: 300;
 }

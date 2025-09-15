@@ -999,6 +999,14 @@ html { overflow-y: scroll; } // force scrollbar to always show
     color: #BCBDBD;
   }
 
+  // Track visibility rules for first and last steps
+  // First step: hide the step-label track and the first (top) track in step-title
+  .timeline-steps > .step:first-child .step-label .track-wrapper .track { opacity: 0; }
+  .timeline-steps > .step:first-child .step-title .track-wrapper .track:first-of-type { opacity: 0; }
+
+  // Last step: hide the last (bottom) track in step-title
+  .timeline-steps > .step:last-child .step-title .track-wrapper .track:last-of-type { opacity: 0; }
+
  .timeline-steps .step.is-muted .title {
     font-weight: 300;
   }
