@@ -924,7 +924,7 @@ html { overflow-y: scroll; } // force scrollbar to always show
   .timeline-steps .track-wrapper .track {
     display: flex;
     width: 2px;
-    background: $color-border;
+    background: #B2B3B3;
     flex: 1;
   }
 
@@ -946,11 +946,11 @@ html { overflow-y: scroll; } // force scrollbar to always show
   .timeline-steps .track-wrapper .node {
     display: flex;
     z-index: 2; // above track and highlight
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
     border-radius: 9999px;
     background: #ffffff;
-    border: 2px solid #d1d5db;
+    border: 2px solid #B2B3B3;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 10px 10px;
@@ -958,28 +958,50 @@ html { overflow-y: scroll; } // force scrollbar to always show
 
 .timeline-steps .step.is-active {
     background: #F4F7FF;
+    border-radius: 12px;
 }
 
   .timeline-steps .step.is-active .track-wrapper .node {
     display: flex;
     background-color: #2250F7;
     border-color: #2250F7;
-    width: 22px; 
-    height: 22px; 
-    background-image: url('../assets/icon_swiper_chevron_right.svg');
-    background-size: 12px 12px;
+    border: 0px transparent;
+    width: 24px; 
+    height: 24px; 
+    background-position: center center;
+    background-image: url('../assets/icon_timeline_active.svg');
+    background-size: 20px 20px;
   }
   .timeline-steps .step-content { padding-top: 0; position: relative; z-index: 1; }
   // Ensure active highlight sits behind rail track and node
   .timeline-steps .step.is-active::after { z-index: 0; }
   .timeline-steps .label {
-    font: 600 12px $font-manrope;
-    color: $color-text-secondary;
+    font: 500 12px $font-manrope;
+    color: $color-text-primary;
+    margin-bottom: 2px;
   }
-  .timeline-steps .title { font: 700 18px $font-manrope; color: $color-text-primary; }
-  .timeline-steps .title.muted { color: $color-text-secondary; font-weight: 600; }
-  .timeline-steps .desc { color: $color-text-secondary; font: 400 14px $font-manrope; margin-top: 6px; }
-  .timeline-steps .actions { margin-top: 12px; }
+  .timeline-steps .title { 
+    font: 600 22px $font-manrope; 
+    color: $color-text-primary; 
+    line-height: 1.15;
+  }
+  .timeline-steps .desc {
+    color: $color-text-secondary; 
+    font: 400 14px 
+    $font-manrope; margin-top: 6px; 
+    padding: 4px 0px 4px 0px;
+  }
+  .timeline-steps .actions { 
+    margin-top: 12px; 
+  }
+
+  .timeline-steps .step.is-muted .label, .timeline-steps .step.is-muted .title {
+    color: #BCBDBD;
+  }
+
+ .timeline-steps .step.is-muted .title {
+    font-weight: 300;
+  }
 
   .step-card {
     background: #F4F7FF;

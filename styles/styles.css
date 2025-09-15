@@ -1052,7 +1052,7 @@ html {
 .content .timeline-steps .track-wrapper .track {
   display: flex;
   width: 2px;
-  background: #EEEEEE;
+  background: #B2B3B3;
   flex: 1;
 }
 .content .timeline-steps .step-label {
@@ -1067,26 +1067,29 @@ html {
 .content .timeline-steps .track-wrapper .node {
   display: flex;
   z-index: 2;
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
   border-radius: 9999px;
   background: #ffffff;
-  border: 2px solid #d1d5db;
+  border: 2px solid #B2B3B3;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 10px 10px;
 }
 .content .timeline-steps .step.is-active {
   background: #F4F7FF;
+  border-radius: 12px;
 }
 .content .timeline-steps .step.is-active .track-wrapper .node {
   display: flex;
   background-color: #2250F7;
   border-color: #2250F7;
-  width: 22px;
-  height: 22px;
-  background-image: url("../assets/icon_swiper_chevron_right.svg");
-  background-size: 12px 12px;
+  border: 0px transparent;
+  width: 24px;
+  height: 24px;
+  background-position: center center;
+  background-image: url("../assets/icon_timeline_active.svg");
+  background-size: 20px 20px;
 }
 .content .timeline-steps .step-content {
   padding-top: 0;
@@ -1097,24 +1100,29 @@ html {
   z-index: 0;
 }
 .content .timeline-steps .label {
-  font: 600 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: #797a7b;
+  font: 500 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #2d2f2f;
+  margin-bottom: 2px;
 }
 .content .timeline-steps .title {
-  font: 700 18px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font: 600 22px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #2d2f2f;
-}
-.content .timeline-steps .title.muted {
-  color: #797a7b;
-  font-weight: 600;
+  line-height: 1.15;
 }
 .content .timeline-steps .desc {
   color: #797a7b;
   font: 400 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   margin-top: 6px;
+  padding: 4px 0px 4px 0px;
 }
 .content .timeline-steps .actions {
   margin-top: 12px;
+}
+.content .timeline-steps .step.is-muted .label, .content .timeline-steps .step.is-muted .title {
+  color: #BCBDBD;
+}
+.content .timeline-steps .step.is-muted .title {
+  font-weight: 300;
 }
 .content .step-card {
   background: #F4F7FF;
