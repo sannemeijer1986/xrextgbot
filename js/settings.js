@@ -122,7 +122,9 @@
       var p = getProgress();
       var steps = document.querySelectorAll('.timeline-steps .step');
       if (!steps || !steps.length) return;
-      var activeIdx = Math.max(0, Math.min(steps.length - 1, (p.state|0) - 1));
+      // New rule: the active timeline element is the previous step of the db state
+      // e.g., state 1 -> active 0, state 2 -> active 0, state 3 -> active 1, etc.
+      var activeIdx = Math.max(0, Math.min(steps.length - 1, (p.state|0) - 2));
       steps.forEach(function(stepEl, idx){
         var isActive = idx === activeIdx;
         var isCompleted = idx < activeIdx; // everything before active is completed
@@ -160,6 +162,33 @@
           }
         }
       });
+
+      // Update first step wording depending on state (1 vs 2)
+      updateFirstStepText(p.state|0);
+    } catch(_) {}
+  }
+
+  function updateFirstStepText(state){
+    try {
+      var first = document.querySelector('.timeline-steps .step');
+      if (!first) return;
+      var labelEl = first.querySelector('.step-row.step-label .label');
+      var titleEl = first.querySelector('.step-row.step-title .title');
+      var descWrap = first.querySelector('.step-row.step-content .step-desc');
+      var btn = first.querySelector('.step-row.step-content .step-actions .btn');
+      if (!labelEl || !titleEl || !btn) return;
+      if (state >= 2) {
+        labelEl.textContent = 'Start';
+        titleEl.textContent = 'Generate unique link';
+        if (descWrap) { descWrap.style.display = 'none'; descWrap.setAttribute('aria-hidden','true'); }
+        btn.textContent = 'Generate link';
+      } else {
+        // default for state 1 and others
+        labelEl.textContent = 'XREX Pay';
+        titleEl.textContent = 'Enable 2FA';
+        if (descWrap) { descWrap.style.display = ''; descWrap.removeAttribute('aria-hidden'); }
+        btn.textContent = 'Enable 2FA';
+      }
     } catch(_) {}
   }
 
