@@ -198,6 +198,39 @@
     } catch(_) {}
   }
 
+  // Modal wiring (prototype)
+  (function initModal(){
+    try {
+      var modal = document.getElementById('modal');
+      if (!modal) return;
+      var openBtn = document.getElementById('btnEnable2FA');
+      var btnClose = document.getElementById('modalClose');
+      var btnCancel = document.getElementById('modalCancel');
+      var btnConfirm = document.getElementById('modalConfirm');
+      function open(){ modal.hidden = false; modal.setAttribute('aria-hidden','false'); }
+      function close(){ modal.setAttribute('aria-hidden','true'); modal.hidden = true; }
+      if (openBtn) openBtn.addEventListener('click', function(e){
+        try {
+          var s = (getProgress().state|0);
+          if (s >= 2) {
+            e.preventDefault();
+            setState(3); applyTimelineFromProgress();
+            return;
+          }
+        } catch(_) {}
+        open();
+      });
+      if (btnClose) btnClose.addEventListener('click', close);
+      if (btnCancel) btnCancel.addEventListener('click', close);
+      if (btnConfirm) btnConfirm.addEventListener('click', function(){
+        // Simulate enabling 2FA: advance to state 2 and close modal
+        setState(2); applyTimelineFromProgress(); close();
+      });
+      modal.addEventListener('click', function(e){ if (e.target === modal) close(); });
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
+    } catch(_) {}
+  })();
+
   // Tiny admin tool to override state (fixed bottom-left)
   function mountAdminStateTool(){
     try {

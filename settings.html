@@ -330,7 +330,7 @@
                                             <div class="desc">Two-factor authentication is required</div>
                                         </div>
                                         <div class="step-actions">
-                                            <button class="btn btn-primary btn-sm">Enable 2FA</button>
+                                            <button class="btn btn-primary btn-sm" id="btnEnable2FA">Enable 2FA</button>
                                         </div>
                                     </div>
                                 </div>
@@ -400,6 +400,25 @@
             </div>
         </section>
     </main>
+
+    <!-- Simple Modal for Enable 2FA -->
+    <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+        <div class="modal-wrapper modal-wrapper--small">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Enable 2FA</h2>
+                    <button class="modal-close" id="modalClose" aria-label="Close modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <p>To enable two-factor authentication, please confirm to proceed. You’ll be redirected to the 2FA setup flow.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary btn-md" id="modalCancel">Cancel</button>
+                    <button class="btn btn-primary btn-md" id="modalConfirm">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer class="app-footer">
         <div class="footer-inner">

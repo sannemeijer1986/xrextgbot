@@ -42,6 +42,32 @@ $bp-md: 1280px;     // main responsive breakpoint
   box-sizing: border-box;
 }
 
+// Simple Modal (prototype)
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal[aria-hidden="false"] { display: flex; }
+.modal-wrapper {
+  background: #ffffff;
+  border-radius: 12px;
+  width: calc(100% - 32px);
+  max-width: 520px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+}
+.modal-wrapper--small { max-width: 480px; }
+.modal-content { display: flex; flex-direction: column; padding: 16px; }
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.modal-header h2 { margin: 0; font: 700 18px $font-manrope; color: $color-text-primary; }
+.modal-close { background: transparent; border: none; font-size: 20px; cursor: pointer; }
+.modal-body { color: $color-text-primary; font: 400 14px $font-manrope; }
+.modal-footer { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
+
 body {
   font-family: $font-system;
   background: $color-bg;
