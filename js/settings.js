@@ -80,7 +80,7 @@
     } catch(_) { return next; }
   }
   function setState(newState){
-    var s = Math.max(1, Math.min(5, Number(newState)||1));
+    var s = Math.max(1, Math.min(6, Number(newState)||1));
     // generate a code on entering state 3 if missing
     var p = getProgress();
     if (s === 3 && !p.code) {
@@ -124,12 +124,18 @@
       if (!steps || !steps.length) return;
       // New rule: the active timeline element is the previous step of the db state
       // e.g., state 1 -> active 0, state 2 -> active 0, state 3 -> active 1, etc.
-      var activeIdx = Math.max(0, Math.min(steps.length - 1, (p.state|0) - 2));
+      var s = (p.state|0);
+      var lastIdx = steps.length - 1;
+      var activeIdx = Math.max(0, Math.min(lastIdx, s - 2));
+      // Special-case: for db state 4, skip the 2FA identity step and focus the next one
+      if (s === 4) activeIdx = Math.min(lastIdx, 3);
+      // Special-case: for db state 6, everything completed, no active step
+      if (s === 6) activeIdx = -1;
       steps.forEach(function(stepEl, idx){
-        var isActive = idx === activeIdx;
-        var isCompleted = idx < activeIdx; // everything before active is completed
+        var isActive = activeIdx >= 0 && idx === activeIdx;
+        var isCompleted = (s === 6) ? true : idx < activeIdx; // all completed at state 6
         stepEl.classList.toggle('is-active', isActive);
-        stepEl.classList.toggle('is-muted', idx > activeIdx);
+        stepEl.classList.toggle('is-muted', activeIdx >= 0 ? idx > activeIdx : false);
         stepEl.classList.toggle('is-completed', isCompleted);
         // Add datestamp for completed steps if missing
         if (isCompleted) {
@@ -232,7 +238,7 @@
       btnUp.style.cssText = btnDown.style.cssText;
       function update(){ val.textContent = String(getProgress().state); applyTimelineFromProgress(); }
       btnDown.addEventListener('click', function(){ var s = getProgress().state; setState(Math.max(1, s-1)); update(); });
-      btnUp.addEventListener('click', function(){ var s = getProgress().state; setState(Math.min(5, s+1)); update(); });
+      btnUp.addEventListener('click', function(){ var s = getProgress().state; setState(Math.min(6, s+1)); update(); });
       tool.appendChild(label); tool.appendChild(val); tool.appendChild(btnDown); tool.appendChild(btnUp);
       document.body.appendChild(tool);
       update();

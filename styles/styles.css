@@ -1168,6 +1168,9 @@ html {
 .content .timeline-steps > .step:last-child .step-title .track-wrapper .track:last-of-type {
   opacity: 0;
 }
+.content .timeline-steps > .step:last-child .step-row.step-content .track-wrapper .track {
+  opacity: 0;
+}
 .content .timeline-steps .step.is-muted .title {
   font-weight: 300;
 }
