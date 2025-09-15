@@ -999,6 +999,20 @@ html { overflow-y: scroll; } // force scrollbar to always show
     color: #BCBDBD;
   }
 
+  // Completed step visuals
+  .timeline-steps .step.is-completed .label,
+  .timeline-steps .step.is-completed .title {
+    color: #2F9752;
+  }
+  .timeline-steps .step.is-completed .step-actions { display: none; }
+  .timeline-steps .step.is-completed .step-desc { display: none; }
+  .timeline-steps .step-datestamp {
+    margin-top: 4px;
+    font: 500 12px $font-manrope;
+    color: $color-text-placeholder;
+    opacity: .9;
+  }
+
   // Track visibility rules for first and last steps
   // First step: hide the step-label track and the first (top) track in step-title
   .timeline-steps > .step:first-child .step-label .track-wrapper .track { opacity: 0; }

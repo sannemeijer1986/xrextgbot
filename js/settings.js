@@ -89,6 +89,33 @@
     return saveProgress({ state: s, code: p.code || null });
   }
 
+  // Ensure a step has a .step-row.step-content; create if missing (prototype-only)
+  function ensureContentRow(stepEl){
+    var row = stepEl.querySelector('.step-row.step-content');
+    if (row) return row;
+    try {
+      var titleRow = stepEl.querySelector('.step-row.step-title');
+      var created = document.createElement('div');
+      created.className = 'step-row step-content';
+      created.setAttribute('data-auto-content-row','1');
+      var rail = document.createElement('div');
+      rail.className = 'track-wrapper';
+      var track = document.createElement('div');
+      track.className = 'track';
+      rail.appendChild(track);
+      var cw = document.createElement('div');
+      cw.className = 'content-wrapper';
+      created.appendChild(rail);
+      created.appendChild(cw);
+      if (titleRow && titleRow.insertAdjacentElement) {
+        titleRow.insertAdjacentElement('afterend', created);
+      } else {
+        stepEl.appendChild(created);
+      }
+      return created;
+    } catch(_) { return null; }
+  }
+
   // Apply progress to the timeline (no UI text changes yet; class toggles only)
   function applyTimelineFromProgress(){
     try {
@@ -97,8 +124,41 @@
       if (!steps || !steps.length) return;
       var activeIdx = Math.max(0, Math.min(steps.length - 1, (p.state|0) - 1));
       steps.forEach(function(stepEl, idx){
-        stepEl.classList.toggle('is-active', idx === activeIdx);
+        var isActive = idx === activeIdx;
+        var isCompleted = idx < activeIdx; // everything before active is completed
+        stepEl.classList.toggle('is-active', isActive);
         stepEl.classList.toggle('is-muted', idx > activeIdx);
+        stepEl.classList.toggle('is-completed', isCompleted);
+        // Add datestamp for completed steps if missing
+        if (isCompleted) {
+          var contentRow = ensureContentRow(stepEl);
+          var wrapper = contentRow ? contentRow.querySelector('.content-wrapper') : stepEl.querySelector('.step-row.step-title .content-wrapper');
+          if (wrapper && !wrapper.querySelector('.step-datestamp')) {
+            var stamp = document.createElement('div');
+            stamp.className = 'step-datestamp';
+            try {
+              var d = new Date(getProgress().updatedAt);
+              var pad = function(n){ return String(n).padStart(2,'0'); };
+              var text = pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds())+', '+pad(d.getMonth()+1)+'/'+pad(d.getDate())+'/'+d.getFullYear();
+              stamp.textContent = text;
+            } catch(_) { stamp.textContent = ''; }
+            wrapper.appendChild(stamp);
+          }
+        } else {
+          // If step is no longer completed, ensure datestamp is removed and hidden items visible
+          var contentRow2 = stepEl.querySelector('.step-row.step-content');
+          if (contentRow2) {
+            var ds = contentRow2.querySelector('.content-wrapper .step-datestamp');
+            if (ds && ds.parentElement) ds.parentElement.removeChild(ds);
+            // remove auto-created content row if empty
+            if (contentRow2.getAttribute('data-auto-content-row') === '1') {
+              var cw2 = contentRow2.querySelector('.content-wrapper');
+              if (cw2 && cw2.children.length === 0) {
+                contentRow2.parentElement && contentRow2.parentElement.removeChild(contentRow2);
+              }
+            }
+          }
+        }
       });
     } catch(_) {}
   }

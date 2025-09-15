@@ -1121,6 +1121,22 @@ html {
 .content .timeline-steps .step.is-muted .label, .content .timeline-steps .step.is-muted .title {
   color: #BCBDBD;
 }
+.content .timeline-steps .step.is-completed .label,
+.content .timeline-steps .step.is-completed .title {
+  color: #2F9752;
+}
+.content .timeline-steps .step.is-completed .step-actions {
+  display: none;
+}
+.content .timeline-steps .step.is-completed .step-desc {
+  display: none;
+}
+.content .timeline-steps .step-datestamp {
+  margin-top: 4px;
+  font: 500 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #BCBDBD;
+  opacity: 0.9;
+}
 .content .timeline-steps > .step:first-child .step-label .track-wrapper .track {
   opacity: 0;
 }
