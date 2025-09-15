@@ -78,7 +78,7 @@ $bp-md: 1280px;     // main responsive breakpoint
 .m-field-with-qr { margin-top: 24px; display: flex; gap: 32px; align-items: flex-end; }
 .m-field-with-qr .m-field { flex: 1 1 auto; }
 .m-field-with-qr .m-qr { flex: 0 0 72px; }
-.m-field-group { display: flex; flex-direction: column; gap: 8px; }
+.m-field-group { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
 .m-label { color: $color-text-secondary; font: 500 14px $font-manrope; }
 .m-key-row { display: grid; grid-template-columns: 1fr 88px; gap: 12px; align-items: center; }
 .m-input-row { height: 56px; display: grid; grid-template-columns: 1fr 32px; align-items: center; gap: 8px; border: 1px solid $color-border; border-radius: 10px; padding: 10px 12px; }
@@ -93,7 +93,7 @@ $bp-md: 1280px;     // main responsive breakpoint
 .m-copy img { width: 24px; height: 24px; }
 .m-qr { width: 100px; height: 100px; border-radius: 6px; display: grid; place-items: center; }
 .m-qr img { width: 100px; height: 100px; display: block; }
-.m-error { color: #ef4444; font: 600 12px $font-manrope; margin-top: -4px; }
+.m-error { color: #dd483c; font: 600 14px $font-manrope; margin-top: -4px; }
 .m-divider { border: none; height: 1px; background: $color-border; margin: 32px 0; }
 
 // Success modal

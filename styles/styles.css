@@ -131,6 +131,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  margin-top: 20px;
 }
 
 .m-label {
@@ -213,8 +214,8 @@
 }
 
 .m-error {
-  color: #ef4444;
-  font: 600 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #dd483c;
+  font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   margin-top: -4px;
 }
 
