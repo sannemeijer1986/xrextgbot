@@ -1396,8 +1396,8 @@ body.modal-locked {
   font-weight: 400;
 }
 .content .timeline-steps .step-desc {
-  margin-top: -4px;
-  font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin-top: -5px;
+  font: 500 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #2d2f2f;
 }
 .content .timeline-steps .step.is-completed .step-actions {
@@ -1445,13 +1445,10 @@ body.modal-locked {
   opacity: 0;
 }
 .content .initiate-bot {
-  background: #F6F9FF;
-  border: 1px solid #EEEEEE;
-  border-radius: 16px;
   padding: 20px;
 }
-.content .initiate-bot .ib-question {
-  font: 700 18px "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+.content .initiate-bot .ib-label {
+  font: 600 14px "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #2d2f2f;
   margin: 12px 0 8px;
 }
@@ -1485,6 +1482,12 @@ body.modal-locked {
   width: 20px;
   height: 20px;
   display: inline-block;
+}
+.content .initiate-bot .ib-icon-device {
+  background: url("../assets/icon_link_desktop.svg") center/contain no-repeat;
+}
+.content .initiate-bot .ib-icon-mobile {
+  background: url("../assets/icon_link_mobile.svg") center/contain no-repeat;
 }
 .content .initiate-bot .ib-qr-section {
   margin-top: 20px;
@@ -1522,6 +1525,9 @@ body.modal-locked {
   text-decoration: underline;
 }
 .content .timeline-steps #step-initiate-bot:not(.is-active) .step-actions.initiate-bot {
+  display: none;
+}
+.content .timeline-steps #step-initiate-bot:not(.is-active) .step-desc {
   display: none;
 }
 .content .step-card {
