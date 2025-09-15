@@ -1010,10 +1010,11 @@ html { overflow-y: scroll; } // force scrollbar to always show
   .timeline-steps .step.is-completed .step-actions { display: none; }
   .timeline-steps .step.is-completed .step-desc { display: none; }
   .timeline-steps .step-datestamp {
-    margin-top: 4px;
-    font: 500 12px $font-manrope;
+    margin-top: -4px;
+    font: 300 14px $font-manrope;
     color: $color-text-placeholder;
-    opacity: .9;
+    opacity: 1;
+    padding-bottom: 16px;
   }
   // Completed node + connecting tracks styling
   .timeline-steps .step.is-completed .step-row.step-title .track-wrapper .node {

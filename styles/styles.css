@@ -1134,10 +1134,11 @@ html {
   display: none;
 }
 .content .timeline-steps .step-datestamp {
-  margin-top: 4px;
-  font: 500 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin-top: -4px;
+  font: 300 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #BCBDBD;
-  opacity: 0.9;
+  opacity: 1;
+  padding-bottom: 16px;
 }
 .content .timeline-steps .step.is-completed .step-row.step-title .track-wrapper .node {
   background-color: #5AC47D;
