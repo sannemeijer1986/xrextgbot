@@ -1322,7 +1322,7 @@ body.modal-locked {
   min-height: 40px;
 }
 .content .timeline-steps .step-label .track {
-  padding-top: 44px;
+  padding-top: 36px;
 }
 .content .timeline-steps .track-wrapper .node {
   display: flex;
@@ -1365,7 +1365,7 @@ body.modal-locked {
   margin-bottom: -5px;
 }
 .content .timeline-steps .title {
-  font: 600 22px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font: 700 20px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #2d2f2f;
   line-height: 1.15;
 }
@@ -1376,7 +1376,7 @@ body.modal-locked {
   padding: 4px 0px 4px 0px;
 }
 .content .timeline-steps .step-actions {
-  padding: 16px 0px 24px 0px;
+  padding: 16px 0px 28px 0px;
 }
 .content .timeline-steps .step.is-muted .label, .content .timeline-steps .step.is-muted .title {
   color: #BCBDBD;
@@ -1384,6 +1384,16 @@ body.modal-locked {
 .content .timeline-steps .step.is-completed .label,
 .content .timeline-steps .step.is-completed .title {
   color: #2F9752;
+}
+.content .timeline-steps .step.is-completed .title,
+.content .timeline-steps .step.is-muted .title {
+  font-size: 18px;
+}
+.content .timeline-steps .step.is-completed .title {
+  font-weight: 600;
+}
+.content .timeline-steps .step.is-muted .title {
+  font-weight: 400;
 }
 .content .timeline-steps .step-desc {
   margin-top: -4px;
@@ -1433,9 +1443,6 @@ body.modal-locked {
 }
 .content .timeline-steps > .step:last-child .step-row.step-content .track-wrapper .track {
   opacity: 0;
-}
-.content .timeline-steps .step.is-muted .title {
-  font-weight: 300;
 }
 .content .step-card {
   background: #F4F7FF;

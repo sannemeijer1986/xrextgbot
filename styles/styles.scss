@@ -1005,7 +1005,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   }
 
   .timeline-steps .step-label .track {
-    padding-top: 44px;
+    padding-top: 36px;
   }
 
   // In the node row, split the track into two segments around the node using ::before/::after on the track element
@@ -1048,7 +1048,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     margin-bottom: -5px;
   }
   .timeline-steps .title { 
-    font: 600 22px $font-manrope; 
+    font: 700 20px $font-manrope; 
     color: $color-text-primary; 
     line-height: 1.15;
   }
@@ -1060,7 +1060,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     padding: 4px 0px 4px 0px;
   }
   .timeline-steps .step-actions { 
-    padding: 16px 0px 24px 0px; 
+    padding: 16px 0px 28px 0px; 
   }
 
   .timeline-steps .step.is-muted .label, .timeline-steps .step.is-muted .title {
@@ -1072,6 +1072,20 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .timeline-steps .step.is-completed .title {
     color: #2F9752;
   }
+
+  .timeline-steps .step.is-completed .title,
+  .timeline-steps .step.is-muted .title {
+    font-size: 18px;
+  }
+
+  .timeline-steps .step.is-completed .title {
+    font-weight: 600;
+  }
+
+  .timeline-steps .step.is-muted .title {
+    font-weight: 400;
+  }
+
 
 .timeline-steps .step-desc {
   margin-top: -4px;
@@ -1115,9 +1129,6 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   // Last step: hide tracks only in rows below the node (step-content), not above
   .timeline-steps > .step:last-child .step-row.step-content .track-wrapper .track { opacity: 0; }
 
- .timeline-steps .step.is-muted .title {
-    font-weight: 300;
-  }
 
   .step-card {
     background: #F4F7FF;
