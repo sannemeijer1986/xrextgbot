@@ -80,8 +80,22 @@
     } catch(_){}
   }
 
-  if (tabIntro) tabIntro.addEventListener('click', function () { activate('intro'); });
-  if (tabSetup) tabSetup.addEventListener('click', function () { activate('setup'); });
+  if (tabIntro) tabIntro.addEventListener('click', function () { 
+    activate('intro'); 
+    try {
+      var url = new URL(window.location.href);
+      url.searchParams.set('tab','intro');
+      window.history.replaceState({}, '', url.toString());
+    } catch(_) {}
+  });
+  if (tabSetup) tabSetup.addEventListener('click', function () { 
+    activate('setup'); 
+    try {
+      var url2 = new URL(window.location.href);
+      url2.searchParams.set('tab','setup');
+      window.history.replaceState({}, '', url2.toString());
+    } catch(_) {}
+  });
 
   var shareBtn = document.getElementById('shareBtn');
   function showSnackbar(message) {
@@ -141,10 +155,26 @@
   });
 
   var startLinkBtn = document.getElementById('startLinkBtn');
-  if (startLinkBtn) startLinkBtn.addEventListener('click', function () { activate('setup'); });
+  if (startLinkBtn) startLinkBtn.addEventListener('click', function () {
+    try {
+      var u = new URL(window.location.href);
+      u.searchParams.set('view','content');
+      u.searchParams.set('page','telegram');
+      u.searchParams.set('tab','setup');
+      window.location.href = u.toString();
+    } catch(_) { activate('setup'); }
+  });
   // CTA button in intro content should also switch to Setup
   document.querySelectorAll('.js-start-link').forEach(function(btn){
-    btn.addEventListener('click', function(){ activate('setup'); });
+    btn.addEventListener('click', function(){ 
+      try {
+        var u2 = new URL(window.location.href);
+        u2.searchParams.set('view','content');
+        u2.searchParams.set('page','telegram');
+        u2.searchParams.set('tab','setup');
+        window.location.href = u2.toString();
+      } catch(_) { activate('setup'); }
+    });
   });
 
   // Page routing: telegram vs account using `page` query param
@@ -175,7 +205,20 @@
         if (panelSetup) panelSetup.style.display = 'none';
         if (shareBtn) shareBtn.style.display = 'none';
       }
-      if (page === 'account') showAccount(); else showTelegram();
+      if (page === 'account') {
+        showAccount();
+      } else {
+        showTelegram();
+        // Only allow deep-linking to tabs when viewing Telegram content view
+        try {
+          var viewParam = params.get('view');
+          var isDesk = window.matchMedia('(min-width: 1280px)').matches;
+          var tabParam = params.get('tab') || params.get('panel'); // allow either name
+          if ((viewParam === 'content' || isDesk) && (tabParam === 'intro' || tabParam === 'setup')) {
+            activate(tabParam);
+          }
+        } catch(_) {}
+      }
     } catch(_){}
   })();
 
@@ -258,7 +301,17 @@
   document.querySelectorAll('.menu .menu-item[data-link]').forEach(function(item){
     var to = item.getAttribute('data-link');
     if (!to) return;
-    function go(){ window.location.href = to; }
+    function go(){ 
+      try {
+        // Build relative to the current URL to support subpaths and local files
+        var url = new URL(to, window.location.href);
+        if ((item.getAttribute('data-page')||'') === 'telegram') {
+          if (!url.searchParams.has('tab')) url.searchParams.set('tab','intro');
+          if (!url.searchParams.has('view')) url.searchParams.set('view','content');
+        }
+        window.location.href = url.toString();
+      } catch(_) { window.location.href = to; }
+    }
     item.addEventListener('click', go);
     item.addEventListener('keydown', function(e){
       if (e.key === 'Enter' || e.key === ' ') {
