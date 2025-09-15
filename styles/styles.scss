@@ -68,6 +68,20 @@ $bp-md: 1280px;     // main responsive breakpoint
 .modal-body { color: $color-text-primary; font: 400 14px $font-manrope; }
 .modal-footer { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
 
+// Modal content styles
+.m-step { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.m-step-meta { color: #2563eb; font: 700 13px $font-manrope; }
+.m-step-title { color: $color-text-primary; font: 700 18px $font-manrope; }
+.m-desc { color: $color-text-secondary; font: 400 14px $font-manrope; }
+.m-field { display: flex; flex-direction: column; gap: 8px; }
+.m-label { color: $color-text-secondary; font: 600 12px $font-manrope; }
+.m-input-row { display: grid; grid-template-columns: 1fr 32px 80px; align-items: center; gap: 8px; border: 1px solid $color-border; border-radius: 10px; padding: 10px 12px; }
+.m-input { border: none; outline: none; font: 600 14px $font-manrope; color: $color-text-primary; background: transparent; min-width: 0; }
+.m-copy { background: transparent; border: none; cursor: pointer; width: 28px; height: 28px; display: grid; place-items: center; }
+.m-qr { width: 72px; height: 72px; background: #eee; border-radius: 6px; }
+.m-error { color: #ef4444; font: 600 12px $font-manrope; margin-top: -4px; }
+.m-divider { border: none; height: 1px; background: $color-border; margin: 16px 0; }
+
 body {
   font-family: $font-system;
   background: $color-bg;

@@ -406,11 +406,35 @@
         <div class="modal-wrapper modal-wrapper--small">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>Enable 2FA</h2>
+                    <h2>Two-factor authentication</h2>
                     <button class="modal-close" id="modalClose" aria-label="Close modal">×</button>
                 </div>
                 <div class="modal-body">
-                    <p>To enable two-factor authentication, please confirm to proceed. You’ll be redirected to the 2FA setup flow.</p>
+                    <div class="m-step">
+                        <div class="m-step-meta">Step1</div>
+                        <div class="m-step-title">Copy and paste the security key in your authenticator app</div>
+                        <div class="m-field">
+                            <label class="m-label" for="secKeyInput">Security key</label>
+                            <div class="m-input-row" id="secKeyField" role="button" tabindex="0" aria-label="Copy security key">
+                                <input id="secKeyInput" class="m-input" type="text" readonly value="" />
+                                <button class="m-copy" id="copyKeyBtn" aria-label="Copy">
+                                    <img src="assets/icon_copy.svg" width="16" height="16" alt="copy" />
+                                </button>
+                                <div class="m-qr" aria-hidden="true"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="m-divider" />
+                    <div class="m-step">
+                        <div class="m-step-meta">Step2</div>
+                        <div class="m-step-title">Come back to XREX Pay and verify your 6-digit code</div>
+                        <div class="m-desc">Copy the 6‑digit code from your authenticator app and enter it below.</div>
+                        <div class="m-field">
+                            <label class="m-label" for="authCodeInput">Authentication code</label>
+                            <input id="authCodeInput" class="m-input" type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="Enter the authentication code" maxlength="6" />
+                            <div id="authCodeError" class="m-error" aria-live="polite" hidden>Please enter a 6‑digit code.</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary btn-md" id="modalCancel">Cancel</button>

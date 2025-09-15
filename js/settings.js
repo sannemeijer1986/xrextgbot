@@ -174,6 +174,15 @@
     } catch(_) {}
   }
 
+  // Helper: refresh timeline and admin tool display
+  function refreshStateUI(){
+    try {
+      applyTimelineFromProgress();
+      var val = document.getElementById('adminStateValue');
+      if (val) val.textContent = String(getProgress().state);
+    } catch(_) {}
+  }
+
   function updateFirstStepText(state){
     try {
       var first = document.querySelector('.timeline-steps .step');
@@ -207,27 +216,63 @@
       var btnClose = document.getElementById('modalClose');
       var btnCancel = document.getElementById('modalCancel');
       var btnConfirm = document.getElementById('modalConfirm');
+      var secKeyInput = document.getElementById('secKeyInput');
+      var copyKeyBtn = document.getElementById('copyKeyBtn');
+      var secKeyField = document.getElementById('secKeyField');
+      var authCodeInput = document.getElementById('authCodeInput');
+      var authCodeError = document.getElementById('authCodeError');
       function open(){ modal.hidden = false; modal.setAttribute('aria-hidden','false'); }
       function close(){ modal.setAttribute('aria-hidden','true'); modal.hidden = true; }
+      // Generate a random-looking key and fake QR when opening
+      function prime(){
+        try {
+          var base = Math.random().toString(36).slice(2, 10).toUpperCase() + Math.random().toString(36).slice(2, 10).toUpperCase();
+          var key = (base + 'JYJHYGW23').slice(0, 24);
+          if (secKeyInput) secKeyInput.value = key;
+        } catch(_) {}
+      }
       if (openBtn) openBtn.addEventListener('click', function(e){
         try {
           var s = (getProgress().state|0);
           if (s >= 2) {
             e.preventDefault();
-            setState(3); applyTimelineFromProgress();
+            setState(3); refreshStateUI();
             return;
           }
         } catch(_) {}
-        open();
+        prime(); open();
       });
       if (btnClose) btnClose.addEventListener('click', close);
       if (btnCancel) btnCancel.addEventListener('click', close);
       if (btnConfirm) btnConfirm.addEventListener('click', function(){
+        // Validate 6-digit code
+        try {
+          var v = (authCodeInput && authCodeInput.value || '').trim();
+          var ok = /^\d{6}$/.test(v);
+          if (!ok) {
+            if (authCodeError) { authCodeError.hidden = false; }
+            if (authCodeInput) authCodeInput.focus();
+            return;
+          }
+        } catch(_) {}
+        if (authCodeError) authCodeError.hidden = true;
         // Simulate enabling 2FA: advance to state 2 and close modal
-        setState(2); applyTimelineFromProgress(); close();
+        setState(2); refreshStateUI(); close();
       });
       modal.addEventListener('click', function(e){ if (e.target === modal) close(); });
       document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
+      // Copy key and show snackbar
+      function copyKey(){
+        try {
+          var key = (secKeyInput && secKeyInput.value) || '';
+          if (key && navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(key);
+          }
+        } catch(_) {}
+        try { if (typeof showSnackbar === 'function') showSnackbar('Security key copied'); } catch(_) {}
+      }
+      if (copyKeyBtn) copyKeyBtn.addEventListener('click', function(e){ e.preventDefault(); copyKey(); });
+      if (secKeyField) secKeyField.addEventListener('click', function(){ copyKey(); });
     } catch(_) {}
   })();
 
