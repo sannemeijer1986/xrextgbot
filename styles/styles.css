@@ -167,10 +167,20 @@
 .m-input {
   border: none;
   outline: none;
-  font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font: 600 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #2d2f2f;
   background: transparent;
   min-width: 0;
+}
+
+.m-input::placeholder {
+  font-weight: 300;
+  color: #BCBDBD;
+}
+
+.m-input::-webkit-input-placeholder {
+  font-weight: 300;
+  color: #BCBDBD;
 }
 
 .m-copy {
@@ -213,6 +223,41 @@
   height: 1px;
   background: #EEEEEE;
   margin: 32px 0;
+}
+
+.m-success {
+  text-align: center;
+  padding: 8px 8px 0;
+}
+
+.m-success-icon {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: rgba(115, 162, 245, 0.12);
+  display: grid;
+  place-items: center;
+}
+
+.m-success-shield {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  background: #73A2F5;
+  mask: url("assets/icon_snackbar_success.svg") center/contain no-repeat;
+  -webkit-mask: url("assets/icon_snackbar_success.svg") center/contain no-repeat;
+}
+
+.m-success-title {
+  font: 800 22px "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #2d2f2f;
+  margin: 12px 0 8px;
+}
+
+.m-success-desc {
+  font: 400 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #797a7b;
 }
 
 body {

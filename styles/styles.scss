@@ -86,13 +86,22 @@ $bp-md: 1280px;     // main responsive breakpoint
 #secKeyField, #secKeyInput {
   cursor: pointer; 
 }
-.m-input { border: none; outline: none; font: 600 14px $font-manrope; color: $color-text-primary; background: transparent; min-width: 0; }
+.m-input { border: none; outline: none; font: 600 16px $font-manrope; color: $color-text-primary; background: transparent; min-width: 0; }
+.m-input::placeholder { font-weight: 300; color: $color-text-placeholder; }
+.m-input::-webkit-input-placeholder { font-weight: 300; color: $color-text-placeholder; }
 .m-copy { background: transparent; border: none; cursor: pointer; width: 32px; height: 32px; display: grid; place-items: center; }
 .m-copy img { width: 24px; height: 24px; }
 .m-qr { width: 100px; height: 100px; border-radius: 6px; display: grid; place-items: center; }
 .m-qr img { width: 100px; height: 100px; display: block; }
 .m-error { color: #ef4444; font: 600 12px $font-manrope; margin-top: -4px; }
 .m-divider { border: none; height: 1px; background: $color-border; margin: 32px 0; }
+
+// Success modal
+.m-success { text-align: center; padding: 8px 8px 0; }
+.m-success-icon { width: 160px; height: 160px; margin: 0 auto 12px; border-radius: 50%; background: rgba(115,162,245,0.12); display: grid; place-items: center; }
+.m-success-shield { width: 72px; height: 72px; border-radius: 16px; background: #73A2F5; mask: url('assets/icon_snackbar_success.svg') center/contain no-repeat; -webkit-mask: url('assets/icon_snackbar_success.svg') center/contain no-repeat; }
+.m-success-title { font: 800 22px $font-sora; color: $color-text-primary; margin: 12px 0 8px; }
+.m-success-desc { font: 400 14px $font-manrope; color: $color-text-secondary; }
 
 body {
   font-family: $font-system;

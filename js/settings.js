@@ -223,6 +223,9 @@
       var secKeyField = document.getElementById('secKeyField');
       var authCodeInput = document.getElementById('authCodeInput');
       var authCodeError = document.getElementById('authCodeError');
+      var successModal = document.getElementById('successModal');
+      var successClose = document.getElementById('successClose');
+      var successCta = document.getElementById('successCta');
       function open(){
         modal.hidden = false; modal.setAttribute('aria-hidden','false');
         try {
@@ -230,6 +233,15 @@
           document.body.dataset.scrollY = String(y);
           document.body.style.top = '-' + y + 'px';
           document.body.classList.add('modal-locked');
+        } catch(_) {}
+        // Reset and focus auth code input on open
+        try {
+          if (authCodeInput) {
+            authCodeInput.value = '';
+            authCodeInput.focus();
+            if (authCodeInput.select) authCodeInput.select();
+          }
+          if (authCodeError) authCodeError.hidden = true;
         } catch(_) {}
       }
       function close(){
@@ -275,8 +287,22 @@
           }
         } catch(_) {}
         if (authCodeError) authCodeError.hidden = true;
-        // Simulate enabling 2FA: advance to state 2 and close modal
-        setState(2); refreshStateUI(); close();
+        // Close 2FA modal and show success confirmation modal
+        close();
+        try {
+          if (successModal) { successModal.hidden = false; successModal.setAttribute('aria-hidden','false'); }
+        } catch(_) {}
+      });
+      function closeSuccess(){
+        if (!successModal) return;
+        successModal.setAttribute('aria-hidden','true');
+        successModal.hidden = true;
+      }
+      if (successClose) successClose.addEventListener('click', closeSuccess);
+      if (successModal) successModal.addEventListener('click', function(e){ if (e.target === successModal) closeSuccess(); });
+      if (successCta) successCta.addEventListener('click', function(){
+        // Advance state and refresh UI, then close success modal
+        setState(2); refreshStateUI(); closeSuccess();
       });
       modal.addEventListener('click', function(e){ if (e.target === modal) close(); });
       document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
