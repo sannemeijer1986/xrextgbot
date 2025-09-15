@@ -1018,42 +1018,55 @@ html {
   margin: 0;
 }
 .content .timeline-steps .step {
+  display: block;
+  position: relative;
+  --rail-width: 44px;
+  --track-x: 24px;
+  --node-size: 16px;
+  --node-center: 10px;
+  --track-gap: 6px;
+  --rail-inline-gap: 10px;
+}
+.content .timeline-steps .step-row {
   display: grid;
-  grid-template-columns: 28px 1fr;
+  grid-template-columns: var(--rail-width) 1fr;
   gap: 16px;
-  align-items: stretch;
+  align-items: start;
   position: relative;
-  padding: 8px 8px;
-  --node-offset: 10px;
 }
-.content .timeline-steps .step + .step {
-  margin-top: 24px;
-}
-.content .timeline-steps .track {
+.content .timeline-steps .content-wrapper {
   position: relative;
+  z-index: 2;
+}
+.content .timeline-steps .track-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+  justify-items: center;
   height: 100%;
-  z-index: 1;
+  width: 100%;
 }
-.content .timeline-steps .track::before {
-  content: "";
-  position: absolute;
-  left: 13px;
-  top: -28px;
-  bottom: -28px;
+.content .timeline-steps .track-wrapper .track {
+  display: flex;
   width: 2px;
   background: #EEEEEE;
+  flex: 1;
 }
-.content .timeline-steps .step:first-child .track::before {
-  top: 0;
+.content .timeline-steps .step-label {
+  align-items: end;
 }
-.content .timeline-steps .step:last-child .track::before {
-  bottom: 0;
+.content .timeline-steps .step-title {
+  align-items: center;
 }
-.content .timeline-steps .node {
-  position: absolute;
+.content .timeline-steps .step-label .track {
+  padding-top: 32px;
+}
+.content .timeline-steps .track-wrapper .node {
+  display: flex;
   z-index: 2;
-  left: 5px;
-  top: var(--node-offset);
   width: 16px;
   height: 16px;
   border-radius: 9999px;
@@ -1063,49 +1076,44 @@ html {
   background-position: center;
   background-size: 10px 10px;
 }
-.content .timeline-steps .is-active .node {
+.content .timeline-steps .step.is-active {
+  background: #F4F7FF;
+}
+.content .timeline-steps .step.is-active .track-wrapper .node {
+  display: flex;
   background-color: #2250F7;
   border-color: #2250F7;
   width: 22px;
   height: 22px;
-  left: 2px;
-  box-shadow: 0 0 0 6px rgba(34, 80, 247, 0.12);
   background-image: url("../assets/icon_swiper_chevron_right.svg");
   background-size: 12px 12px;
-  --node-offset: 42px;
 }
 .content .timeline-steps .step-content {
   padding-top: 0;
   position: relative;
   z-index: 1;
 }
-.content .timeline-steps .step.is-active::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: #F4F7FF;
-  border-radius: 16px;
+.content .timeline-steps .step.is-active::after {
   z-index: 0;
 }
-.content .timeline-steps .step-meta {
+.content .timeline-steps .label {
   font: 600 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #797a7b;
-  margin-bottom: 6px;
 }
-.content .timeline-steps .step-title {
+.content .timeline-steps .title {
   font: 700 18px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #2d2f2f;
 }
-.content .timeline-steps .step-title.muted {
+.content .timeline-steps .title.muted {
   color: #797a7b;
   font-weight: 600;
 }
-.content .timeline-steps .step-desc {
+.content .timeline-steps .desc {
   color: #797a7b;
   font: 400 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   margin-top: 6px;
 }
-.content .timeline-steps .step-actions {
+.content .timeline-steps .actions {
   margin-top: 12px;
 }
 .content .step-card {

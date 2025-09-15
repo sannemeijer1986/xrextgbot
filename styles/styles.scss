@@ -890,65 +890,96 @@ html { overflow-y: scroll; } // force scrollbar to always show
     padding: 0; margin: 0;
   }
   .timeline-steps .step {
-    display: grid;
-    grid-template-columns: 28px 1fr;
-    gap: 16px;
-    align-items: stretch;
+    display: block;
     position: relative;
-    padding: 8px 8px;
-    --node-offset: 10px;
+    --rail-width: 44px;     // width of the left rail column
+    --track-x: 24px;        // legacy var (not used when non-absolute)
+    --node-size: 16px;      // default node size
+    --node-center: 10px;    // horizontal center of node inside rail
+    --track-gap: 6px;       // vertical gap between node and track
+    --rail-inline-gap: 10px;// horizontal gap between node and track
   }
-  .timeline-steps .step + .step { margin-top: 24px; }
-  .timeline-steps .track { position: relative; height: 100%; z-index: 1; }
-  .timeline-steps .track::before {
-    content: "";
-    position: absolute;
-    left: 13px;
-    top: -28px; // overlap further to remove gaps
-    bottom: -28px; // overlap further to remove gaps
+
+  .timeline-steps .step-row {
+    display: grid;
+    grid-template-columns: var(--rail-width) 1fr;
+    gap: 16px;
+    align-items: start;
+    position: relative;
+  }
+  .timeline-steps .content-wrapper { position: relative; z-index: 2; }
+
+  // Left track-wrapper: holds the vertical track and the node (on title rows)
+  .timeline-steps .track-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    justify-content: center;
+    justify-items: center;
+    height: 100%;
+    width: 100%
+  }
+  .timeline-steps .track-wrapper .track {
+    display: flex;
     width: 2px;
     background: $color-border;
+    flex: 1;
   }
-  .timeline-steps .step:first-child .track::before { top: 0; }
-  .timeline-steps .step:last-child .track::before { bottom: 0; }
-  .timeline-steps .node {
-    position: absolute;
-    z-index: 2;
-    left: 5px; // center (5 + width/2 = 13)
-    top: var(--node-offset);
-    width: 16px; height: 16px;
+
+  // Step label
+  .timeline-steps .step-label {
+    align-items: end;
+  }
+
+  .timeline-steps .step-title {
+    align-items: center;
+  }
+
+  .timeline-steps .step-label .track {
+    padding-top: 32px;
+  }
+
+  // In the node row, split the track into two segments around the node using ::before/::after on the track element
+  // no pseudo-elements; gap created by two track siblings with margins
+  .timeline-steps .track-wrapper .node {
+    display: flex;
+    z-index: 2; // above track and highlight
+    width: 16px;
+    height: 16px;
     border-radius: 9999px;
     background: #ffffff;
-    border: 2px solid #d1d5db; // outlined non-active
-    background-repeat: no-repeat; background-position: center; background-size: 10px 10px;
+    border: 2px solid #d1d5db;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10px 10px;
   }
-  .timeline-steps .is-active .node {
+
+.timeline-steps .step.is-active {
+    background: #F4F7FF;
+}
+
+  .timeline-steps .step.is-active .track-wrapper .node {
+    display: flex;
     background-color: #2250F7;
     border-color: #2250F7;
-    width: 22px; height: 22px; left: 2px; // maintain center at 13px
-    box-shadow: 0 0 0 6px rgba(34,80,247,.12);
+    width: 22px; 
+    height: 22px; 
     background-image: url('../assets/icon_swiper_chevron_right.svg');
     background-size: 12px 12px;
-    --node-offset: 42px; // align with title line in active card
   }
   .timeline-steps .step-content { padding-top: 0; position: relative; z-index: 1; }
-  .timeline-steps .step.is-active::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: #F4F7FF;
-    border-radius: 16px;
-    z-index: 0;
-  }
-  .timeline-steps .step-meta {
+  // Ensure active highlight sits behind rail track and node
+  .timeline-steps .step.is-active::after { z-index: 0; }
+  .timeline-steps .label {
     font: 600 12px $font-manrope;
     color: $color-text-secondary;
-    margin-bottom: 6px;
   }
-  .timeline-steps .step-title { font: 700 18px $font-manrope; color: $color-text-primary; }
-  .timeline-steps .step-title.muted { color: $color-text-secondary; font-weight: 600; }
-  .timeline-steps .step-desc { color: $color-text-secondary; font: 400 14px $font-manrope; margin-top: 6px; }
-  .timeline-steps .step-actions { margin-top: 12px; }
+  .timeline-steps .title { font: 700 18px $font-manrope; color: $color-text-primary; }
+  .timeline-steps .title.muted { color: $color-text-secondary; font-weight: 600; }
+  .timeline-steps .desc { color: $color-text-secondary; font: 400 14px $font-manrope; margin-top: 6px; }
+  .timeline-steps .actions { margin-top: 12px; }
 
   .step-card {
     background: #F4F7FF;
