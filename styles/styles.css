@@ -1051,7 +1051,7 @@ html {
 }
 .content .timeline-steps .track-wrapper .track {
   display: flex;
-  width: 2px;
+  width: 1.75px;
   background: #B2B3B3;
   flex: 1;
 }
@@ -1062,7 +1062,7 @@ html {
   align-items: center;
 }
 .content .timeline-steps .step-label .track {
-  padding-top: 32px;
+  padding-top: 44px;
 }
 .content .timeline-steps .track-wrapper .node {
   display: flex;
@@ -1115,8 +1115,8 @@ html {
   margin-top: 6px;
   padding: 4px 0px 4px 0px;
 }
-.content .timeline-steps .actions {
-  margin-top: 12px;
+.content .timeline-steps .step-actions {
+  padding: 8px 0px 24px 0px;
 }
 .content .timeline-steps .step.is-muted .label, .content .timeline-steps .step.is-muted .title {
   color: #BCBDBD;

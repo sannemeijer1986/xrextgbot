@@ -923,7 +923,7 @@ html { overflow-y: scroll; } // force scrollbar to always show
   }
   .timeline-steps .track-wrapper .track {
     display: flex;
-    width: 2px;
+    width: 1.75px;
     background: #B2B3B3;
     flex: 1;
   }
@@ -938,7 +938,7 @@ html { overflow-y: scroll; } // force scrollbar to always show
   }
 
   .timeline-steps .step-label .track {
-    padding-top: 32px;
+    padding-top: 44px;
   }
 
   // In the node row, split the track into two segments around the node using ::before/::after on the track element
@@ -991,8 +991,8 @@ html { overflow-y: scroll; } // force scrollbar to always show
     $font-manrope; margin-top: 6px; 
     padding: 4px 0px 4px 0px;
   }
-  .timeline-steps .actions { 
-    margin-top: 12px; 
+  .timeline-steps .step-actions { 
+    padding: 8px 0px 24px 0px; 
   }
 
   .timeline-steps .step.is-muted .label, .timeline-steps .step.is-muted .title {
