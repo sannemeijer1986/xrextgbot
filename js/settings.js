@@ -470,10 +470,17 @@
         } catch(_) {}
       });
       function finalizeSuccess(){
-        // Advance state and refresh UI, hide modal, then redirect
+        // Advance state and refresh UI, hide success modal, then show loader before redirect
         setState(2); refreshStateUI();
         if (successModal) { successModal.setAttribute('aria-hidden','true'); successModal.hidden = true; }
-        try { window.location.href = 'login.html'; } catch(_) {}
+        try {
+          var lm = document.getElementById('loadingModal');
+          if (lm) { lm.hidden = false; lm.setAttribute('aria-hidden','false'); }
+          setTimeout(function(){
+            if (lm) { lm.setAttribute('aria-hidden','true'); lm.hidden = true; }
+            try { window.location.href = 'login.html'; } catch(_) {}
+          }, 1000);
+        } catch(_) { try { window.location.href = 'login.html'; } catch(__) {} }
       }
       if (successClose) successClose.addEventListener('click', finalizeSuccess);
       if (successModal) successModal.addEventListener('click', function(e){ if (e.target === successModal) finalizeSuccess(); });

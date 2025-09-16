@@ -111,8 +111,13 @@
       var authInput = document.getElementById('authCodeLogin');
       var authConfirm = document.getElementById('authConfirmBtn');
       var authCancel = document.getElementById('authCancelBtn');
+      // Login info modal elements
+      var loginInfoModal = document.getElementById('loginInfoModal');
+      var loginInfoClose = document.getElementById('loginInfoClose');
+      var loginInfoCta = document.getElementById('loginInfoCta');
+      var loginLoadingModal = document.getElementById('loginLoadingModal');
 
-      function showLogin(){ if (form) form.hidden = false; if (authWrap) authWrap.hidden = true; if (loginHero) loginHero.hidden = false; }
+      function showLogin(){ if (form) form.hidden = false; if (authWrap) authWrap.hidden = true; if (loginHero) loginHero.hidden = false; try { var pf = document.getElementById('loginPass'); if (pf) { pf.focus(); if (pf.select) pf.select(); } } catch(_) {} }
       function showAuth(){ if (form) form.hidden = true; if (authWrap) { authWrap.hidden = false; if (authInput) { authInput.value=''; authInput.focus(); } if (authConfirm) authConfirm.disabled = true; } if (loginHero) loginHero.hidden = true; }
 
       // Autofocus password when login form is visible
@@ -128,7 +133,14 @@
       });
       if (authConfirm) authConfirm.addEventListener('click', function(){
         if (authConfirm.disabled) return;
-        try { window.location.href = 'index.html'; } catch(_) {}
+        // show loader for 1s then redirect
+        try {
+          if (loginLoadingModal) { loginLoadingModal.hidden = false; loginLoadingModal.setAttribute('aria-hidden','false'); }
+          setTimeout(function(){
+            if (loginLoadingModal) { loginLoadingModal.setAttribute('aria-hidden','true'); loginLoadingModal.hidden = true; }
+            try { window.location.href = 'index.html'; } catch(_) {}
+          }, 1000);
+        } catch(_) { try { window.location.href = 'index.html'; } catch(__) {} }
       });
       if (authCancel) authCancel.addEventListener('click', function(){ showLogin(); });
 
@@ -137,11 +149,28 @@
         if (btn.disabled) return;
         var s = (getProgress().state|0) || 1;
         if (s <= 1) {
-          try { window.location.href = 'index.html'; } catch(_) {}
+          // show loader for 1s then redirect
+          try {
+            if (loginLoadingModal) { loginLoadingModal.hidden = false; loginLoadingModal.setAttribute('aria-hidden','false'); }
+            setTimeout(function(){
+              if (loginLoadingModal) { loginLoadingModal.setAttribute('aria-hidden','true'); loginLoadingModal.hidden = true; }
+              try { window.location.href = 'index.html'; } catch(_) {}
+            }, 1000);
+          } catch(_) { try { window.location.href = 'index.html'; } catch(__) {} }
         } else {
           showAuth();
         }
       });
+
+      // Login info modal open/close behavior
+      function openLoginInfo(){ try { if (loginInfoModal) { loginInfoModal.hidden = false; loginInfoModal.setAttribute('aria-hidden','false'); } } catch(_) {} }
+      function closeLoginInfo(){ try { if (loginInfoModal) { loginInfoModal.setAttribute('aria-hidden','true'); loginInfoModal.hidden = true; } } catch(_) {} showLogin(); }
+      // Show the modal on page load
+      openLoginInfo();
+      if (loginInfoClose) loginInfoClose.addEventListener('click', function(){ closeLoginInfo(); });
+      if (loginInfoCta) loginInfoCta.addEventListener('click', function(){ closeLoginInfo(); });
+      if (loginInfoModal) loginInfoModal.addEventListener('click', function(e){ if (e.target === loginInfoModal) closeLoginInfo(); });
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLoginInfo(); });
     });
   </script>
   <meta name="color-scheme" content="light" />
@@ -235,6 +264,37 @@
       </div>
     </div>
     </main>
+  </div>
+  <!-- Login info modal -->
+  <div id="loginInfoModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+    <div class="modal-wrapper">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Please log in again</h2>
+          <button class="modal-close" id="loginInfoClose" aria-label="Close modal">
+            <img src="assets/icon_modal_close.svg" width="24" height="24" alt="close" />
+          </button>
+        </div>
+        <div class="modal-body m-success">
+          <div class="m-success-icon" aria-hidden="true">
+            <img src="assets/img_loggedout.png" width="160" height="160" alt="" />
+          </div>
+          <div class="m-success-title">You've been logged out</div>
+          <div class="m-success-desc">Please log in again to continue</div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary btn-md" id="loginInfoCta">Back to login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Loading modal -->
+  <div id="loginLoadingModal" class="modal modal-loading" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+    <div class="modal-wrapper">
+      <div class="modal-content">
+        <div class="loading-spinner" aria-live="polite" aria-label="Loading"></div>
+      </div>
+    </div>
   </div>
 </body>
 <script src="js/settings.js"></script>
