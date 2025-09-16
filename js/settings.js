@@ -214,14 +214,23 @@
     try {
       var container = document.getElementById('step-initiate-bot');
       if (!container) return;
-      var seg = container.querySelector('.initiate-bot .ib-segment');
-      if (!seg || seg.__wired) return; seg.__wired = true;
-      seg.addEventListener('click', function(e){
-        var btn = e.target.closest('.ib-option');
-        if (!btn) return;
-        seg.querySelectorAll('.ib-option').forEach(function(b){ b.classList.remove('is-active'); b.setAttribute('aria-selected','false'); });
-        btn.classList.add('is-active'); btn.setAttribute('aria-selected','true');
-      });
+      if (container.__wired) return; container.__wired = true;
+      // Populate link and copy behavior
+      var linkEl = container.querySelector('#ibLink');
+      var copyBtn = container.querySelector('#ibCopyBtn');
+      var url = 'https://t.me/xrextgbot';
+      try {
+        var code = (getProgress().code || '').trim();
+        if (code) url = 'https://t.me/xrextgbot?start=' + encodeURIComponent(code);
+      } catch(_) {}
+      if (linkEl) { linkEl.href = url; linkEl.textContent = url.replace('https://',''); }
+      function copyLink(){
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url);
+          if (typeof showSnackbar === 'function') showSnackbar('Link copied to clipboard');
+        } catch(_) {}
+      }
+      if (copyBtn) copyBtn.addEventListener('click', function(e){ e.preventDefault(); copyLink(); });
     } catch(_) {}
   }
 
