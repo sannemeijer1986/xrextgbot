@@ -236,6 +236,34 @@
         } catch(_) {}
       }
       if (copyBtn) copyBtn.addEventListener('click', function(e){ e.preventDefault(); copyLink(); });
+
+      // Segmented control behavior
+      var seg = container.querySelector('.ib-segment');
+      function activatePane(which){
+        try {
+          container.querySelectorAll('.ib-tab').forEach(function(t){
+            var on = t.getAttribute('data-pane') === which;
+            t.classList.toggle('is-active', on);
+            t.setAttribute('aria-selected', String(on));
+          });
+          container.querySelectorAll('.ib-pane').forEach(function(p){
+            var on2 = p.classList.contains('ib-pane-' + which);
+            p.classList.toggle('is-active', on2);
+          });
+        } catch(_) {}
+      }
+      if (seg) seg.addEventListener('click', function(e){
+        var btn = e.target.closest('.ib-tab');
+        if (!btn) return;
+        activatePane(btn.getAttribute('data-pane'));
+      });
+      // On mobile breakpoint, default to link; desktop default to QR
+      function syncDefaultPane(){
+        var isMobile = !window.matchMedia('(min-width: 1280px)').matches;
+        activatePane(isMobile ? 'link' : 'qr');
+      }
+      syncDefaultPane();
+      window.addEventListener('resize', syncDefaultPane);
     } catch(_) {}
   }
 

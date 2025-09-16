@@ -1131,7 +1131,16 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 
 
   // Initiate Bot (state 3) styles
-  .initiate-bot { padding: 20px; }
+  .initiate-bot { padding: 20px; display: flex; flex-direction: column; }
+  .initiate-bot .ib-group { display: none; }
+  .initiate-bot .ib-segment { display: inline-flex; gap: 6px; background: #fff; padding: 4px; border-radius: 999px; border: 1px solid $color-border; margin: 8px 0 6px; }
+  .initiate-bot .ib-tab { appearance: none; background: transparent; border: 1px solid transparent; color: #2B63F1; font: 700 14px $font-manrope; padding: 8px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+  .initiate-bot .ib-tab.is-active { background: rgba(43, 99, 241, 0.08); border-color: rgba(43, 99, 241, 0.22); }
+  .initiate-bot .ib-tab-icon { width: 18px; height: 18px; display: inline-block; }
+  .initiate-bot .ib-tab-qr { background: url('../assets/icon_link_mobile.svg') center/contain no-repeat; }
+  .initiate-bot .ib-tab-link { background: url('../assets/icon_link_desktop.svg') center/contain no-repeat; }
+  .initiate-bot .ib-pane { display: none; }
+  .initiate-bot .ib-pane.is-active { display: block; }
   // subtitle replaced by .step-desc styling
   .initiate-bot .ib-opt { display: flex; align-items: center; gap: 10px; margin: 6px 0 10px; }
   .initiate-bot .ib-opt-text { font: 500 16px $font-manrope; color: $color-text-primary; }
@@ -1147,6 +1156,11 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .initiate-bot .ib-pill-icon { width: 16px; height: 16px; display: inline-block; }
   .initiate-bot .ib-copy { display: inline-flex; align-items: center; gap: 8px; height: $btn-height; }
   @media (max-width: $bp-md) {
+    // Flip A/B group order on mobile and swap icons via CSS
+    .initiate-bot .ib-group-a { order: 2; }
+    .initiate-bot .ib-group-b { order: 1; }
+    .initiate-bot .ib-opt--a .ib-opt-icon { background: url('../assets/icon_link_b.svg') center/contain no-repeat; }
+    .initiate-bot .ib-opt--b .ib-opt-icon { background: url('../assets/icon_link_a.svg') center/contain no-repeat; }
     .initiate-bot .ib-copy { width: $btn-height; min-width: $btn-height; padding: 0; }
     .initiate-bot .ib-copy span { display: none; }
     .initiate-bot .ib-copy img { width: 16px; height: 16px; }

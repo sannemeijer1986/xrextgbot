@@ -1447,6 +1447,54 @@ body.modal-locked {
 }
 .content .initiate-bot {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.content .initiate-bot .ib-group {
+  display: none;
+}
+.content .initiate-bot .ib-segment {
+  display: inline-flex;
+  gap: 6px;
+  background: #fff;
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid #EEEEEE;
+  margin: 8px 0 6px;
+}
+.content .initiate-bot .ib-tab {
+  appearance: none;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #2B63F1;
+  font: 700 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  padding: 8px 12px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.content .initiate-bot .ib-tab.is-active {
+  background: rgba(43, 99, 241, 0.08);
+  border-color: rgba(43, 99, 241, 0.22);
+}
+.content .initiate-bot .ib-tab-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+}
+.content .initiate-bot .ib-tab-qr {
+  background: url("../assets/icon_link_mobile.svg") center/contain no-repeat;
+}
+.content .initiate-bot .ib-tab-link {
+  background: url("../assets/icon_link_desktop.svg") center/contain no-repeat;
+}
+.content .initiate-bot .ib-pane {
+  display: none;
+}
+.content .initiate-bot .ib-pane.is-active {
+  display: block;
 }
 .content .initiate-bot .ib-opt {
   display: flex;
@@ -1525,6 +1573,18 @@ body.modal-locked {
   height: 32px;
 }
 @media (max-width: 1280px) {
+  .content .initiate-bot .ib-group-a {
+    order: 2;
+  }
+  .content .initiate-bot .ib-group-b {
+    order: 1;
+  }
+  .content .initiate-bot .ib-opt--a .ib-opt-icon {
+    background: url("../assets/icon_link_b.svg") center/contain no-repeat;
+  }
+  .content .initiate-bot .ib-opt--b .ib-opt-icon {
+    background: url("../assets/icon_link_a.svg") center/contain no-repeat;
+  }
   .content .initiate-bot .ib-copy {
     width: 32px;
     min-width: 32px;
