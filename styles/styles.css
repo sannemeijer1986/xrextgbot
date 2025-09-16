@@ -92,7 +92,31 @@
   .modal-body { padding: 20px; }
   .modal-footer { margin-top: auto; padding: 12px 20px 20px; flex-direction: column; gap: 10px; }
   .modal-footer .btn { width: 100%; max-width: none; min-width: 0; }
+  /* 2FA modal: put Confirm above Cancel on mobile */
+  .modal-footer #modalConfirm { order: 0; }
+  .modal-footer #modalCancel { order: 1; }
   .modal-loading .modal-content { height: 100%; padding: 0; display: grid; place-items: center; }
+}
+
+/* Step 1 QR + field layout: stack and center QR on small screens */
+@media (max-width: 720px) {
+  .m-field-with-qr { flex-direction: column; align-items: center !important; gap: 0 !important; }
+  .m-field-with-qr .m-qr { order: -1; }
+  .m-field-with-qr .m-field { width: 100%; }
+}
+
+/* Auth panel actions on login: reverse order and tighten spacing on small screens */
+@media (max-width: 720px) {
+  .auth-actions-row { gap: 8px; }
+  .auth-actions-row #authConfirmBtn { order: 0; }
+  .auth-actions-row #authCancelBtn { order: 1; }
+}
+
+/* Auth panel (login) button order below desktop: Confirm above Cancel */
+@media (max-width: 1279px) {
+  .auth-actions-row { gap: 8px; }
+  .auth-actions-row .login-actions:first-child { order: 1; }
+  .auth-actions-row .login-actions:last-child { order: 0; }
 }
 
 .m-step {
