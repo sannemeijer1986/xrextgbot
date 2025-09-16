@@ -263,7 +263,7 @@
       if (state >= 2) {
         labelEl.textContent = 'XREX Pay';
         titleEl.textContent = 'Start';
-        descWrap.textContent = 'Generate unique link';
+        descWrap.textContent = 'Generate unique QR code and link';
         if (descWrap) { descWrap.style.display = ''; descWrap.removeAttribute('aria-hidden'); }
         btn.textContent = 'Generate link';
       } else {
