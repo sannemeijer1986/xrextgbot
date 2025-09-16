@@ -213,6 +213,9 @@
           try {
             var vcInput = document.getElementById('vcCodeInput');
             if (vcInput) vcInput.value = 'NDG341F';
+            // ensure submit enabled when prefilled
+            var vcBtn = document.getElementById('vcSubmitBtn');
+            if (vcBtn) vcBtn.disabled = false;
             var vcError = document.getElementById('vcError');
             if (vcError) vcError.hidden = true;
           } catch(_) {}
@@ -244,6 +247,9 @@
               }
               var vcError2 = document.getElementById('vcError');
               if (vcError2) vcError2.hidden = true;
+              // Re-apply disabled state to submit when input cleared programmatically
+              var vcBtn2 = document.getElementById('vcSubmitBtn');
+              if (vcBtn2) vcBtn2.disabled = true;
             } catch(_) {}
           }
         }
