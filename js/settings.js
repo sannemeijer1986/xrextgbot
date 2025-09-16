@@ -196,6 +196,8 @@
           if (window.__loading_timer) { clearTimeout(window.__loading_timer); }
           window.__loading_timer = setTimeout(function(){
             if (lm) { lm.setAttribute('aria-hidden','true'); lm.hidden = true; }
+            // Show success message as part of state 5 completion
+            try { if (typeof showSnackbar === 'function') showSnackbar('Telegram Bot successfully linked to your XREX Pay account'); } catch(_) {}
             window.__loading_timer = null;
             setState(6);
             applyTimelineFromProgress();
@@ -322,8 +324,7 @@
       var errorEl = document.getElementById('vcError');
       var botLink = document.getElementById('vcBotLink');
       if (botLink) {
-        var url = 'https://t.me/xrextgbot';
-        try { var code = (getProgress().code||'').trim(); if (code) url += '?start=' + encodeURIComponent(code); } catch(_) {}
+        var url = 'https://t.me/SanneXREX_bot';
         botLink.href = url;
       }
       function handle(){
