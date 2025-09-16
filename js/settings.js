@@ -576,6 +576,8 @@
       panelIntro.style.display = isIntro ? '' : 'none';
       panelSetup.style.display = isIntro ? 'none' : '';
     }
+    // Persist last active Telegram tab
+    try { saveProgress({ lastTab: isIntro ? 'intro' : 'setup' }); } catch(_) {}
     // Hide top Start linking button when viewing Setup
     try {
       if (typeof startLinkBtn !== 'undefined' && startLinkBtn) {
@@ -727,6 +729,12 @@
           var tabParam = params.get('tab') || params.get('panel'); // allow either name
           if ((viewParam === 'content' || isDesk) && (tabParam === 'intro' || tabParam === 'setup')) {
             activate(tabParam);
+          } else {
+            // No explicit tab param: restore last saved Telegram tab
+            try {
+              var last = (getProgress().lastTab === 'setup') ? 'setup' : 'intro';
+              activate(last);
+            } catch(_) { activate('intro'); }
           }
         } catch(_) {}
         // Apply progress-driven timeline and mount admin tool on Telegram page
@@ -822,8 +830,14 @@
         // Build relative to the current URL to support subpaths and local files
         var url = new URL(to, window.location.href);
         if ((item.getAttribute('data-page')||'') === 'telegram') {
-          if (!url.searchParams.has('tab')) url.searchParams.set('tab','intro');
           if (!url.searchParams.has('view')) url.searchParams.set('view','content');
+          // Restore last saved tab if present and no explicit tab query provided
+          if (!url.searchParams.has('tab')) {
+            try {
+              var last = (getProgress().lastTab === 'setup') ? 'setup' : 'intro';
+              url.searchParams.set('tab', last);
+            } catch(_) { url.searchParams.set('tab','intro'); }
+          }
         }
         window.location.href = url.toString();
       } catch(_) { window.location.href = to; }
