@@ -23,7 +23,7 @@ $color-secondary-bg: #EBF2FF;
 $color-secondary-hover: #F5F9FF;
 $color-secondary-text: #2563eb;
 $btn-height: 32px;
-$btn-padding-x: 16px;
+$btn-padding-x: 14px;
 $btn-radius: 9999px;
 $btn-min-width: 100px;
 $btn-md-height: 40px;
@@ -102,6 +102,13 @@ $bp-md: 1280px;     // main responsive breakpoint
 .m-success-icon img { width: 120px; height: 120px; display: block; }
 .m-success-title { font: 800 22px $font-sora; color: $color-text-primary; margin: 12px 0 8px; }
 .m-success-desc { font: 300 16px $font-manrope; color: $color-text-primary; margin-bottom: 24px; }
+
+// Loading modal
+.modal-loading .modal-content { padding: 60px; display: grid; place-items: center; }
+.loading-spinner { width: 120px; height: 120px; border-radius: 50%; position: relative; }
+.loading-spinner:before { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 10px solid rgba(59,130,246,0.15); }
+.loading-spinner:after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 10px solid transparent; border-top-color: #2B63F1; border-right-color: #2B63F1; animation: spin 1s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
 body {
   font-family: $font-system;
@@ -1145,7 +1152,8 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .initiate-bot .ib-pane { display: none; }
   .initiate-bot .ib-pane.is-active { display: block; }
   .initiate-bot .ib-hint { color: $color-text-primary; font: 500 16px $font-manrope; margin: 10px 0 20px 0; }
-  .initiate-bot .ib-hint-sub { color: $color-text-secondary; font-size: 14px; margin-top: 6px; display: inline-block; }
+  .initiate-bot .ib-hint-sub { color: $color-text-secondary; font-size: 14px; display: inline-block; }
+  .initiate-bot .ib-hint-sub-margintop { margin-top: 8px; }
   .initiate-bot .ib-hint .ib-switch-to { color: $color-text-secondary; text-decoration: none; font-weight: 700; font-size: 14px; }
   .initiate-bot .ib-hint .ib-switch-to:hover { text-decoration: none; }
   // subtitle replaced by .step-desc styling
@@ -1161,7 +1169,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .initiate-bot .ib-pill { display: inline-flex; align-items: center; gap: 10px; background: #2B63F1; color: #fff; text-decoration: none; padding: 0 12px; border-radius: 999px; font: 700 14px $font-manrope; height: $btn-height; }
   .initiate-bot .ib-pill-text { max-width: 160px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; }
   .initiate-bot .ib-pill-icon { width: 16px; height: 16px; display: inline-block; }
-  .initiate-bot .ib-copy { display: inline-flex; align-items: center; gap: 8px; height: $btn-height; }
+  .initiate-bot .ib-copy { display: inline-flex; width: auto; min-width: inherit; align-items: center; gap: 8px; height: $btn-height; }
   @media (max-width: $bp-md) {
     // Flip A/B group order on mobile and swap icons via CSS
     .initiate-bot .ib-group-a { order: 2; }
@@ -1182,6 +1190,27 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   // Only show Initiate Bot content when that step is active
   .timeline-steps #step-initiate-bot:not(.is-active) .step-actions.initiate-bot { display: none; }
   .timeline-steps #step-initiate-bot:not(.is-active) .step-desc { display: none; }
+
+  // Only show Verify Code (step 4) content when that step is active
+  .timeline-steps #step-verify-code:not(.is-active) .step-actions.verify-code { display: none; }
+  .timeline-steps #step-verify-code:not(.is-active) .step-desc { display: none; }
+
+  // Verify code (state 4) styles
+  .verify-code { padding: 12px 0; }
+  .verify-code .vc-label { font: 700 16px $font-sora; color: $color-text-primary; margin: 8px 0; }
+  .verify-code .vc-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .verify-code .m-input-row { width: 320px; }
+  .verify-code .vc-error { color: #dd483c; font: 600 13px $font-manrope; margin-top: 6px; }
+  .verify-code .vc-links { display: flex; gap: 24px; margin-top: 20px; }
+  .verify-code .vc-links .ib-link { color: #2B63F1; font: 700 14px $font-manrope; text-decoration: none; }
+  .verify-code .vc-links .ib-link:hover { text-decoration: none; }
+  // Match divider spacing like step 3
+  .verify-code .ib-divider { border: none; height: 1px; background: $color-border; margin: 28px 0 4px 0; }
+  // Input pill with embedded submit button
+  .verify-code .vc-input-group { display: flex; align-items: center; background: #fff; border: 2px solid #E5E7EB; border-radius: 9999px; padding: 6px 6px 6px 16px; gap: 8px; width: 520px; max-width: 100%; box-shadow: 0 1px 0 rgba(0,0,0,0.02) inset; }
+  .verify-code .vc-input { flex: 1 1 auto; min-width: 0; border: none; outline: none; background: transparent; font: 600 16px $font-manrope; color: $color-text-primary; }
+  .verify-code .vc-input::placeholder { color: $color-text-secondary; font-weight: 500; }
+  .verify-code .vc-submit { appearance: none; border: none; background: #2B63F1; color: #fff; font: 700 14px $font-manrope; height: 40px; padding: 0 18px; border-radius: 9999px; cursor: pointer; box-shadow: 0 0 0 2px #fff inset; }
 
 
   .step-card {

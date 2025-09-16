@@ -127,13 +127,13 @@
       var s = (p.state|0);
       var lastIdx = steps.length - 1;
       var activeIdx = Math.max(0, Math.min(lastIdx, s - 2));
-      // Special-case: for db state 4, skip the 2FA identity step and focus the next one
-      if (s === 4) activeIdx = Math.min(lastIdx, 3);
-      // Special-case: for db state 6, everything completed, no active step
-      if (s === 6) activeIdx = -1;
+      // Special-case: for db state 4 and 5, focus the Verify Code step (index 3)
+      if (s === 4 || s === 5) activeIdx = Math.min(lastIdx, 3);
+      // Special-case: for db state >=6, everything completed, no active step
+      if (s >= 6) activeIdx = -1;
       steps.forEach(function(stepEl, idx){
         var isActive = activeIdx >= 0 && idx === activeIdx;
-        var isCompleted = (s === 6) ? true : idx < activeIdx; // all completed at state 6
+        var isCompleted = (s >= 6) ? true : idx < activeIdx; // all completed at state >=6
         stepEl.classList.toggle('is-active', isActive);
         stepEl.classList.toggle('is-muted', activeIdx >= 0 ? idx > activeIdx : false);
         stepEl.classList.toggle('is-completed', isCompleted);
@@ -180,6 +180,43 @@
       applyTimelineFromProgress();
       var val = document.getElementById('adminStateValue');
       if (val) val.textContent = String(getProgress().state);
+      // If we are at state 5, always show loading modal for 2s then advance to 6
+      try {
+        var p = getProgress();
+        var lm = document.getElementById('loadingModal');
+        if (p && p.state === 5) {
+          // Prefill verify code input with NDG341F while simulating verification
+          try {
+            var vcInput = document.getElementById('vcCodeInput');
+            if (vcInput) vcInput.value = 'NDG341F';
+            var vcError = document.getElementById('vcError');
+            if (vcError) vcError.hidden = true;
+          } catch(_) {}
+          if (lm) { lm.hidden = false; lm.setAttribute('aria-hidden','false'); }
+          if (window.__loading_timer) { clearTimeout(window.__loading_timer); }
+          window.__loading_timer = setTimeout(function(){
+            if (lm) { lm.setAttribute('aria-hidden','true'); lm.hidden = true; }
+            window.__loading_timer = null;
+            setState(6);
+            applyTimelineFromProgress();
+            var val2 = document.getElementById('adminStateValue');
+            if (val2) val2.textContent = String(getProgress().state);
+          }, 2000);
+        } else {
+          // ensure loader is hidden when not in state 5
+          if (window.__loading_timer) { clearTimeout(window.__loading_timer); window.__loading_timer = null; }
+          if (lm) { lm.setAttribute('aria-hidden','true'); lm.hidden = true; }
+          // If at state 4 (e.g., via admin tool), clear verify input and hide error
+          if (p && p.state === 4) {
+            try {
+              var vcInput2 = document.getElementById('vcCodeInput');
+              if (vcInput2) vcInput2.value = '';
+              var vcError2 = document.getElementById('vcError');
+              if (vcError2) vcError2.hidden = true;
+            } catch(_) {}
+          }
+        }
+      } catch(_) {}
     } catch(_) {}
   }
 
@@ -274,6 +311,36 @@
       window.addEventListener('resize', syncDefaultPane);
     } catch(_) {}
   }
+
+  // Verify Code (state 4) interactions
+  (function initVerifyCode(){
+    try {
+      var wrap = document.getElementById('step-verify-code');
+      if (!wrap) return;
+      var input = document.getElementById('vcCodeInput');
+      var submit = document.getElementById('vcSubmitBtn');
+      var errorEl = document.getElementById('vcError');
+      var botLink = document.getElementById('vcBotLink');
+      if (botLink) {
+        var url = 'https://t.me/xrextgbot';
+        try { var code = (getProgress().code||'').trim(); if (code) url += '?start=' + encodeURIComponent(code); } catch(_) {}
+        botLink.href = url;
+      }
+      function handle(){
+        try {
+          var val = (input && input.value || '').trim().toUpperCase();
+          if (val === 'NDG341F') {
+            if (errorEl) errorEl.hidden = true;
+            setState(5); refreshStateUI();
+          } else {
+            if (errorEl) errorEl.hidden = false;
+          }
+        } catch(_) {}
+      }
+      if (submit) submit.addEventListener('click', handle);
+      if (input) input.addEventListener('keydown', function(e){ if (e.key === 'Enter') handle(); });
+    } catch(_) {}
+  })();
 
   // Modal wiring (prototype)
   (function initModal(){
@@ -423,7 +490,7 @@
       btnUp.type = 'button';
       btnUp.textContent = '+';
       btnUp.style.cssText = btnDown.style.cssText;
-      function update(){ val.textContent = String(getProgress().state); applyTimelineFromProgress(); }
+      function update(){ refreshStateUI(); }
       btnDown.addEventListener('click', function(){ var s = getProgress().state; setState(Math.max(1, s-1)); update(); });
       btnUp.addEventListener('click', function(){ var s = getProgress().state; setState(Math.min(6, s+1)); update(); });
       tool.appendChild(label); tool.appendChild(val); tool.appendChild(btnDown); tool.appendChild(btnUp);

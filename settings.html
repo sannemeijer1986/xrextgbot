@@ -363,13 +363,17 @@
                                                 </button>
                                             </div>
                                             <div class="ib-pane ib-pane-qr is-active">
-                                                <div class="ib-hint">Scan the QR to open Telegram on another device<br /><span class="ib-hint-sub">To open it here,</span> <a href="#" class="ib-switch-to" data-pane="link">use link</a></div>
+                                                <div class="ib-hint">Scan the QR with any device to open Telegram<br />
+                                                    <span class="ib-hint-sub ib-hint-sub-margintop">The Bot will give you further instructions. </span><br />
+                                                    <span class="ib-hint-sub">To open Telegram here,</span> <a href="#" class="ib-switch-to" data-pane="link">use link</a></div>
                                                 <div class="ib-qr-section">
                                                     <div class="ib-qr"><img src="assets/icon_link_tgqr.png" width="180" height="180" alt="QR" /></div>
                                                 </div>
                                             </div>
                                             <div class="ib-pane ib-pane-link">
-                                                <div class="ib-hint">Use the link to open Telegram here<br /><span class="ib-hint-sub">To open it on another device,</span> <a href="#" class="ib-switch-to" data-pane="qr">scan QR</a></div>
+                                                <div class="ib-hint">Use the link to open Telegram here<br />
+                                                    <span class="ib-hint-sub ib-hint-sub-margintop">The Bot will give you further instructions. </span><br /> 
+                                                    <span class="ib-hint-sub">To use another device,</span> <a href="#" class="ib-switch-to" data-pane="qr">scan QR</a></div>
                                                 <div class="ib-open-row">
                                                     <a id="ibLink" class="ib-pill" href="#" target="_blank" rel="noopener">
                                                         <span class="ib-pill-text">https://t.me/SanneXREX_bot?start=BOTC1583</span>
@@ -403,7 +407,7 @@
                                     <div class="content-wrapper"><div class="title">Verify your identity with 2FA</div></div>
                                 </div>
                             </li>
-                            <li class="step is-muted">
+                            <li class="step is-muted" id="step-verify-code">
                                 <div class="step-row step-label">
                                     <div class="track-wrapper"><div class="track"></div></div>
                                     <div class="content-wrapper"><div class="label">XREX Pay</div></div>
@@ -415,6 +419,27 @@
                                         <div class="track"></div>
                                     </div>
                                     <div class="content-wrapper"><div class="title">Verify code received on Telegram</div></div>
+                                </div>
+                                <div class="step-row step-content">
+                                    <div class="track-wrapper"><div class="track"></div></div>
+                                    <div class="content-wrapper">
+                                        <div class="step-desc">Enter code here</div>
+                                        <div class="step-actions verify-code">
+                                            <div class="vc-label">Linking code</div>
+                                            <div class="vc-row">
+                                                <div class="vc-input-group">
+                                                    <input id="vcCodeInput" class="vc-input" type="text" inputmode="text" placeholder="Enter linking code..." />
+                                                    <button type="button" class="vc-submit" id="vcSubmitBtn">Submit</button>
+                                                </div>
+                                            </div>
+                                            <div id="vcError" class="vc-error" hidden>Incorrect code. Please try again.</div>
+                                            <hr class="ib-divider" />
+                                            <div class="vc-links">
+                                                <a id="vcBotLink" href="#" target="_blank" rel="noopener" class="ib-link">Go to bot</a>
+                                                <a href="https://intercom.help/xrex-sg/en/" target="_blank" rel="noopener noreferrer" class="ib-link">Help</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </li>
                             <li class="step is-muted">
@@ -516,6 +541,15 @@
                 <div class="modal-footer">
                     <button class="btn btn-secondary btn-md" id="successCta">Back to login</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal (state 5 transition) -->
+    <div id="loadingModal" class="modal modal-loading" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+        <div class="modal-wrapper">
+            <div class="modal-content">
+                <div class="loading-spinner" aria-live="polite" aria-label="Loading"></div>
             </div>
         </div>
     </div>
