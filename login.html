@@ -15,16 +15,17 @@
     body { margin: 0; }
     .login-layout { display: grid; grid-template-columns: 1fr; min-height: 100vh; overflow: hidden;}
     /* Right panel (content) */
-    .login-panel { position: relative; min-height: 100vh; display: grid; align-content: center; padding: 32px 24px; }
-    .login-inner { width: 100%; max-width: 560px; margin: 0 auto; }
-    .login-brand img { height: 24px; }
-    .login-hero { margin: 16px 0 20px 0; }
+    .login-panel { position: relative; min-height: 100vh; display: grid; align-content: center; padding: 32px 24px; margin-top: -32px; }
+    .login-inner { width: 100%; max-width: 600px; margin: 0 auto; }
+    .login-brand img { height: 20px; }
+    .login-hero { margin: 32px 0 24px 0; }
     .login-title { font: 800 36px Sora, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color: #2d2f2f; letter-spacing: -0.02em; margin: 12px 0 10px 0; }
-    .login-sub { font: 400 16px Manrope, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color: #2d2f2f; opacity: 0.9; }
+    .login-sub { font: 600 16px Manrope, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color: #2d2f2f; opacity: 1; }
     .login-form { margin-top: 12px; }
-    .login-row { margin: 14px 0; }
+    .login-row { margin: 16px 0 16px 0; }
     .login-actions { margin-top: 18px; }
-    .login-actions .btn { width: 100%; max-width: 280px; }
+    .login-actions .btn { width: 100%; }
+    .login-actions-row { display: flex; flex-direction: column; gap: 12px; margin: 32px 0 0 0; }
     .login-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
     .login-meta a { color: #2B63F1; font: 700 14px Manrope, sans-serif; text-decoration: none; }
     .login-meta a:hover { text-decoration: none; }
@@ -45,16 +46,29 @@
     /* Left media (desktop only) */
     .login-media { display: none; }
     @media (min-width: 1280px) {
+      .login-brand img { height: 24px; }
+      .login-actions-row { margin: 40px 0 0 0; }
+      .m-input-row { height: 64px; }
+      .login-register { text-align: left; font-size: 18px; font-weight: 700;}
       .login-title { font-size: 60px; }
-      .login-sub { font-size: 26px; font-weight: 700; }
-      .login-layout { grid-template-columns: 50vw 50vw; }
+      .login-sub { font-size: 26px; font-weight: 700; color: #2d2f2f; }
+      /* Both columns grow; panel has min 800px so it also expands on wide viewports */
+      .login-layout { grid-template-columns: minmax(0, 1fr) minmax(800px, 1fr); }
       .login-media { display: block; position: relative; min-height: 100vh; }
       .login-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-      .login-panel { padding: 48px 48px; }
+      .login-panel { padding: 48px 48px; min-width: 800px; margin-top: -40px; }
       .login-footer-embed { padding: 0; }
       .login-footer-embed .inner { max-width: 1440px; flex-direction: row; justify-content: space-between; gap: 12px; padding: 0 40px; height: 40px; }
       .login-footer-embed .lf-links { justify-content: flex-end; }
       .login-footer-embed .lf-copy { text-align: left; }
+      /* Place login button and register text on one row on desktop */
+      .login-actions-row { flex-direction: row; align-items: center; justify-content: space-between; gap: 8px; }
+      .login-actions { margin-top: 0; }
+      .login-actions .btn { width: auto; min-width: 220px; max-width: 280px; } }
+      .login-register { margin-top: 0; }
+      /* Flip footer order: copyright left, links right */
+      .login-footer-embed .lf-copy { order: 0; }
+      .login-footer-embed .lf-links { order: 1; }
     }
     @media (max-width: 720px) { .login-title { font-size: 28px; } }
   </style>
@@ -124,11 +138,12 @@
             </div>
           </div>
 
-          <div class="login-actions">
-            <button id="loginBtn" class="btn btn-primary btn-lg btn-block" type="submit" disabled>Login</button>
+          <div class="login-actions-row">
+            <div class="login-actions">
+              <button id="loginBtn" class="btn btn-primary btn-lg btn-block" type="submit" disabled>Login</button>
+            </div>
+            <div class="login-register">Don't have account? <a href="#">Register now</a></div>
           </div>
-
-          <div class="login-register">Don't have account? <a href="#">Register now</a></div>
         </form>
       </div>
       <div class="login-footer-embed" role="contentinfo">
