@@ -436,7 +436,7 @@
         // Advance state and refresh UI, hide modal, then redirect
         setState(2); refreshStateUI();
         if (successModal) { successModal.setAttribute('aria-hidden','true'); successModal.hidden = true; }
-        try { window.location.href = 'index.html'; } catch(_) {}
+        try { window.location.href = 'login.html'; } catch(_) {}
       }
       if (successClose) successClose.addEventListener('click', finalizeSuccess);
       if (successModal) successModal.addEventListener('click', function(e){ if (e.target === successModal) finalizeSuccess(); });
