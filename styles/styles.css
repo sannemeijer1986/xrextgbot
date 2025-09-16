@@ -1555,7 +1555,7 @@ body.modal-locked {
   text-decoration: none;
 }
 .content .initiate-bot .ib-link:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 .content .timeline-steps #step-initiate-bot:not(.is-active) .step-actions.initiate-bot {
   display: none;

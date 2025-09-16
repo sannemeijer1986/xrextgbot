@@ -218,15 +218,14 @@
       // Populate link and copy behavior
       var linkEl = container.querySelector('#ibLink');
       var copyBtn = container.querySelector('#ibCopyBtn');
-      var url = 'https://t.me/xrextgbot';
+      var url = 'https://t.me/SanneXREX_bot?start=BOTC1583';
       try {
         var code = (getProgress().code || '').trim();
-        if (code) url = 'https://t.me/xrextgbot?start=' + encodeURIComponent(code);
+        if (code) url = 'https://t.me/SanneXREX_bot?start=BOTC158';
       } catch(_) {}
       if (linkEl) {
         linkEl.href = url;
         var textSpan = linkEl.querySelector('.ib-pill-text');
-        if (textSpan) textSpan.textContent = url.replace('https://','');
         // ensure accessible label has full URL
         linkEl.setAttribute('aria-label', 'Open Telegram link ' + url);
       }
