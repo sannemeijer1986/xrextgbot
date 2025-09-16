@@ -266,28 +266,22 @@
 }
 
 .loading-spinner {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
+  width: 140px;
+  height: 140px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #EEEEEE;
+  border-radius: 9999px;
+  background: #fff;
   position: relative;
 }
 
-.loading-spinner:before {
+.loading-spinner::before {
   content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 10px solid rgba(59, 130, 246, 0.15);
-}
-
-.loading-spinner:after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 10px solid transparent;
-  border-top-color: #2B63F1;
-  border-right-color: #2B63F1;
+  width: 76px;
+  height: 76px;
+  display: block;
+  background: url("../assets/loader.svg") center/contain no-repeat;
   animation: spin 1s linear infinite;
 }
 
@@ -1706,9 +1700,9 @@ body.modal-locked {
   padding: 12px 0;
 }
 .content .verify-code .vc-label {
-  font: 700 16px "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: #2d2f2f;
-  margin: 8px 0;
+  font: 500 14px "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #797a7b;
+  margin: 12px 0 6px 0;
 }
 .content .verify-code .vc-row {
   display: flex;
@@ -1747,7 +1741,7 @@ body.modal-locked {
   display: flex;
   align-items: center;
   background: #fff;
-  border: 2px solid #E5E7EB;
+  border: 1px solid #EEEEEE;
   border-radius: 9999px;
   padding: 6px 6px 6px 16px;
   gap: 8px;
@@ -1765,8 +1759,12 @@ body.modal-locked {
   color: #2d2f2f;
 }
 .content .verify-code .vc-input::placeholder {
-  color: #797a7b;
-  font-weight: 500;
+  color: #BCBDBD;
+  font-weight: 300;
+}
+.content .verify-code .vc-input::-webkit-input-placeholder {
+  color: #BCBDBD;
+  font-weight: 300;
 }
 .content .verify-code .vc-submit {
   appearance: none;
@@ -1778,7 +1776,32 @@ body.modal-locked {
   padding: 0 18px;
   border-radius: 9999px;
   cursor: pointer;
-  box-shadow: 0 0 0 2px #fff inset;
+}
+.content .verify-code {
+  max-width: 100%;
+  overflow: hidden;
+}
+.content .verify-code .vc-row {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+.content .verify-code .vc-input-group {
+  width: 100%;
+  padding: 6px 6px 6px 12px;
+}
+.content .verify-code .vc-input {
+  font: 600 15px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.content .verify-code .vc-submit {
+  height: 32px;
+  padding: 0 14px;
+  font-size: 12px;
+  min-width: 100px;
+}
+.content .verify-code .vc-links {
+  flex-wrap: wrap;
+  gap: 16px;
 }
 .content .step-card {
   background: #F4F7FF;
