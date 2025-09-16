@@ -257,6 +257,14 @@
         if (!btn) return;
         activatePane(btn.getAttribute('data-pane'));
       });
+      // Allow hint links to switch panes
+      container.addEventListener('click', function(e){
+        var link = e.target.closest('.ib-switch-to');
+        if (!link) return;
+        e.preventDefault();
+        var to = link.getAttribute('data-pane');
+        if (to) activatePane(to);
+      });
       // On mobile breakpoint, default to link; desktop default to QR
       function syncDefaultPane(){
         var isMobile = !window.matchMedia('(min-width: 1280px)').matches;

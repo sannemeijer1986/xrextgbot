@@ -1133,21 +1133,25 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   // Initiate Bot (state 3) styles
   .initiate-bot { padding: 20px; display: flex; flex-direction: column; }
   .initiate-bot .ib-group { display: none; }
-  .initiate-bot .ib-segment { display: inline-flex; gap: 6px; background: #fff; padding: 4px; border-radius: 999px; border: 1px solid $color-border; margin: 8px 0 6px; }
-  .initiate-bot .ib-tab { appearance: none; background: transparent; border: 1px solid transparent; color: #2B63F1; font: 700 14px $font-manrope; padding: 8px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+  .initiate-bot .ib-segment { display: inline-flex; gap: 2px; background: #fff; padding: 4px; border-radius: 999px; border: 1px solid $color-border; margin: 4px 0 10px 0; width: fit-content; align-self: flex-start; max-width: 100%; }
+  .initiate-bot .ib-tab { appearance: none; background: transparent; border: 1px solid transparent; color: #2B63F1; font: 700 14px $font-manrope; padding: 8px 16px 8px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
   .initiate-bot .ib-tab.is-active { background: rgba(43, 99, 241, 0.08); border-color: rgba(43, 99, 241, 0.22); }
   .initiate-bot .ib-tab-icon { width: 18px; height: 18px; display: inline-block; }
-  .initiate-bot .ib-tab-qr { background: url('../assets/icon_link_mobile.svg') center/contain no-repeat; }
-  .initiate-bot .ib-tab-link { background: url('../assets/icon_link_desktop.svg') center/contain no-repeat; }
+  .initiate-bot .ib-tab-qr { background: url('../assets/icon_link_qr.svg') center/contain no-repeat; }
+  .initiate-bot .ib-tab-link { background: url('../assets/icon_link_link.svg') center/contain no-repeat; }
   .initiate-bot .ib-pane { display: none; }
   .initiate-bot .ib-pane.is-active { display: block; }
+  .initiate-bot .ib-hint { color: $color-text-primary; font: 500 16px $font-manrope; margin: 10px 0 20px 0; }
+  .initiate-bot .ib-hint-sub { color: $color-text-secondary; font-size: 14px; margin-top: 6px; display: inline-block; }
+  .initiate-bot .ib-hint .ib-switch-to { color: #2B63F1; text-decoration: none; font-weight: 700; font-size: 14px; }
+  .initiate-bot .ib-hint .ib-switch-to:hover { text-decoration: none; }
   // subtitle replaced by .step-desc styling
   .initiate-bot .ib-opt { display: flex; align-items: center; gap: 10px; margin: 6px 0 10px; }
   .initiate-bot .ib-opt-text { font: 500 16px $font-manrope; color: $color-text-primary; }
   .initiate-bot .ib-opt-icon { width: 20px; height: 20px; display: inline-block; }
   .initiate-bot .ib-opt-a { background: url('../assets/icon_link_a.svg') center/contain no-repeat; }
   .initiate-bot .ib-opt-b { background: url('../assets/icon_link_b.svg') center/contain no-repeat; }
-  .initiate-bot .ib-qr-section { margin: 16px 0 32px 0; }
+  .initiate-bot .ib-qr-section { margin: 16px 0 0 0; }
   .initiate-bot .ib-qr { width: 116px; height: 116px; display: grid; place-items: center; background: #fff; border-radius: 16px; border: 1px solid $color-border; }
   .initiate-bot .ib-qr img { width: 100px; height: 100px; display: block; }
   .initiate-bot .ib-open-row { display: flex; gap: 12px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
@@ -1164,8 +1168,10 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     .initiate-bot .ib-copy { width: $btn-height; min-width: $btn-height; padding: 0; }
     .initiate-bot .ib-copy span { display: none; }
     .initiate-bot .ib-copy img { width: 16px; height: 16px; }
+    // Flip tab order visually on mobile
+    .initiate-bot .ib-segment { flex-direction: row-reverse; }
   }
-  .initiate-bot .ib-divider { border: none; height: 1px; background: $color-border; margin: 20px 0; }
+  .initiate-bot .ib-divider { border: none; height: 1px; background: $color-border; margin: 28px 0 4px 0; }
   .initiate-bot .ib-links { display: flex; gap: 24px; margin-top: 20px; }
   .initiate-bot .ib-link { color: #2B63F1; font: 700 14px $font-manrope; text-decoration: none; }
   .initiate-bot .ib-link:hover { text-decoration: none; }
