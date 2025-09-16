@@ -1818,6 +1818,13 @@ body.modal-locked {
   border-radius: 9999px;
   cursor: pointer;
 }
+/* Disabled visual state for step-4 submit */
+.content .verify-code .vc-submit:disabled,
+.content .verify-code .vc-submit[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 .content .verify-code {
   max-width: 100%;
   overflow: hidden;

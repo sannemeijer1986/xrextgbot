@@ -356,6 +356,18 @@
         var url = 'https://t.me/SanneXREX_bot';
         botLink.href = url;
       }
+      // Enable/disable submit based on input presence
+      if (input && submit) {
+        var syncVcBtn = function(){
+          try {
+            var v = (input.value||'').trim();
+            submit.disabled = (v.length < 1);
+          } catch(_) {}
+        };
+        input.addEventListener('input', syncVcBtn);
+        syncVcBtn();
+      }
+
       function handle(){
         try {
           var val = (input && input.value || '').trim().toUpperCase();
