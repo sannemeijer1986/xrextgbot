@@ -157,7 +157,7 @@
   padding: 10px 12px;
 }
 /* Focus ring for inputs (inset, no layout shift) */
-.m-input-row:focus-within { border-color: #000000; box-shadow: inset 0 0 0 1.5px #000000; }
+.m-input-row:focus-within { border-color: #000000; box-shadow: inset 0 0 0 0.5px #000000; }
 
 .m-input-row--plain {
   grid-template-columns: 1fr;
@@ -1754,7 +1754,7 @@ body.modal-locked {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02) inset;
 }
 /* Focus ring for timeline verify code input (inset) */
-.content .verify-code .vc-input-group:focus-within { border-color: #000000; box-shadow: inset 0 0 0 2px #000000; }
+.content .verify-code .vc-input-group:focus-within { border-color: #000000; box-shadow: inset 0 0 0 0.5px #000000; }
 .content .verify-code .vc-input {
   flex: 1 1 auto;
   min-width: 0;
