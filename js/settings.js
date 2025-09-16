@@ -223,7 +223,13 @@
         var code = (getProgress().code || '').trim();
         if (code) url = 'https://t.me/xrextgbot?start=' + encodeURIComponent(code);
       } catch(_) {}
-      if (linkEl) { linkEl.href = url; linkEl.textContent = url.replace('https://',''); }
+      if (linkEl) {
+        linkEl.href = url;
+        var textSpan = linkEl.querySelector('.ib-pill-text');
+        if (textSpan) textSpan.textContent = url.replace('https://','');
+        // ensure accessible label has full URL
+        linkEl.setAttribute('aria-label', 'Open Telegram link ' + url);
+      }
       function copyLink(){
         try {
           if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url);

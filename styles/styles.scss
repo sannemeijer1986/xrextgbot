@@ -1138,12 +1138,19 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .initiate-bot .ib-opt-icon { width: 20px; height: 20px; display: inline-block; }
   .initiate-bot .ib-opt-a { background: url('../assets/icon_link_a.svg') center/contain no-repeat; }
   .initiate-bot .ib-opt-b { background: url('../assets/icon_link_b.svg') center/contain no-repeat; }
-  .initiate-bot .ib-qr-section { margin-top: 20px; }
+  .initiate-bot .ib-qr-section { margin: 16px 0 32px 0; }
   .initiate-bot .ib-qr { width: 116px; height: 116px; display: grid; place-items: center; background: #fff; border-radius: 16px; border: 1px solid $color-border; }
   .initiate-bot .ib-qr img { width: 100px; height: 100px; display: block; }
   .initiate-bot .ib-open-row { display: flex; gap: 12px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
-  .initiate-bot .ib-pill { display: inline-flex; align-items: center; gap: 10px; background: #2B63F1; color: #fff; text-decoration: none; padding: 12px 14px; border-radius: 999px; font: 700 14px $font-manrope; }
-  .initiate-bot .ib-copy { display: inline-flex; align-items: center; gap: 8px; }
+  .initiate-bot .ib-pill { display: inline-flex; align-items: center; gap: 10px; background: #2B63F1; color: #fff; text-decoration: none; padding: 0 12px; border-radius: 999px; font: 700 14px $font-manrope; height: $btn-height; }
+  .initiate-bot .ib-pill-text { max-width: 160px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; }
+  .initiate-bot .ib-pill-icon { width: 16px; height: 16px; display: inline-block; }
+  .initiate-bot .ib-copy { display: inline-flex; align-items: center; gap: 8px; height: $btn-height; }
+  @media (max-width: $bp-md) {
+    .initiate-bot .ib-copy { width: $btn-height; min-width: $btn-height; padding: 0; }
+    .initiate-bot .ib-copy span { display: none; }
+    .initiate-bot .ib-copy img { width: 16px; height: 16px; }
+  }
   .initiate-bot .ib-divider { border: none; height: 1px; background: $color-border; margin: 20px 0; }
   .initiate-bot .ib-links { display: flex; gap: 24px; margin-top: 20px; }
   .initiate-bot .ib-link { color: #2B63F1; font: 700 14px $font-manrope; text-decoration: none; }
