@@ -216,7 +216,7 @@
 .m-error {
   color: #dd483c;
   font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  margin-top: -4px;
+  margin-top: 0;
 }
 
 .m-divider {
@@ -1715,8 +1715,8 @@ body.modal-locked {
 }
 .content .verify-code .vc-error {
   color: #dd483c;
-  font: 600 13px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  margin-top: 6px;
+  font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin-top: 8px;
 }
 .content .verify-code .vc-links {
   display: flex;

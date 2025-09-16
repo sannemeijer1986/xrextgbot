@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XREX Pay · Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicons/xrex-favicon-16x16.png" sizes="16x16" type="image/png">
+  <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    /* Login layout */
+    html, body { height: 100%; }
+    body { margin: 0; }
+    .login-layout { display: grid; grid-template-columns: 1fr; min-height: 100vh; overflow: hidden;}
+    /* Right panel (content) */
+    .login-panel { position: relative; min-height: 100vh; display: grid; align-content: center; padding: 32px 24px; }
+    .login-inner { width: 100%; max-width: 560px; margin: 0 auto; }
+    .login-brand img { height: 24px; }
+    .login-hero { margin: 16px 0 20px 0; }
+    .login-title { font: 800 36px Sora, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color: #2d2f2f; letter-spacing: -0.02em; margin: 12px 0 10px 0; }
+    .login-sub { font: 400 16px Manrope, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color: #2d2f2f; opacity: 0.9; }
+    .login-form { margin-top: 12px; }
+    .login-row { margin: 14px 0; }
+    .login-actions { margin-top: 18px; }
+    .login-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+    .login-meta a { color: #2B63F1; font: 700 14px Manrope, sans-serif; text-decoration: none; }
+    .login-meta a:hover { text-decoration: none; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    /* Embedded footer inside login panel */
+    .login-footer-embed { position: absolute; left: 0; right: 0; bottom: 0; padding: 12px 16px; }
+    .login-footer-embed .inner { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .login-footer-embed .lf-links { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .login-footer-embed .lf-links a { color: #797a7b; font: 300 12px Manrope, sans-serif; text-decoration: none; }
+    .login-footer-embed .lf-links a:hover { text-decoration: none; }
+    .login-footer-embed .lf-copy { color: #2d2f2f; font: 500 12px Manrope, sans-serif; text-align: center; }
+    .login-register { margin-top: 14px; text-align: center; color: #6b7280; font: 500 14px Manrope, sans-serif; }
+    .login-register a { color: #2B63F1; font-weight: 700; text-decoration: none; }
+    .login-register a:hover { text-decoration: none; }
+    /* Left media (desktop only) */
+    .login-media { display: none; }
+    @media (min-width: 1280px) {
+      .login-layout { grid-template-columns: 50vw 50vw; }
+      .login-media { display: block; position: relative; min-height: 100vh; }
+      .login-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .login-panel { padding: 48px 48px; }
+      .login-footer-embed .inner { flex-direction: row; justify-content: space-between; }
+    }
+    @media (max-width: 720px) { .login-title { font-size: 28px; } }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      var email = document.getElementById('loginEmail');
+      var pass = document.getElementById('loginPass');
+      var btn  = document.getElementById('loginBtn');
+      function sync(){ btn.disabled = !(String(email.value||'').trim() && String(pass.value||'').trim()); }
+      if (email) email.value = 'info@agptechnology.com';
+      if (pass) pass.value = '';
+      sync();
+      if (email) email.addEventListener('input', sync);
+      if (pass) pass.addEventListener('input', sync);
+      var form = document.getElementById('loginForm');
+      if (form) form.addEventListener('submit', function(e){
+        e.preventDefault();
+        if (btn.disabled) return;
+        try { window.location.href = 'index.html'; } catch(_) {}
+      });
+    });
+  </script>
+  <meta name="color-scheme" content="light" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="description" content="Login to XREX Pay" />
+  <meta name="robots" content="noindex,nofollow" />
+</head>
+<body>
+  <div class="login-layout">
+    <aside class="login-media" aria-hidden="true">
+      <img src="assets/login_image.webp" alt="" />
+    </aside>
+    <main class="login-panel">
+      <div class="login-inner">
+        <div class="login-brand">
+          <img src="assets/logo_xrexpay.svg" alt="XREX Pay" />
+        </div>
+        <div class="login-hero">
+          <h1 class="login-title">Global Payments Made Simple</h1>
+          <div class="login-sub">Pay faster, safer and cheaper</div>
+        </div>
+
+        <form id="loginForm" class="login-form" novalidate>
+          <div class="login-row">
+            <div class="m-field">
+              <div class="m-field-group">
+                <label class="m-label" for="loginEmail">Email</label>
+                <div class="m-input-row m-input-row--plain">
+                  <input id="loginEmail" class="m-input" type="email" inputmode="email" placeholder="Enter your email address" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="login-row">
+            <div class="m-field">
+              <div class="m-field-group">
+                <label class="m-label" for="loginPass">Password</label>
+                <div class="m-input-row m-input-row--plain">
+                  <input id="loginPass" class="m-input" type="password" placeholder="Enter your password" />
+                </div>
+              </div>
+              <div class="login-meta">
+                <span></span>
+                <a href="#" aria-label="Forgot password">Forget password</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="login-actions">
+            <button id="loginBtn" class="btn btn-primary btn-lg btn-block" type="submit" disabled>Login</button>
+          </div>
+
+          <div class="login-register">Don't have account? <a href="#">Register now</a></div>
+        </form>
+      </div>
+      <div class="login-footer-embed" role="contentinfo">
+      <div class="inner">
+        <div class="lf-links">
+          <a href="https://intercom.help/xrex-sg/en/" target="_blank" rel="noopener noreferrer">Support</a>
+          <a href="https://info.xrex.sg/doc" target="_blank" rel="noopener noreferrer">Terms of Use</a>
+          <a href="https://info.xrex.sg/doc" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+        </div>
+        <div class="lf-copy">© XREX Pay Limited 2025</div>
+      </div>
+    </div>
+    </main>
+  </div>
+</body>
+</html>
+
+

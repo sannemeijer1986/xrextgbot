@@ -212,7 +212,12 @@
           if (p && p.state === 4) {
             try {
               var vcInput2 = document.getElementById('vcCodeInput');
-              if (vcInput2) vcInput2.value = '';
+              if (vcInput2) {
+                vcInput2.value = '';
+                // Focus and select for immediate typing
+                vcInput2.focus();
+                if (vcInput2.select) vcInput2.select();
+              }
               var vcError2 = document.getElementById('vcError');
               if (vcError2) vcError2.hidden = true;
             } catch(_) {}
