@@ -171,6 +171,11 @@
 
       // Update first step wording depending on state (1 vs 2)
       updateFirstStepText(p.state|0);
+      // Toggle timeline layout: hide aside until state >= 6
+      try {
+        var timeline = document.querySelector('.timeline');
+        if (timeline) timeline.classList.toggle('is-compact', (p.state|0) < 6);
+      } catch(_) {}
     } catch(_) {}
   }
 
@@ -460,8 +465,17 @@
         try {
           var s = (getProgress().state|0);
           if (s >= 2) {
+            // "Generate link" path -> show loader for 1s before moving to state 3
             e.preventDefault();
-            setState(3); refreshStateUI();
+            try {
+              var lm0 = document.getElementById('loadingModal');
+              if (lm0) { lm0.hidden = false; lm0.setAttribute('aria-hidden','false'); }
+              setTimeout(function(){
+                if (lm0) { lm0.setAttribute('aria-hidden','true'); lm0.hidden = true; }
+                setState(3); refreshStateUI();
+                try { if (typeof showSnackbar === 'function') showSnackbar('Unique QR code and link generated successfully'); } catch(_) {}
+              }, 1000);
+            } catch(_) { setState(3); refreshStateUI(); }
             return;
           }
         } catch(_) {}
@@ -481,11 +495,16 @@
           }
         } catch(_) {}
         if (authCodeError) authCodeError.hidden = true;
-        // Close 2FA modal and show success confirmation modal
+        // Close 2FA modal, show loader for 1s, then show success confirmation modal
         close();
         try {
-          if (successModal) { successModal.hidden = false; successModal.setAttribute('aria-hidden','false'); }
-        } catch(_) {}
+          var lm1 = document.getElementById('loadingModal');
+          if (lm1) { lm1.hidden = false; lm1.setAttribute('aria-hidden','false'); }
+          setTimeout(function(){
+            if (lm1) { lm1.setAttribute('aria-hidden','true'); lm1.hidden = true; }
+            if (successModal) { successModal.hidden = false; successModal.setAttribute('aria-hidden','false'); }
+          }, 1000);
+        } catch(_) { if (successModal) { successModal.hidden = false; successModal.setAttribute('aria-hidden','false'); } }
       });
       function finalizeSuccess(){
         // Advance state and refresh UI, hide success modal, then show loader before redirect

@@ -1322,6 +1322,9 @@ body.modal-locked {
   grid-template-columns: 1fr;
   gap: 24px;
 }
+/* Compact mode: hide aside, use full width */
+.content .timeline.is-compact { grid-template-columns: 1fr; }
+.content .timeline.is-compact .timeline-aside { display: none; }
 @media (min-width: 1280px) {
   .content .timeline {
     grid-template-columns: 2fr 1fr;
