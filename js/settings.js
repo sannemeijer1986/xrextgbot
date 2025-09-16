@@ -389,6 +389,18 @@
       var successModal = document.getElementById('successModal');
       var successClose = document.getElementById('successClose');
       var successCta = document.getElementById('successCta');
+      // Live enable/disable of confirm button based on input presence
+      if (authCodeInput && btnConfirm) {
+        var syncConfirmState = function(){
+          try {
+            var v = (authCodeInput.value||'').trim();
+            btnConfirm.disabled = (v.length < 1);
+          } catch(_) {}
+        };
+        authCodeInput.addEventListener('input', syncConfirmState);
+        // initialize state on script load
+        syncConfirmState();
+      }
       function open(){
         modal.hidden = false; modal.setAttribute('aria-hidden','false');
         try {
@@ -405,6 +417,7 @@
             if (authCodeInput.select) authCodeInput.select();
           }
           if (authCodeError) authCodeError.hidden = true;
+          if (btnConfirm) btnConfirm.disabled = true;
         } catch(_) {}
       }
       function close(){
@@ -442,7 +455,7 @@
         // Validate 6-digit code
         try {
           var v = (authCodeInput && authCodeInput.value || '').trim();
-          var ok = /^\d{6}$/.test(v);
+          var ok = v.length >= 1; // accept any non-empty input per prototype spec
           if (!ok) {
             if (authCodeError) { authCodeError.hidden = false; }
             if (authCodeInput) authCodeInput.focus();
