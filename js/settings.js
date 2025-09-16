@@ -174,12 +174,36 @@
     } catch(_) {}
   }
 
+  // Sync the Account panel's authenticator UI with current state
+  function syncAuthenticatorUI(){
+    try {
+      var p2 = getProgress();
+      var acct = document.getElementById('panel-account');
+      if (!acct) return;
+      var stateEl = acct.querySelector('.auth-state');
+      var toggle = acct.querySelector('.input-card.input-card-split label.switch input[type="checkbox"]');
+      var enabled = (p2.state|0) >= 2;
+      if (stateEl) {
+        stateEl.textContent = enabled ? 'Enabled' : 'Disabled';
+        stateEl.classList.toggle('enabled', enabled);
+        stateEl.classList.toggle('disabled', !enabled);
+      }
+      if (toggle) {
+        toggle.checked = enabled;
+        toggle.disabled = true; // prevent user toggle
+        toggle.setAttribute('aria-disabled','true');
+      }
+    } catch(_) {}
+  }
+
   // Helper: refresh timeline and admin tool display
   function refreshStateUI(){
     try {
       applyTimelineFromProgress();
       var val = document.getElementById('adminStateValue');
       if (val) val.textContent = String(getProgress().state);
+      // Sync Account panel authenticator UI with state
+      syncAuthenticatorUI();
       // If we are at state 5, always show loading modal for 2s then advance to 6
       try {
         var p = getProgress();
@@ -461,10 +485,7 @@
   // Tiny admin tool to override state (fixed bottom-left)
   function mountAdminStateTool(){
     try {
-      var params = new URLSearchParams(window.location.search);
-      var page = params.get('page') || 'account';
-      // Only show on Telegram page to avoid clutter
-      if (page !== 'telegram') return;
+      if (document.getElementById('adminStateTool')) return; // already mounted
       var tool = document.createElement('div');
       tool.id = 'adminStateTool';
       tool.style.position = 'fixed';
@@ -654,6 +675,8 @@
         if (panelIntro) panelIntro.style.display = 'none';
         if (panelSetup) panelSetup.style.display = 'none';
         if (shareBtn) shareBtn.style.display = 'none';
+        // Ensure authenticator reflects current state on initial render
+        syncAuthenticatorUI();
       }
       if (page === 'account') {
         showAccount();
@@ -672,6 +695,8 @@
         applyTimelineFromProgress();
         mountAdminStateTool();
       }
+      // Also mount admin tool for any other page branch (e.g., account-only pages or external pages)
+      try { mountAdminStateTool(); } catch(_) {}
     } catch(_){}
   })();
 

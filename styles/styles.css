@@ -2043,6 +2043,12 @@ body.modal-locked {
   font-weight: 600;
   font-size: 14px;
 }
+.account-panel .auth-state.disabled {
+  color: #dd483c;
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+}
 .account-panel .divider {
   height: 1px;
   background: #EEEEEE;

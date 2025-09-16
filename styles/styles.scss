@@ -1408,6 +1408,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .name-card { margin-bottom: 32px; }
   .auth-row { display: flex; align-items: center; gap: 8px; }
   .auth-state.enabled { color: #2F9752; font-family: $font-manrope; font-weight: 600; font-size: 14px; }
+  .auth-state.disabled { color: #dd483c; font-family: $font-manrope; font-weight: 600; font-size: 14px; }
 
   .divider { height: 1px; background: $color-border; margin: 24px 0; }
 
