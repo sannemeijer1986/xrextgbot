@@ -244,6 +244,8 @@
       syncAuthenticatorUI();
       // Sync the Status row visual state
       try { updateStatusRowUI(); } catch(_) {}
+      // Sync Start/Go-to-bot CTA depending on state
+      try { updateTopCta(); } catch(_) {}
       // If we are at state 5, always show loading modal for 2s then advance to 6
       try {
         var p = getProgress();
@@ -718,16 +720,8 @@
     }
     // Persist last active Telegram tab
     try { saveProgress({ lastTab: isIntro ? 'intro' : 'setup' }); } catch(_) {}
-    // Hide top Start linking button when viewing Setup
-    try {
-      if (typeof startLinkBtn !== 'undefined' && startLinkBtn) {
-        var hidden = !isIntro;
-        startLinkBtn.style.opacity = hidden ? '0' : '1';
-        startLinkBtn.style.pointerEvents = hidden ? 'none' : '';
-        startLinkBtn.setAttribute('aria-hidden', hidden ? 'true' : 'false');
-
-      }
-    } catch(_){}
+    // Update top CTA visibility per state/tab
+    try { updateTopCta(); } catch(_) {}
   }
 
   if (tabIntro) tabIntro.addEventListener('click', function () { 
@@ -826,6 +820,38 @@
       } catch(_) { activate('setup'); }
     });
   });
+
+  // Update the top CTA (Start linking / Go to bot) based on current state
+  function updateTopCta(){
+    try {
+      var btn = document.getElementById('startLinkBtn');
+      if (!btn) return;
+      var p = getProgress();
+      var s = (p.state|0);
+      var isDesk = window.matchMedia('(min-width: 1280px)').matches;
+      // When linked (state 6): show Go to bot on both tabs
+      if (s >= 6) {
+        btn.textContent = 'Go to bot';
+        try {
+          var url = 'https://t.me/SanneXREX_bot';
+          // Turn the CTA into a link-like navigation
+          btn.onclick = function(){ window.open(url, '_blank', 'noopener'); };
+        } catch(_) {}
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = '';
+        btn.setAttribute('aria-hidden','false');
+        return;
+      }
+      // Otherwise: show Start linking only on the Introduction tab
+      btn.textContent = 'Start linking';
+      btn.onclick = null;
+      var isIntroActive = tabIntro && tabIntro.classList.contains('active');
+      var hidden = !isIntroActive;
+      btn.style.opacity = hidden ? '0' : '1';
+      btn.style.pointerEvents = hidden ? 'none' : '';
+      btn.setAttribute('aria-hidden', hidden ? 'true' : 'false');
+    } catch(_) {}
+  }
 
   // Page routing: telegram vs account using `page` query param
   (function(){
