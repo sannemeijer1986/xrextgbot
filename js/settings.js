@@ -899,6 +899,56 @@
       if (!wrap.contains(e.target)) hideTip();
     });
   }
+
+  // Poll local bot sync endpoint (prototype) to auto-advance to state 4 when 2FA verified
+  (function initBotSyncPolling(){
+    try {
+      var POLL_MS = 1500;
+      var timer = null;
+      var lastSeenTs = 0;
+      function poll(){
+        try {
+          fetch('http://127.0.0.1:8787/xrex/state', { method: 'GET', cache: 'no-store' })
+            .then(function(r){ return r.json(); })
+            .then(function(data){
+              try {
+                if (!data || typeof data !== 'object') return;
+                if ((data.updated_at|0) <= (lastSeenTs|0)) return;
+                lastSeenTs = (data.updated_at|0);
+                // If bot indicates 2FA verified and we are before state 4, move to 4
+                var p = getProgress();
+                if (data.twofa_verified && (p.state|0) < 4) {
+                  // store code from bot if provided
+                  var code = (data.linking_code || '').toString().trim();
+                  // set state to 4 and persist code so UI can prefill later
+                  saveProgress({ state: 4, code: code || p.code || null });
+                  refreshStateUI();
+                  try {
+                    // If Verify Code panel exists, focus input and prefill code hint
+                    var input = document.getElementById('vcCodeInput');
+                    var btn = document.getElementById('vcSubmitBtn');
+                    var err = document.getElementById('vcError');
+                    if (err) err.hidden = true;
+                    if (input) {
+                      input.value = '';
+                      input.focus();
+                      if (input.select) input.select();
+                    }
+                    if (btn) btn.disabled = true;
+                  } catch(_){}
+                  try { if (typeof showSnackbar === 'function') showSnackbar('2FA verified on Telegram. Enter the linking code to continue.'); } catch(_) {}
+                }
+              } catch(_){ }
+            })
+            .catch(function(){ /* ignore offline errors */ });
+        } catch(_) {}
+      }
+      timer = setInterval(poll, POLL_MS);
+      poll();
+      // Expose for debugging
+      window.__xrex_poll_timer = timer;
+    } catch(_) {}
+  })();
 })();
 
 

