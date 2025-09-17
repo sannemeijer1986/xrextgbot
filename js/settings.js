@@ -1068,7 +1068,7 @@
   // Poll local bot sync endpoint (prototype) to auto-advance to state 4 when 2FA verified
   (function initBotSyncPolling(){
     try {
-      var POLL_MS = 10000; // throttle to 10s
+      var POLL_MS = 15000; // throttle to 15s
       var timer = null;
       var lastSeenTs = 0;
       // Leader election so only one tab/window polls

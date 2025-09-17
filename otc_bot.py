@@ -212,11 +212,11 @@ async def poll_jsonbin_and_sync():
         try:
             now_ts = int(time.time())
             if poll_until_ts and now_ts < poll_until_ts:
-                delay = 60.0
+                delay = 15.0  # active window
             else:
-                delay = 300.0
+                delay = 30.0  # idle
         except Exception:
-            delay = 300.0
+            delay = 30.0
         await asyncio.sleep(delay)
 
 def generate_verification_code():
