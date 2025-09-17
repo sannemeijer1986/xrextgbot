@@ -968,7 +968,8 @@
                 if ((data.updated_at|0) <= (lastSeenTs|0)) return;
                 lastSeenTs = (data.updated_at|0);
                 var p = getProgress();
-                if (data.twofa_verified && (p.state|0) < 4) {
+                // Only auto-advance when the UI is explicitly waiting for verification (state 3)
+                if (data.twofa_verified && (p.state|0) === 3) {
                   var code = (data.linking_code || '').toString().trim();
                   saveProgress({ state: 4, code: code || p.code || null });
                   refreshStateUI();

