@@ -207,7 +207,10 @@
       // Toggle timeline layout: hide aside until state >= 6
       try {
         var timeline = document.querySelector('.timeline');
-        if (timeline) timeline.classList.toggle('is-compact', (p.state|0) < 6);
+        if (timeline) {
+          timeline.classList.toggle('is-compact', (p.state|0) < 6);
+          timeline.classList.toggle('is-linked', (p.state|0) >= 6);
+        }
       } catch(_) {}
     } catch(_) {}
   }
@@ -360,7 +363,7 @@
           var title = tip.querySelector('.tip-title');
           var body = tip.querySelector('.tip-body');
           if (title) title.textContent = 'Linked';
-          if (body) body.textContent = 'Your Telegram has been linked to XREX Pay';
+          if (body) body.textContent = 'Your Telegram (ID 12***89) has been linked to XREX Pay';
         }
         if (meta) {
           meta.textContent = 'Linkage authorized on ' + formatDate(p.updatedAt);

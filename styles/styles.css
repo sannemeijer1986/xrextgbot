@@ -1414,19 +1414,31 @@ body.modal-locked {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
+  grid-template-areas: "main" "aside";
 }
 @media (min-width: 1280px) {
   .content .timeline {
     grid-template-columns: 2fr 1fr;
     gap: 24px;
     align-items: start;
+    grid-template-areas: "main aside";
   }
 }
 .content .timeline-main {
   display: block;
+  grid-area: main;
 }
 .content .timeline-aside {
   display: block;
+  grid-area: aside;
+}
+.content .timeline.is-linked {
+  grid-template-areas: "aside" "main";
+}
+@media (min-width: 1280px) {
+  .content .timeline.is-linked {
+    grid-template-areas: "main aside";
+  }
 }
 .content .aside-box {
   background: #f3f4f6;

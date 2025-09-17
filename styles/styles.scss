@@ -1019,16 +1019,25 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     display: grid;
     grid-template-columns: 1fr;
     gap: 24px;
+    grid-template-areas: 
+      "main"
+      "aside";
 
     @media (min-width: $bp-md) {
       grid-template-columns: 2fr 1fr;
       gap: 24px;
       align-items: start;
+      grid-template-areas: "main aside";
     }
   }
   // explicit classes reserved for layout hooks
-  .timeline-main { display: block; }
-  .timeline-aside { display: block; }
+  .timeline-main { display: block; grid-area: main; }
+  .timeline-aside { display: block; grid-area: aside; }
+  // On small screens during state 6, place aside above main content
+  .timeline.is-linked { grid-template-areas: "aside" "main"; }
+  @media (min-width: $bp-md) {
+    .timeline.is-linked { grid-template-areas: "main aside"; }
+  }
   .aside-box {
     background: #f3f4f6;
     border-radius: 12px;
