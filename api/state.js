@@ -13,7 +13,12 @@ module.exports = async (req, res) => {
     return;
   }
 
-  const client = createClient({ url: process.env.REDIS_URL });
+  const redisUrl = process.env.REDIS_URL_TLS || process.env.REDIS_URL;
+  if (!redisUrl) {
+    res.status(500).json({ error: 'Missing Redis URL' });
+    return;
+  }
+  const client = createClient({ url: redisUrl });
   try {
     await client.connect();
   } catch (e) {
