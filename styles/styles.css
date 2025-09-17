@@ -158,8 +158,8 @@
 }
 
 .m-input-row:focus-within {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  border-color: #000000;
+  box-shadow: inset 0 0 0 0.5px #000000;
 }
 
 .m-input-row--plain {
@@ -479,6 +479,12 @@ body.modal-locked {
 .btn-secondary {
   background: #EBF2FF;
   color: #2563eb;
+}
+
+.btn:disabled, .btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .btn-secondary:hover {
@@ -1134,7 +1140,7 @@ body.modal-locked {
   }
 }
 .content .feature-section-title {
-  margin: 16px 0 16px 0;
+  margin: 0 0 16px 0;
   color: #2d2f2f;
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 600;
@@ -1499,6 +1505,12 @@ body.modal-locked {
 .content .timeline-steps .step-actions {
   padding: 16px 0px 28px 0px;
 }
+.content .timeline.is-compact {
+  grid-template-columns: 1fr;
+}
+.content .timeline.is-compact .timeline-aside {
+  display: none;
+}
 .content .timeline-steps .step.is-muted .label, .content .timeline-steps .step.is-muted .title {
   color: #BCBDBD;
 }
@@ -1836,8 +1848,8 @@ body.modal-locked {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02) inset;
 }
 .content .verify-code .vc-input-group:focus-within {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02) inset;
+  border-color: #000000;
+  box-shadow: inset 0 0 0 0.5px #000000;
 }
 .content .verify-code .vc-input {
   flex: 1 1 auto;
@@ -1866,6 +1878,12 @@ body.modal-locked {
   padding: 0 18px;
   border-radius: 9999px;
   cursor: pointer;
+}
+.content .verify-code .vc-submit:disabled,
+.content .verify-code .vc-submit[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 .content .verify-code {
   max-width: 100%;
