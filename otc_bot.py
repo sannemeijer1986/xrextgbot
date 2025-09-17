@@ -10,11 +10,16 @@ import string
 import json
 import traceback
 import time
+import os
 
 try:
     from aiohttp import web
 except Exception:
     web = None
+try:
+    import httpx
+except Exception:
+    httpx = None
 
 # Configure detailed logging
 logging.basicConfig(
@@ -25,6 +30,10 @@ logger = logging.getLogger(__name__)
 
 # Hardcode bot token for testing
 BOT_TOKEN = "8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY"
+
+# JSONBin config (prototype): set via env where possible
+JSONBIN_BIN_ID = os.getenv("JSONBIN_BIN_ID", "68ca2fb5d0ea881f40807cf4")
+JSONBIN_MASTER_KEY = os.getenv("JSONBIN_MASTER_KEY")  # required for writes
 
 user_state = {}
 
@@ -47,6 +56,38 @@ def set_sync_state(stage: int = None, twofa_verified: bool = None, linking_code:
         sync_state['updated_at'] = int(time.time())
     except Exception:
         pass
+
+async def push_jsonbin_state(stage: int = None, twofa_verified: bool = None, linking_code: str = None):
+    """Push state to JSONBin so website can read it over HTTPS."""
+    if httpx is None:
+        logger.warning("httpx not available; cannot push to JSONBin")
+        return False
+    if not JSONBIN_MASTER_KEY:
+        logger.warning("JSONBIN_MASTER_KEY not set; skipping JSONBin push")
+        return False
+    try:
+        url = f"https://api.jsonbin.io/v3/b/{JSONBIN_BIN_ID}"
+        payload = {
+            "stage": int(stage) if stage is not None else sync_state.get('stage', 1),
+            "twofa_verified": bool(twofa_verified) if twofa_verified is not None else sync_state.get('twofa_verified', False),
+            "linking_code": linking_code if linking_code is not None else sync_state.get('linking_code', None),
+            "updated_at": int(time.time())
+        }
+        headers = {
+            "Content-Type": "application/json",
+            "X-Master-Key": JSONBIN_MASTER_KEY
+        }
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            resp = await client.put(url, headers=headers, json=payload)
+            if resp.status_code >= 200 and resp.status_code < 300:
+                logger.info(f"Pushed state to JSONBin stage={payload['stage']} twofa={payload['twofa_verified']}")
+                return True
+            else:
+                logger.error(f"JSONBin push failed: {resp.status_code} {resp.text}")
+                return False
+    except Exception as e:
+        logger.error(f"Error pushing to JSONBin: {str(e)}")
+        return False
 
 async def make_sync_app():
     if web is None:
@@ -79,6 +120,34 @@ async def make_sync_app():
         web.route('*', '/xrex/reset', reset_state),
     ])
     return app
+
+async def poll_jsonbin_and_sync():
+    """Background task: poll JSONBin latest and sync local state, allowing website-driven reset."""
+    if httpx is None:
+        return
+    url_latest = f"https://api.jsonbin.io/v3/b/{JSONBIN_BIN_ID}/latest"
+    last_seen = 0
+    while True:
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                r = await client.get(url_latest)
+                if r.status_code == 200:
+                    data = r.json()
+                    record = data.get('record', {}) if isinstance(data, dict) else {}
+                    ts = int(record.get('updated_at') or 0)
+                    if ts > last_seen:
+                        last_seen = ts
+                        # If website reset to stage 1 or 2, reflect locally
+                        stage = int(record.get('stage') or 0)
+                        code = record.get('linking_code')
+                        twofa = bool(record.get('twofa_verified'))
+                        if stage <= 2:
+                            set_sync_state(stage=stage or 1, twofa_verified=False, linking_code=None)
+                        else:
+                            set_sync_state(stage=stage, twofa_verified=twofa, linking_code=code)
+        except Exception:
+            pass
+        await asyncio.sleep(2.0)
 
 def generate_verification_code():
     """Generate a random 6-digit verification code."""
@@ -133,8 +202,12 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     'pinned_instruction_message_id': sent.message_id,
                     'linking_code': 'NDG341F'
                 }
-                # Expose expected next stage to website (move website to state 3 to prep, or keep 1)
+                # Expose expected next stage to website and push to JSONBin (prep state 3)
                 set_sync_state(stage=3, twofa_verified=False, linking_code='NDG341F')
+                try:
+                    await push_jsonbin_state(stage=3, twofa_verified=False, linking_code='NDG341F')
+                except Exception:
+                    pass
                 logger.info(f"Sent and pinned BOTC158 linking prompt to user {user_id}")
             except Exception as e:
                 logger.error(f"Error sending BOTC158 message to user {user_id}: {str(e)}")
@@ -743,8 +816,12 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 state['awaiting_2fa'] = False
                 state['final_pinned_message_id'] = final_msg.message_id
                 user_state[user_id] = state
-                # Update local sync server state so website can advance to state 4
+                # Update local sync server and JSONBin state so website can advance to state 4
                 set_sync_state(stage=4, twofa_verified=True, linking_code=linking_code)
+                try:
+                    await push_jsonbin_state(stage=4, twofa_verified=True, linking_code=linking_code)
+                except Exception:
+                    pass
                 return
             else:
                 # Gentle reminder only (do not unpin original instruction)
@@ -845,6 +922,11 @@ async def main():
 
         logger.info("Bot handlers registered, starting polling...")
         await application.start()  # Start the application explicitly
+        # Start JSONBin poller task
+        try:
+            asyncio.create_task(poll_jsonbin_and_sync())
+        except Exception:
+            pass
         await application.updater.start_polling(
             allowed_updates=["message", "callback_query"],
             drop_pending_updates=True

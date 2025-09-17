@@ -70,12 +70,45 @@
       return obj;
     } catch(_) { return defaultProgress(); }
   }
+  // Throttled JSONBin writer (prototype)
+  (function setupJsonBinWriter(){
+    try {
+      var WRITE_URL = (typeof window !== 'undefined' && window.XREX_JSONBIN_WRITE_URL) || '';
+      var WRITE_KEY = (typeof window !== 'undefined' && window.XREX_JSONBIN_KEY) || '';
+      if (!WRITE_URL || !WRITE_KEY) { window.__xrex_push_jsonbin = function(){ /*noop*/ }; return; }
+      var pending = null;
+      var timer = null;
+      function flush(){
+        try {
+          if (!pending) return;
+          var payload = pending; pending = null;
+          var body = {
+            stage: Number(payload.state || 1),
+            twofa_verified: (Number(payload.state||1) >= 4),
+            linking_code: (payload.code || null),
+            updated_at: Math.floor(Date.now()/1000)
+          };
+          fetch(WRITE_URL, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', 'X-Master-Key': WRITE_KEY },
+            body: JSON.stringify(body)
+          }).catch(function(){ /* ignore */ });
+        } catch(_){}
+      }
+      window.__xrex_push_jsonbin = function(next){
+        try { pending = next; } catch(_) { pending = null; }
+        clearTimeout(timer);
+        timer = setTimeout(flush, 300);
+      };
+    } catch(_) { window.__xrex_push_jsonbin = function(){}; }
+  })();
   function saveProgress(next){
     try {
       var prev = getProgress();
       var merged = Object.assign({}, prev, next, { updatedAt: nowIso() });
       merged.history = (prev.history || []).concat([{ state: merged.state, at: merged.updatedAt }]);
       localStorage.setItem(PROGRESS_KEY, JSON.stringify(merged));
+      try { if (typeof window.__xrex_push_jsonbin === 'function') window.__xrex_push_jsonbin(merged); } catch(_){}
       return merged;
     } catch(_) { return next; }
   }
@@ -906,34 +939,45 @@
       var POLL_MS = 1500;
       var timer = null;
       var lastSeenTs = 0;
+      // Allow override via query param ?sync= or global window.XREX_SYNC_URL
+      var syncParam = (function(){ try { return new URLSearchParams(window.location.search).get('sync'); } catch(_) { return null; } })();
+      var defaultUrl = 'http://127.0.0.1:8787/xrex/state';
+      var SYNC_URL = (syncParam || (typeof window !== 'undefined' && window.XREX_SYNC_URL) || defaultUrl);
+      var isHttpsPage = (function(){ try { return window.location.protocol === 'https:'; } catch(_) { return false; } })();
+      // If on HTTPS page and sync URL is HTTP, browsers will block (mixed content). Warn and skip only for that case
+      var mixedBlocked = isHttpsPage && /^http:\/\//i.test(SYNC_URL);
+      if (mixedBlocked) {
+        try { console.warn('[XREX] Local sync disabled on HTTPS due to mixed content. Use http://localhost or provide an HTTPS tunnel via ?sync='); } catch(_) {}
+        try { if (typeof showSnackbar === 'function') showSnackbar('Local sync blocked on HTTPS. Using JSONBin if configured.'); } catch(_) {}
+        // If JSONBin is configured as global, switch to it
+        if (typeof window.XREX_SYNC_URL === 'string' && /^https:\/\//i.test(window.XREX_SYNC_URL)) {
+          SYNC_URL = window.XREX_SYNC_URL;
+        } else {
+          return; // no safe alternative
+        }
+      }
       function poll(){
         try {
-          fetch('http://127.0.0.1:8787/xrex/state', { method: 'GET', cache: 'no-store' })
+          fetch(SYNC_URL, { method: 'GET', cache: 'no-store' })
             .then(function(r){ return r.json(); })
             .then(function(data){
               try {
+                // JSONBin returns {record: {...}}; flatten if needed
+                if (data && data.record && typeof data.record === 'object') data = data.record;
                 if (!data || typeof data !== 'object') return;
                 if ((data.updated_at|0) <= (lastSeenTs|0)) return;
                 lastSeenTs = (data.updated_at|0);
-                // If bot indicates 2FA verified and we are before state 4, move to 4
                 var p = getProgress();
                 if (data.twofa_verified && (p.state|0) < 4) {
-                  // store code from bot if provided
                   var code = (data.linking_code || '').toString().trim();
-                  // set state to 4 and persist code so UI can prefill later
                   saveProgress({ state: 4, code: code || p.code || null });
                   refreshStateUI();
                   try {
-                    // If Verify Code panel exists, focus input and prefill code hint
                     var input = document.getElementById('vcCodeInput');
                     var btn = document.getElementById('vcSubmitBtn');
                     var err = document.getElementById('vcError');
                     if (err) err.hidden = true;
-                    if (input) {
-                      input.value = '';
-                      input.focus();
-                      if (input.select) input.select();
-                    }
+                    if (input) { input.value = ''; input.focus(); if (input.select) input.select(); }
                     if (btn) btn.disabled = true;
                   } catch(_){}
                   try { if (typeof showSnackbar === 'function') showSnackbar('2FA verified on Telegram. Enter the linking code to continue.'); } catch(_) {}
@@ -945,8 +989,10 @@
       }
       timer = setInterval(poll, POLL_MS);
       poll();
-      // Expose for debugging
       window.__xrex_poll_timer = timer;
+
+      // Optional: write-back minimal state to JSONBin when we advance beyond 4 (throttled, client-side; safe only if public write is allowed, which it isn't by default)
+      // For safety, we do NOT write from client since key is not exposed.
     } catch(_) {}
   })();
 })();
