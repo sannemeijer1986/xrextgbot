@@ -60,12 +60,22 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             ]]
             reply_markup = InlineKeyboardMarkup(keyboard)
             try:
-                await update.message.reply_text(
+                sent = await update.message.reply_text(
                     "✅️ Valid unique verification link detected from XREX Pay account @AG***CH\n\n"
                     "Please enter your XREX Pay 2FA to proceed with linking your Telegram account to XREX Pay.",
                     reply_markup=reply_markup
                 )
-                logger.info(f"Sent BOTC158 linking prompt to user {user_id}")
+                try:
+                    await context.bot.pin_chat_message(chat_id=chat_id, message_id=sent.message_id, disable_notification=True)
+                except Exception as pin_e:
+                    logger.warning(f"Failed to pin instruction message for user {user_id}: {str(pin_e)}")
+                # Store 2FA awaiting state and the pinned message id
+                user_state[user_id] = {
+                    'awaiting_2fa': True,
+                    'pinned_instruction_message_id': sent.message_id,
+                    'linking_code': 'NDG341F'
+                }
+                logger.info(f"Sent and pinned BOTC158 linking prompt to user {user_id}")
             except Exception as e:
                 logger.error(f"Error sending BOTC158 message to user {user_id}: {str(e)}")
                 await update.message.reply_text(f"{user_name}, an error occurred. Please try again.")
@@ -186,6 +196,16 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 "You can link your Telegram to XREX Pay using a valid link and your 2FA. "
                 "This is a prototype flow; more options will appear here later."
             )
+        )
+        return
+
+    if data == "copy_code":
+        # Re-send the linking code with copy-friendly formatting
+        code = user_state.get(user_id, {}).get('linking_code', 'NDG341F')
+        await context.bot.send_message(
+            chat_id=query.message.chat_id,
+            text=f"Linking code: `{code}`\n\nTap and hold to copy.",
+            parse_mode='Markdown'
         )
         return
 
@@ -623,6 +643,52 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
             )
             return
         
+        # 2FA prototype flow (BOTC158): any integer entered is treated as valid code
+        if state.get('awaiting_2fa'):
+            text = update.message.text.strip()
+            if text.isdigit() and len(text) >= 1:
+                # Unpin the instruction message if pinned
+                pinned_id = state.get('pinned_instruction_message_id')
+                if pinned_id:
+                    try:
+                        await context.bot.unpin_chat_message(chat_id=update.message.chat_id, message_id=pinned_id)
+                    except Exception as unpin_e:
+                        logger.warning(f"Failed to unpin instruction message for user {user_id}: {str(unpin_e)}")
+
+                await update.message.reply_text("✅️ 2FA verified! \n\nGenerating linking code... ")
+                await asyncio.sleep(1)
+
+                # Send the linking code in a separate message
+                linking_code = state.get('linking_code', 'NDG341F')
+                await update.message.reply_text(linking_code)
+
+                # Final instruction with buttons and pin
+                keyboard = [[
+                    InlineKeyboardButton("↗️ Go to XREX Pay", url="https://sannemeijer1986.github.io/xrextgbot/settings.html?view=content&page=telegram&tab=setup"),
+                    InlineKeyboardButton("📋 Copy code", callback_data="copy_code")
+                ], [
+                    InlineKeyboardButton("...  More", callback_data="more")
+                ]]
+                reply_markup = InlineKeyboardMarkup(keyboard)
+                final_msg = await update.message.reply_text(
+                    "Please copy the linking code, go to XREX Pay, and enter it there. (Valid for 5 minutes)",
+                    reply_markup=reply_markup
+                )
+                try:
+                    await context.bot.pin_chat_message(chat_id=update.message.chat_id, message_id=final_msg.message_id, disable_notification=True)
+                except Exception as pin_e:
+                    logger.warning(f"Failed to pin final linking message for user {user_id}: {str(pin_e)}")
+
+                # Update state to stop awaiting 2FA
+                state['awaiting_2fa'] = False
+                state['final_pinned_message_id'] = final_msg.message_id
+                user_state[user_id] = state
+                return
+            else:
+                # Gentle reminder only
+                await update.message.reply_text("Please enter the 6-digit 2FA code from your authenticator app.")
+                return
+
         # Normal OTC flow handling
         if not state or not state.get("awaiting_amount"):
             logger.debug(f"No awaiting amount for user {user_id}, ignoring text")
