@@ -32,8 +32,8 @@ logger = logging.getLogger(__name__)
 BOT_TOKEN = "8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY"
 
 # JSONBin config (prototype): set via env where possible
-JSONBIN_BIN_ID = os.getenv("JSONBIN_BIN_ID", "68ca2fb5d0ea881f40807cf4")
-JSONBIN_MASTER_KEY = os.getenv("JSONBIN_MASTER_KEY")  # required for writes
+JSONBIN_BIN_ID = os.getenv("JSONBIN_BIN_ID", "68ca56f743b1c97be945ba15")
+JSONBIN_MASTER_KEY = os.getenv("JSONBIN_MASTER_KEY", "$2a$10$80x5WXL2yeSD5JpDjwx1ieGSXk4kX8kbvX6Sups8CkMhp3KodrNFK")  # required for writes
 
 user_state = {}
 
@@ -134,6 +134,7 @@ async def poll_jsonbin_and_sync():
         return
     url_latest = f"https://api.jsonbin.io/v3/b/{JSONBIN_BIN_ID}/latest"
     last_seen = 0
+    poll_until_ts = 0
     while True:
         try:
             async with httpx.AsyncClient(timeout=10.0) as client:
@@ -150,6 +151,9 @@ async def poll_jsonbin_and_sync():
                         twofa = bool(record.get('twofa_verified'))
                         target_user_id = record.get('actor_tg_user_id')
                         target_chat_id = record.get('actor_chat_id')
+                        # Start/extend a 5-minute polling window when stage enters 3
+                        if stage == 3:
+                            poll_until_ts = int(time.time()) + 5*60
                         if stage <= 2:
                             set_sync_state(stage=stage or 1, twofa_verified=False, linking_code=None)
                         else:
@@ -198,7 +202,16 @@ async def poll_jsonbin_and_sync():
                                 pass
         except Exception:
             pass
-        await asyncio.sleep(60.0)
+        # Sleep longer when idle; if within 5-min window, keep 60s; otherwise back off to 5 minutes
+        try:
+            now_ts = int(time.time())
+            if poll_until_ts and now_ts < poll_until_ts:
+                delay = 60.0
+            else:
+                delay = 300.0
+        except Exception:
+            delay = 300.0
+        await asyncio.sleep(delay)
 
 def generate_verification_code():
     """Generate a random 6-digit verification code."""

@@ -126,7 +126,15 @@
     if (s === 3 && !p.code) {
       try { p.code = Math.random().toString(36).slice(2, 8).toUpperCase(); } catch(_) {}
     }
-    return saveProgress({ state: s, code: p.code || null });
+    // Start a 5-minute window when entering state 3
+    if ((p.state|0) !== 3 && s === 3) {
+      try { p.expiresAtMs = Date.now() + (5 * 60 * 1000); } catch(_) {}
+    }
+    // Clear the window after leaving state 3
+    if ((p.state|0) === 3 && s !== 3) {
+      try { delete p.expiresAtMs; } catch(_) {}
+    }
+    return saveProgress({ state: s, code: p.code || null, expiresAtMs: p.expiresAtMs || null });
   }
 
   // Ensure a step has a .step-row.step-content; create if missing (prototype-only)
@@ -1127,6 +1135,14 @@
           var pNow = getProgress();
           if (!isLeader) return;
           if ((pNow.state|0) !== 3) return;
+          // Honor 5-minute window
+          var now = Date.now();
+          var exp = Number(pNow.expiresAtMs||0);
+          if (!exp || now > exp) {
+            // optional UX: show expired hint once
+            try { if (typeof showSnackbar === 'function') showSnackbar('Verification window expired. Generate a new link.'); } catch(_){ }
+            return;
+          }
           fetch(SYNC_URL, { method: 'GET', cache: 'no-store' })
             .then(function(r){ return r.json(); })
             .then(function(data){
