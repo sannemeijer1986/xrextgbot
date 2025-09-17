@@ -82,6 +82,7 @@ $bp-md: 1280px;     // main responsive breakpoint
 .m-label { color: $color-text-secondary; font: 500 14px $font-manrope; }
 .m-key-row { display: grid; grid-template-columns: 1fr 88px; gap: 12px; align-items: center; }
 .m-input-row { height: 56px; display: grid; grid-template-columns: 1fr 32px; align-items: center; gap: 8px; border: 1px solid $color-border; border-radius: 10px; padding: 10px 12px; }
+.m-input-row:focus-within { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,.15); }
 .m-input-row--plain { grid-template-columns: 1fr; }
 #secKeyField, #secKeyInput {
   cursor: pointer; 
@@ -1222,7 +1223,8 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   // Match divider spacing like step 3
   .verify-code .ib-divider { border: none; height: 1px; background: $color-border; margin: 28px 0 4px 0; }
   // Input pill with embedded submit button
-  .verify-code .vc-input-group { display: flex; align-items: center; background: #fff; border: 1px solid $color-border; border-radius: 9999px; padding: 6px 6px 6px 16px; gap: 8px; width: 520px; max-width: 100%; box-shadow: 0 1px 0 rgba(0,0,0,0.02) inset; }
+.verify-code .vc-input-group { display: flex; align-items: center; background: #fff; border: 1px solid $color-border; border-radius: 9999px; padding: 6px 6px 6px 16px; gap: 8px; width: 520px; max-width: 100%; box-shadow: 0 1px 0 rgba(0,0,0,0.02) inset; }
+.verify-code .vc-input-group:focus-within { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,.15), 0 1px 0 rgba(0,0,0,0.02) inset; }
   .verify-code .vc-input { flex: 1 1 auto; min-width: 0; border: none; outline: none; background: transparent; font: 600 16px $font-manrope; color: $color-text-primary; }
   .verify-code .vc-input::placeholder { color: $color-text-placeholder; font-weight: 300; }
   .verify-code .vc-input::-webkit-input-placeholder { color: $color-text-placeholder; font-weight: 300; }
@@ -1403,6 +1405,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     }    
   }
   .input-card { display: flex; align-items: center; gap: 12px; border: 1px solid $color-border; border-radius: 12px; padding: 14px 16px; background: #fff; min-height: 60px; }
+  .input-card:focus-within { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,.15); }
   .input-card-split { justify-content: space-between; }
   .value { font-family: $font-manrope; font-weight: 500; font-size: 16px; color: $color-text-primary; }
   .name-card { margin-bottom: 32px; }

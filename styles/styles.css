@@ -157,6 +157,11 @@
   padding: 10px 12px;
 }
 
+.m-input-row:focus-within {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
 .m-input-row--plain {
   grid-template-columns: 1fr;
 }
@@ -1749,6 +1754,10 @@ body.modal-locked {
   max-width: 100%;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02) inset;
 }
+.content .verify-code .vc-input-group:focus-within {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02) inset;
+}
 .content .verify-code .vc-input {
   flex: 1 1 auto;
   min-width: 0;
@@ -2019,6 +2028,10 @@ body.modal-locked {
   padding: 14px 16px;
   background: #fff;
   min-height: 60px;
+}
+.account-panel .input-card:focus-within {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 .account-panel .input-card-split {
   justify-content: space-between;
