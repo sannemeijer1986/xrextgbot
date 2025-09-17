@@ -22,8 +22,16 @@ module.exports = async (req, res) => {
   }
 
   try {
+    // Derive the Redis key: support optional per-session isolation
+    let session = '';
+    try {
+      const q = (req.query && (req.query.session || req.query.s)) || '';
+      if (q && typeof q === 'string' && /^[A-Za-z0-9_-]{1,64}$/.test(q)) session = q;
+    } catch(_) {}
+    const redisKey = session ? `xrex:state:${session}` : 'xrex:state';
+
     if (req.method === 'GET') {
-      const raw = await client.get('xrex:state');
+      const raw = await client.get(redisKey);
       const body = raw ? raw : '{}';
       res.setHeader('Content-Type', 'application/json');
       res.status(200).send(body);
@@ -44,7 +52,7 @@ module.exports = async (req, res) => {
         return;
       }
       payload.updated_at = Math.floor(Date.now() / 1000);
-      await client.set('xrex:state', JSON.stringify(payload));
+      await client.set(redisKey, JSON.stringify(payload));
       res.setHeader('Content-Type', 'application/json');
       res.status(200).send(JSON.stringify({ ok: true }));
       return;

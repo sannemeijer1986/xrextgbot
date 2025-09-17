@@ -58,6 +58,7 @@
 
   // Progress storage (prototype): localStorage only
   var PROGRESS_KEY = 'xrex.progress.v1';
+  var SESSION_KEY = 'xrex.session.id.v1';
   function nowIso(){ try { return new Date().toISOString(); } catch(_) { return '';} }
   function defaultProgress(){ return { version: 1, state: 1, updatedAt: nowIso(), code: null, history: [] }; }
   function getProgress(){
@@ -70,52 +71,24 @@
       return obj;
     } catch(_) { return defaultProgress(); }
   }
-  // Throttled JSONBin writer (prototype)
-  (function setupJsonBinWriter(){
+  // Session id for isolating bot/web state per visitor
+  function getSessionId(){
     try {
-      var WRITE_URL = (typeof window !== 'undefined' && window.XREX_JSONBIN_WRITE_URL) || '';
-      var WRITE_KEY = (typeof window !== 'undefined' && window.XREX_JSONBIN_KEY) || '';
-      if (!WRITE_URL || !WRITE_KEY) { window.__xrex_push_jsonbin = function(){ /*noop*/ }; return; }
-      var pending = null;
-      var timer = null;
-      function flush(){
-        try {
-          if (!pending) return;
-          var payload = pending; pending = null;
-          var body = {
-            stage: Number(payload.state || 1),
-            twofa_verified: (Number(payload.state||1) >= 4),
-            linking_code: (payload.code || null),
-            updated_at: Math.floor(Date.now()/1000)
-          };
-          fetch(WRITE_URL, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json', 'X-Master-Key': WRITE_KEY },
-            body: JSON.stringify(body)
-          }).catch(function(){ /* ignore */ });
-        } catch(_){}
-      }
-      window.__xrex_push_jsonbin = function(next){
-        try { pending = next; } catch(_) { pending = null; }
-        clearTimeout(timer);
-        timer = setTimeout(flush, 300);
-      };
-    } catch(_) { window.__xrex_push_jsonbin = function(){}; }
-  })();
+      var sid = localStorage.getItem(SESSION_KEY);
+      if (sid && /^[A-Za-z0-9_-]{8,64}$/.test(sid)) return sid;
+      var rand = Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 10);
+      var newId = ('s' + Date.now().toString(36) + rand).slice(0, 24).toUpperCase();
+      localStorage.setItem(SESSION_KEY, newId);
+      return newId;
+    } catch(_) { return 'S' + String(Date.now()); }
+  }
   function saveProgress(next){
     try {
       var prev = getProgress();
       var merged = Object.assign({}, prev, next, { updatedAt: nowIso() });
       merged.history = (prev.history || []).concat([{ state: merged.state, at: merged.updatedAt }]);
       localStorage.setItem(PROGRESS_KEY, JSON.stringify(merged));
-      // Only push to JSONBin on meaningful state transition (state or code change)
-      try {
-        if (typeof window.__xrex_push_jsonbin === 'function') {
-          var stateChanged = String(prev.state) !== String(merged.state);
-          var codeChanged = String(prev.code || '') !== String(merged.code || '');
-          if (stateChanged || codeChanged) window.__xrex_push_jsonbin(merged);
-        }
-      } catch(_){}
+      // No client-side remote write; bot will push to server.
       return merged;
     } catch(_) { return next; }
   }
@@ -438,16 +411,24 @@
       // Populate link and copy behavior
       var linkEl = container.querySelector('#ibLink');
       var copyBtn = container.querySelector('#ibCopyBtn');
-      var url = 'https://t.me/SanneXREX_bot?start=BOTC1583';
+      var sid = getSessionId();
+      var baseToken = 'BOTC1583';
       try {
         var code = (getProgress().code || '').trim();
-        if (code) url = 'https://t.me/SanneXREX_bot?start=BOTC158';
+        if (code) baseToken = 'BOTC158';
+      } catch(_) {}
+      var token = baseToken + '_s' + sid;
+      var url = 'https://t.me/SanneXREX_bot?start=' + token;
+      try {
+        var code2 = (getProgress().code || '').trim();
+        // keep same token logic; code presence already captured
       } catch(_) {}
       if (linkEl) {
         linkEl.href = url;
         var textSpan = linkEl.querySelector('.ib-pill-text');
         // ensure accessible label has full URL
         linkEl.setAttribute('aria-label', 'Open Telegram link ' + url);
+        if (textSpan) textSpan.textContent = url;
       }
       function copyLink(){
         try {
@@ -1119,15 +1100,15 @@
       // If on HTTPS page and sync URL is HTTP, browsers will block (mixed content). Warn and skip only for that case
       var mixedBlocked = isHttpsPage && /^http:\/\//i.test(SYNC_URL);
       if (mixedBlocked) {
-        try { console.warn('[XREX] Local sync disabled on HTTPS due to mixed content. Use http://localhost or provide an HTTPS tunnel via ?sync='); } catch(_) {}
-        try { if (typeof showSnackbar === 'function') showSnackbar('Local sync blocked on HTTPS. Using JSONBin if configured.'); } catch(_) {}
-        // If JSONBin is configured as global, switch to it
-        if (typeof window.XREX_SYNC_URL === 'string' && /^https:\/\//i.test(window.XREX_SYNC_URL)) {
-          SYNC_URL = window.XREX_SYNC_URL;
-        } else {
-          return; // no safe alternative
-        }
+        try { console.warn('[XREX] Local sync disabled on HTTPS due to mixed content. Falling back to /api/state'); } catch(_) {}
+        SYNC_URL = '/api/state';
       }
+      // Always attach session id to the sync URL
+      try {
+        var sid2 = getSessionId();
+        if (SYNC_URL.indexOf('?') === -1) SYNC_URL += '?session=' + encodeURIComponent(sid2);
+        else SYNC_URL += '&session=' + encodeURIComponent(sid2);
+      } catch(_) {}
       function poll(){
         try {
           // Only poll when: this tab is leader, page is visible, and waiting for 2FA (state 3)
@@ -1145,17 +1126,10 @@
             return;
           }
           var fetchOpts = { method: 'GET', cache: 'no-store' };
-          try {
-            if (/^https:\/\/api\.jsonbin\.io\//i.test(SYNC_URL) && typeof window !== 'undefined' && window.XREX_JSONBIN_KEY) {
-              fetchOpts.headers = { 'X-Master-Key': window.XREX_JSONBIN_KEY };
-            }
-          } catch(_){}
           fetch(SYNC_URL, fetchOpts)
             .then(function(r){ return r.json(); })
             .then(function(data){
               try {
-                // JSONBin returns {record: {...}}; flatten if needed
-                if (data && data.record && typeof data.record === 'object') data = data.record;
                 if (!data || typeof data !== 'object') return;
                 if ((data.updated_at|0) <= (lastSeenTs|0)) return;
                 lastSeenTs = (data.updated_at|0);
@@ -1172,7 +1146,7 @@
                     if (err) err.hidden = true;
                     if (input) { input.value = ''; input.focus(); if (input.select) input.select(); }
                     if (btn) btn.disabled = true;
-                  } catch(_){}
+                  } catch(_){ }
                   try { if (typeof showSnackbar === 'function') showSnackbar('2FA verified on Telegram. Enter the linking code to continue.'); } catch(_) {}
                 }
               } catch(_){ }

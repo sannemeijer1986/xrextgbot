@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf build && mkdir -p build && sass styles/styles.scss:build/styles/styles.css --no-source-map --style=compressed && cp -R assets js index.html login.html settings.html build/",
+    "build": "mkdir -p build/styles && sass styles/styles.scss:build/styles/styles.css --no-source-map --style=compressed",
     "watch": "sass --watch styles/styles.scss:styles/styles.css --no-source-map --style=expanded"
   },
   "keywords": [],

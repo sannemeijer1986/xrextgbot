@@ -31,9 +31,9 @@ logger = logging.getLogger(__name__)
 # Hardcode bot token for testing
 BOT_TOKEN = "8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY"
 
-# JSONBin config (prototype): set via env where possible
-JSONBIN_BIN_ID = os.getenv("JSONBIN_BIN_ID", "68ca56f743b1c97be945ba15")
-JSONBIN_MASTER_KEY = os.getenv("JSONBIN_MASTER_KEY", "$2a$10$80x5WXL2yeSD5JpDjwx1ieGSXk4kX8kbvX6Sups8CkMhp3KodrNFK")  # required for writes
+# Deprecated JSONBin config (legacy prototype)
+JSONBIN_BIN_ID = os.getenv("JSONBIN_BIN_ID", "")
+JSONBIN_MASTER_KEY = os.getenv("JSONBIN_MASTER_KEY", "")
 
 user_state = {}
 
@@ -60,8 +60,8 @@ def set_sync_state(stage: int = None, twofa_verified: bool = None, linking_code:
 # Global bot reference for background tasks
 bot_for_notifications = None
 
-async def push_state(stage: int = None, twofa_verified: bool = None, linking_code: str = None, actor_tg_user_id: int = None, actor_chat_id: int = None):
-    """Push state to Vercel API (preferred), fallback to JSONBin if configured."""
+async def push_state(stage: int = None, twofa_verified: bool = None, linking_code: str = None, actor_tg_user_id: int = None, actor_chat_id: int = None, session_id: str = None):
+    """Push state to Redis-backed API (Vercel)."""
     if httpx is None:
         logger.warning("httpx not available; cannot push state")
         return False
@@ -81,8 +81,11 @@ async def push_state(stage: int = None, twofa_verified: bool = None, linking_cod
     if base and token:
         try:
             async with httpx.AsyncClient(timeout=10.0) as client:
+                url = base.rstrip('/') + "/api/state"
+                if session_id:
+                    url = url + ("?session=" + session_id)
                 resp = await client.put(
-                    base.rstrip('/') + "/api/state",
+                    url,
                     headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
                     json=payload
                 )
@@ -93,23 +96,7 @@ async def push_state(stage: int = None, twofa_verified: bool = None, linking_cod
                     logger.error(f"Vercel state push failed: {resp.status_code} {resp.text}")
         except Exception as e:
             logger.error(f"Error pushing to Vercel state: {str(e)}")
-    # Fallback to JSONBin if configured
-    if not JSONBIN_MASTER_KEY:
-        return False
-    try:
-        url = f"https://api.jsonbin.io/v3/b/{JSONBIN_BIN_ID}"
-        headers = {"Content-Type": "application/json", "X-Master-Key": JSONBIN_MASTER_KEY}
-        async with httpx.AsyncClient(timeout=10.0) as client:
-            resp = await client.put(url, headers=headers, json=payload)
-            if 200 <= resp.status_code < 300:
-                logger.info(f"Pushed state to JSONBin stage={payload['stage']} twofa={payload['twofa_verified']}")
-                return True
-            else:
-                logger.error(f"JSONBin push failed: {resp.status_code} {resp.text}")
-                return False
-    except Exception as e:
-        logger.error(f"Error pushing to JSONBin: {str(e)}")
-        return False
+    return False
 
 async def make_sync_app():
     if web is None:
@@ -143,26 +130,20 @@ async def make_sync_app():
     ])
     return app
 
-async def poll_jsonbin_and_sync():
-    """Background task: poll JSONBin latest and sync local state, allowing website-driven reset."""
+async def poll_remote_and_sync(session_id: str = None):
+    """Background task: poll Redis-backed state to sync local state; allows website-driven reset."""
     if httpx is None:
         return
-    url_latest = f"https://api.jsonbin.io/v3/b/{JSONBIN_BIN_ID}/latest"
+    base = os.getenv("STATE_BASE_URL", "").strip() or "http://127.0.0.1:8787"
+    url_latest = (base.rstrip('/') + "/api/state") + (f"?session={session_id}" if session_id else "")
     last_seen = 0
     poll_until_ts = 0
     while True:
         try:
             async with httpx.AsyncClient(timeout=10.0) as client:
-                headers = {}
-                try:
-                    if JSONBIN_MASTER_KEY:
-                        headers["X-Master-Key"] = JSONBIN_MASTER_KEY
-                except Exception:
-                    pass
-                r = await client.get(url_latest, headers=headers)
+                r = await client.get(url_latest)
                 if r.status_code == 200:
-                    data = r.json()
-                    record = data.get('record', {}) if isinstance(data, dict) else {}
+                    record = r.json() or {}
                     ts = int(record.get('updated_at') or 0)
                     if ts > last_seen:
                         last_seen = ts
@@ -280,6 +261,16 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if context.args and len(context.args) > 0:
         verify_token = context.args[0]
         logger.info(f"Deeplink accessed with verify token: {verify_token} by user {user_id}")
+        # Extract optional session id suffix: TOKEN_s<SESSION>
+        session_id = None
+        try:
+            parts = str(verify_token).split('_s', 1)
+            if len(parts) == 2 and parts[1]:
+                candidate = parts[1]
+                if len(candidate) <= 64:
+                    session_id = candidate
+        except Exception:
+            session_id = None
         
         # Prototype flow: special handling for BOTC tokens (e.g., BOTC158, BOTC1583)
         token_upper = str(verify_token).upper()
@@ -301,12 +292,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     'awaiting_2fa': True,
                     'pinned_instruction_message_id': sent.message_id,
                     'linking_code': 'NDG341F',
-                    'chat_id': chat_id
+                    'chat_id': chat_id,
+                    'verify_token': verify_token,
+                    'session_id': session_id
                 }
                 # Expose expected next stage to website and push to JSONBin (prep state 3)
                 set_sync_state(stage=3, twofa_verified=False, linking_code='NDG341F')
                 try:
-                    await push_state(stage=3, twofa_verified=False, linking_code='NDG341F', actor_tg_user_id=user_id, actor_chat_id=chat_id)
+                    await push_state(stage=3, twofa_verified=False, linking_code='NDG341F', actor_tg_user_id=user_id, actor_chat_id=chat_id, session_id=session_id)
                 except Exception:
                     pass
                 logger.info(f"Sent and pinned BOTC linking prompt to user {user_id} for token {verify_token}")
@@ -926,7 +919,15 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 # Update local sync server and JSONBin state so website can advance to state 4
                 set_sync_state(stage=4, twofa_verified=True, linking_code=linking_code)
                 try:
-                    await push_state(stage=4, twofa_verified=True, linking_code=linking_code, actor_tg_user_id=user_id, actor_chat_id=update.message.chat_id)
+                    # Try to reuse session id from user's last deeplink if available
+                    sess = None
+                    try:
+                        last_token = user_state.get(user_id, {}).get('verify_token')
+                        if last_token and '_s' in last_token:
+                            sess = last_token.split('_s',1)[1]
+                    except Exception:
+                        pass
+                    await push_state(stage=4, twofa_verified=True, linking_code=linking_code, actor_tg_user_id=user_id, actor_chat_id=update.message.chat_id, session_id=sess)
                 except Exception:
                     pass
                 return
@@ -1032,9 +1033,11 @@ async def main():
 
         logger.info("Bot handlers registered, starting polling...")
         await application.start()  # Start the application explicitly
-        # Start JSONBin poller task
+        # Optionally start polling remote state for a demo session if provided via env
         try:
-            asyncio.create_task(poll_jsonbin_and_sync())
+            demo_session = os.getenv('DEMO_SESSION_ID', '').strip() or None
+            if demo_session:
+                asyncio.create_task(poll_remote_and_sync(session_id=demo_session))
         except Exception:
             pass
         await application.updater.start_polling(
