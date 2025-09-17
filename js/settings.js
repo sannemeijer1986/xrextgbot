@@ -1141,9 +1141,16 @@
           if (!exp || now > exp) {
             // optional UX: show expired hint once
             try { if (typeof showSnackbar === 'function') showSnackbar('Verification window expired. Generate a new link.'); } catch(_){ }
+            try { setState(2); refreshStateUI(); } catch(_){ }
             return;
           }
-          fetch(SYNC_URL, { method: 'GET', cache: 'no-store' })
+          var fetchOpts = { method: 'GET', cache: 'no-store' };
+          try {
+            if (/^https:\/\/api\.jsonbin\.io\//i.test(SYNC_URL) && typeof window !== 'undefined' && window.XREX_JSONBIN_KEY) {
+              fetchOpts.headers = { 'X-Master-Key': window.XREX_JSONBIN_KEY };
+            }
+          } catch(_){}
+          fetch(SYNC_URL, fetchOpts)
             .then(function(r){ return r.json(); })
             .then(function(data){
               try {

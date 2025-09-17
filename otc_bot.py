@@ -138,7 +138,13 @@ async def poll_jsonbin_and_sync():
     while True:
         try:
             async with httpx.AsyncClient(timeout=10.0) as client:
-                r = await client.get(url_latest)
+                headers = {}
+                try:
+                    if JSONBIN_MASTER_KEY:
+                        headers["X-Master-Key"] = JSONBIN_MASTER_KEY
+                except Exception:
+                    pass
+                r = await client.get(url_latest, headers=headers)
                 if r.status_code == 200:
                     data = r.json()
                     record = data.get('record', {}) if isinstance(data, dict) else {}
