@@ -60,33 +60,48 @@ def set_sync_state(stage: int = None, twofa_verified: bool = None, linking_code:
 # Global bot reference for background tasks
 bot_for_notifications = None
 
-async def push_jsonbin_state(stage: int = None, twofa_verified: bool = None, linking_code: str = None, actor_tg_user_id: int = None, actor_chat_id: int = None):
-    """Push state to JSONBin so website can read it over HTTPS."""
+async def push_state(stage: int = None, twofa_verified: bool = None, linking_code: str = None, actor_tg_user_id: int = None, actor_chat_id: int = None):
+    """Push state to Vercel API (preferred), fallback to JSONBin if configured."""
     if httpx is None:
-        logger.warning("httpx not available; cannot push to JSONBin")
+        logger.warning("httpx not available; cannot push state")
         return False
+    payload = {
+        "stage": int(stage) if stage is not None else sync_state.get('stage', 1),
+        "twofa_verified": bool(twofa_verified) if twofa_verified is not None else sync_state.get('twofa_verified', False),
+        "linking_code": linking_code if linking_code is not None else sync_state.get('linking_code', None),
+        "updated_at": int(time.time())
+    }
+    if actor_tg_user_id is not None:
+        payload["actor_tg_user_id"] = int(actor_tg_user_id)
+    if actor_chat_id is not None:
+        payload["actor_chat_id"] = int(actor_chat_id)
+    # Try Vercel API first
+    base = os.getenv("STATE_BASE_URL", "").strip()
+    token = os.getenv("STATE_WRITE_TOKEN", "").strip()
+    if base and token:
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                resp = await client.put(
+                    base.rstrip('/') + "/api/state",
+                    headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+                    json=payload
+                )
+                if 200 <= resp.status_code < 300:
+                    logger.info(f"Pushed state to Vercel stage={payload['stage']} twofa={payload['twofa_verified']}")
+                    return True
+                else:
+                    logger.error(f"Vercel state push failed: {resp.status_code} {resp.text}")
+        except Exception as e:
+            logger.error(f"Error pushing to Vercel state: {str(e)}")
+    # Fallback to JSONBin if configured
     if not JSONBIN_MASTER_KEY:
-        logger.warning("JSONBIN_MASTER_KEY not set; skipping JSONBin push")
         return False
     try:
         url = f"https://api.jsonbin.io/v3/b/{JSONBIN_BIN_ID}"
-        payload = {
-            "stage": int(stage) if stage is not None else sync_state.get('stage', 1),
-            "twofa_verified": bool(twofa_verified) if twofa_verified is not None else sync_state.get('twofa_verified', False),
-            "linking_code": linking_code if linking_code is not None else sync_state.get('linking_code', None),
-            "updated_at": int(time.time())
-        }
-        if actor_tg_user_id is not None:
-            payload["actor_tg_user_id"] = int(actor_tg_user_id)
-        if actor_chat_id is not None:
-            payload["actor_chat_id"] = int(actor_chat_id)
-        headers = {
-            "Content-Type": "application/json",
-            "X-Master-Key": JSONBIN_MASTER_KEY
-        }
+        headers = {"Content-Type": "application/json", "X-Master-Key": JSONBIN_MASTER_KEY}
         async with httpx.AsyncClient(timeout=10.0) as client:
             resp = await client.put(url, headers=headers, json=payload)
-            if resp.status_code >= 200 and resp.status_code < 300:
+            if 200 <= resp.status_code < 300:
                 logger.info(f"Pushed state to JSONBin stage={payload['stage']} twofa={payload['twofa_verified']}")
                 return True
             else:
@@ -291,7 +306,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 # Expose expected next stage to website and push to JSONBin (prep state 3)
                 set_sync_state(stage=3, twofa_verified=False, linking_code='NDG341F')
                 try:
-                    await push_jsonbin_state(stage=3, twofa_verified=False, linking_code='NDG341F', actor_tg_user_id=user_id, actor_chat_id=chat_id)
+                    await push_state(stage=3, twofa_verified=False, linking_code='NDG341F', actor_tg_user_id=user_id, actor_chat_id=chat_id)
                 except Exception:
                     pass
                 logger.info(f"Sent and pinned BOTC linking prompt to user {user_id} for token {verify_token}")
@@ -911,7 +926,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 # Update local sync server and JSONBin state so website can advance to state 4
                 set_sync_state(stage=4, twofa_verified=True, linking_code=linking_code)
                 try:
-                    await push_jsonbin_state(stage=4, twofa_verified=True, linking_code=linking_code, actor_tg_user_id=user_id, actor_chat_id=update.message.chat_id)
+                    await push_state(stage=4, twofa_verified=True, linking_code=linking_code, actor_tg_user_id=user_id, actor_chat_id=update.message.chat_id)
                 except Exception:
                     pass
                 return
