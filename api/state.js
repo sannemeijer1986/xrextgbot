@@ -19,7 +19,9 @@ module.exports = async (req, res) => {
     return;
   }
   const isRediss = /^rediss:\/\//i.test(redisUrl);
-  const client = createClient({ url: redisUrl, socket: isRediss ? { tls: true } : {} });
+  const socketOpts = isRediss ? { tls: true } : {};
+  try { if (String(process.env.REDIS_TLS_INSECURE) === '1') socketOpts.rejectUnauthorized = false; } catch(_) {}
+  const client = createClient({ url: redisUrl, socket: socketOpts });
   try {
     await client.connect();
   } catch (e) {
