@@ -357,3 +357,17 @@
 2025-09-17 11:40:35,124 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
 2025-09-17 11:40:35,124 - httpcore.http11 - DEBUG - send_request_body.complete
 2025-09-17 11:40:35,124 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-17 11:40:45,390 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Wed, 17 Sep 2025 03:40:45 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-17 11:40:45,391 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-17 11:40:45,392 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-17 11:40:45,392 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-17 11:40:45,392 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-17 11:40:45,392 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-17 11:40:45,392 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-17 11:40:45,393 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-17 11:40:45,393 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304440, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-17 11:40:45,394 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-17 11:40:45,394 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-17 11:40:45,394 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-17 11:40:45,394 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-17 11:40:45,394 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
