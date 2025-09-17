@@ -198,7 +198,7 @@ async def poll_jsonbin_and_sync():
                                 pass
         except Exception:
             pass
-        await asyncio.sleep(2.0)
+        await asyncio.sleep(60.0)
 
 def generate_verification_code():
     """Generate a random 6-digit verification code."""

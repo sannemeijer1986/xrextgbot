@@ -108,7 +108,14 @@
       var merged = Object.assign({}, prev, next, { updatedAt: nowIso() });
       merged.history = (prev.history || []).concat([{ state: merged.state, at: merged.updatedAt }]);
       localStorage.setItem(PROGRESS_KEY, JSON.stringify(merged));
-      try { if (typeof window.__xrex_push_jsonbin === 'function') window.__xrex_push_jsonbin(merged); } catch(_){}
+      // Only push to JSONBin on meaningful state transition (state or code change)
+      try {
+        if (typeof window.__xrex_push_jsonbin === 'function') {
+          var stateChanged = String(prev.state) !== String(merged.state);
+          var codeChanged = String(prev.code || '') !== String(merged.code || '');
+          if (stateChanged || codeChanged) window.__xrex_push_jsonbin(merged);
+        }
+      } catch(_){}
       return merged;
     } catch(_) { return next; }
   }
@@ -1053,9 +1060,49 @@
   // Poll local bot sync endpoint (prototype) to auto-advance to state 4 when 2FA verified
   (function initBotSyncPolling(){
     try {
-      var POLL_MS = 1500;
+      var POLL_MS = 10000; // throttle to 10s
       var timer = null;
       var lastSeenTs = 0;
+      // Leader election so only one tab/window polls
+      var TAB_ID = Math.random().toString(36).slice(2);
+      var MASTER_KEY = 'xrex.poll.master';
+      var HEARTBEAT_KEY = 'xrex.poll.heartbeat';
+      var isLeader = false;
+      function nowTs(){ try { return Date.now(); } catch(_) { return (new Date()).getTime(); } }
+      function readJson(key){
+        try { var raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; } catch(_) { return null; }
+      }
+      function writeJson(key, obj){
+        try { localStorage.setItem(key, JSON.stringify(obj)); } catch(_) {}
+      }
+      function iAmLeader(){
+        try { var m = readJson(MASTER_KEY); return m && m.id === TAB_ID; } catch(_) { return false; }
+      }
+      function sendHeartbeat(){ if (!iAmLeader()) return; writeJson(HEARTBEAT_KEY, { t: nowTs() }); }
+      function tryElect(){
+        try {
+          var master = readJson(MASTER_KEY);
+          var hb = readJson(HEARTBEAT_KEY);
+          var stale = !hb || ((nowTs() - Number(hb.t||0)) > 15000);
+          if (!master || stale) {
+            writeJson(MASTER_KEY, { id: TAB_ID, at: nowTs() });
+          }
+          isLeader = iAmLeader();
+          window.__xrex_is_leader = isLeader;
+          if (isLeader) sendHeartbeat();
+        } catch(_) { isLeader = false; }
+      }
+      // React to other tabs taking leadership
+      window.addEventListener('storage', function(e){
+        try {
+          if (e && e.key === MASTER_KEY) { isLeader = iAmLeader(); window.__xrex_is_leader = isLeader; }
+        } catch(_) {}
+      });
+      // Kick off leader checks
+      tryElect();
+      var leaderTimer = setInterval(tryElect, 3000);
+      var hbTimer = setInterval(sendHeartbeat, 5000);
+
       // Allow override via query param ?sync= or global window.XREX_SYNC_URL
       var syncParam = (function(){ try { return new URLSearchParams(window.location.search).get('sync'); } catch(_) { return null; } })();
       var defaultUrl = 'http://127.0.0.1:8787/xrex/state';
@@ -1075,6 +1122,11 @@
       }
       function poll(){
         try {
+          // Only poll when: this tab is leader, page is visible, and waiting for 2FA (state 3)
+          if (document.hidden) return;
+          var pNow = getProgress();
+          if (!isLeader) return;
+          if ((pNow.state|0) !== 3) return;
           fetch(SYNC_URL, { method: 'GET', cache: 'no-store' })
             .then(function(r){ return r.json(); })
             .then(function(data){
