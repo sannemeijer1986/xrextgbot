@@ -18,11 +18,12 @@ module.exports = async (req, res) => {
     res.status(500).json({ error: 'Missing Redis URL' });
     return;
   }
-  const client = createClient({ url: redisUrl });
+  const isRediss = /^rediss:\/\//i.test(redisUrl);
+  const client = createClient({ url: redisUrl, socket: isRediss ? { tls: true } : {} });
   try {
     await client.connect();
   } catch (e) {
-    res.status(500).json({ error: 'Redis connect failed' });
+    res.status(500).json({ error: 'Redis connect failed', detail: (e && e.message) ? e.message : String(e) });
     return;
   }
 
@@ -65,7 +66,7 @@ module.exports = async (req, res) => {
 
     res.status(405).json({ error: 'Method not allowed' });
   } catch (e) {
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: 'Server error', detail: (e && e.message) ? e.message : String(e) });
   } finally {
     try { await client.quit(); } catch (e) {}
   }
