@@ -52,6 +52,25 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         verify_token = context.args[0]
         logger.info(f"Deeplink accessed with verify token: {verify_token} by user {user_id}")
         
+        # Prototype flow: special handling for BOTC158
+        if verify_token == "BOTC158":
+            keyboard = [[
+                InlineKeyboardButton("📋 What is 2FA", callback_data="what_is_2fa"),
+                InlineKeyboardButton("...  More", callback_data="more")
+            ]]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+            try:
+                await update.message.reply_text(
+                    "✅️ Valid unique verification link detected from XREX Pay account @AG***CH\n\n"
+                    "Please enter your XREX Pay 2FA to proceed with linking your Telegram account to XREX Pay.",
+                    reply_markup=reply_markup
+                )
+                logger.info(f"Sent BOTC158 linking prompt to user {user_id}")
+            except Exception as e:
+                logger.error(f"Error sending BOTC158 message to user {user_id}: {str(e)}")
+                await update.message.reply_text(f"{user_name}, an error occurred. Please try again.")
+            return
+        
         # Generate verification code
         verification_code = generate_verification_code()
         
@@ -83,22 +102,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
     
     # Normal start flow (no verification token)
-    keyboard = [
-        [InlineKeyboardButton("request a quote", callback_data="request_quote")],
-        [InlineKeyboardButton("🧪 Test Quote (Simple)", callback_data="test_quote")],
-        [InlineKeyboardButton("🚀 Open OTC Mini App", web_app=WebAppInfo(url="https://sannemeijer1986.github.io/xrextgbot/miniapp.html"))]
-    ]
+    keyboard = [[InlineKeyboardButton("↗️ Go to XREX Pay", url="https://sannemeijer1986.github.io/xrextgbot/settings.html?view=content&page=telegram&tab=setup")]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     try:
-        sent_message = await update.message.reply_text(
-            f"{user_name}, welcome to XREX Telegram OTC Bot\n"
-            f"This is an OTC agent bot, designed for fast Telegram OTC deals.\n\n"
-            f"Your Telegram User ID: {user_id}\n"
-            f"This Chat ID: {chat_id}",
+        await update.message.reply_text(
+            "Welcome to the XREX Pay Bot, you haven’t linked your XREX Pay account yet, please visit the XREX Pay Webapp first",
             reply_markup=reply_markup
         )
-        user_state[user_id] = {'previous_message_id': sent_message.message_id, 'initiator_id': user_id}
-        logger.info(f"Sent start message for user {update.message.from_user.id}")
+        logger.info(f"Sent unlinked welcome message for user {user_id}")
     except Exception as e:
         logger.error(f"Error in start for user {user_id}: {str(e)}")
         await update.message.reply_text(f"{user_name}, an error occurred. Please try again.")
@@ -154,6 +165,28 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         except Exception as e:
             logger.error(f"Error updating verification message for user {user_id}: {str(e)}")
         
+        return
+
+    # --- Simple handlers for prototype buttons ---
+    if data == "what_is_2fa":
+        await context.bot.send_message(
+            chat_id=query.message.chat_id,
+            text=(
+                "2FA (Two-Factor Authentication) is a one-time code from your authenticator app "
+                "(e.g., Google Authenticator, Authy).\n\n"
+                "Open your authenticator app and enter the 6-digit code to continue."
+            )
+        )
+        return
+
+    if data == "more":
+        await context.bot.send_message(
+            chat_id=query.message.chat_id,
+            text=(
+                "You can link your Telegram to XREX Pay using a valid link and your 2FA. "
+                "This is a prototype flow; more options will appear here later."
+            )
+        )
         return
 
     # Authorization check removed for testing - all users can now use the bot
