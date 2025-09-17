@@ -31,9 +31,7 @@ logger = logging.getLogger(__name__)
 # Hardcode bot token for testing
 BOT_TOKEN = "8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY"
 
-# Deprecated JSONBin config (legacy prototype)
-JSONBIN_BIN_ID = os.getenv("JSONBIN_BIN_ID", "")
-JSONBIN_MASTER_KEY = os.getenv("JSONBIN_MASTER_KEY", "")
+# Using Redis-backed Vercel API for state
 
 user_state = {}
 
@@ -165,7 +163,7 @@ async def poll_remote_and_sync(session_id: str = None):
                             try:
                                 # Iterate known users and notify those who had the BOTC flow
                                 for uid, st in list(user_state.items()):
-                                    # If JSONBin indicates a specific actor, only notify that user
+                                    # If remote state indicates a specific actor, only notify that user
                                     if target_user_id is not None and int(uid) != int(target_user_id):
                                         continue
                                     chat_id = st.get('chat_id')
@@ -296,7 +294,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     'verify_token': verify_token,
                     'session_id': session_id
                 }
-                # Expose expected next stage to website and push to JSONBin (prep state 3)
+                # Expose expected next stage to website (prep state 3)
                 set_sync_state(stage=3, twofa_verified=False, linking_code='NDG341F')
                 try:
                     await push_state(stage=3, twofa_verified=False, linking_code='NDG341F', actor_tg_user_id=user_id, actor_chat_id=chat_id, session_id=session_id)
@@ -916,10 +914,10 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 state['awaiting_2fa'] = False
                 state['final_pinned_message_id'] = final_msg.message_id
                 user_state[user_id] = state
-                # Update local sync server and JSONBin state so website can advance to state 4
+                # Update local sync server and remote state so website can advance to state 4
                 set_sync_state(stage=4, twofa_verified=True, linking_code=linking_code)
                 try:
-                    # Try to reuse session id from user's last deeplink if available
+                    # Reuse session id from user's last deeplink if available
                     sess = None
                     try:
                         last_token = user_state.get(user_id, {}).get('verify_token')

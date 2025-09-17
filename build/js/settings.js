@@ -1158,8 +1158,7 @@
       poll();
       window.__xrex_poll_timer = timer;
 
-      // Optional: write-back minimal state to JSONBin when we advance beyond 4 (throttled, client-side; safe only if public write is allowed, which it isn't by default)
-      // For safety, we do NOT write from client since key is not exposed.
+      // Client never writes remote state; the bot updates the Redis-backed API.
     } catch(_) {}
   })();
 })();
