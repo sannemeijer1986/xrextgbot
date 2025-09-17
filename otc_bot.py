@@ -60,6 +60,9 @@ def set_sync_state(stage: int = None, twofa_verified: bool = None, linking_code:
 # Global bot reference for background tasks
 bot_for_notifications = None
 
+# Simple debounce to avoid duplicate /start handling within a short window
+recent_starts = {}
+
 async def push_jsonbin_state(stage: int = None, twofa_verified: bool = None, linking_code: str = None, actor_tg_user_id: int = None, actor_chat_id: int = None):
     """Push state to JSONBin so website can read it over HTTPS."""
     if httpx is None:
@@ -224,6 +227,16 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     chat_id = update.effective_chat.id
     is_group = update.message.chat.type in ['group', 'supergroup']
+    # Debounce: ignore duplicate /start within 2 seconds
+    try:
+        now_ts = int(time.time())
+        last = recent_starts.get(user_id, 0)
+        if now_ts - last < 2:
+            logger.debug(f"Debounced duplicate /start for user {user_id}")
+            return
+        recent_starts[user_id] = now_ts
+    except Exception:
+        pass
     
     # Check if this is a deeplink with verification token
     if context.args and len(context.args) > 0:
