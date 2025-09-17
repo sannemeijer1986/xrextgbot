@@ -991,6 +991,18 @@ body.modal-locked {
   gap: 6px;
   flex-wrap: wrap;
 }
+.content .status-subline {
+  display: block;
+  width: 100%;
+  margin-top: 1px;
+}
+@media (min-width: 1280px) {
+  .content .status-subline {
+    display: inline-flex;
+    width: auto;
+    margin-left: 0;
+  }
+}
 .content .status-label {
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 600;
@@ -1012,6 +1024,34 @@ body.modal-locked {
   .content .status-value {
     font-size: 22px;
   }
+}
+.content .status-value.linked {
+  color: #2F9752;
+}
+.content .status-info-btn.linked {
+  color: #2F9752;
+  border-color: #2F9752;
+}
+.content .status-meta {
+  margin-left: 0px;
+  color: #9CA3AF;
+  font-weight: 300;
+  font-size: 12px;
+}
+@media (min-width: 1280px) {
+  .content .status-meta {
+    margin-left: 8px;
+  }
+}
+.content .status-unlink {
+  margin-left: 6px;
+  color: #2563EB;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.content .status-unlink:hover, .content .status-unlink:focus {
+  text-decoration: none;
 }
 .content .status-link {
   color: #2563eb;

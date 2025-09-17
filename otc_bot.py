@@ -173,18 +173,7 @@ async def poll_jsonbin_and_sync():
                                     if st.get('stage6_notified'):
                                         continue
                                     # Unpin any pinned messages we created
-                                    try:
-                                        if st.get('pinned_instruction_message_id'):
-                                            if bot_for_notifications:
-                                                await bot_for_notifications.unpin_chat_message(chat_id=chat_id, message_id=st['pinned_instruction_message_id'])
-                                    except Exception:
-                                        pass
-                                    try:
-                                        if st.get('final_pinned_message_id'):
-                                            if bot_for_notifications:
-                                                await bot_for_notifications.unpin_chat_message(chat_id=chat_id, message_id=st['final_pinned_message_id'])
-                                    except Exception:
-                                        pass
+                                    # No unpinning per updated spec
                                     # Send the final success message with buttons
                                     keyboard = [[
                                         InlineKeyboardButton("📚 How to use", callback_data="how_to_use"),
@@ -255,10 +244,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     "Please enter your XREX Pay 2FA to proceed with linking your Telegram account to XREX Pay.",
                     reply_markup=reply_markup
                 )
-                try:
-                    await context.bot.pin_chat_message(chat_id=chat_id, message_id=sent.message_id, disable_notification=True)
-                except Exception as pin_e:
-                    logger.warning(f"Failed to pin instruction message for user {user_id}: {str(pin_e)}")
+                # No pinning per updated spec
                 # Store 2FA awaiting state and the pinned message id
                 user_state[user_id] = {
                     'awaiting_2fa': True,
@@ -859,11 +845,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
             if text.isdigit() and len(text) >= 1:
                 # Unpin the instruction message if pinned
                 pinned_id = state.get('pinned_instruction_message_id')
-                if pinned_id:
-                    try:
-                        await context.bot.unpin_chat_message(chat_id=update.message.chat_id, message_id=pinned_id)
-                    except Exception as unpin_e:
-                        logger.warning(f"Failed to unpin instruction message for user {user_id}: {str(unpin_e)}")
+                # No unpinning per updated spec
 
                 await update.message.reply_text("✅️ 2FA verified! \n\nGenerating linking code... ")
                 await asyncio.sleep(1)
@@ -884,10 +866,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     "Please copy the linking code, go to XREX Pay, and enter it there. (Valid for 5 minutes)",
                     reply_markup=reply_markup
                 )
-                try:
-                    await context.bot.pin_chat_message(chat_id=update.message.chat_id, message_id=final_msg.message_id, disable_notification=True)
-                except Exception as pin_e:
-                    logger.warning(f"Failed to pin final linking message for user {user_id}: {str(pin_e)}")
+                # No pinning per updated spec
 
                 # Update state to stop awaiting 2FA
                 state['awaiting_2fa'] = False

@@ -676,6 +676,17 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     gap: 6px;
     flex-wrap: wrap;
   }
+  // Subline (date + unlink) sits below main line on mobile, inline on desktop
+  .status-subline {
+    display: block;
+    width: 100%;
+    margin-top: 1px;
+    @media (min-width: $bp-md) {
+      display: inline-flex;
+      width: auto;
+      margin-left: 0;
+    }
+  }
   .status-label {
     font-family: $font-manrope;
     font-weight: 600;
@@ -690,6 +701,23 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     color: #73A2F5;
     @media (min-width: $bp-md) { font-size: 22px; }
   }
+
+  // Linked state styling
+  .status-value.linked {
+    color: #2F9752;
+  }
+  .status-info-btn.linked {
+    color: #2F9752;
+    border-color: #2F9752;
+  }
+  .status-meta { 
+    margin-left: 0px; color: #9CA3AF; font-weight: 300; font-size: 12px; 
+    @media (min-width: $bp-md) {
+      margin-left: 8px;
+    }
+  }
+  .status-unlink { margin-left: 6px; color: #2563EB; font-size: 12px; font-weight: 600; text-decoration: none; }
+  .status-unlink:hover, .status-unlink:focus { text-decoration: none; }
 
   .status-link {
     color: $color-link;

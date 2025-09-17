@@ -242,6 +242,8 @@
       if (val) val.textContent = String(getProgress().state);
       // Sync Account panel authenticator UI with state
       syncAuthenticatorUI();
+      // Sync the Status row visual state
+      try { updateStatusRowUI(); } catch(_) {}
       // If we are at state 5, always show loading modal for 2s then advance to 6
       try {
         var p = getProgress();
@@ -266,6 +268,7 @@
             window.__loading_timer = null;
             setState(6);
             applyTimelineFromProgress();
+            try { updateStatusRowUI(); } catch(_) {}
             var val2 = document.getElementById('adminStateValue');
             if (val2) val2.textContent = String(getProgress().state);
           }, 2000);
@@ -292,6 +295,91 @@
           }
         }
       } catch(_) {}
+    } catch(_) {}
+  }
+
+  // Update the Status row (top of Telegram page) based on progress state
+  function updateStatusRowUI(){
+    try {
+      var row = document.getElementById('statusRow');
+      if (!row) return;
+      var p = getProgress();
+      var s = (p.state|0);
+      var statusValue = row.querySelector('.status-value');
+      var infoBtn = row.querySelector('#statusInfoBtn');
+      var tip = row.querySelector('#statusTip');
+      // Ensure a subline wrapper exists for meta + unlink (breaks to next line on mobile)
+      var sub = row.querySelector('.status-subline');
+      if (!sub) {
+        sub = document.createElement('span');
+        sub.className = 'status-subline';
+        var tipWrap = row.querySelector('.status-tip-wrap');
+        var line = row.querySelector('.status-line');
+        if (tipWrap && tipWrap.parentElement) {
+          tipWrap.parentElement.insertBefore(sub, tipWrap.nextSibling);
+        } else if (line) {
+          line.appendChild(sub);
+        }
+      }
+      // Ensure meta container exists (date)
+      var meta = row.querySelector('.status-meta');
+      if (!meta) {
+        meta = document.createElement('span');
+        meta.className = 'status-meta';
+        sub.appendChild(meta);
+      }
+      // Ensure unlink action exists
+      var unlink = row.querySelector('.status-unlink');
+      if (!unlink) {
+        unlink = document.createElement('a');
+        unlink.href = '#';
+        unlink.className = 'status-unlink';
+        unlink.textContent = 'Unlink';
+        // No action for now; placeholder only
+        sub.appendChild(unlink);
+      }
+
+      // Format date from updatedAt
+      function formatDate(iso){
+        try {
+          var d = new Date(iso || '');
+          return d.toLocaleString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+        } catch(_) { return ''; }
+      }
+
+      if (s >= 6) {
+        // Linked visual state
+        if (statusValue) {
+          statusValue.textContent = 'Linked';
+          statusValue.classList.add('linked');
+        }
+        if (infoBtn) { infoBtn.classList.add('linked'); }
+        if (tip) {
+          var title = tip.querySelector('.tip-title');
+          var body = tip.querySelector('.tip-body');
+          if (title) title.textContent = 'Linked';
+          if (body) body.textContent = 'Your Telegram has been linked to XREX Pay';
+        }
+        if (meta) {
+          meta.textContent = 'Linkage authorized on ' + formatDate(p.updatedAt);
+        }
+        if (unlink) unlink.style.display = '';
+      } else {
+        // Default Not linked visual state
+        if (statusValue) {
+          statusValue.textContent = 'Not linked';
+          statusValue.classList.remove('linked');
+        }
+        if (infoBtn) { infoBtn.classList.remove('linked'); }
+        if (tip) {
+          var title2 = tip.querySelector('.tip-title');
+          var body2 = tip.querySelector('.tip-body');
+          if (title2) title2.textContent = 'Not linked';
+          if (body2) body2.textContent = 'Link your Telegram to enjoy XREX features in Telegram';
+        }
+        if (meta) meta.textContent = '';
+        if (unlink) unlink.style.display = 'none';
+      }
     } catch(_) {}
   }
 
