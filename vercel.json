@@ -5,7 +5,8 @@
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1" }
   ],
-  "outputDirectory": "."
+  "buildCommand": "npm run build",
+  "outputDirectory": "build"
 }
 
 

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XREX Pay · Settings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="assets/favicons/xrex-favicon-16x16.png" sizes="16x16" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <a class="brand" href="index.html"><img src="assets/logo_xrexpay.svg" alt="XREX Pay"></a>
+            
+            <div class="header-actions">
+
+                <a class="circle-icon" href="https://intercom.help/xrex-sg/en/" target="_blank" rel="noopener noreferrer" title="Support">
+                    <img src="assets/icon_support.svg" alt="support" width="18" height="18">
+                </a>
+                <a class="account-chip" id="accountChipLink" href="settings.html?view=content&page=account" aria-label="Account settings">
+                    <div class="chip-avatar"><img src="assets/logo_agp.svg" alt="AGP"></div>
+                    <div class="chip-name">AGP Technology</div>
+                    <img class="chevron" src="assets/icon_chevron_right.svg" alt="more" width="20" height="20">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="mobile-menu-header">
+            <a href="index.html" class="link-close-menu" id="closeMenuLink" aria-label="Close menu">
+                <img src="assets/icon_close.svg" alt="Close" width="20" height="20">
+                <span>Close menu</span>
+            </a>
+        </div>
+        <aside class="sidebar">
+            <nav class="menu">
+                <div class="menu-item" data-link="settings.html?view=content&page=account" data-page="account" role="link" tabindex="0">
+                    <div class="menu-item-icon">
+                        <svg aria-hidden="true" width="24" height="24" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg" fill="none">
+                            <path d="M6.05137 21.4108C5.17279 21.4106 4.56902 20.8609 4.49692 20.0191L4.4895 19.8472V18.8045C4.4895 16.2042 8.55778 14.1118 12.8223 14.1117C17.0869 14.1117 21.1562 16.2041 21.1562 18.8045L21.1551 19.8472L21.1488 20.0191C21.0815 20.8051 20.5501 21.3361 19.7649 21.4034L19.5932 21.4108L6.05137 21.4108ZM15.1725 8.6541C15.1723 7.42204 14.1476 6.37347 12.8223 6.37347C11.4972 6.3736 10.4734 7.42212 10.4731 8.6541C10.4731 9.88627 11.497 10.9357 12.8223 10.9358C14.1477 10.9358 15.1725 9.88635 15.1725 8.6541ZM6.11707 19.7815H19.5275L19.5286 18.8045L19.5244 18.726C19.481 18.3146 19.0918 17.6146 17.8078 16.9121C16.5228 16.2092 14.7129 15.741 12.8223 15.741C10.9318 15.7411 9.12172 16.2092 7.83682 16.9121C6.46789 17.6611 6.11707 18.4079 6.11707 18.8045L6.11707 19.7815ZM16.7948 8.85565C16.6883 10.9218 14.9502 12.5651 12.8223 12.5651C10.6945 12.565 8.95734 10.9217 8.85087 8.85565L8.84558 8.6541C8.84581 6.49473 10.626 4.74428 12.8223 4.74414C15.0187 4.74414 16.7999 6.49465 16.8001 8.6541L16.7948 8.85565Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div>Account</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-icon">
+                        <img src="assets/icon_trade.svg" alt="Limits" width="20" height="20">
+                    </div>
+                    <div>Limits</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-icon">
+                        <img src="assets/icon_bank.svg" alt="Bank" width="20" height="20">
+                    </div>
+                    <div class="menu-title">Custodian &amp; Bank</div>
+                    <button class="menu-chevron" aria-label="Toggle" aria-expanded="false" data-target="#submenu-bank">
+                        <img src="assets/icon_chevron_down.svg" alt="expand" width="20" height="20">
+                    </button>
+                </div>
+                <div class="submenu" id="submenu-bank" hidden>
+                    <a class="submenu-item" href="#">• USD bank accounts</a>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-icon">
+                        <img src="assets/icon_blockchain.svg" alt="Address book" width="20" height="20">
+                    </div>
+                    <div class="menu-title">Address book</div>
+                    <button class="menu-chevron" aria-label="Toggle" aria-expanded="false" data-target="#submenu-address">
+                        <img src="assets/icon_chevron_down.svg" alt="expand" width="20" height="20">
+                    </button>
+                </div>
+                <div class="submenu" id="submenu-address" hidden>
+                    <a class="submenu-item" href="#">• USDT addresses</a>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-icon">
+                        <img src="assets/icon_statements.svg" alt="Statements" width="20" height="20">
+                    </div>
+                    <div class="menu-title">Statements</div>
+                    <button class="menu-chevron" aria-label="Toggle" aria-expanded="false" data-target="#submenu-statements">
+                        <img src="assets/icon_chevron_down.svg" alt="expand" width="20" height="20">
+                    </button>
+                </div>
+                <div class="submenu" id="submenu-statements" hidden>
+                    <a class="submenu-item" href="#">• Monthly statement</a>
+                    <a class="submenu-item" href="#">• Customised statement</a>
+                </div>
+                <div class="menu-item active" data-link="settings.html?view=content&page=telegram" data-page="telegram" role="link" tabindex="0">
+                    <div class="menu-item-icon">
+                        <svg aria-hidden="true" width="24" height="24" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg" fill="none">
+                            <path d="M18.6431 4.60382C19.363 4.24955 20.1251 4.08911 20.7544 4.32257C21.0949 4.44904 21.3852 4.69153 21.5493 5.0423C21.7056 5.37661 21.7152 5.74047 21.645 6.07941L21.646 6.08038C20.0146 14.4823 18.7084 20.8037 18.5112 21.722C18.3991 22.2762 18.2062 22.7816 17.9399 23.1692C17.691 23.5316 17.266 23.9426 16.6694 23.9427C16.3439 23.9427 16.0904 23.7651 15.9897 23.6917C15.8522 23.5914 15.7198 23.4675 15.6089 23.3567C15.495 23.2431 15.3814 23.1206 15.2837 23.015C15.1807 22.9036 15.0992 22.8147 15.0308 22.7464C14.9078 22.6236 14.1266 21.7252 13.4038 20.8929C13.0325 20.4653 12.6643 20.0402 12.3804 19.7142C12.2383 19.5511 12.1181 19.4133 12.0298 19.3128C11.9732 19.2485 11.9372 19.208 11.9175 19.1859L8.08936 16.1487L8.06592 16.1683L7.75146 16.1204H7.74854C7.74854 16.1204 7.74346 16.119 7.73975 16.1185C7.73239 16.1174 7.72158 16.1157 7.70752 16.1136C7.6788 16.1093 7.63627 16.1031 7.58252 16.095C7.47469 16.0789 7.31988 16.0556 7.1333 16.0276C6.76018 15.9717 6.25849 15.897 5.74463 15.8196C4.72224 15.6658 3.63632 15.5019 3.43311 15.4681V15.4661C2.64336 15.3449 1.95858 14.667 1.9585 13.7513C1.9585 12.925 2.46539 12.1553 3.22217 11.7776L3.23096 11.7728L3.24072 11.7689C9.82354 8.71143 17.9215 4.93117 18.6431 4.60382ZM3.4585 13.7513C3.45857 13.8554 3.52606 13.9434 3.62061 13.9749L3.6626 13.9857L3.67139 13.9866L3.6792 13.9876C3.8674 14.0189 4.93568 14.1808 5.96826 14.3362C6.48167 14.4135 6.98307 14.4883 7.35596 14.5442C7.46995 14.5613 7.57201 14.5762 7.65869 14.5892L8.25342 14.1331L8.26318 14.1253L8.27393 14.1175L14.5366 11.0156L10.2817 15.9739L14.5366 19.9085C13.8161 19.0788 14.6271 19.9988 14.5366 19.9085C14.9077 20.3359 15.2801 20.7653 15.5718 21.0989C15.7175 21.2657 15.8422 21.4081 15.936 21.514C15.9829 21.5669 16.0216 21.6092 16.0503 21.6409C16.0763 21.6696 16.0881 21.6825 16.0903 21.6849C16.1849 21.7792 16.2907 21.8943 16.3853 21.9964C16.485 22.1042 16.5796 22.2056 16.6694 22.2952C16.6796 22.3053 16.6902 22.3142 16.6997 22.3235L16.7036 22.3196C16.827 22.14 16.9587 21.8353 17.0425 21.4173L17.0444 21.4075C17.2387 20.5027 18.5429 14.1912 20.1733 5.79425L20.1743 5.78741L20.1763 5.78058C20.1814 5.75659 20.1805 5.73604 20.1821 5.72003C20.1367 5.71379 20.0623 5.70875 19.9526 5.72589C19.7845 5.75222 19.5604 5.8212 19.2876 5.95734L19.2749 5.96417L19.2622 5.96905C18.5492 6.29253 10.4828 10.0589 3.89111 13.1204L3.79053 13.179C3.57018 13.3301 3.4585 13.5627 3.4585 13.7513Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div>Telegram bot</div>
+                </div>
+            </nav>
+        </aside>
+
+        <section class="content">
+            <div class="mobile-back">
+                <a href="#" class="link-back" id="backLink" aria-label="Back">
+                    <svg class="icon-back" width="16" height="16" viewBox="0 0 25 25" aria-hidden="true" focusable="false">
+                        <path d="M15.7,16.3l-4.2-4.2,4.2-4.2c.4-.4.4-1.1,0-1.5-.4-.4-1.1-.4-1.5,0l-5.1,5.1c-.3.3-.3.9,0,1.2l5.1,5.1c.4.4,1.1.4,1.5,0,.4-.4.4-1.1,0-1.5Z" fill="currentColor"/>
+                    </svg>
+                    <span>Back</span>
+                </a>
+            </div>
+            <div class="content-header">
+                <h1 id="pageTitle">XREX Pay · Telegram bot</h1>
+                <button class="btn btn-secondary btn-sm" id="shareBtn">
+                    <img src="assets/icon_share.svg" alt="share" width="14" height="14">
+                    <span>Share</span>
+                </button>
+            </div>
+
+            <div class="status-row" id="statusRow" style="display:none;">
+                <div class="status-line">
+                    <span class="status-label">Status :</span>
+                    <span class="status-value">Not linked</span>
+                    <span class="status-tip-wrap">
+                        <button class="status-info-btn" id="statusInfoBtn" aria-expanded="false" aria-controls="statusTip" type="button">i</button>
+                        <div class="status-tooltip below" id="statusTip" role="tooltip" hidden>
+                            <div class="tip-title">Not linked</div>
+                            <div class="tip-body">Link your Telegram to enjoy XREX features in Telegram</div>
+                        </div>
+                    </span>
+                </div>
+                <button class="btn btn-primary btn-md mobile-btn-sm" id="startLinkBtn">Start linking</button>
+            </div>
+
+            <div class="tabs" id="tabs" role="tablist" style="display:none;">
+                <button class="tab active" role="tab" aria-selected="true" id="tab-intro">Introduction</button>
+                <button class="tab" role="tab" aria-selected="false" id="tab-setup">Setup</button>
+            </div>
+
+            <div id="panel-account" class="account-panel" role="tabpanel" aria-label="Account">
+                <div class="acct-status-line">
+                    <span class="acct-status-label">Account status :</span>
+                    <span class="acct-status-value verified">Verified</span>
+                </div>
+
+                <h3 class="section-heading">Information</h3>
+                <div class="field-row card editable name-card">
+                    <div class="avatar">
+                        <img src="assets/logo_agp.svg" alt="AGP" width="60" height="60">
+                    </div>
+                    <div class="name-block">
+                        <div class="name">AGP Technology</div>
+                        <div class="caption">@AGPTECH</div>
+                    </div>
+                    <button class="icon-btn" aria-label="Edit profile"><img src="assets/icon_pencil.svg" width="20" height="20" alt="edit"></button>
+                </div>
+
+                <div class="grid-2">
+                    <div class="field field-disabled">
+                        <div class="field-label">Email</div>
+                        <div class="input-card editable">
+                            <div class="value">i***@agptechnology.com</div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Mobile number</div>
+                        <div class="input-card editable">
+                            <div class="value">******5678</div>
+                            <button class="icon-btn" aria-label="Edit mobile"><img src="assets/icon_pencil.svg" width="20" height="20" alt="edit"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <h3 class="section-heading mb-32">Security</h3>
+                <div class="grid-2">
+                    <div class="field">
+                        <div class="field-label">Password</div>
+                        <div class="input-card editable">
+                            <div class="value">************</div>
+                            <button class="icon-btn" aria-label="Edit password"><img src="assets/icon_pencil.svg" width="20" height="20" alt="edit"></button>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Authenticator app</div>
+                        <div class="input-card input-card-split">
+                            <div class="auth-row">
+                                <span class="auth-state enabled">Enabled</span>
+                            </div>
+                            <label class="switch" aria-label="Toggle authenticator">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <h3 class="section-heading mb-32">Preferred currency</h3>
+                <div class="field field-disabled">
+                    <div class="field-label">Currency</div>
+                    <div class="input-card">
+                        <div class="market-currency"><img src="assets/icon_USD.svg" width="20" height="20" alt="USD"> <div class="currency-label"><span class="cl-primary value">USD</span><span class="cl-secondary value">(US Dollar)</span></div></div>
+                    </div>
+                </div>
+
+                <div class="logout-row">
+                    <a href="login.html">
+                    <button class="btn btn-secondary btn-lg btn-block">Log out</button>
+                </a>
+                </div>
+            </div>
+
+            <div id="panel-intro" role="tabpanel" aria-labelledby="tab-intro" class="feature-wrapper">
+                <div class="intro-slider swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="intro-slide-media" role="img" aria-label="Feature image 1">
+                                <img class="intro-slide-img" src="assets/intro-1.jpg" alt="Intro slide 1">
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="intro-slide-media" role="img" aria-label="Feature image 2">
+                                <img class="intro-slide-img" src="assets/intro-2.jpg" alt="Intro slide 2">
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="intro-slide-media" role="img" aria-label="Feature image 3">
+                                <img class="intro-slide-img" src="assets/intro-3.jpg" alt="Intro slide 3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-button-prev" aria-label="Previous slide"></div>
+                    <div class="swiper-button-next" aria-label="Next slide"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+
+                <div class="intro-content">
+                    <h2 class="intro-title-part1">XREX Pay Telegram Bot simplifies trades and payments</h2>
+                    <h3 class="intro-title-part2">By linking your XREX Pay ID to your Telegram ID, you can manage OTC trades and payments in Telegram</h3>
+
+
+                    <div class="intro-section">
+                        <div class="intro-section-title">Features</div>
+                        <div class="intro-item">
+                            <div class="intro-icon"><img src="assets/icon_tgbot_telegram.svg" width="24" height="24" alt=""></div>
+                            <div class="intro-subtitle">XREX features in Telegram</div>
+                            <p class="intro-paragraph">Feature introduction text</p>
+                        </div>
+                        <div class="intro-item">
+                            <div class="intro-icon"><img src="assets/icon_tgbot_walletcheck.svg" width="24" height="24" alt=""></div>
+                            <div class="intro-subtitle">Wallet risk check</div>
+                            <p class="intro-paragraph">Enter any blockchain wallet address to instantly view its exchange ownership and risk level</p>
+                        </div>
+                        <div class="intro-item">
+                            <div class="intro-icon"><img src="assets/icon_tgbot_ordertracking.svg" width="24" height="24" alt=""></div>
+                            <div class="intro-subtitle">OTC order tracking</div>
+                            <p class="intro-paragraph">Stay updated with the latest status of your OTC orders</p>
+                        </div>
+                    </div>
+
+                    <div class="intro-divider"></div>
+
+                    <div class="intro-section">
+                        <div class="intro-section-title">How to Use XREX Pay Bot</div>
+                        <div class="intro-item">
+                            <div class="intro-icon"><img src="assets/icon_tgbot_linkaccount.svg" width="24" height="24" alt=""></div>
+                            <div class="intro-subtitle">Link your account</div>
+                            <p class="intro-paragraph">Start by linking your Telegram account with your XREX Web App for secure access to features</p>
+                        </div>
+                        <div class="intro-item">
+                            <div class="intro-icon"><img src="assets/icon_tgbot_checkwallet.svg" width="24" height="24" alt=""></div>
+                            <div class="intro-subtitle">Check wallet risk</div>
+                            <p class="intro-paragraph">Use <span class="cmd">/check_wallet</span> &lt;address&gt; and paste a blockchain wallet address to instantly view its exchange affiliation, on-chain balances, and risk level</p>
+                        </div>
+                        <div class="intro-item">
+                            <div class="intro-icon"><img src="assets/icon_tgbot_otctrading.svg" width="24" height="24" alt=""></div>
+                            <div class="intro-subtitle">OTC trading</div>
+                            <p class="intro-paragraph">Request real-time OTC quotes using <span class="cmd">/otc_quote</span> and track orders with <span class="cmd">/otc_orders</span></p>
+                        </div>
+                        <div class="intro-item">
+                            <div class="intro-icon"><img src="assets/icon_tgbot_notifications.svg" width="24" height="24" alt=""></div>
+                            <div class="intro-subtitle">Receive notifications</div>
+                            <p class="intro-paragraph">Get instant updates in 1:1 chats or group chats whenever your OTC order status changes</p>
+                        </div>
+                    </div>
+
+                    <div class="intro-divider"></div>
+
+                    <div class="intro-section intro-cta">
+                        <div class="intro-section-title">Ready to get started with the XREX Pay Bot?</div>
+                        <div class="intro-cta-buttons">
+                            <button class="btn btn-primary btn-md mobile-btn-sm js-start-link">Start linking</button>
+                            <button class="btn btn-secondary btn-md mobile-btn-sm">Help</button>
+                        </div>
+                    </div>
+
+                    <div class="intro-footnote">Note: Only verified users can access OTC features. Wallet risk checks support Bitcoin, Ethereum, and Tron addresses. You can check up to 10 addresses at once by entering one per line.</div>
+                </div>
+            </div>
+
+            <div id="panel-setup" role="tabpanel" aria-labelledby="tab-setup" class="feature-wrapper" style="display:none;">
+                <div class="timeline">
+                    <div class="timeline-main">
+                        <ol class="timeline-steps">
+                            <li class="step is-active">
+                                <div class="step-row step-label">
+                                    <div class="track-wrapper">
+                                        <div class="track"></div>
+                                    </div>
+                                    <div class="content-wrapper"><div class="label">XREX Pay</div></div>
+                                </div>
+                                <div class="step-row step-title has-node">
+                                    <div class="track-wrapper">
+                                        <div class="track"></div>
+                                        <span class="node"></span>
+                                        <div class="track"></div>
+                                    </div>
+                                    <div class="content-wrapper">
+                                         <div class="title">Enable 2FA</div>
+                                    </div>
+                                </div>
+                                <div class="step-row step-content">
+                                    <div class="track-wrapper">
+                                        <div class="track"></div>
+                                    </div>
+                                    <div class="content-wrapper">
+                                        <div class="step-desc">
+                                            <div class="desc">Two-factor authentication is required</div>
+                                        </div>
+                                        <div class="step-actions">
+                                            <button class="btn btn-primary btn-sm" id="btnEnable2FA">Enable 2FA</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="step is-muted" id="step-initiate-bot">
+                                <div class="step-row step-label">
+                                    <div class="track-wrapper"><div class="track"></div></div>
+                                    <div class="content-wrapper"><div class="label">XREX Pay</div></div>
+                                </div>
+                                <div class="step-row step-title has-node">
+                                    <div class="track-wrapper">
+                                        <div class="track"></div>
+                                        <span class="node"></span>
+                                        <div class="track"></div>
+                                    </div>
+                                    <div class="content-wrapper"><div class="title">Initiate Bot</div></div>
+                                </div>
+                                <div class="step-row step-content">
+                                    <div class="track-wrapper"><div class="track"></div></div>
+                                    <div class="content-wrapper">
+                                        <div class="step-actions initiate-bot">
+                                            <div class="ib-segment" role="tablist" aria-label="Open via">
+                                                <button type="button" class="ib-tab is-active" data-pane="qr" role="tab" aria-selected="true">
+                                                    <span class="ib-tab-icon ib-tab-qr" aria-hidden="true"></span>
+                                                    <span>Scan QR</span>
+                                                </button>
+                                                <button type="button" class="ib-tab" data-pane="link" role="tab" aria-selected="false">
+                                                    <span class="ib-tab-icon ib-tab-link" aria-hidden="true"></span>
+                                                    <span>Use link</span>
+                                                </button>
+                                            </div>
+                                            <div class="ib-pane ib-pane-qr is-active">
+                                                <div class="ib-hint">Scan the QR with a Phone or Tablet to open Telegram<br />
+                                                    <span class="ib-hint-sub ib-hint-sub-margintop">The Bot will give you further instructions. </span><br />
+                                                    <span class="ib-hint-sub">To open Telegram here,</span> <a href="#" class="ib-switch-to" data-pane="link">use link</a></div>
+                                                <div class="ib-qr-section">
+                                                    <div class="ib-qr"><img src="assets/icon_link_tgqr.png" width="180" height="180" alt="QR" /></div>
+                                                </div>
+                                            </div>
+                                            <div class="ib-pane ib-pane-link">
+                                                <div class="ib-hint">Use the link to open Telegram here<br />
+                                                    <span class="ib-hint-sub ib-hint-sub-margintop">The Bot will give you further instructions. </span><br /> 
+                                                    <span class="ib-hint-sub">To use another device,</span> <a href="#" class="ib-switch-to" data-pane="qr">scan QR</a></div>
+                                                <div class="ib-open-row">
+                                                    <a id="ibLink" class="ib-pill" href="#" target="_blank" rel="noopener">
+                                                        <span class="ib-pill-text">https://t.me/SanneXREX_bot?start=BOTC1583</span>
+                                                        <img class="ib-pill-icon" src="assets/icon_link_openlink.svg" width="16" height="16" alt="" />
+                                                    </a>
+                                                    <button type="button" class="btn btn-secondary btn-sm ib-copy" id="ibCopyBtn">
+                                                        <img src="assets/icon_link_copy.svg" width="16" height="16" alt="" />
+                                                        <span>Copy link</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <hr class="ib-divider" />
+                                            <div class="ib-links">
+                                                <a href="https://intercom.help/xrex-sg/en/" target="_blank" rel="noopener noreferrer" class="ib-link">Help</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="step is-muted">
+                                <div class="step-row step-label">
+                                    <div class="track-wrapper"><div class="track"></div></div>
+                                    <div class="content-wrapper"><div class="label">Telegram</div></div>
+                                </div>
+                                <div class="step-row step-title has-node">
+                                    <div class="track-wrapper">
+                                        <div class="track"></div>
+                                        <span class="node"></span>
+                                        <div class="track"></div>
+                                    </div>
+                                    <div class="content-wrapper"><div class="title">Verify your identity with 2FA</div></div>
+                                </div>
+                            </li>
+                            <li class="step is-muted" id="step-verify-code">
+                                <div class="step-row step-label">
+                                    <div class="track-wrapper"><div class="track"></div></div>
+                                    <div class="content-wrapper"><div class="label">XREX Pay</div></div>
+                                </div>
+                                <div class="step-row step-title has-node">
+                                    <div class="track-wrapper">
+                                        <div class="track"></div>
+                                        <span class="node"></span>
+                                        <div class="track"></div>
+                                    </div>
+                                    <div class="content-wrapper"><div class="title">Verify code received on Telegram</div></div>
+                                </div>
+                                <div class="step-row step-content">
+                                    <div class="track-wrapper"><div class="track"></div></div>
+                                    <div class="content-wrapper">
+                                        <div class="step-desc">Enter code here</div>
+                                        <div class="step-actions verify-code">
+                                            <div class="vc-label">Linking code <span class="vc-label-hidden">(NDG341F)</span></div>
+                                            <div class="vc-row">
+                                                <div class="vc-input-group">
+                                                    <input id="vcCodeInput" class="vc-input" type="text" inputmode="text" placeholder="Enter linking code..." />
+                                                    <button type="button" class="vc-submit" id="vcSubmitBtn">Submit</button>
+                                                </div>
+                                            </div>
+                                            <div id="vcError" class="vc-error" hidden>Incorrect code. Please try again.</div>
+                                            <hr class="ib-divider" />
+                                            <div class="vc-links">
+                                                <a id="vcBotLink" href="#" target="_blank" rel="noopener" class="ib-link">Go to bot</a>
+                                                <a href="https://intercom.help/xrex-sg/en/" target="_blank" rel="noopener noreferrer" class="ib-link">Help</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="step is-muted">
+                                <div class="step-row step-label">
+                                    <div class="track-wrapper"><div class="track"></div></div>
+                                    <div class="content-wrapper"><div class="label">&nbsp;</div></div>
+                                </div>
+                                <div class="step-row step-title has-node">
+                                    <div class="track-wrapper">
+                                        <div class="track"></div>
+                                        <span class="node"></span>
+                                        <div class="track"></div>
+                                    </div>
+                                    <div class="content-wrapper"><div class="title">Setup complete</div></div>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                    <aside class="timeline-aside">
+                        <div class="aside-box">Quick menu</div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Simple Modal for Enable 2FA -->
+    <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+        <div class="modal-wrapper">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Two-factor authentication</h2>
+                    <button class="modal-close" id="modalClose" aria-label="Close modal">
+                        <img src="assets/icon_modal_close.svg" width="24" height="24" alt="close" />
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="m-step">
+                        <div class="m-step-meta">Step1</div>
+                        <div class="m-step-title">Copy and paste the security key in your authenticator app</div>
+                        <div class="m-field-with-qr">
+                            <div class="m-field">
+                                <div class="m-field-group">
+                                    <label class="m-label" for="secKeyInput">Security key</label>
+                                    <div class="m-input-row" id="secKeyField" role="button" tabindex="0" aria-label="Copy security key">
+                                        <input id="secKeyInput" class="m-input" type="text" readonly value="" />
+                                        <button class="m-copy" id="copyKeyBtn" aria-label="Copy">
+                                            <img src="assets/icon_modal_copy.svg" width="24" height="24" alt="copy" />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-qr" aria-hidden="true">
+                                <img src="assets/icon_modal_2faqr.png" width="72" height="72" alt="QR" />
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="m-divider" />
+                    <div class="m-step">
+                        <div class="m-step-meta">Step2</div>
+                        <div class="m-step-title">Come back to XREX Pay and verify your 6-digit code</div>
+                        <div class="m-desc">Copy the 6‑digit code from your authenticator app and enter it below.</div>
+                        <div class="m-field">
+                            <div class="m-field-group">
+                                <label class="m-label" for="authCodeInput">Authentication code</label>
+                                <div class="m-input-row m-input-row--plain">
+                                    <input id="authCodeInput" class="m-input" type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="Enter the authentication code" maxlength="6" />
+                                </div>
+                            </div>
+                            <div id="authCodeError" class="m-error" aria-live="polite" hidden>Incorrect authentication code</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary btn-md" id="modalCancel">Cancel</button>
+                    <button class="btn btn-primary btn-md" id="modalConfirm">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal: 2FA enabled notice -->
+    <div id="successModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+        <div class="modal-wrapper">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Please log in again</h2>
+                    <button class="modal-close" id="successClose" aria-label="Close modal">
+                        <img src="assets/icon_modal_close.svg" width="24" height="24" alt="close" />
+                    </button>
+                </div>
+                <div class="modal-body m-success">
+                    <div class="m-success-icon" aria-hidden="true">
+                        <img src="assets/illu_2faenabled.svg" width="160" height="160" alt="" />
+                    </div>
+                    <div class="m-success-title">Two-factor authentication enabled!</div>
+                    <div class="m-success-desc">After enabling two-factor authentication, you must log in again to access your account.</div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary btn-md" id="successCta">Back to login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal (state 5 transition) -->
+    <div id="loadingModal" class="modal modal-loading" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+        <div class="modal-wrapper">
+            <div class="modal-content">
+                <div class="loading-spinner" aria-live="polite" aria-label="Loading"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <div class="footer-inner">
+            <div class="footer-copy">© XREX Pay Limited 2025</div>
+            <div class="footer-links">
+                <a href="https://intercom.help/xrex-sg/en/" target="_blank" rel="noopener noreferrer">Support</a>
+                <a href="https://info.xrex.sg/doc" target="_blank" rel="noopener noreferrer">Terms of Use</a>
+                <a href="https://info.xrex.sg/doc" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="snackbar" class="snackbar" role="status" aria-live="polite" aria-hidden="true" hidden>
+        <img class="snackbar-icon" src="assets/icon_snackbar_success.svg" alt="success" width="20" height="20">
+        <span class="snackbar-text">Page link copied to clipboard</span>
+    </div>
+
+    <script>
+      window.XREX_SYNC_URL = 'https://xrextgbot.vercel.app/api/state';
+      // For prototype only: allow the website to write to JSONBin so it can issue resets
+      window.XREX_JSONBIN_WRITE_URL = '';
+      window.XREX_JSONBIN_KEY = '';
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html>
+
+
+

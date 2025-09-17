@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XREX Pay · Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicons/xrex-favicon-16x16.png" sizes="16x16" type="image/png">
+  <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    /* Login layout */
+    html, body { height: 100%; }
+    body { margin: 0; }
+    .login-layout { display: grid; grid-template-columns: 1fr; min-height: 100vh; overflow: hidden;}
+    /* Right panel (content) */
+    .login-panel { position: relative; min-height: 100vh; display: grid; align-content: center; padding: 32px 24px; margin-top: -32px; }
+    .login-inner { width: 100%; max-width: 600px; margin: 0 auto; }
+    .login-brand img { height: 20px; }
+    .login-hero { margin: 32px 0 24px 0; }
+    .login-title { font: 800 36px Sora, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color: #2d2f2f; letter-spacing: -0.02em; margin: 12px 0 10px 0; }
+    .login-sub { font: 600 16px Manrope, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color: #2d2f2f; opacity: 1; }
+    .login-form { margin-top: 12px; }
+    .login-row { margin: 16px 0 16px 0; }
+    .login-actions { margin-top: 0; }
+    .login-actions .btn { width: 100%; }
+    .login-actions-row { display: flex; flex-direction: column; gap: 12px; margin: 32px 0 0 0; }
+    .login-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+    .login-meta a { color: #2B63F1; font: 700 14px Manrope, sans-serif; text-decoration: none; }
+    .login-meta a:hover { text-decoration: none; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    /* Embedded footer inside login panel - mimic index footer spacing and styling */
+    .login-footer-embed { position: absolute; left: 0; right: 0; bottom: 0; background: #ffffff; }
+    .login-footer-embed .inner { max-width: 768px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 16px 16px; }
+    .login-footer-embed .lf-links { display: flex; gap: 0; flex-wrap: wrap; justify-content: center; }
+    .login-footer-embed .lf-links a { color: #797a7b; font: 300 12px Manrope, sans-serif; text-decoration: none; padding: 0; }
+    .login-footer-embed .lf-links a + a { position: relative; margin-left: 32px; }
+    .login-footer-embed .lf-links a + a:before { content: '|'; color: #797a7b; position: relative; left: -16px; }
+    .login-footer-embed .lf-links a:hover { text-decoration: none; }
+    .login-footer-embed .lf-copy { color: #2d2f2f; font: 500 12px Manrope, sans-serif; text-align: center; }
+    .login-register { margin-top: 14px; text-align: center; color: #6b7280; font: 500 14px Manrope, sans-serif; }
+    .login-register a { color: #2B63F1; font-weight: 700; text-decoration: none; }
+    .login-register a:hover { text-decoration: none; }
+    .m-input-row { 
+      height: 56px;
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      justify-items: flex-start;
+      justify-content: flex-start;
+      align-items: center;
+      flex-grow: initial;
+    }
+    .m-input {
+      width: 100%;
+      height: auto;
+    }
+    .m-loggedout-icon, .m-success-icon img { width: 310px; height: 240px; }
+    /* Left media (desktop only) */
+    .login-media { display: none; }
+    @media (min-width: 1280px) {
+      .login-brand img { height: 24px; }
+      .login-actions-row { margin: 40px 0 0 0; }
+      .m-input-row { height: 64px; }
+      .login-register { text-align: left; font-size: 18px; font-weight: 700;}
+      .login-title { font-size: 60px; }
+      .login-sub { font-size: 26px; font-weight: 700; color: #2d2f2f; }
+      /* Both columns grow; panel has min 800px so it also expands on wide viewports */
+      .login-layout { grid-template-columns: minmax(0, 1fr) minmax(800px, 1fr); }
+      .login-media { display: block; position: relative; min-height: 100vh; }
+      .login-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .login-panel { padding: 48px 48px; min-width: 800px; margin-top: -40px; }
+      .login-footer-embed { padding: 0; }
+      .login-footer-embed .inner { max-width: 1440px; flex-direction: row; justify-content: space-between; gap: 12px; padding: 0 40px; height: 40px; }
+      .login-footer-embed .lf-links { justify-content: flex-end; }
+      .login-footer-embed .lf-copy { text-align: left; }
+      /* Place login button and register text on one row on desktop */
+      .login-actions-row { flex-direction: row; align-items: center; justify-content: space-between; gap: 8px; }
+      .login-actions { margin-top: 0; }
+      .login-actions .btn { width: auto; min-width: 220px; max-width: 280px; } }
+      .login-register { margin-top: 0; }
+      /* Flip footer order: copyright left, links right */
+      .login-footer-embed .lf-copy { order: 0; }
+      .login-footer-embed .lf-links { order: 1; }
+    
+    @media (max-width: 720px) { .login-title { font-size: 28px; } }
+    
+    /* Auth panel overrides */
+    .auth-hero .login-title { font: 700 32px Manrope, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;}
+    .auth-hero .login-sub { color: #2B63F1; font: 700 16px Manrope, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    .auth-hero .login-sub a { color: inherit; text-decoration: none; }
+    .auth-hero .login-sub a:hover { text-decoration: none; }
+    .auth-actions-row { display: flex; flex-direction: column; gap: 12px; margin: 32px 0 0 0; }
+    @media (min-width: 1280px) { 
+      .auth-actions-row { flex-direction: row; justify-content: flex-end; }
+      .auth-hero .login-sub { font-size: 18px; }
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      var email = document.getElementById('loginEmail');
+      var pass = document.getElementById('loginPass');
+      var btn  = document.getElementById('loginBtn');
+      function sync(){ btn.disabled = !(String(email.value||'').trim() && String(pass.value||'').trim()); }
+      if (email) email.value = 'info@agptechnology.com';
+      if (pass) pass.value = '';
+      sync();
+      if (email) email.addEventListener('input', sync);
+      if (pass) pass.addEventListener('input', sync);
+
+      // Determine app state from localStorage (same as settings.js)
+      function getProgress(){
+        try {
+          var raw = localStorage.getItem('xrex.progress.v1');
+          if (!raw) return { state: 1 };
+          var obj = JSON.parse(raw) || { state: 1 };
+          return obj;
+        } catch(_) { return { state: 1 }; }
+      }
+
+      var form = document.getElementById('loginForm');
+      var loginHero = document.getElementById('loginHero');
+      var authWrap = document.getElementById('authWrapper');
+      var authInput = document.getElementById('authCodeLogin');
+      var authConfirm = document.getElementById('authConfirmBtn');
+      var authCancel = document.getElementById('authCancelBtn');
+      // Login info modal elements
+      var loginInfoModal = document.getElementById('loginInfoModal');
+      var loginInfoClose = document.getElementById('loginInfoClose');
+      var loginInfoCta = document.getElementById('loginInfoCta');
+      var loginLoadingModal = document.getElementById('loginLoadingModal');
+
+      function showLogin(){ if (form) form.hidden = false; if (authWrap) authWrap.hidden = true; if (loginHero) loginHero.hidden = false; try { var pf = document.getElementById('loginPass'); if (pf) { pf.focus(); if (pf.select) pf.select(); } } catch(_) {} }
+      function showAuth(){ if (form) form.hidden = true; if (authWrap) { authWrap.hidden = false; if (authInput) { authInput.value=''; authInput.focus(); } if (authConfirm) authConfirm.disabled = true; } if (loginHero) loginHero.hidden = true; }
+
+      // Autofocus password when login form is visible
+      try {
+        var passField = document.getElementById('loginPass');
+        if (form && !form.hidden && passField) { passField.focus(); }
+      } catch(_) {}
+
+      // For desktop/mobile parity, keep button enablement for 2FA
+      if (authInput) authInput.addEventListener('input', function(){
+        var val = (authInput.value||'').trim();
+        authConfirm && (authConfirm.disabled = (val.length < 1));
+      });
+      if (authConfirm) authConfirm.addEventListener('click', function(){
+        if (authConfirm.disabled) return;
+        // show loader for 1s then redirect
+        try {
+          if (loginLoadingModal) { loginLoadingModal.hidden = false; loginLoadingModal.setAttribute('aria-hidden','false'); }
+          setTimeout(function(){
+            if (loginLoadingModal) { loginLoadingModal.setAttribute('aria-hidden','true'); loginLoadingModal.hidden = true; }
+            try { window.location.href = 'index.html'; } catch(_) {}
+          }, 1000);
+        } catch(_) { try { window.location.href = 'index.html'; } catch(__) {} }
+      });
+      if (authCancel) authCancel.addEventListener('click', function(){ showLogin(); });
+
+      if (form) form.addEventListener('submit', function(e){
+        e.preventDefault();
+        if (btn.disabled) return;
+        var s = (getProgress().state|0) || 1;
+        if (s <= 1) {
+          // show loader for 1s then redirect
+          try {
+            if (loginLoadingModal) { loginLoadingModal.hidden = false; loginLoadingModal.setAttribute('aria-hidden','false'); }
+            setTimeout(function(){
+              if (loginLoadingModal) { loginLoadingModal.setAttribute('aria-hidden','true'); loginLoadingModal.hidden = true; }
+              try { window.location.href = 'index.html'; } catch(_) {}
+            }, 1000);
+          } catch(_) { try { window.location.href = 'index.html'; } catch(__) {} }
+        } else {
+          showAuth();
+        }
+      });
+
+      // Login info modal open/close behavior
+      function openLoginInfo(){ try { if (loginInfoModal) { loginInfoModal.hidden = false; loginInfoModal.setAttribute('aria-hidden','false'); } } catch(_) {} }
+      function closeLoginInfo(){ try { if (loginInfoModal) { loginInfoModal.setAttribute('aria-hidden','true'); loginInfoModal.hidden = true; } } catch(_) {} showLogin(); }
+      // Show the modal on page load
+      openLoginInfo();
+      if (loginInfoClose) loginInfoClose.addEventListener('click', function(){ closeLoginInfo(); });
+      if (loginInfoCta) loginInfoCta.addEventListener('click', function(){ closeLoginInfo(); });
+      if (loginInfoModal) loginInfoModal.addEventListener('click', function(e){ if (e.target === loginInfoModal) closeLoginInfo(); });
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLoginInfo(); });
+    });
+  </script>
+  <meta name="color-scheme" content="light" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="description" content="Login to XREX Pay" />
+  <meta name="robots" content="noindex,nofollow" />
+</head>
+<body>
+  <div class="login-layout">
+    <aside class="login-media" aria-hidden="true">
+      <img src="assets/login_image.webp" alt="" />
+    </aside>
+    <main class="login-panel">
+      <div class="login-inner">
+        <div class="login-brand">
+          <img src="assets/logo_xrexpay.svg" alt="XREX Pay" />
+        </div>
+        <div class="login-hero" id="loginHero">
+          <h1 class="login-title">Global Payments Made Simple</h1>
+          <div class="login-sub">Pay faster, safer and cheaper</div>
+        </div>
+
+        <form id="loginForm" class="login-form" novalidate>
+          <div class="login-row">
+            <div class="m-field">
+              <div class="m-field-group">
+                <label class="m-label" for="loginEmail">Email</label>
+                <div class="m-input-row m-input-row--plain">
+                  <input id="loginEmail" class="m-input" type="email" inputmode="email" placeholder="Enter your email address" readonly aria-readonly="true" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="login-row">
+            <div class="m-field">
+              <div class="m-field-group">
+                <label class="m-label" for="loginPass">Password</label>
+                <div class="m-input-row m-input-row--plain">
+                  <input id="loginPass" class="m-input" type="password" placeholder="Enter your password" />
+                </div>
+              </div>
+              <div class="login-meta">
+                <span></span>
+                <a href="#" aria-label="Forgot password">Forgot password</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="login-actions-row">
+            <div class="login-actions">
+              <button id="loginBtn" class="btn btn-primary btn-lg btn-block" type="submit" disabled>Login</button>
+            </div>
+            <div class="login-register">Don't have account? <a href="#">Register now</a></div>
+          </div>
+        </form>
+
+        <div id="authWrapper" class="login-form" hidden>
+          <div class="login-hero auth-hero">
+            <h1 class="login-title">Please enter the 6 digit code from your authenticator app</h1>
+            <div class="login-sub"><a href="#" class="ib-link">How to enter your authenticator code?</a></div>
+          </div>
+          <div class="login-row">
+            <div class="m-field">
+              <div class="m-field-group">
+                <label class="m-label" for="authCodeLogin">Verification code</label>
+                <div class="m-input-row m-input-row--plain">
+                  <input id="authCodeLogin" class="m-input" type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="Enter your authenticator code" maxlength="6" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="login-actions-row auth-actions-row">
+            <div class="login-actions">
+              <button id="authCancelBtn" class="btn btn-secondary btn-lg" type="button">Cancel</button>
+            </div>
+            <div class="login-actions">
+              <button id="authConfirmBtn" class="btn btn-primary btn-lg" type="button" disabled>Confirm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="login-footer-embed" role="contentinfo">
+      <div class="inner">
+        <div class="lf-links">
+          <a href="https://intercom.help/xrex-sg/en/" target="_blank" rel="noopener noreferrer">Support</a>
+          <a href="https://info.xrex.sg/doc" target="_blank" rel="noopener noreferrer">Terms of Use</a>
+          <a href="https://info.xrex.sg/doc" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+        </div>
+        <div class="lf-copy">© XREX Pay Limited 2025</div>
+      </div>
+    </div>
+    </main>
+  </div>
+  <!-- Login info modal -->
+  <div id="loginInfoModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+    <div class="modal-wrapper">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Please log in again</h2>
+          <button class="modal-close" id="loginInfoClose" aria-label="Close modal">
+            <img src="assets/icon_modal_close.svg" width="24" height="24" alt="close" />
+          </button>
+        </div>
+        <div class="modal-body m-success">
+          <div class="m-success-icon m-loggedout-icon" aria-hidden="true">
+            <img src="assets/img_loggedout.png" width="310" height="240" alt="" />
+          </div>
+          <div class="m-success-title">You've been logged out</div>
+          <div class="m-success-desc">Please log in again to continue</div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary btn-md" id="loginInfoCta">Back to login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Loading modal -->
+  <div id="loginLoadingModal" class="modal modal-loading" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+    <div class="modal-wrapper">
+      <div class="modal-content">
+        <div class="loading-spinner" aria-live="polite" aria-label="Loading"></div>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="js/settings.js"></script>
+</html>
+
+

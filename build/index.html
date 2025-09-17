@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XREX Pay · Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="assets/favicons/xrex-favicon-16x16.png" sizes="16x16" type="image/png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Manrope:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <a class="brand" href="index.html"><img src="assets/logo_xrexpay.svg" alt="XREX Pay"></a>
+            <div class="header-actions">
+                <a class="circle-icon" href="https://intercom.help/xrex-sg/en/" target="_blank"
+                    rel="noopener noreferrer" title="Support">
+                    <img src="assets/icon_support.svg" alt="support" width="18" height="18">
+                </a>
+                <a class="account-chip" id="accountChipLink" href="settings.html?view=content&page=account"
+                    aria-label="Account settings">
+                    <div class="chip-avatar"><img src="assets/logo_agp.svg" alt="AGP"></div>
+                    <div class="chip-name">AGP Technology</div>
+                    <img class="chevron" src="assets/icon_chevron_right.svg" alt="more" width="20" height="20">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="content">
+            <div class="content-header content-header-home">
+                <h1 class="home-greeting">Hello, AGP Technology</h1>
+            </div>
+
+            <div class="feature-section">
+                <h2 class="feature-section-title assets-title">Assets</h2>
+                <div class="feature-wrapper assets-block">
+                <div class="status-row">
+                    <div>
+                        <div class="metric-label">Total assets ≈ <img class="metric-eye" src="assets/icon_eye.svg" alt="visibility" width="20" height="20"></div>
+                        <div class="metric-amount">700.00 USD</div>
+                        <div class="metric-subtext">Locked: ≈ 0.00 USD
+                        </div>
+                    </div>
+                    <div class="assets-ctas-top">
+                        <button class="btn btn-secondary btn-md">Transfer</button>
+                        <button class="btn btn-primary btn-md">Deposit</button>
+                    </div>
+                </div>
+                <div class="feature-cardcontainer">
+                    <div class="feature-card asset-card">
+                        <div class="asset-top">
+                            <img class="asset-icon" src="assets/icon_USDT.svg" alt="USDT" width="32" height="32">
+                            <div class="fc-title">700.00</div>
+                            <div class="asset-fiat">≈ 700.00 USD</div>
+                        </div>
+                        <div class="asset-bottom">
+                            <div class="asset-meta1">USDT</div>
+                            <div class="asset-meta2">USD Tether</div>
+                        </div>
+                    </div>
+                    <div class="feature-card asset-card">
+                        <div class="asset-top">
+                            <img class="asset-icon" src="assets/icon_USD.svg" alt="USD" width="32" height="32">
+                            <div class="fc-title">0.00</div>
+                            <div class="asset-fiat">≈ 0.00 USD</div>
+                        </div>
+                        <div class="asset-bottom">
+                            <div class="asset-meta1">USD</div>
+                            <div class="asset-meta2">US Dollar</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="assets-ctas">
+                    <button class="btn btn-primary btn-sm">Deposit</button>
+                    <button class="btn btn-secondary btn-sm">Transfer</button>
+                </div>
+                </div>
+            </div>
+
+            <div class="feature-section">
+                <h2 class="feature-section-title">Market price</h2>
+                <div class="feature-wrapper market-block">
+                <div class="market-head">
+                    <div>Currency</div>
+                    <div>≈ USD</div>
+                    <div>≈ USDT</div>
+                </div>
+                <div class="market-row">
+                    <div class="market-currency"><img src="assets/icon_USDT.svg" width="24" height="24" alt="USDT"> <div class="currency-label"><span class="cl-primary">USDT</span><span class="cl-secondary">(USD Tether)</span></div></div>
+                    <div class="market-value">1.01 USD</div>
+                    <div class="market-value">- -</div>
+                </div>
+                <div class="market-row">
+                    <div class="market-currency"><img src="assets/icon_USD.svg" width="24" height="24" alt="USD"> <div class="currency-label"><span class="cl-primary">USD</span><span class="cl-secondary">(US dollar)</span></div></div>
+                    <div class="market-value">- -</div>
+                    <div class="market-value">0.9999 USDT</div>
+                </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-inner">
+            <div class="footer-copy">© XREX Pay Limited 2025</div>
+            <div class="footer-links">
+                <a href="https://intercom.help/xrex-sg/en/" target="_blank" rel="noopener noreferrer">Support</a>
+                <a href="https://info.xrex.sg/doc" target="_blank" rel="noopener noreferrer">Terms of Use</a>
+                <a href="https://info.xrex.sg/doc" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/settings.js"></script>
+</body>
+
+</html>
