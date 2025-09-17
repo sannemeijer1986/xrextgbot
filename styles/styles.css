@@ -1854,6 +1854,9 @@ body.modal-locked {
   color: #797a7b;
   margin: 12px 0 6px 0;
 }
+.content .verify-code .vc-label-hidden {
+  opacity: 0.01;
+}
 .content .verify-code .vc-row {
   display: flex;
   gap: 12px;

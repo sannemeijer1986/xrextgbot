@@ -1292,6 +1292,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   // Verify code (state 4) styles
   .verify-code { padding: 12px 0; }
   .verify-code .vc-label { font: 500 14px $font-sora; color: $color-text-secondary; margin: 12px 0 6px 0; }
+  .verify-code .vc-label-hidden { opacity: 0.01; }
   .verify-code .vc-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
   .verify-code .m-input-row { width: 320px; }
   .verify-code .vc-error { color: #dd483c; font: 600 14px $font-manrope; margin-top: 8px; }
