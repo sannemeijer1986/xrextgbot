@@ -2838,3 +2838,71 @@
 2025-09-17 12:27:52,885 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
 2025-09-17 12:27:52,885 - httpcore.http11 - DEBUG - send_request_body.complete
 2025-09-17 12:27:52,885 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-17 12:27:54,759 - httpcore.connection - DEBUG - connect_tcp.started host='api.jsonbin.io' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-17 12:27:54,906 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x104324e10>
+2025-09-17 12:27:54,907 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x1032d8ef0> server_hostname='api.jsonbin.io' timeout=10.0
+2025-09-17 12:27:55,055 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x104326170>
+2025-09-17 12:27:55,056 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-17 12:27:55,056 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-17 12:27:55,056 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-17 12:27:55,056 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-17 12:27:55,056 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-17 12:27:55,392 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 429, b'Too Many Requests', [(b'Date', b'Wed, 17 Sep 2025 04:27:55 GMT'), (b'Content-Type', b'text/html'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Server', b'cloudflare'), (b'Nel', b'{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}'), (b'cf-cache-status', b'DYNAMIC'), (b'Report-To', b'{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=eNFHHW96epKoV2cbukDuQY4tJhtZavFK%2B9RsmFXXWiCcyNp54NnlSY6v4cTLjs6os71im1U%2F3Vj8NrXM%2BbhouC3Imod2Gb3mzNYcHUDN"}]}'), (b'CF-RAY', b'9805da961ae0da6c-LAX'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-09-17 12:27:55,393 - httpx - INFO - HTTP Request: GET https://api.jsonbin.io/v3/b/68ca2fb5d0ea881f40807cf4/latest "HTTP/1.1 429 Too Many Requests"
+2025-09-17 12:27:55,393 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-17 12:27:55,393 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-17 12:27:55,393 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-17 12:27:55,394 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-17 12:27:55,394 - httpcore.connection - DEBUG - close.started
+2025-09-17 12:27:55,395 - httpcore.connection - DEBUG - close.complete
+2025-09-17 12:27:57,438 - httpcore.connection - DEBUG - connect_tcp.started host='api.jsonbin.io' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-17 12:27:57,602 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x104326300>
+2025-09-17 12:27:57,602 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x1032d8c20> server_hostname='api.jsonbin.io' timeout=10.0
+2025-09-17 12:27:57,757 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x104325770>
+2025-09-17 12:27:57,758 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-17 12:27:57,758 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-17 12:27:57,758 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-17 12:27:57,759 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-17 12:27:57,759 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-17 12:27:59,603 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 17 Sep 2025 04:27:59 GMT'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Server', b'cloudflare'), (b'Nel', b'{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}'), (b'X-Powered-By', b'Express'), (b'Access-Control-Allow-Origin', b'*'), (b'ETag', b'W/"d8-kcwzyayJdOnTz8u3YDW/BE+Zcas"'), (b'Vary', b'Accept-Encoding'), (b'cf-cache-status', b'DYNAMIC'), (b'Report-To', b'{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=VvNhizrt24VvhGpy%2B%2FwPHNMOP0sQ%2BbyZw6E9LV1BQEu%2FP3N1w02LkiWsadCpF3ph9P3GMljpWOiGYQxsoD9Af%2BxSfRAiOa5N5ew1UXyK"}]}'), (b'Content-Encoding', b'gzip'), (b'CF-RAY', b'9805daa6fd5c2f10-LAX'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-09-17 12:27:59,603 - httpx - INFO - HTTP Request: GET https://api.jsonbin.io/v3/b/68ca2fb5d0ea881f40807cf4/latest "HTTP/1.1 200 OK"
+2025-09-17 12:27:59,604 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-17 12:27:59,604 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-17 12:27:59,604 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-17 12:27:59,604 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-17 12:27:59,604 - httpcore.connection - DEBUG - close.started
+2025-09-17 12:27:59,605 - httpcore.connection - DEBUG - close.complete
+2025-09-17 12:28:01,645 - httpcore.connection - DEBUG - connect_tcp.started host='api.jsonbin.io' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-17 12:28:01,792 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x104325360>
+2025-09-17 12:28:01,795 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x1032d8680> server_hostname='api.jsonbin.io' timeout=10.0
+2025-09-17 12:28:01,944 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x104325040>
+2025-09-17 12:28:01,945 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-17 12:28:01,945 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-17 12:28:01,945 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-17 12:28:01,945 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-17 12:28:01,945 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-17 12:28:03,157 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Wed, 17 Sep 2025 04:28:03 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-17 12:28:03,157 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-17 12:28:03,157 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-17 12:28:03,158 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-17 12:28:03,158 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-17 12:28:03,158 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-17 12:28:03,161 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-17 12:28:03,161 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-17 12:28:03,164 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304475, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-17 12:28:03,166 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-17 12:28:03,167 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-17 12:28:03,167 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-17 12:28:03,167 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-17 12:28:03,167 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-17 12:28:04,606 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 17 Sep 2025 04:28:04 GMT'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Server', b'cloudflare'), (b'Nel', b'{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}'), (b'X-Powered-By', b'Express'), (b'Access-Control-Allow-Origin', b'*'), (b'ETag', b'W/"d8-kcwzyayJdOnTz8u3YDW/BE+Zcas"'), (b'Vary', b'Accept-Encoding'), (b'cf-cache-status', b'DYNAMIC'), (b'Report-To', b'{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=a5GHS0I0fSixq%2F%2BbhbcR3klNOf4mOvDcrsd55gsXeXPh%2F1Mc7aapAjoynuW1dRdkTqdulIE4BcESpieaIIugGk1C5663KrRaNSUn9cfe"}]}'), (b'Content-Encoding', b'gzip'), (b'CF-RAY', b'9805dac12a1508d8-LAX'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-09-17 12:28:04,606 - httpx - INFO - HTTP Request: GET https://api.jsonbin.io/v3/b/68ca2fb5d0ea881f40807cf4/latest "HTTP/1.1 200 OK"
+2025-09-17 12:28:04,607 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-17 12:28:04,607 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-17 12:28:04,607 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-17 12:28:04,607 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-17 12:28:04,607 - httpcore.connection - DEBUG - close.started
+2025-09-17 12:28:04,608 - httpcore.connection - DEBUG - close.complete
+2025-09-17 12:28:06,653 - httpcore.connection - DEBUG - connect_tcp.started host='api.jsonbin.io' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-17 12:28:06,794 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1043255e0>
+2025-09-17 12:28:06,794 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x1032d8b90> server_hostname='api.jsonbin.io' timeout=10.0
