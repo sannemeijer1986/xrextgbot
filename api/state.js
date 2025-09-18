@@ -1,34 +1,4 @@
-const { createClient } = require('redis');
-
-// Reuse a single Redis client across warm invocations (serverless best practice)
-let __redis_client = null;
-let __redis_connecting = null;
-const CONNECT_TIMEOUT_MS = (function(){ try { return Math.max(1000, Math.min(15000, parseInt(process.env.REDIS_CONNECT_TIMEOUT_MS||'4000',10)||4000)); } catch(_) { return 4000; } })();
-
-function withTimeout(p, ms, msg){
-  return Promise.race([
-    p,
-    new Promise(function(_, reject){ setTimeout(function(){ reject(new Error(msg||('Timeout after '+ms+'ms'))); }, ms); })
-  ]);
-}
-
-async function getRedisClient() {
-  const redisUrl = process.env.REDIS_URL_TLS || process.env.REDIS_URL;
-  if (!redisUrl) throw new Error('Missing Redis URL');
-  if (__redis_client && __redis_client.isOpen) return __redis_client;
-  if (__redis_connecting) {
-    try { await __redis_connecting; } catch(_) {}
-    if (__redis_client && __redis_client.isOpen) return __redis_client;
-  }
-  const isRediss = /^rediss:\/\//i.test(redisUrl);
-  const socketOpts = isRediss ? { tls: true } : {};
-  try { if (String(process.env.REDIS_TLS_INSECURE) === '1') socketOpts.rejectUnauthorized = false; } catch(_) {}
-  __redis_client = createClient({ url: redisUrl, socket: socketOpts });
-  __redis_client.on('error', function(_){});
-  __redis_connecting = __redis_client.connect();
-  await withTimeout(__redis_connecting, CONNECT_TIMEOUT_MS, 'Redis connect timeout');
-  return __redis_client;
-}
+const { createClient } = require('@supabase/supabase-js');
 
 function allowCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -43,26 +13,51 @@ module.exports = async (req, res) => {
     return;
   }
 
-  let client;
-  try {
-    client = await getRedisClient();
-  } catch (e) {
-    res.status(500).json({ error: 'Redis connect failed', detail: (e && e.message) ? e.message : String(e) });
+  // Supabase client
+  const SUPABASE_URL = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const SUPABASE_ANON = process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const SUPABASE_SERVICE = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+  const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE || SUPABASE_ANON, { auth: { persistSession: false } });
+  if (!SUPABASE_URL || !(SUPABASE_SERVICE || SUPABASE_ANON)) {
+    res.status(500).json({ error: 'Supabase not configured' });
     return;
   }
 
   try {
-    // Derive the Redis key: support optional per-session isolation
+    // Derive session id: support optional per-session isolation
     let session = '';
     try {
       const q = (req.query && (req.query.session || req.query.s)) || '';
       if (q && typeof q === 'string' && /^[A-Za-z0-9_-]{1,64}$/.test(q)) session = q;
     } catch(_) {}
-    const redisKey = session ? `xrex:state:${session}` : 'xrex:state';
+    const sessionId = session || 'default';
 
     if (req.method === 'GET') {
-      const raw = await client.get(redisKey);
-      const body = raw ? raw : '{}';
+      const { data, error, status } = await supabase
+        .from('xrex_session')
+        .select('current_state,twofa_verified,linking_code,last_updated_at')
+        .eq('session_id', sessionId)
+        .single();
+      if (error && status !== 406) {
+        if (error.code === 'PGRST116') { // No rows
+          res.setHeader('Content-Type', 'application/json');
+          res.status(200).send('{}');
+          return;
+        }
+        res.status(500).json({ error: 'DB read error', detail: error.message });
+        return;
+      }
+      let bodyObj = {};
+      if (data) {
+        const ts = (data.last_updated_at ? Math.floor(new Date(data.last_updated_at).getTime() / 1000) : Math.floor(Date.now()/1000));
+        bodyObj = {
+          stage: Number(data.current_state || 1),
+          twofa_verified: !!data.twofa_verified,
+          linking_code: data.linking_code || null,
+          updated_at: ts
+        };
+      }
+      const body = JSON.stringify(bodyObj);
       res.setHeader('Content-Type', 'application/json');
       res.status(200).send(body);
       return;
@@ -84,8 +79,23 @@ module.exports = async (req, res) => {
         res.status(400).json({ error: 'Bad JSON' });
         return;
       }
-      payload.updated_at = Math.floor(Date.now() / 1000);
-      await client.set(redisKey, JSON.stringify(payload));
+      const nowIso = new Date().toISOString();
+      const row = {
+        session_id: sessionId,
+        current_state: Number(payload.stage || 1),
+        twofa_verified: !!payload.twofa_verified,
+        linking_code: payload.linking_code || null,
+        tg_user_id: payload.actor_tg_user_id ? Number(payload.actor_tg_user_id) : null,
+        tg_chat_id: payload.actor_chat_id ? Number(payload.actor_chat_id) : null,
+        last_actor_tg_id: payload.actor_tg_user_id ? Number(payload.actor_tg_user_id) : null,
+        last_actor_chat_id: payload.actor_chat_id ? Number(payload.actor_chat_id) : null,
+        last_updated_at: nowIso
+      };
+      const upsert = await supabase.from('xrex_session').upsert(row, { onConflict: 'session_id' });
+      if (upsert.error) {
+        res.status(500).json({ error: 'DB write error', detail: upsert.error.message });
+        return;
+      }
       res.setHeader('Content-Type', 'application/json');
       res.status(200).send(JSON.stringify({ ok: true }));
       return;
