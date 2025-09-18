@@ -1,5 +1,27 @@
 const { createClient } = require('redis');
 
+// Reuse a single Redis client across warm invocations (serverless best practice)
+let __redis_client = null;
+let __redis_connecting = null;
+
+async function getRedisClient() {
+  const redisUrl = process.env.REDIS_URL_TLS || process.env.REDIS_URL;
+  if (!redisUrl) throw new Error('Missing Redis URL');
+  if (__redis_client && __redis_client.isOpen) return __redis_client;
+  if (__redis_connecting) {
+    try { await __redis_connecting; } catch(_) {}
+    if (__redis_client && __redis_client.isOpen) return __redis_client;
+  }
+  const isRediss = /^rediss:\/\//i.test(redisUrl);
+  const socketOpts = isRediss ? { tls: true } : {};
+  try { if (String(process.env.REDIS_TLS_INSECURE) === '1') socketOpts.rejectUnauthorized = false; } catch(_) {}
+  __redis_client = createClient({ url: redisUrl, socket: socketOpts });
+  __redis_client.on('error', function(_){});
+  __redis_connecting = __redis_client.connect();
+  await __redis_connecting;
+  return __redis_client;
+}
+
 function allowCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, OPTIONS');
@@ -13,17 +35,10 @@ module.exports = async (req, res) => {
     return;
   }
 
-  const redisUrl = process.env.REDIS_URL_TLS || process.env.REDIS_URL;
-  if (!redisUrl) {
-    res.status(500).json({ error: 'Missing Redis URL' });
-    return;
-  }
-  const isRediss = /^rediss:\/\//i.test(redisUrl);
-  const socketOpts = isRediss ? { tls: true } : {};
-  try { if (String(process.env.REDIS_TLS_INSECURE) === '1') socketOpts.rejectUnauthorized = false; } catch(_) {}
-  const client = createClient({ url: redisUrl, socket: socketOpts });
+  let client;
   try {
-    await client.connect();
+    client = await getRedisClient();
+    try { await client.ping(); } catch(_) {}
   } catch (e) {
     res.status(500).json({ error: 'Redis connect failed', detail: (e && e.message) ? e.message : String(e) });
     return;
@@ -54,7 +69,10 @@ module.exports = async (req, res) => {
         return;
       }
       let payload = {};
-      try { payload = req.body || {}; } catch (e) { payload = {}; }
+      try {
+        payload = req.body || {};
+        if (typeof payload === 'string') { try { payload = JSON.parse(payload); } catch(_) { payload = {}; } }
+      } catch (e) { payload = {}; }
       if (!payload || typeof payload !== 'object') {
         res.status(400).json({ error: 'Bad JSON' });
         return;
@@ -69,8 +87,6 @@ module.exports = async (req, res) => {
     res.status(405).json({ error: 'Method not allowed' });
   } catch (e) {
     res.status(500).json({ error: 'Server error', detail: (e && e.message) ? e.message : String(e) });
-  } finally {
-    try { await client.quit(); } catch (e) {}
   }
 };
 
