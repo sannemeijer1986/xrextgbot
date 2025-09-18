@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "mkdir -p build/styles && sass styles/styles.scss:build/styles/styles.css --no-source-map --style=compressed",
-    "watch": "sass --watch styles/styles.scss:styles/styles.css --no-source-map --style=expanded"
+    "watch": "sass --watch styles/styles.scss:build/styles/styles.css --no-source-map --style=expanded"
   },
   "keywords": [],
   "author": "",
