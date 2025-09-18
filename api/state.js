@@ -64,26 +64,23 @@ module.exports = async (req, res) => {
     }
 
     if (req.method === 'PUT') {
-      const auth = req.headers['authorization'] || '';
-      const token = auth.startsWith('Bearer ') ? auth.slice(7) : '';
-      const isAdminReset = String(req.headers['x-admin-reset'] || '').trim() === '1';
-      if (!isAdminReset) {
-        if (!token || token !== process.env.STATE_WRITE_TOKEN) {
-          // Allow limited unauthenticated finalize from the web client for demo
-          const hdrStage = String(req.headers['x-client-stage'] || '').trim();
-          const tmp = typeof payload === 'object' ? Number(payload.stage || 0) : 0;
-          const isClientFinalize = (hdrStage === '6' && tmp === 6);
-          if (!isClientFinalize) {
-            res.status(401).json({ error: 'Unauthorized' });
-            return;
-          }
-        }
-      }
+      // Parse body FIRST so auth logic can inspect stage
       let payload = {};
       try {
         payload = req.body || {};
         if (typeof payload === 'string') { try { payload = JSON.parse(payload); } catch(_) { payload = {}; } }
       } catch (e) { payload = {}; }
+      const auth = req.headers['authorization'] || '';
+      const token = auth.startsWith('Bearer ') ? auth.slice(7) : '';
+      const isAdminReset = String(req.headers['x-admin-reset'] || '').trim() === '1';
+      const hdrStage = String(req.headers['x-client-stage'] || '').trim();
+      const isClientFinalize = (hdrStage === '6' && Number(payload.stage || 0) === 6);
+      if (!isAdminReset) {
+        if (!isClientFinalize && (!token || token !== process.env.STATE_WRITE_TOKEN)) {
+          res.status(401).json({ error: 'Unauthorized' });
+          return;
+        }
+      }
       if (!payload || typeof payload !== 'object') {
         res.status(400).json({ error: 'Bad JSON' });
         return;
@@ -116,7 +113,6 @@ module.exports = async (req, res) => {
       }
       // Authenticated path OR limited client finalize
       let row;
-      const isClientFinalize = String(req.headers['x-client-stage'] || '').trim() === '6' && nextState === 6;
       if (isClientFinalize) {
         // Preserve existing linking_code and twofa flag; only bump stage to 6
         let existing = null;

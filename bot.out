@@ -83,3 +83,879 @@
 2025-09-18 12:15:53,766 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
 2025-09-18 12:15:53,767 - httpcore.http11 - DEBUG - send_request_body.complete
 2025-09-18 12:15:53,767 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:04,055 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:16:03 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:16:04,055 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:16:04,056 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:16:04,056 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:16:04,056 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:16:04,056 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:16:04,056 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:16:04,056 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:16:04,057 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 0, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:16:04,057 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:04,058 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:16:04,058 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:16:04,058 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:16:04,059 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:14,328 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:16:14 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:16:14,330 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:16:14,330 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:16:14,330 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:16:14,330 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:16:14,330 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:16:14,331 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:16:14,331 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:16:14,331 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 0, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:16:14,332 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:14,332 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:16:14,332 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:16:14,332 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:16:14,332 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:24,613 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:16:24 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:16:24,614 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:16:24,614 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:16:24,614 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:16:24,614 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:16:24,614 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:16:24,615 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:16:24,615 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:16:24,615 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 0, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:16:24,616 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:24,616 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:16:24,616 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:16:24,616 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:16:24,617 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:28,302 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:16:28 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'396'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:16:28,303 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:16:28,303 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:16:28,303 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:16:28,303 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:16:28,303 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:16:28,304 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[{'update_id': 808304573, 'message': {'message_id': 655, 'from': {'id': 736135332, 'is_bot': False, 'first_name': 'Sanne', 'username': 'sannemeijer', 'language_code': 'en'}, 'chat': {'id': 736135332, 'first_name': 'Sanne', 'username': 'sannemeijer', 'type': 'private'}, 'date': 1758168988, 'text': '/start BOTC1583_sSMFNVXQ0Y08YEIQ6O18EKCFU', 'entities': [{'offset': 0, 'length': 6, 'type': 'bot_command'}]}}]`
+2025-09-18 12:16:28,304 - telegram.ext.ExtBot - DEBUG - Getting updates: [808304573]
+2025-09-18 12:16:28,305 - telegram.ext.Application - DEBUG - Processing update Update(message=Message(channel_chat_created=False, chat=Chat(first_name='Sanne', id=736135332, type=<ChatType.PRIVATE>, username='sannemeijer'), date=datetime.datetime(2025, 9, 18, 4, 16, 28, tzinfo=datetime.timezone.utc), delete_chat_photo=False, entities=(MessageEntity(length=6, offset=0, type=<MessageEntityType.BOT_COMMAND>),), from_user=User(first_name='Sanne', id=736135332, is_bot=False, language_code='en', username='sannemeijer'), group_chat_created=False, message_id=655, supergroup_chat_created=False, text='/start BOTC1583_sSMFNVXQ0Y08YEIQ6O18EKCFU'), update_id=808304573)
+2025-09-18 12:16:28,307 - __main__ - DEBUG - Entering start for user 736135332
+2025-09-18 12:16:28,307 - __main__ - INFO - Deeplink accessed with verify token: BOTC1583_sSMFNVXQ0Y08YEIQ6O18EKCFU by user 736135332
+2025-09-18 12:16:28,308 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `sendMessage` with parameters `{'chat_id': 736135332, 'text': '✅️ Valid unique verification link detected from XREX Pay account "@AG***CH"\n\nPlease enter your XREX Pay 2FA to proceed with linking your Telegram account to XREX Pay.', 'reply_markup': InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='what_is_2fa', text='📋 What is 2FA'), InlineKeyboardButton(callback_data='more', text='...  More')),))}`
+2025-09-18 12:16:28,309 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:16:28,309 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:16:28,309 - httpcore.connection - DEBUG - connect_tcp.started host='api.telegram.org' port=443 local_address=None timeout=5.0 socket_options=None
+2025-09-18 12:16:28,310 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304574, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:16:28,311 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:28,311 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:16:28,311 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:16:28,312 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:16:28,312 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:28,685 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055748a0>
+2025-09-18 12:16:28,686 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x105376060> server_hostname='api.telegram.org' timeout=5.0
+2025-09-18 12:16:29,061 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x10551d7f0>
+2025-09-18 12:16:29,062 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:29,062 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:16:29,062 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:16:29,062 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:16:29,063 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:29,447 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:16:29 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'578'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:16:29,448 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/sendMessage "HTTP/1.1 200 OK"
+2025-09-18 12:16:29,448 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:16:29,449 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:16:29,449 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:16:29,449 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:16:29,450 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `sendMessage` finished with return value `{'message_id': 656, 'from': {'id': 8052956286, 'is_bot': True, 'first_name': 'SanneXREX_bot', 'username': 'SanneXREX_bot'}, 'chat': {'id': 736135332, 'first_name': 'Sanne', 'username': 'sannemeijer', 'type': 'private'}, 'date': 1758168989, 'text': '✅️ Valid unique verification link detected from XREX Pay account "@AG***CH"\n\nPlease enter your XREX Pay 2FA to proceed with linking your Telegram account to XREX Pay.', 'reply_markup': {'inline_keyboard': [[{'text': '📋 What is 2FA', 'callback_data': 'what_is_2fa'}, {'text': '...  More', 'callback_data': 'more'}]]}}`
+2025-09-18 12:16:29,485 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:16:29,589 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055906b0>
+2025-09-18 12:16:29,590 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x105377890> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:16:29,669 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055907c0>
+2025-09-18 12:16:29,670 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'PUT']>
+2025-09-18 12:16:29,670 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:16:29,670 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'PUT']>
+2025-09-18 12:16:29,670 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:16:29,671 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'PUT']>
+2025-09-18 12:16:30,376 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'11'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:16:30 GMT'), (b'Etag', b'W/"b-Ai2R8hgEarLmHKwesT1qcY913ys"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::x7c5b-1758168989740-1401ab6f1c29')])
+2025-09-18 12:16:30,377 - httpx - INFO - HTTP Request: PUT https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:16:30,377 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'PUT']>
+2025-09-18 12:16:30,377 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:16:30,378 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:16:30,378 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:16:30,378 - __main__ - INFO - Pushed state to Vercel stage=3 twofa=False
+2025-09-18 12:16:30,378 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:16:30,400 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:16:30,400 - __main__ - INFO - Sent and pinned BOTC linking prompt to user 736135332 for token BOTC1583_sSMFNVXQ0Y08YEIQ6O18EKCFU
+2025-09-18 12:16:30,400 - __main__ - INFO - === DEBUG: Received update type: Message
+2025-09-18 12:16:30,400 - __main__ - INFO - === DEBUG: Message content_type: Unknown
+2025-09-18 12:16:30,400 - __main__ - INFO - === DEBUG: Message text: /start BOTC1583_sSMFNVXQ0Y08YEIQ6O18EKCFU
+2025-09-18 12:16:30,400 - __main__ - INFO - === DEBUG: Has web_app_data: None
+2025-09-18 12:16:30,401 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:16:30,631 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x10539ec50>
+2025-09-18 12:16:30,631 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x105584050> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:16:30,838 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x10539d850>
+2025-09-18 12:16:30,838 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-18 12:16:30,839 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:16:30,839 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-18 12:16:30,839 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:16:30,839 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-18 12:16:31,976 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Age', b'0'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'83'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:16:31 GMT'), (b'Etag', b'W/"53-rRqSCE4HDrTCwUDKgNo48/vXzfI"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::kjwn7-1758168990888-50dfa69b2ada')])
+2025-09-18 12:16:31,976 - httpx - INFO - HTTP Request: GET https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:16:31,976 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-18 12:16:31,976 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:16:31,976 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:16:31,976 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:16:31,976 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:16:31,977 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:16:32,199 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:16:32 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'298'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:16:32,200 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:16:32,201 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:16:32,201 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:16:32,201 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:16:32,203 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:16:32,204 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[{'update_id': 808304574, 'message': {'message_id': 657, 'from': {'id': 736135332, 'is_bot': False, 'first_name': 'Sanne', 'username': 'sannemeijer', 'language_code': 'en'}, 'chat': {'id': 736135332, 'first_name': 'Sanne', 'username': 'sannemeijer', 'type': 'private'}, 'date': 1758168992, 'text': '1'}}]`
+2025-09-18 12:16:32,204 - telegram.ext.ExtBot - DEBUG - Getting updates: [808304574]
+2025-09-18 12:16:32,205 - telegram.ext.Application - DEBUG - Processing update Update(message=Message(channel_chat_created=False, chat=Chat(first_name='Sanne', id=736135332, type=<ChatType.PRIVATE>, username='sannemeijer'), date=datetime.datetime(2025, 9, 18, 4, 16, 32, tzinfo=datetime.timezone.utc), delete_chat_photo=False, from_user=User(first_name='Sanne', id=736135332, is_bot=False, language_code='en', username='sannemeijer'), group_chat_created=False, message_id=657, supergroup_chat_created=False, text='1'), update_id=808304574)
+2025-09-18 12:16:32,206 - __main__ - DEBUG - Received text from user 736135332: 1
+2025-09-18 12:16:32,206 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `sendMessage` with parameters `{'chat_id': 736135332, 'text': '✅️ 2FA verified! \n\nGenerating linking code... '}`
+2025-09-18 12:16:32,207 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:32,207 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:16:32,208 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:16:32,208 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:16:32,208 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:16:32,208 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:32,208 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:32,209 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:16:32,209 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:16:32,209 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:16:32,209 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:32,593 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:16:32 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'306'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:16:32,594 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/sendMessage "HTTP/1.1 200 OK"
+2025-09-18 12:16:32,594 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:16:32,594 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:16:32,594 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:16:32,595 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:16:32,595 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `sendMessage` finished with return value `{'message_id': 658, 'from': {'id': 8052956286, 'is_bot': True, 'first_name': 'SanneXREX_bot', 'username': 'SanneXREX_bot'}, 'chat': {'id': 736135332, 'first_name': 'Sanne', 'username': 'sannemeijer', 'type': 'private'}, 'date': 1758168992, 'text': '✅️ 2FA verified! \n\nGenerating linking code...'}`
+2025-09-18 12:16:33,597 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `sendMessage` with parameters `{'chat_id': 736135332, 'text': 'BD53D2'}`
+2025-09-18 12:16:33,598 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:33,599 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:16:33,599 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:16:33,599 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:16:33,600 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:33,913 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:16:33 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'255'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:16:33,914 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/sendMessage "HTTP/1.1 200 OK"
+2025-09-18 12:16:33,914 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:16:33,915 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:16:33,915 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:16:33,918 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:16:33,919 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `sendMessage` finished with return value `{'message_id': 659, 'from': {'id': 8052956286, 'is_bot': True, 'first_name': 'SanneXREX_bot', 'username': 'SanneXREX_bot'}, 'chat': {'id': 736135332, 'first_name': 'Sanne', 'username': 'sannemeijer', 'type': 'private'}, 'date': 1758168993, 'text': 'BD53D2'}`
+2025-09-18 12:16:33,921 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `sendMessage` with parameters `{'chat_id': 736135332, 'text': 'Please copy the linking code, go to XREX Pay, and enter it there. (Valid for 5 minutes)', 'reply_markup': InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(text='↗️ Go to XREX Pay', url='https://sannemeijer1986.github.io/xrextgbot/settings.html?view=content&page=telegram&tab=setup'), InlineKeyboardButton(callback_data='copy_code', text='📋 Copy code')), (InlineKeyboardButton(callback_data='more', text='...  More'),)))}`
+2025-09-18 12:16:33,923 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:33,923 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:16:33,923 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:16:33,924 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:16:33,924 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:34,227 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:16:34 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'625'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:16:34,228 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/sendMessage "HTTP/1.1 200 OK"
+2025-09-18 12:16:34,228 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:16:34,228 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:16:34,229 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:16:34,229 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:16:34,230 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `sendMessage` finished with return value `{'message_id': 660, 'from': {'id': 8052956286, 'is_bot': True, 'first_name': 'SanneXREX_bot', 'username': 'SanneXREX_bot'}, 'chat': {'id': 736135332, 'first_name': 'Sanne', 'username': 'sannemeijer', 'type': 'private'}, 'date': 1758168994, 'text': 'Please copy the linking code, go to XREX Pay, and enter it there. (Valid for 5 minutes)', 'reply_markup': {'inline_keyboard': [[{'text': '↗️ Go to XREX Pay', 'url': 'https://sannemeijer1986.github.io/xrextgbot/settings.html?view=content&page=telegram&tab=setup'}, {'text': '📋 Copy code', 'callback_data': 'copy_code'}], [{'text': '...  More', 'callback_data': 'more'}]]}}`
+2025-09-18 12:16:34,258 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:16:34,345 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055a1400>
+2025-09-18 12:16:34,345 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x105584290> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:16:34,458 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055a1a90>
+2025-09-18 12:16:34,458 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'PUT']>
+2025-09-18 12:16:34,458 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:16:34,458 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'PUT']>
+2025-09-18 12:16:34,459 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:16:34,459 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'PUT']>
+2025-09-18 12:16:35,046 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'11'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:16:34 GMT'), (b'Etag', b'W/"b-Ai2R8hgEarLmHKwesT1qcY913ys"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::tr5wg-1758168994511-b314be40b88d')])
+2025-09-18 12:16:35,051 - httpx - INFO - HTTP Request: PUT https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:16:35,052 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'PUT']>
+2025-09-18 12:16:35,052 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:16:35,052 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:16:35,052 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:16:35,053 - __main__ - INFO - Pushed state to Vercel stage=4 twofa=True
+2025-09-18 12:16:35,053 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:16:35,054 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:16:35,054 - __main__ - INFO - === DEBUG: Received update type: Message
+2025-09-18 12:16:35,054 - __main__ - INFO - === DEBUG: Message content_type: Unknown
+2025-09-18 12:16:35,054 - __main__ - INFO - === DEBUG: Message text: 1
+2025-09-18 12:16:35,054 - __main__ - INFO - === DEBUG: Has web_app_data: None
+2025-09-18 12:16:42,528 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:16:42 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:16:42,529 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:16:42,529 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:16:42,530 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:16:42,530 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:16:42,530 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:16:42,530 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:16:42,531 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:16:42,531 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:16:42,532 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:42,532 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:16:42,532 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:16:42,532 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:16:42,532 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:47,019 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:16:47,051 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055960b0>
+2025-09-18 12:16:47,051 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x105584680> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:16:47,127 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x105596270>
+2025-09-18 12:16:47,128 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-18 12:16:47,128 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:16:47,128 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-18 12:16:47,128 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:16:47,128 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-18 12:16:48,222 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Age', b'0'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'81'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:16:48 GMT'), (b'Etag', b'W/"51-Pp03cKyMKceLrNwO0n1BUYDPrYc"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::cnwd5-1758169007151-1409145417e4')])
+2025-09-18 12:16:48,225 - httpx - INFO - HTTP Request: GET https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:16:48,226 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-18 12:16:48,226 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:16:48,226 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:16:48,226 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:16:48,227 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:16:48,227 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:16:52,799 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:16:52 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:16:52,801 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:16:52,802 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:16:52,802 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:16:52,802 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:16:52,802 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:16:52,803 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:16:52,803 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:16:52,803 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:16:52,804 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:16:52,805 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:16:52,805 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:16:52,805 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:16:52,805 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:17:03,090 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:17:02 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:17:03,090 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:17:03,091 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:17:03,091 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:17:03,091 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:17:03,091 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:17:03,091 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:17:03,091 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:17:03,092 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:17:03,092 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:17:03,093 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:17:03,093 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:17:03,093 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:17:03,093 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:17:03,268 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:17:03,287 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1053fe1a0>
+2025-09-18 12:17:03,287 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x1055844d0> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:17:03,358 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x10536af90>
+2025-09-18 12:17:03,358 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-18 12:17:03,358 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:17:03,358 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-18 12:17:03,359 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:17:03,359 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-18 12:17:04,494 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Age', b'0'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'81'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:17:04 GMT'), (b'Etag', b'W/"51-Pp03cKyMKceLrNwO0n1BUYDPrYc"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::kjwn7-1758169023380-b14532c9df16')])
+2025-09-18 12:17:04,495 - httpx - INFO - HTTP Request: GET https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:17:04,496 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-18 12:17:04,496 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:17:04,496 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:17:04,496 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:17:04,497 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:17:04,498 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:17:13,352 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:17:13 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:17:13,352 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:17:13,353 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:17:13,353 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:17:13,353 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:17:13,353 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:17:13,353 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:17:13,353 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:17:13,354 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:17:13,354 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:17:13,355 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:17:13,355 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:17:13,355 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:17:13,355 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:17:19,523 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:17:19,533 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x10536b590>
+2025-09-18 12:17:19,533 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x105584cb0> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:17:19,629 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1053ab070>
+2025-09-18 12:17:19,629 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-18 12:17:19,629 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:17:19,629 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-18 12:17:19,629 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:17:19,630 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-18 12:17:20,782 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Age', b'0'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'81'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:17:20 GMT'), (b'Etag', b'W/"51-Pp03cKyMKceLrNwO0n1BUYDPrYc"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::hhzbh-1758169039648-e1c68b2446f9')])
+2025-09-18 12:17:20,782 - httpx - INFO - HTTP Request: GET https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:17:20,783 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-18 12:17:20,783 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:17:20,783 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:17:20,783 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:17:20,783 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:17:20,784 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:17:23,630 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:17:23 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:17:23,631 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:17:23,631 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:17:23,631 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:17:23,631 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:17:23,631 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:17:23,631 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:17:23,631 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:17:23,632 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:17:23,632 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:17:23,633 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:17:23,633 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:17:23,633 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:17:23,633 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:17:33,899 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:17:33 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:17:33,902 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:17:33,902 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:17:33,902 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:17:33,902 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:17:33,903 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:17:33,903 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:17:33,903 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:17:33,904 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:17:33,905 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:17:33,917 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:17:33,917 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:17:33,917 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:17:33,917 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:17:35,826 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:17:35,852 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1053ab8b0>
+2025-09-18 12:17:35,852 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x105584a70> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:17:35,922 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1053ee030>
+2025-09-18 12:17:35,923 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-18 12:17:35,923 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:17:35,923 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-18 12:17:35,923 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:17:35,923 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-18 12:17:37,044 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Age', b'0'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'81'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:17:36 GMT'), (b'Etag', b'W/"51-Pp03cKyMKceLrNwO0n1BUYDPrYc"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::8mmp5-1758169055954-77c5b9b3f7ae')])
+2025-09-18 12:17:37,045 - httpx - INFO - HTTP Request: GET https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:17:37,045 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-18 12:17:37,045 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:17:37,046 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:17:37,046 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:17:37,046 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:17:37,047 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:17:44,184 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:17:44 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:17:44,185 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:17:44,185 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:17:44,185 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:17:44,185 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:17:44,186 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:17:44,186 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:17:44,186 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:17:44,187 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:17:44,188 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:17:44,188 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:17:44,188 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:17:44,189 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:17:44,189 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:17:52,070 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:17:52,147 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x105568870>
+2025-09-18 12:17:52,147 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x105584dd0> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:17:52,223 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x105584b90>
+2025-09-18 12:17:52,223 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-18 12:17:52,224 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:17:52,224 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-18 12:17:52,224 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:17:52,224 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-18 12:17:53,341 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Age', b'0'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'81'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:17:53 GMT'), (b'Etag', b'W/"51-Pp03cKyMKceLrNwO0n1BUYDPrYc"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::9vsnp-1758169072246-af20fa10e126')])
+2025-09-18 12:17:53,342 - httpx - INFO - HTTP Request: GET https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:17:53,342 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-18 12:17:53,343 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:17:53,343 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:17:53,343 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:17:53,343 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:17:53,344 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:17:54,457 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:17:54 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:17:54,461 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:17:54,461 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:17:54,461 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:17:54,461 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:17:54,461 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:17:54,462 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:17:54,462 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:17:54,462 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:17:54,463 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:17:54,463 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:17:54,463 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:17:54,463 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:17:54,463 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:18:04,722 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:18:04 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:18:04,723 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:18:04,724 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:18:04,724 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:18:04,724 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:18:04,725 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:18:04,725 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:18:04,725 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:18:04,725 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:18:04,726 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:18:04,726 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:18:04,726 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:18:04,726 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:18:04,726 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:18:08,388 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:18:08,411 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x105562450>
+2025-09-18 12:18:08,411 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x105584950> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:18:08,497 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055625d0>
+2025-09-18 12:18:08,497 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-18 12:18:08,498 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:18:08,498 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-18 12:18:08,498 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:18:08,498 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-18 12:18:09,596 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Age', b'0'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'81'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:18:09 GMT'), (b'Etag', b'W/"51-Pp03cKyMKceLrNwO0n1BUYDPrYc"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::jbrdj-1758169088526-8fda1850a93f')])
+2025-09-18 12:18:09,597 - httpx - INFO - HTTP Request: GET https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:18:09,597 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-18 12:18:09,597 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:18:09,598 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:18:09,598 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:18:09,598 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:18:09,599 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:18:14,990 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:18:14 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:18:14,992 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:18:14,993 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:18:14,993 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:18:14,994 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:18:14,994 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:18:14,994 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:18:14,994 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:18:14,995 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:18:14,996 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:18:14,996 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:18:14,996 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:18:14,996 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:18:14,996 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:18:24,622 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:18:24,697 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1053fad60>
+2025-09-18 12:18:24,697 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x105584440> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:18:24,782 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1053fa820>
+2025-09-18 12:18:24,782 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-18 12:18:24,782 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:18:24,782 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-18 12:18:24,782 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:18:24,782 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-18 12:18:25,253 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:18:25 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:18:25,253 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:18:25,253 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:18:25,253 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:18:25,253 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:18:25,253 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:18:25,254 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:18:25,254 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:18:25,254 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:18:25,254 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:18:25,254 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:18:25,254 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:18:25,254 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:18:25,254 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:18:25,887 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Age', b'0'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'81'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:18:25 GMT'), (b'Etag', b'W/"51-Pp03cKyMKceLrNwO0n1BUYDPrYc"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::qx9p9-1758169104803-2b0a7a408804')])
+2025-09-18 12:18:25,887 - httpx - INFO - HTTP Request: GET https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:18:25,887 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-18 12:18:25,887 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:18:25,887 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:18:25,887 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:18:25,887 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:18:25,888 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:18:35,743 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:18:35 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:18:35,744 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:18:35,745 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:18:35,745 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:18:35,745 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:18:35,745 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:18:35,745 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:18:35,745 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:18:35,746 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:18:35,747 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:18:35,747 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:18:35,747 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:18:35,747 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:18:35,747 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:18:40,926 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:18:40,945 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055ac4d0>
+2025-09-18 12:18:40,945 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x1055848c0> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:18:41,021 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055ac530>
+2025-09-18 12:18:41,021 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-18 12:18:41,022 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:18:41,022 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-18 12:18:41,022 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:18:41,022 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-18 12:18:42,163 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Age', b'0'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'81'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:18:41 GMT'), (b'Etag', b'W/"51-Pp03cKyMKceLrNwO0n1BUYDPrYc"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::jv5xx-1758169121044-25c513c01dc8')])
+2025-09-18 12:18:42,164 - httpx - INFO - HTTP Request: GET https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:18:42,165 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-18 12:18:42,166 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:18:42,166 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:18:42,166 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:18:42,167 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:18:42,168 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:18:46,012 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:18:45 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:18:46,012 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:18:46,012 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:18:46,012 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:18:46,012 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:18:46,013 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:18:46,013 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:18:46,013 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:18:46,013 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:18:46,013 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:18:46,013 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:18:46,013 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:18:46,013 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:18:46,013 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:18:56,360 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:18:56 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:18:56,360 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:18:56,361 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:18:56,361 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:18:56,361 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:18:56,361 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:18:56,361 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:18:56,361 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:18:56,361 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:18:56,362 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:18:56,362 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:18:56,362 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:18:56,362 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:18:56,362 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:18:57,199 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:18:57,232 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x10557efd0>
+2025-09-18 12:18:57,233 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x1055845f0> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:18:57,309 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x10557f0c0>
+2025-09-18 12:18:57,310 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-18 12:18:57,310 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:18:57,310 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-18 12:18:57,310 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:18:57,310 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-18 12:18:58,398 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Age', b'0'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'81'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:18:58 GMT'), (b'Etag', b'W/"51-Pp03cKyMKceLrNwO0n1BUYDPrYc"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::g7ms7-1758169137331-32fc84709925')])
+2025-09-18 12:18:58,398 - httpx - INFO - HTTP Request: GET https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:18:58,398 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-18 12:18:58,398 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:18:58,398 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:18:58,398 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:18:58,398 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:18:58,399 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:19:06,621 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:19:06 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:19:06,621 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:19:06,621 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:19:06,621 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:19:06,621 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:19:06,621 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:19:06,621 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:19:06,621 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:19:06,621 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:19:06,622 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:19:06,622 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:19:06,622 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:19:06,622 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:19:06,622 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:19:13,405 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:19:13,418 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x10557f610>
+2025-09-18 12:19:13,418 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x1055844d0> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:19:13,486 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x10557f700>
+2025-09-18 12:19:13,486 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-18 12:19:13,486 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:19:13,486 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-18 12:19:13,486 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:19:13,486 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-18 12:19:14,598 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Age', b'0'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'81'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:19:14 GMT'), (b'Etag', b'W/"51-Pp03cKyMKceLrNwO0n1BUYDPrYc"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::cnwd5-1758169153524-df855304ac0b')])
+2025-09-18 12:19:14,598 - httpx - INFO - HTTP Request: GET https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:19:14,598 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-18 12:19:14,598 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:19:14,598 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:19:14,598 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:19:14,599 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:19:14,599 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:19:16,917 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:19:16 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:19:16,917 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:19:16,917 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:19:16,917 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:19:16,917 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:19:16,917 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:19:16,918 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:19:16,918 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:19:16,918 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:19:16,918 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:19:16,918 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:19:16,918 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:19:16,919 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:19:16,919 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:19:27,177 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:19:27 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:19:27,178 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:19:27,179 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:19:27,179 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:19:27,179 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:19:27,179 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:19:27,179 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:19:27,179 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:19:27,179 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:19:27,180 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:19:27,180 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:19:27,180 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:19:27,180 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:19:27,180 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:19:29,627 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:19:29,638 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x105566a80>
+2025-09-18 12:19:29,638 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x1055849e0> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:19:29,715 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x10557ffc0>
+2025-09-18 12:19:29,715 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-18 12:19:29,715 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:19:29,715 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-18 12:19:29,715 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:19:29,715 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-18 12:19:30,819 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Age', b'0'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'81'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:19:30 GMT'), (b'Etag', b'W/"51-Pp03cKyMKceLrNwO0n1BUYDPrYc"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::8cj8f-1758169169755-5cdb84771a0e')])
+2025-09-18 12:19:30,820 - httpx - INFO - HTTP Request: GET https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:19:30,820 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-18 12:19:30,820 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:19:30,821 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:19:30,821 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:19:30,822 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:19:30,822 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:19:37,442 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:19:37 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:19:37,443 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:19:37,443 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:19:37,443 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:19:37,443 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:19:37,443 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:19:37,443 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:19:37,443 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:19:37,443 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:19:37,444 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:19:37,444 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:19:37,444 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:19:37,444 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:19:37,444 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:19:45,843 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:19:45,852 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055c04b0>
+2025-09-18 12:19:45,852 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x1055843b0> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:19:45,927 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x10557fac0>
+2025-09-18 12:19:45,927 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-18 12:19:45,927 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:19:45,927 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-18 12:19:45,927 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:19:45,927 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-18 12:19:47,074 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Age', b'0'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'81'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:19:46 GMT'), (b'Etag', b'W/"51-Pp03cKyMKceLrNwO0n1BUYDPrYc"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::rnnk5-1758169185973-3ec718d48ebf')])
+2025-09-18 12:19:47,074 - httpx - INFO - HTTP Request: GET https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:19:47,075 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-18 12:19:47,075 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:19:47,075 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:19:47,075 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:19:47,075 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:19:47,076 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:19:47,708 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:19:47 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:19:47,708 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:19:47,708 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:19:47,708 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:19:47,708 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:19:47,708 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:19:47,708 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:19:47,708 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:19:47,708 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:19:47,709 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:19:47,709 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:19:47,709 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:19:47,709 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:19:47,709 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:19:57,972 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:19:57 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:19:57,973 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:19:57,973 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:19:57,974 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:19:57,974 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:19:57,974 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:19:57,974 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:19:57,974 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:19:57,975 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:19:57,976 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:19:57,976 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:19:57,976 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:19:57,976 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:19:57,976 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:20:02,120 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:20:02,146 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055c0d20>
+2025-09-18 12:20:02,147 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x105584830> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:20:02,223 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055664e0>
+2025-09-18 12:20:02,224 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-18 12:20:02,224 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:20:02,224 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-18 12:20:02,224 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:20:02,224 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-18 12:20:03,806 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Age', b'0'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'81'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:20:03 GMT'), (b'Etag', b'W/"51-Pp03cKyMKceLrNwO0n1BUYDPrYc"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::rhgtm-1758169202267-6bc2ac9d7d09')])
+2025-09-18 12:20:03,807 - httpx - INFO - HTTP Request: GET https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:20:03,807 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-18 12:20:03,808 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:20:03,808 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:20:03,808 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:20:03,808 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:20:03,808 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:20:08,256 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:20:08 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:20:08,257 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:20:08,257 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:20:08,257 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:20:08,257 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:20:08,258 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:20:08,258 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:20:08,258 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:20:08,258 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:20:08,260 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:20:08,261 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:20:08,261 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:20:08,261 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:20:08,261 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:20:18,546 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:20:18 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:20:18,547 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:20:18,548 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:20:18,548 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:20:18,548 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:20:18,548 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:20:18,549 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:20:18,549 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:20:18,549 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:20:18,551 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:20:18,552 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:20:18,552 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:20:18,552 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:20:18,552 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:20:18,859 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:20:18,883 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055c15e0>
+2025-09-18 12:20:18,883 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x105584680> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:20:18,954 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055c16d0>
+2025-09-18 12:20:18,954 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-18 12:20:18,954 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:20:18,954 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-18 12:20:18,954 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:20:18,954 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-18 12:20:20,099 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Age', b'0'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'81'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:20:19 GMT'), (b'Etag', b'W/"51-Pp03cKyMKceLrNwO0n1BUYDPrYc"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::tx5gd-1758169218997-ece96610774a')])
+2025-09-18 12:20:20,100 - httpx - INFO - HTTP Request: GET https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:20:20,100 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-18 12:20:20,102 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:20:20,102 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:20:20,103 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:20:20,103 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:20:20,104 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:20:28,823 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:20:28 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:20:28,829 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:20:28,830 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:20:28,830 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:20:28,830 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:20:28,830 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:20:28,831 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:20:28,831 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:20:28,831 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:20:28,833 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:20:28,833 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:20:28,833 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:20:28,833 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:20:28,833 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:20:35,139 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:20:35,190 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055c1c20>
+2025-09-18 12:20:35,190 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x105584200> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:20:35,290 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055c1d10>
+2025-09-18 12:20:35,290 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-18 12:20:35,291 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:20:35,291 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-18 12:20:35,291 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:20:35,291 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-18 12:20:35,930 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Age', b'0'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'81'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:20:35 GMT'), (b'Etag', b'W/"51-Pp03cKyMKceLrNwO0n1BUYDPrYc"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::tr5wg-1758169235340-3c169d7d6f5d')])
+2025-09-18 12:20:35,931 - httpx - INFO - HTTP Request: GET https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:20:35,931 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-18 12:20:35,931 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:20:35,931 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:20:35,931 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:20:35,932 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:20:35,932 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:20:39,124 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:20:39 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:20:39,125 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:20:39,125 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:20:39,125 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:20:39,125 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:20:39,125 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:20:39,125 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:20:39,125 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:20:39,126 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:20:39,127 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:20:39,127 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:20:39,127 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:20:39,127 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:20:39,127 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:20:49,407 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:20:49 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:20:49,409 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:20:49,409 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:20:49,409 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:20:49,409 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:20:49,409 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:20:49,409 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:20:49,409 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:20:49,409 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:20:49,410 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:20:49,410 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:20:49,410 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:20:49,410 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:20:49,410 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:20:50,961 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:20:50,979 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055c2490>
+2025-09-18 12:20:50,979 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x105584290> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:20:51,051 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055c2580>
+2025-09-18 12:20:51,051 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-18 12:20:51,051 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:20:51,052 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-18 12:20:51,052 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:20:51,052 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-18 12:20:52,161 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Age', b'0'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'81'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:20:52 GMT'), (b'Etag', b'W/"51-Pp03cKyMKceLrNwO0n1BUYDPrYc"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::kpflr-1758169251099-de2a43ef4083')])
+2025-09-18 12:20:52,162 - httpx - INFO - HTTP Request: GET https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:20:52,162 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-18 12:20:52,162 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:20:52,162 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:20:52,162 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:20:52,162 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:20:52,162 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:20:59,675 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:20:59 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:20:59,676 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:20:59,677 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:20:59,677 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:20:59,677 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:20:59,677 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:20:59,677 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:20:59,677 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:20:59,677 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:20:59,678 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:20:59,678 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:20:59,678 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:20:59,678 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:20:59,678 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:21:07,187 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 12:21:07,213 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055c2ad0>
+2025-09-18 12:21:07,213 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x105585250> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 12:21:07,282 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1055c2bc0>
+2025-09-18 12:21:07,283 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-18 12:21:07,283 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:21:07,283 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-18 12:21:07,283 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:21:07,283 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-18 12:21:08,450 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Age', b'0'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'81'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 04:21:08 GMT'), (b'Etag', b'W/"51-Pp03cKyMKceLrNwO0n1BUYDPrYc"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::58dkh-1758169267329-65df40d8c8e7')])
+2025-09-18 12:21:08,451 - httpx - INFO - HTTP Request: GET https://xrextgbot.vercel.app/api/state?session=SMFNVXQ0Y08YEIQ6O18EKCFU "HTTP/1.1 200 OK"
+2025-09-18 12:21:08,451 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-18 12:21:08,451 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:21:08,451 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:21:08,451 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:21:08,451 - httpcore.connection - DEBUG - close.started
+2025-09-18 12:21:08,452 - httpcore.connection - DEBUG - close.complete
+2025-09-18 12:21:09,948 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:21:09 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:21:09,949 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:21:09,949 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:21:09,950 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:21:09,950 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:21:09,950 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:21:09,950 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:21:09,950 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:21:09,951 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:21:09,951 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:21:09,952 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:21:09,952 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:21:09,952 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:21:09,952 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 12:21:20,223 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 04:21:20 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 12:21:20,226 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 12:21:20,226 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 12:21:20,227 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 12:21:20,227 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 12:21:20,227 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 12:21:20,227 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 12:21:20,227 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 12:21:20,228 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304575, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 12:21:20,228 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 12:21:20,229 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 12:21:20,229 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 12:21:20,229 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 12:21:20,229 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>

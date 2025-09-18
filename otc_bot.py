@@ -161,7 +161,7 @@ async def poll_remote_and_sync(session_id: str = None):
                         target_user_id = record.get('actor_tg_user_id')
                         target_chat_id = record.get('actor_chat_id')
                         # Start/extend a 5-minute polling window when stage enters 3
-                        if stage == 3:
+                        if stage >= 3:
                             poll_until_ts = int(time.time()) + 5*60
                         if stage <= 2:
                             set_sync_state(stage=stage or 1, twofa_verified=False, linking_code=None)
@@ -215,11 +215,11 @@ async def poll_remote_and_sync(session_id: str = None):
         try:
             now_ts = int(time.time())
             if poll_until_ts and now_ts < poll_until_ts:
-                delay = 15.0  # active window
+                delay = 5.0   # active window faster
             else:
-                delay = 30.0  # idle
+                delay = 15.0  # idle
         except Exception:
-            delay = 30.0
+            delay = 15.0
         await asyncio.sleep(delay)
 
 def generate_verification_code():
