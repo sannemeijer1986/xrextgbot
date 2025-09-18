@@ -98,12 +98,15 @@
     var p = getProgress();
     // Do not generate client-side codes; codes come from the bot via server
     if (s <= 3) { try { p.code = null; } catch(_) {} }
-    // Start a 5-minute window when entering state 3
-    if ((p.state|0) !== 3 && s === 3) {
+    // Start a 5-minute window when entering state 3 or 4 from any other state
+    var prev = (p.state|0);
+    var enteringWindow = (prev !== 3 && prev !== 4) && (s === 3 || s === 4);
+    if (enteringWindow) {
       try { p.expiresAtMs = Date.now() + (5 * 60 * 1000); } catch(_) {}
     }
-    // Clear the window after leaving state 3
-    if ((p.state|0) === 3 && s !== 3) {
+    // Clear the window after leaving states 3/4 to any other state
+    var leavingWindow = (prev === 3 || prev === 4) && (s !== 3 && s !== 4);
+    if (leavingWindow) {
       try { delete p.expiresAtMs; } catch(_) {}
     }
     return saveProgress({ state: s, code: p.code || null, expiresAtMs: p.expiresAtMs || null });
@@ -1160,7 +1163,9 @@
           if (document.hidden) return;
           var pNow = getProgress();
           if (!isLeader) return;
-          if ((pNow.state|0) !== 3) return;
+          var sNow = (pNow.state|0);
+          // Only handle expiry in states 3 and 4
+          if (!(sNow === 3 || sNow === 4)) return;
           // Honor 5-minute window
           var now = Date.now();
           var exp = Number(pNow.expiresAtMs||0);
@@ -1170,33 +1175,36 @@
             try { setState(2); refreshStateUI(); } catch(_){ }
             return;
           }
-          var fetchOpts = { method: 'GET', cache: 'no-store' };
-          fetch(SYNC_URL, fetchOpts)
-            .then(function(r){ return r.json(); })
-            .then(function(data){
-              try {
-                if (!data || typeof data !== 'object') return;
-                if ((data.updated_at|0) <= (lastSeenTs|0)) return;
-                lastSeenTs = (data.updated_at|0);
-                var p = getProgress();
-                // Only auto-advance when the UI is explicitly waiting for verification (state 3)
-                if (data.twofa_verified && (p.state|0) === 3) {
-                  var code = (data.linking_code || '').toString().trim();
-                  saveProgress({ state: 4, code: code || null });
-                  refreshStateUI();
-                  try {
-                    var input = document.getElementById('vcCodeInput');
-                    var btn = document.getElementById('vcSubmitBtn');
-                    var err = document.getElementById('vcError');
-                    if (err) err.hidden = true;
-                    if (input) { input.value = ''; input.focus(); if (input.select) input.select(); }
-                    if (btn) btn.disabled = true;
-                  } catch(_){ }
-                  try { if (typeof showSnackbar === 'function') showSnackbar('2FA verified on Telegram. Enter the linking code to continue.'); } catch(_) {}
-                }
-              } catch(_){ }
-            })
-            .catch(function(){ /* ignore offline errors */ });
+          // Only poll the server while in state 3 (waiting for 2FA verification)
+          if (sNow === 3) {
+            var fetchOpts = { method: 'GET', cache: 'no-store' };
+            fetch(SYNC_URL, fetchOpts)
+              .then(function(r){ return r.json(); })
+              .then(function(data){
+                try {
+                  if (!data || typeof data !== 'object') return;
+                  if ((data.updated_at|0) <= (lastSeenTs|0)) return;
+                  lastSeenTs = (data.updated_at|0);
+                  var p = getProgress();
+                  // Only auto-advance when the UI is explicitly waiting for verification (state 3)
+                  if (data.twofa_verified && (p.state|0) === 3) {
+                    var code = (data.linking_code || '').toString().trim();
+                    saveProgress({ state: 4, code: code || null });
+                    refreshStateUI();
+                    try {
+                      var input = document.getElementById('vcCodeInput');
+                      var btn = document.getElementById('vcSubmitBtn');
+                      var err = document.getElementById('vcError');
+                      if (err) err.hidden = true;
+                      if (input) { input.value = ''; input.focus(); if (input.select) input.select(); }
+                      if (btn) btn.disabled = true;
+                    } catch(_){ }
+                    try { if (typeof showSnackbar === 'function') showSnackbar('2FA verified on Telegram. Enter the linking code to continue.'); } catch(_) {}
+                  }
+                } catch(_){ }
+              })
+              .catch(function(){ /* ignore offline errors */ });
+          }
         } catch(_) {}
       }
       timer = setInterval(poll, POLL_MS);

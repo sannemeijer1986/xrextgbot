@@ -215,11 +215,14 @@ async def poll_remote_and_sync(session_id: str = None):
         try:
             now_ts = int(time.time())
             if poll_until_ts and now_ts < poll_until_ts:
-                delay = 5.0   # active window faster
+                base_delay = 1.5   # active window ~10x faster
             else:
-                delay = 15.0  # idle
+                base_delay = 4.5   # idle but still reasonably quick
+            # add tiny jitter to avoid sync
+            jitter = 0.3
+            delay = max(0.5, base_delay + (random.random() - 0.5) * jitter)
         except Exception:
-            delay = 15.0
+            delay = 4.5
         await asyncio.sleep(delay)
 
 def generate_verification_code():
