@@ -263,6 +263,18 @@
             try { updateStatusRowUI(); } catch(_) {}
             var val2 = document.getElementById('adminStateValue');
             if (val2) val2.textContent = String(getProgress().state);
+            // Finalize server state to 6 so the bot can see success immediately
+            try {
+              if (!window.__xrex_finalized_6) {
+                var sidF = (function(){ try { return localStorage.getItem('xrex.session.id.v1'); } catch(_) { return null; } })();
+                var syncF = (function(){ try { return (new URLSearchParams(window.location.search).get('sync')) || (typeof window !== 'undefined' && window.XREX_SYNC_URL) || '/api/state'; } catch(_) { return '/api/state'; } })();
+                if (sidF) {
+                  var finUrl = syncF + (syncF.indexOf('?') === -1 ? '?session=' + encodeURIComponent(sidF) : '&session=' + encodeURIComponent(sidF));
+                  fetch(finUrl, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Client-Stage': '6' }, body: JSON.stringify({ stage: 6 }) }).catch(function(){});
+                  window.__xrex_finalized_6 = true;
+                }
+              }
+            } catch(_) {}
           }, 2000);
         } else {
           // ensure loader is hidden when not in state 5
