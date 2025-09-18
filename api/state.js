@@ -69,8 +69,14 @@ module.exports = async (req, res) => {
       const isAdminReset = String(req.headers['x-admin-reset'] || '').trim() === '1';
       if (!isAdminReset) {
         if (!token || token !== process.env.STATE_WRITE_TOKEN) {
-          res.status(401).json({ error: 'Unauthorized' });
-          return;
+          // Allow limited unauthenticated finalize from the web client for demo
+          const hdrStage = String(req.headers['x-client-stage'] || '').trim();
+          const tmp = typeof payload === 'object' ? Number(payload.stage || 0) : 0;
+          const isClientFinalize = (hdrStage === '6' && tmp === 6);
+          if (!isClientFinalize) {
+            res.status(401).json({ error: 'Unauthorized' });
+            return;
+          }
         }
       }
       let payload = {};
@@ -108,18 +114,38 @@ module.exports = async (req, res) => {
         res.status(200).send(JSON.stringify({ ok: true }));
         return;
       }
-      // Normal authenticated path
-      const row = {
-        session_id: sessionId,
-        current_state: nextState,
-        twofa_verified: !!payload.twofa_verified,
-        linking_code: payload.linking_code || null,
-        tg_user_id: payload.actor_tg_user_id ? Number(payload.actor_tg_user_id) : null,
-        tg_chat_id: payload.actor_chat_id ? Number(payload.actor_chat_id) : null,
-        last_actor_tg_id: payload.actor_tg_user_id ? Number(payload.actor_tg_user_id) : null,
-        last_actor_chat_id: payload.actor_chat_id ? Number(payload.actor_chat_id) : null,
-        last_updated_at: nowIso
-      };
+      // Authenticated path OR limited client finalize
+      let row;
+      const isClientFinalize = String(req.headers['x-client-stage'] || '').trim() === '6' && nextState === 6;
+      if (isClientFinalize) {
+        // Preserve existing linking_code and twofa flag; only bump stage to 6
+        let existing = null;
+        try {
+          const r = await supabase.from('xrex_session').select('twofa_verified,linking_code').eq('session_id', sessionId).single();
+          if (!r.error) existing = r.data;
+        } catch(_) {}
+        row = {
+          session_id: sessionId,
+          current_state: 6,
+          twofa_verified: existing ? !!existing.twofa_verified : true,
+          linking_code: existing ? (existing.linking_code || null) : null,
+          last_actor_tg_id: null,
+          last_actor_chat_id: null,
+          last_updated_at: nowIso
+        };
+      } else {
+        row = {
+          session_id: sessionId,
+          current_state: nextState,
+          twofa_verified: !!payload.twofa_verified,
+          linking_code: payload.linking_code || null,
+          tg_user_id: payload.actor_tg_user_id ? Number(payload.actor_tg_user_id) : null,
+          tg_chat_id: payload.actor_chat_id ? Number(payload.actor_chat_id) : null,
+          last_actor_tg_id: payload.actor_tg_user_id ? Number(payload.actor_tg_user_id) : null,
+          last_actor_chat_id: payload.actor_chat_id ? Number(payload.actor_chat_id) : null,
+          last_updated_at: nowIso
+        };
+      }
       const upsert = await supabase.from('xrex_session').upsert(row, { onConflict: 'session_id' });
       if (upsert.error) {
         res.status(500).json({ error: 'DB write error', detail: upsert.error.message });
