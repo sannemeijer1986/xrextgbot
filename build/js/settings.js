@@ -430,6 +430,17 @@
         linkEl.setAttribute('aria-label', 'Open Telegram link ' + url);
         if (textSpan) textSpan.textContent = url;
       }
+      // Generate QR from the same dynamic link (simple Google Chart API fallback)
+      try {
+        var qrEl = document.getElementById('ibQr');
+        if (qrEl) {
+          var enc = encodeURIComponent(url);
+          var qrUrl = 'https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=' + enc + '&chld=L|0';
+          qrEl.src = qrUrl;
+          qrEl.setAttribute('aria-label', 'QR to open ' + url);
+        }
+      } catch(_) {}
+
       function copyLink(){
         try {
           if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url);
@@ -1049,7 +1060,7 @@
   // Poll local bot sync endpoint (prototype) to auto-advance to state 4 when 2FA verified
   (function initBotSyncPolling(){
     try {
-      var POLL_MS = 15000; // throttle to 15s
+      var POLL_MS = 1500; // faster polling (was 15000ms)
       var timer = null;
       var lastSeenTs = 0;
       // Leader election so only one tab/window polls
