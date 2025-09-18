@@ -58,6 +58,7 @@ def set_sync_state(stage: int = None, twofa_verified: bool = None, linking_code:
 # Global bot reference for background tasks
 bot_for_notifications = None
 session_poll_tasks = {}
+session_subscriptions = {}
 
 async def push_state(stage: int = None, twofa_verified: bool = None, linking_code: str = None, actor_tg_user_id: int = None, actor_chat_id: int = None, session_id: str = None):
     """Push state to Redis-backed API (Vercel)."""
@@ -96,6 +97,17 @@ async def push_state(stage: int = None, twofa_verified: bool = None, linking_cod
                             global session_poll_tasks
                             if session_id not in session_poll_tasks or session_poll_tasks[session_id].done():
                                 session_poll_tasks[session_id] = asyncio.create_task(poll_remote_and_sync(session_id=session_id))
+                            # Track actor for this session for targeted notifications
+                            try:
+                                global session_subscriptions
+                                if actor_tg_user_id is not None and actor_chat_id is not None:
+                                    info = session_subscriptions.get(session_id, {})
+                                    info['user_id'] = int(actor_tg_user_id)
+                                    info['chat_id'] = int(actor_chat_id)
+                                    info['expiry_notified'] = False
+                                    session_subscriptions[session_id] = info
+                            except Exception:
+                                pass
                     except Exception:
                         pass
                     return True
@@ -145,6 +157,7 @@ async def poll_remote_and_sync(session_id: str = None):
     url_latest = (base.rstrip('/') + "/api/state") + (f"?session={session_id}" if session_id else "")
     last_seen = 0
     poll_until_ts = 0
+    prev_stage = None
     while True:
         try:
             async with httpx.AsyncClient(timeout=10.0) as client:
@@ -167,6 +180,53 @@ async def poll_remote_and_sync(session_id: str = None):
                             set_sync_state(stage=stage or 1, twofa_verified=False, linking_code=None)
                         else:
                             set_sync_state(stage=stage, twofa_verified=twofa, linking_code=code)
+                        # Detect session expiry transition (>=3 -> <=2)
+                        try:
+                            if prev_stage is not None and prev_stage >= 3 and stage <= 2:
+                                # Target actor from session_subscriptions first
+                                notif_user_id = None
+                                notif_chat_id = None
+                                try:
+                                    if session_id:
+                                        info = session_subscriptions.get(session_id, {})
+                                        if info and not info.get('expiry_notified'):
+                                            notif_user_id = info.get('user_id')
+                                            notif_chat_id = info.get('chat_id')
+                                except Exception:
+                                    pass
+                                # Fallback: find user by stored session_id
+                                if notif_user_id is None or notif_chat_id is None:
+                                    try:
+                                        for uid, st in list(user_state.items()):
+                                            if st.get('session_id') == session_id:
+                                                notif_user_id = int(uid)
+                                                notif_chat_id = st.get('chat_id')
+                                                break
+                                    except Exception:
+                                        pass
+                                if notif_user_id is not None and notif_chat_id is not None:
+                                    try:
+                                        # Reset bot-side flow so 2FA inputs are ignored
+                                        st = user_state.get(notif_user_id, {})
+                                        st['awaiting_2fa'] = False
+                                        user_state[notif_user_id] = st
+                                        if bot_for_notifications:
+                                            await bot_for_notifications.send_message(
+                                                chat_id=int(notif_chat_id),
+                                                text=(
+                                                    "⏰ Session expired. Please reopen XREX Pay and start a new linking session "
+                                                    "from the app to continue."
+                                                )
+                                            )
+                                        if session_id:
+                                            info = session_subscriptions.get(session_id, {})
+                                            info['expiry_notified'] = True
+                                            session_subscriptions[session_id] = info
+                                    except Exception:
+                                        pass
+                        except Exception:
+                            pass
+                        prev_stage = stage
                         # If stage 6 reached, send success message and unpin for active users
                         if stage >= 6:
                             try:
