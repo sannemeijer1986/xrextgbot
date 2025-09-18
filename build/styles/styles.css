@@ -270,6 +270,15 @@
   place-items: center;
 }
 
+/* Small prompt modal (require 2FA) */
+.modal.modal-small .modal-wrapper { align-items: center; justify-content: center; }
+.modal.modal-small .modal-content { padding: 20px; }
+.modal.modal-small .modal-body.m-require { padding: 8px 8px 0; }
+.modal.modal-small .modal-body .m-title { font-weight: 700; font-size: 18px; margin-bottom: 6px; }
+.modal.modal-small .modal-body .m-copy { color: #6B7280; font-size: 14px; line-height: 1.5; }
+.modal.modal-small .modal-footer { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 8px 0; }
+.modal.modal-small .btn.btn-sm { padding: 6px 10px; font-size: 12px; }
+
 .loading-spinner {
   width: 140px;
   height: 140px;

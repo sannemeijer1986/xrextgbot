@@ -757,15 +757,46 @@
     } catch(_) {}
   }
 
+  // Lightweight small modal to prompt enabling 2FA (state 1 gate)
+  (function initRequire2faModal(){
+    try {
+      var modal = document.getElementById('require2faModal');
+      if (!modal) return;
+      var btnCancel = document.getElementById('require2faCancel');
+      var btnConfirm = document.getElementById('require2faConfirm');
+      function open(){
+        try {
+          modal.hidden = false; modal.setAttribute('aria-hidden','false');
+          document.body.classList.add('modal-locked');
+        } catch(_) {}
+      }
+      function close(){
+        try {
+          modal.setAttribute('aria-hidden','true'); modal.hidden = true;
+          document.body.classList.remove('modal-locked');
+        } catch(_) {}
+      }
+      modal.__open = open; modal.__close = close;
+      if (btnCancel) btnCancel.addEventListener('click', function(e){ e.preventDefault(); close(); });
+      if (btnConfirm) btnConfirm.addEventListener('click', function(e){ e.preventDefault(); close(); setTimeout(openTwoFaModal, 0); });
+      modal.addEventListener('click', function(e){ if (e.target === modal) close(); });
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !modal.hidden) close(); });
+    } catch(_) {}
+  })();
+
+  function openRequire2faModal(){
+    try { var m = document.getElementById('require2faModal'); if (m && m.__open) m.__open(); else openTwoFaModal(); } catch(_) { openTwoFaModal(); }
+  }
+
   function activate(tab) {
     var wantSetup = (tab === 'setup');
     try {
       var s = (getProgress().state|0);
       // Gate Setup when at state 1 or below
       if (wantSetup && s <= 1) {
-        // Keep Intro active instead and trigger 2FA modal
+        // Keep Intro active instead and trigger small prompt modal (then 2FA)
         tab = 'intro';
-        openTwoFaModal();
+        openRequire2faModal();
       }
     } catch(_) {}
     var isIntro = tab === 'intro';
@@ -865,26 +896,26 @@
   if (startLinkBtn) startLinkBtn.addEventListener('click', function (e) {
     try {
       var s0 = (getProgress().state|0);
-      if (s0 <= 1) { e && e.preventDefault && e.preventDefault(); openTwoFaModal(); return; }
+      if (s0 <= 1) { e && e.preventDefault && e.preventDefault(); openRequire2faModal(); return; }
       var u = new URL(window.location.href);
       u.searchParams.set('view','content');
       u.searchParams.set('page','telegram');
       u.searchParams.set('tab','setup');
       window.location.href = u.toString();
-    } catch(_) { var ok2 = activate('setup'); if (!ok2) openTwoFaModal(); }
+    } catch(_) { var ok2 = activate('setup'); if (!ok2) openRequire2faModal(); }
   });
   // CTA button in intro content should also switch to Setup
   document.querySelectorAll('.js-start-link').forEach(function(btn){
     btn.addEventListener('click', function(e){ 
       try {
         var s1 = (getProgress().state|0);
-        if (s1 <= 1) { e && e.preventDefault && e.preventDefault(); openTwoFaModal(); return; }
+        if (s1 <= 1) { e && e.preventDefault && e.preventDefault(); openRequire2faModal(); return; }
         var u2 = new URL(window.location.href);
         u2.searchParams.set('view','content');
         u2.searchParams.set('page','telegram');
         u2.searchParams.set('tab','setup');
         window.location.href = u2.toString();
-      } catch(_) { var ok3 = activate('setup'); if (!ok3) openTwoFaModal(); }
+      } catch(_) { var ok3 = activate('setup'); if (!ok3) openRequire2faModal(); }
     });
   });
 
