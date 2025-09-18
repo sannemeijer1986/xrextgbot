@@ -272,10 +272,10 @@
 
 /* Small prompt modal (require 2FA) */
 .modal.modal-small .modal-wrapper { align-items: center; justify-content: center; }
-.modal.modal-small .modal-content { padding: 20px; }
+.modal.modal-small .modal-content { padding: 32px; }
 .modal.modal-small .modal-body.m-require { padding: 8px 8px 0; }
-.modal.modal-small .modal-body .m-title { font-weight: 700; font-size: 18px; margin-bottom: 6px; }
-.modal.modal-small .modal-body .m-copy { color: #6B7280; font-size: 14px; line-height: 1.5; }
+.modal.modal-small .modal-body .m-title { font-weight: 700; font-size: 20px; margin-bottom: 8px; font-family: "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; width: 100%; }
+.modal.modal-small .modal-body .m-paragraph { color: #6B7280; font-size: 16px; line-height: 1.5; font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; width: 100%; }
 .modal.modal-small .modal-footer { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 8px 0; }
 .modal.modal-small .btn.btn-sm { padding: 6px 10px; font-size: 12px; }
 
@@ -367,6 +367,29 @@ body.modal-locked {
     margin: 0;
     border-bottom: 1px solid #EEEEEE;
   }
+  /* Center big-modal titles and move the X to the left on mobile */
+  .modal:not(.modal-small) .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .modal:not(.modal-small) .modal-header h2 {
+    margin: 0 auto;
+    text-align: center;
+  }
+  .modal:not(.modal-small) .modal-header .modal-close {
+    order: -1;
+    margin-right: auto;
+  }
+  /* Right-side spacer to perfectly center the title */
+  .modal:not(.modal-small) .modal-header::after {
+    content: "";
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin-left: auto;
+  }
   .modal-body {
     padding: 20px;
   }
@@ -393,6 +416,27 @@ body.modal-locked {
     display: grid;
     place-items: center;
   }
+  /* Small modal RWD behavior */
+  .modal.modal-small .modal-content { height: 100%; padding: 0; }
+  .modal.modal-small .require2fa-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; margin: 0; border-bottom: 1px solid #EEEEEE; }
+  .modal.modal-small .require2fa-header[hidden] { display: none; }
+  .modal.modal-small .modal-body.m-require { padding: 20px; }
+  .modal.modal-small .modal-footer { margin-top: auto; padding: 12px 20px 20px; flex-direction: column; gap: 10px; }
+  .modal.modal-small .modal-footer .btn { width: 100%; max-width: none; min-width: 0; }
+  /* Use medium size buttons to match large modal scale */
+  .modal.modal-small .modal-footer .btn { height: 40px; font-size: 14px; border-radius: 8px; }
+  .modal.modal-small #require2faConfirm { order: 0; }
+  .modal.modal-small #require2faCancel { order: 1; }
+}
+
+@media (min-width: 721px) {
+  /* Desktop/tablet: cap width and mirror big-modal spacing */
+  .modal.modal-small .modal-wrapper { max-width: 480px; }
+  .modal.modal-small .require2fa-header { display: flex; align-items: center; justify-content: space-between; padding: 0; margin: 0 0 32px 0; border: none; }
+  .modal.modal-small .require2fa-header h2 { margin: 0; font: 800 20px "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .modal.modal-small .require2fa-header .modal-close { opacity: 0; pointer-events: none; }
+  .modal.modal-small .modal-body.m-require { padding: 0; }
+  .modal.modal-small .modal-footer { padding: 16px 0 0; }
 }
 @media (max-width: 720px) {
   .m-field-with-qr {

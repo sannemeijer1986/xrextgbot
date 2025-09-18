@@ -749,11 +749,21 @@
   }
 
   // Helper to open 2FA modal via the existing button wiring
-  function openTwoFaModal(){
+  function openTwoFaModal(scrollToTop){
     try {
       var openBtn = document.getElementById('btnEnable2FA');
       if (openBtn) openBtn.click();
       else if (typeof showSnackbar === 'function') showSnackbar('Two-factor authentication is required');
+      // After opening, ensure the 2FA modal content is scrolled to the top with no animation
+      setTimeout(function(){
+        try {
+          var big = document.getElementById('modal');
+          if (big) {
+            var content = big.querySelector('.modal-content');
+            if (content) { content.scrollTop = 0; }
+          }
+        } catch(_) {}
+      }, 0);
     } catch(_) {}
   }
 
@@ -764,21 +774,46 @@
       if (!modal) return;
       var btnCancel = document.getElementById('require2faCancel');
       var btnConfirm = document.getElementById('require2faConfirm');
+      var btnClose = document.getElementById('require2faClose');
       function open(){
         try {
           modal.hidden = false; modal.setAttribute('aria-hidden','false');
-          document.body.classList.add('modal-locked');
+          // Lock scroll (mirror big modal behavior)
+          try {
+            var y = window.scrollY || window.pageYOffset || 0;
+            document.body.dataset.scrollY = String(y);
+            document.body.style.top = '-' + y + 'px';
+            document.body.classList.add('modal-locked');
+          } catch(_) {}
+          // Ensure header is visible for all sizes; CSS controls X visibility per breakpoint
+          try { var hdr = modal.querySelector('.require2fa-header'); if (hdr) { hdr.hidden = false; hdr.setAttribute('aria-hidden','false'); } } catch(_) {}
         } catch(_) {}
       }
       function close(){
         try {
           modal.setAttribute('aria-hidden','true'); modal.hidden = true;
-          document.body.classList.remove('modal-locked');
+          // Only unlock scroll if no other modal remains open
+          try {
+            var anotherOpen = document.querySelector('.modal[aria-hidden="false"]');
+            if (!anotherOpen) {
+              var y = parseInt(document.body.dataset.scrollY || '0', 10) || 0;
+              document.body.classList.remove('modal-locked');
+              document.body.style.top = '';
+              delete document.body.dataset.scrollY;
+              window.scrollTo(0, y);
+            }
+          } catch(_) {}
         } catch(_) {}
       }
       modal.__open = open; modal.__close = close;
       if (btnCancel) btnCancel.addEventListener('click', function(e){ e.preventDefault(); close(); });
-      if (btnConfirm) btnConfirm.addEventListener('click', function(e){ e.preventDefault(); close(); setTimeout(openTwoFaModal, 0); });
+      if (btnConfirm) btnConfirm.addEventListener('click', function(e){
+        e.preventDefault();
+        // Open the 2FA modal first to keep the backdrop visible, then close the small modal
+        openTwoFaModal(true);
+        setTimeout(close, 0);
+      });
+      if (btnClose) btnClose.addEventListener('click', function(e){ e.preventDefault(); close(); });
       modal.addEventListener('click', function(e){ if (e.target === modal) close(); });
       document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !modal.hidden) close(); });
     } catch(_) {}
