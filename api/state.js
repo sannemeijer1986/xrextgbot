@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
   }
 
   try {
-    // Derive session id: support optional per-session isolation
+    // Derive session id: support optional per-session isolation s
     let session = '';
     try {
       const q = (req.query && (req.query.session || req.query.s)) || '';
@@ -106,5 +106,3 @@ module.exports = async (req, res) => {
     res.status(500).json({ error: 'Server error', detail: (e && e.message) ? e.message : String(e) });
   }
 };
-
-
