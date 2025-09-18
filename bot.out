@@ -7897,3 +7897,941 @@ telegram.error.NetworkError: httpx.ReadError:
 2025-09-18 11:03:43,766 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
 2025-09-18 11:03:43,767 - httpcore.http11 - DEBUG - send_request_body.complete
 2025-09-18 11:03:43,767 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:03:54,034 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:03:53 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:03:54,037 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:03:54,037 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:03:54,038 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:03:54,038 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:03:54,038 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:03:54,038 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:03:54,038 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:03:54,038 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304546, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:03:54,039 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:03:54,039 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:03:54,039 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:03:54,040 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:03:54,040 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:04:04,306 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:04:04 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:04:04,306 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:04:04,306 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:04:04,306 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:04:04,306 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:04:04,306 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:04:04,307 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:04:04,307 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:04:04,307 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304546, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:04:04,307 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:04:04,308 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:04:04,308 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:04:04,308 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:04:04,308 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:04:14,693 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:04:14 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:04:14,695 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:04:14,695 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:04:14,695 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:04:14,696 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:04:14,696 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:04:14,696 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:04:14,697 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:04:14,697 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304546, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:04:14,698 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:04:14,698 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:04:14,698 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:04:14,698 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:04:14,699 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:04:24,969 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:04:24 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:04:24,970 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:04:24,970 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:04:24,970 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:04:24,970 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:04:24,970 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:04:24,970 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:04:24,970 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:04:24,971 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304546, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:04:24,971 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:04:24,972 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:04:24,972 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:04:24,972 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:04:24,972 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:04:35,237 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:04:35 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:04:35,237 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:04:35,237 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:04:35,238 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:04:35,238 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:04:35,238 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:04:35,238 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:04:35,238 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:04:35,238 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304546, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:04:35,239 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:04:35,239 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:04:35,240 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:04:35,240 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:04:35,240 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:04:45,508 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:04:45 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:04:45,510 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:04:45,511 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:04:45,511 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:04:45,511 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:04:45,511 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:04:45,511 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:04:45,512 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:04:45,512 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304546, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:04:45,513 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:04:45,513 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:04:45,513 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:04:45,514 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:04:45,514 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:04:55,784 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:04:55 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:04:55,787 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:04:55,787 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:04:55,787 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:04:55,787 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:04:55,788 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:04:55,788 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:04:55,788 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:04:55,788 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304546, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:04:55,789 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:04:55,789 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:04:55,789 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:04:55,790 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:04:55,790 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:06,057 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:05:05 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:05:06,058 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:05:06,058 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:05:06,062 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:05:06,063 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:05:06,063 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:05:06,064 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:05:06,064 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:05:06,064 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304546, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:05:06,065 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:06,066 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:05:06,066 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:05:06,067 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:05:06,067 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:16,391 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:05:16 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:05:16,392 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:05:16,392 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:05:16,393 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:05:16,393 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:05:16,393 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:05:16,393 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:05:16,393 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:05:16,393 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304546, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:05:16,394 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:16,394 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:05:16,394 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:05:16,394 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:05:16,394 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:26,658 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:05:26 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'close'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:05:26,659 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:05:26,659 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:05:26,660 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:05:26,660 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:05:26,661 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:05:26,662 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:05:26,662 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:05:26,662 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304546, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:05:26,663 - httpcore.connection - DEBUG - connect_tcp.started host='api.telegram.org' port=443 local_address=None timeout=5.0 socket_options=None
+2025-09-18 11:05:26,954 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x104ea51d0>
+2025-09-18 11:05:26,955 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x10496a330> server_hostname='api.telegram.org' timeout=5.0
+2025-09-18 11:05:27,235 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x104ea4be0>
+2025-09-18 11:05:27,236 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:27,236 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:05:27,236 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:05:27,236 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:05:27,236 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:29,879 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:05:29 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'370'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:05:29,879 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:05:29,879 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:05:29,879 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:05:29,879 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:05:29,879 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:05:29,879 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[{'update_id': 808304546, 'message': {'message_id': 580, 'from': {'id': 736135332, 'is_bot': False, 'first_name': 'Sanne', 'username': 'sannemeijer', 'language_code': 'en'}, 'chat': {'id': 736135332, 'first_name': 'Sanne', 'username': 'sannemeijer', 'type': 'private'}, 'date': 1758164729, 'text': '/start BOTC1583', 'entities': [{'offset': 0, 'length': 6, 'type': 'bot_command'}]}}]`
+2025-09-18 11:05:29,879 - telegram.ext.ExtBot - DEBUG - Getting updates: [808304546]
+2025-09-18 11:05:29,885 - telegram.ext.Application - DEBUG - Processing update Update(message=Message(channel_chat_created=False, chat=Chat(first_name='Sanne', id=736135332, type=<ChatType.PRIVATE>, username='sannemeijer'), date=datetime.datetime(2025, 9, 18, 3, 5, 29, tzinfo=datetime.timezone.utc), delete_chat_photo=False, entities=(MessageEntity(length=6, offset=0, type=<MessageEntityType.BOT_COMMAND>),), from_user=User(first_name='Sanne', id=736135332, is_bot=False, language_code='en', username='sannemeijer'), group_chat_created=False, message_id=580, supergroup_chat_created=False, text='/start BOTC1583'), update_id=808304546)
+2025-09-18 11:05:29,888 - __main__ - DEBUG - Entering start for user 736135332
+2025-09-18 11:05:29,888 - __main__ - INFO - Deeplink accessed with verify token: BOTC1583 by user 736135332
+2025-09-18 11:05:29,889 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `sendMessage` with parameters `{'chat_id': 736135332, 'text': '✅️ Valid unique verification link detected from XREX Pay account "@AG***CH"\n\nPlease enter your XREX Pay 2FA to proceed with linking your Telegram account to XREX Pay.', 'reply_markup': InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='what_is_2fa', text='📋 What is 2FA'), InlineKeyboardButton(callback_data='more', text='...  More')),))}`
+2025-09-18 11:05:29,890 - httpcore.connection - DEBUG - close.started
+2025-09-18 11:05:29,890 - httpcore.connection - DEBUG - close.complete
+2025-09-18 11:05:29,891 - httpcore.connection - DEBUG - connect_tcp.started host='api.telegram.org' port=443 local_address=None timeout=5.0 socket_options=None
+2025-09-18 11:05:29,891 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304547, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:05:29,891 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:29,892 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:05:29,892 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:05:29,892 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:05:29,892 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:30,184 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x104a5a940>
+2025-09-18 11:05:30,185 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x10496a180> server_hostname='api.telegram.org' timeout=5.0
+2025-09-18 11:05:30,507 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x104ea6f80>
+2025-09-18 11:05:30,508 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:30,508 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:05:30,509 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:05:30,509 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:05:30,509 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:30,821 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:05:30 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'578'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:05:30,823 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/sendMessage "HTTP/1.1 200 OK"
+2025-09-18 11:05:30,824 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:05:30,825 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:05:30,825 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:05:30,825 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:05:30,825 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `sendMessage` finished with return value `{'message_id': 581, 'from': {'id': 8052956286, 'is_bot': True, 'first_name': 'SanneXREX_bot', 'username': 'SanneXREX_bot'}, 'chat': {'id': 736135332, 'first_name': 'Sanne', 'username': 'sannemeijer', 'type': 'private'}, 'date': 1758164730, 'text': '✅️ Valid unique verification link detected from XREX Pay account "@AG***CH"\n\nPlease enter your XREX Pay 2FA to proceed with linking your Telegram account to XREX Pay.', 'reply_markup': {'inline_keyboard': [[{'text': '📋 What is 2FA', 'callback_data': 'what_is_2fa'}, {'text': '...  More', 'callback_data': 'more'}]]}}`
+2025-09-18 11:05:30,912 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 11:05:30,948 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x104ea4a50>
+2025-09-18 11:05:30,948 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x104e887a0> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 11:05:31,025 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x104ea6d00>
+2025-09-18 11:05:31,026 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'PUT']>
+2025-09-18 11:05:31,026 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:05:31,026 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'PUT']>
+2025-09-18 11:05:31,026 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:05:31,026 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'PUT']>
+2025-09-18 11:05:33,163 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'11'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 03:05:33 GMT'), (b'Etag', b'W/"b-Ai2R8hgEarLmHKwesT1qcY913ys"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::hpc22-1758164731055-4727be28378e')])
+2025-09-18 11:05:33,163 - httpx - INFO - HTTP Request: PUT https://xrextgbot.vercel.app/api/state "HTTP/1.1 200 OK"
+2025-09-18 11:05:33,164 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'PUT']>
+2025-09-18 11:05:33,164 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:05:33,164 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:05:33,165 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:05:33,165 - __main__ - INFO - Pushed state to Vercel stage=3 twofa=False
+2025-09-18 11:05:33,165 - httpcore.connection - DEBUG - close.started
+2025-09-18 11:05:33,165 - httpcore.connection - DEBUG - close.complete
+2025-09-18 11:05:33,166 - __main__ - INFO - Sent and pinned BOTC linking prompt to user 736135332 for token BOTC1583
+2025-09-18 11:05:33,166 - __main__ - INFO - === DEBUG: Received update type: Message
+2025-09-18 11:05:33,166 - __main__ - INFO - === DEBUG: Message content_type: Unknown
+2025-09-18 11:05:33,166 - __main__ - INFO - === DEBUG: Message text: /start BOTC1583
+2025-09-18 11:05:33,166 - __main__ - INFO - === DEBUG: Has web_app_data: None
+2025-09-18 11:05:34,579 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:05:34 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'298'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:05:34,580 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:05:34,581 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:05:34,581 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:05:34,581 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:05:34,581 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:05:34,582 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[{'update_id': 808304547, 'message': {'message_id': 582, 'from': {'id': 736135332, 'is_bot': False, 'first_name': 'Sanne', 'username': 'sannemeijer', 'language_code': 'en'}, 'chat': {'id': 736135332, 'first_name': 'Sanne', 'username': 'sannemeijer', 'type': 'private'}, 'date': 1758164734, 'text': '1'}}]`
+2025-09-18 11:05:34,582 - telegram.ext.ExtBot - DEBUG - Getting updates: [808304547]
+2025-09-18 11:05:34,583 - telegram.ext.Application - DEBUG - Processing update Update(message=Message(channel_chat_created=False, chat=Chat(first_name='Sanne', id=736135332, type=<ChatType.PRIVATE>, username='sannemeijer'), date=datetime.datetime(2025, 9, 18, 3, 5, 34, tzinfo=datetime.timezone.utc), delete_chat_photo=False, from_user=User(first_name='Sanne', id=736135332, is_bot=False, language_code='en', username='sannemeijer'), group_chat_created=False, message_id=582, supergroup_chat_created=False, text='1'), update_id=808304547)
+2025-09-18 11:05:34,583 - __main__ - DEBUG - Received text from user 736135332: 1
+2025-09-18 11:05:34,583 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `sendMessage` with parameters `{'chat_id': 736135332, 'text': '✅️ 2FA verified! \n\nGenerating linking code... '}`
+2025-09-18 11:05:34,584 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:34,585 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:05:34,585 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:05:34,586 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:05:34,586 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:05:34,586 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:34,586 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:34,586 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:05:34,586 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:05:34,587 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:05:34,587 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:34,870 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:05:34 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'306'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:05:34,871 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/sendMessage "HTTP/1.1 200 OK"
+2025-09-18 11:05:34,871 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:05:34,871 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:05:34,871 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:05:34,871 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:05:34,871 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `sendMessage` finished with return value `{'message_id': 583, 'from': {'id': 8052956286, 'is_bot': True, 'first_name': 'SanneXREX_bot', 'username': 'SanneXREX_bot'}, 'chat': {'id': 736135332, 'first_name': 'Sanne', 'username': 'sannemeijer', 'type': 'private'}, 'date': 1758164734, 'text': '✅️ 2FA verified! \n\nGenerating linking code...'}`
+2025-09-18 11:05:35,874 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `sendMessage` with parameters `{'chat_id': 736135332, 'text': 'NDG341F'}`
+2025-09-18 11:05:35,876 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:35,878 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:05:35,878 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:05:35,878 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:05:35,879 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:36,232 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:05:36 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'256'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:05:36,233 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/sendMessage "HTTP/1.1 200 OK"
+2025-09-18 11:05:36,233 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:05:36,233 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:05:36,236 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:05:36,236 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:05:36,237 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `sendMessage` finished with return value `{'message_id': 584, 'from': {'id': 8052956286, 'is_bot': True, 'first_name': 'SanneXREX_bot', 'username': 'SanneXREX_bot'}, 'chat': {'id': 736135332, 'first_name': 'Sanne', 'username': 'sannemeijer', 'type': 'private'}, 'date': 1758164736, 'text': 'NDG341F'}`
+2025-09-18 11:05:36,238 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `sendMessage` with parameters `{'chat_id': 736135332, 'text': 'Please copy the linking code, go to XREX Pay, and enter it there. (Valid for 5 minutes)', 'reply_markup': InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(text='↗️ Go to XREX Pay', url='https://sannemeijer1986.github.io/xrextgbot/settings.html?view=content&page=telegram&tab=setup'), InlineKeyboardButton(callback_data='copy_code', text='📋 Copy code')), (InlineKeyboardButton(callback_data='more', text='...  More'),)))}`
+2025-09-18 11:05:36,239 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:36,239 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:05:36,239 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:05:36,239 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:05:36,239 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:36,665 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:05:36 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'625'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:05:36,666 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/sendMessage "HTTP/1.1 200 OK"
+2025-09-18 11:05:36,666 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:05:36,666 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:05:36,666 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:05:36,666 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:05:36,666 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `sendMessage` finished with return value `{'message_id': 585, 'from': {'id': 8052956286, 'is_bot': True, 'first_name': 'SanneXREX_bot', 'username': 'SanneXREX_bot'}, 'chat': {'id': 736135332, 'first_name': 'Sanne', 'username': 'sannemeijer', 'type': 'private'}, 'date': 1758164736, 'text': 'Please copy the linking code, go to XREX Pay, and enter it there. (Valid for 5 minutes)', 'reply_markup': {'inline_keyboard': [[{'text': '↗️ Go to XREX Pay', 'url': 'https://sannemeijer1986.github.io/xrextgbot/settings.html?view=content&page=telegram&tab=setup'}, {'text': '📋 Copy code', 'callback_data': 'copy_code'}], [{'text': '...  More', 'callback_data': 'more'}]]}}`
+2025-09-18 11:05:36,700 - httpcore.connection - DEBUG - connect_tcp.started host='xrextgbot.vercel.app' port=443 local_address=None timeout=10.0 socket_options=None
+2025-09-18 11:05:36,714 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x104ea7980>
+2025-09-18 11:05:36,714 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x104e88440> server_hostname='xrextgbot.vercel.app' timeout=10.0
+2025-09-18 11:05:36,796 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x104ea7660>
+2025-09-18 11:05:36,796 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'PUT']>
+2025-09-18 11:05:36,796 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:05:36,796 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'PUT']>
+2025-09-18 11:05:36,796 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:05:36,796 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'PUT']>
+2025-09-18 11:05:38,172 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Access-Control-Allow-Headers', b'Content-Type, Authorization'), (b'Access-Control-Allow-Methods', b'GET, PUT, OPTIONS'), (b'Access-Control-Allow-Origin', b'*'), (b'Cache-Control', b'public, max-age=0, must-revalidate'), (b'Content-Length', b'11'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Thu, 18 Sep 2025 03:05:38 GMT'), (b'Etag', b'W/"b-Ai2R8hgEarLmHKwesT1qcY913ys"'), (b'Server', b'Vercel'), (b'Strict-Transport-Security', b'max-age=63072000; includeSubDomains; preload'), (b'X-Vercel-Cache', b'MISS'), (b'X-Vercel-Id', b'hkg1::iad1::g7ms7-1758164736822-ab6072962189')])
+2025-09-18 11:05:38,173 - httpx - INFO - HTTP Request: PUT https://xrextgbot.vercel.app/api/state "HTTP/1.1 200 OK"
+2025-09-18 11:05:38,173 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'PUT']>
+2025-09-18 11:05:38,173 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:05:38,174 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:05:38,174 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:05:38,174 - __main__ - INFO - Pushed state to Vercel stage=4 twofa=True
+2025-09-18 11:05:38,174 - httpcore.connection - DEBUG - close.started
+2025-09-18 11:05:38,175 - httpcore.connection - DEBUG - close.complete
+2025-09-18 11:05:38,176 - __main__ - INFO - === DEBUG: Received update type: Message
+2025-09-18 11:05:38,176 - __main__ - INFO - === DEBUG: Message content_type: Unknown
+2025-09-18 11:05:38,176 - __main__ - INFO - === DEBUG: Message text: 1
+2025-09-18 11:05:38,176 - __main__ - INFO - === DEBUG: Has web_app_data: None
+2025-09-18 11:05:44,879 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:05:44 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:05:44,880 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:05:44,881 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:05:44,881 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:05:44,881 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:05:44,882 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:05:44,882 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:05:44,883 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:05:44,883 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:05:44,885 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:44,885 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:05:44,885 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:05:44,885 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:05:44,886 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:55,153 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:05:55 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:05:55,153 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:05:55,153 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:05:55,154 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:05:55,154 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:05:55,154 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:05:55,154 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:05:55,154 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:05:55,154 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:05:55,155 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:05:55,155 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:05:55,155 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:05:55,155 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:05:55,155 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:06:05,517 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:06:05 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:06:05,519 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:06:05,519 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:06:05,519 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:06:05,519 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:06:05,519 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:06:05,520 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:06:05,520 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:06:05,520 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:06:05,520 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:06:05,521 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:06:05,521 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:06:05,521 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:06:05,521 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:06:15,783 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:06:15 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:06:15,785 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:06:15,785 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:06:15,785 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:06:15,785 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:06:15,785 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:06:15,786 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:06:15,786 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:06:15,786 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:06:15,786 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:06:15,787 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:06:15,787 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:06:15,787 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:06:15,787 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:06:26,051 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:06:25 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:06:26,055 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:06:26,055 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:06:26,055 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:06:26,055 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:06:26,055 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:06:26,056 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:06:26,056 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:06:26,056 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:06:26,057 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:06:26,058 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:06:26,058 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:06:26,058 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:06:26,058 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:06:36,317 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:06:36 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:06:36,319 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:06:36,320 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:06:36,320 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:06:36,320 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:06:36,320 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:06:36,321 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:06:36,321 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:06:36,322 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:06:36,322 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:06:36,323 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:06:36,323 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:06:36,323 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:06:36,323 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:06:46,587 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:06:46 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:06:46,590 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:06:46,590 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:06:46,590 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:06:46,590 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:06:46,590 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:06:46,591 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:06:46,591 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:06:46,591 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:06:46,592 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:06:46,592 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:06:46,592 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:06:46,592 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:06:46,592 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:06:56,867 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:06:56 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:06:56,867 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:06:56,867 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:06:56,867 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:06:56,867 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:06:56,867 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:06:56,867 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:06:56,867 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:06:56,868 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:06:56,868 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:06:56,868 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:06:56,868 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:06:56,868 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:06:56,868 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:07:07,154 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:07:07 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:07:07,156 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:07:07,156 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:07:07,156 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:07:07,156 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:07:07,156 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:07:07,157 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:07:07,157 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:07:07,157 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:07:07,158 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:07:07,158 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:07:07,158 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:07:07,158 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:07:07,158 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:07:17,427 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:07:17 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:07:17,428 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:07:17,428 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:07:17,428 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:07:17,428 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:07:17,428 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:07:17,428 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:07:17,428 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:07:17,429 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:07:17,429 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:07:17,429 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:07:17,429 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:07:17,430 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:07:17,430 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:07:27,693 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:07:27 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:07:27,694 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:07:27,694 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:07:27,695 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:07:27,695 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:07:27,695 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:07:27,695 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:07:27,695 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:07:27,695 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:07:27,696 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:07:27,696 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:07:27,696 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:07:27,697 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:07:27,697 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:07:37,973 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:07:37 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:07:37,974 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:07:37,974 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:07:37,974 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:07:37,974 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:07:37,974 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:07:37,975 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:07:37,975 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:07:37,975 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:07:37,975 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:07:37,976 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:07:37,976 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:07:37,976 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:07:37,976 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:07:48,237 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:07:48 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:07:48,239 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:07:48,240 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:07:48,240 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:07:48,240 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:07:48,240 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:07:48,241 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:07:48,241 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:07:48,241 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:07:48,242 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:07:48,243 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:07:48,243 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:07:48,243 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:07:48,243 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:07:58,502 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:07:58 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:07:58,503 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:07:58,503 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:07:58,504 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:07:58,504 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:07:58,504 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:07:58,504 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:07:58,504 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:07:58,504 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:07:58,505 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:07:58,506 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:07:58,506 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:07:58,506 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:07:58,506 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:08:08,770 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:08:08 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:08:08,773 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:08:08,773 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:08:08,773 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:08:08,773 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:08:08,774 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:08:08,774 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:08:08,774 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:08:08,774 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:08:08,775 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:08:08,775 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:08:08,775 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:08:08,776 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:08:08,776 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:08:19,038 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:08:18 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:08:19,040 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:08:19,040 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:08:19,040 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:08:19,040 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:08:19,041 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:08:19,041 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:08:19,041 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:08:19,041 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:08:19,042 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:08:19,042 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:08:19,042 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:08:19,043 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:08:19,043 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:08:29,333 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:08:29 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:08:29,335 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:08:29,335 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:08:29,335 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:08:29,336 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:08:29,336 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:08:29,336 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:08:29,336 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:08:29,337 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:08:29,338 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:08:29,338 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:08:29,338 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:08:29,338 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:08:29,339 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:08:39,715 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:08:39 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:08:39,716 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:08:39,716 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:08:39,716 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:08:39,717 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:08:39,717 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:08:39,717 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:08:39,717 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:08:39,717 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:08:39,718 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:08:39,719 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:08:39,719 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:08:39,719 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:08:39,719 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:08:49,997 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:08:49 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:08:49,998 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:08:49,998 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:08:49,998 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:08:49,998 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:08:49,998 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:08:49,999 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:08:49,999 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:08:49,999 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:08:49,999 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:08:49,999 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:08:49,999 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:08:49,999 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:08:49,999 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:09:00,357 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:09:00 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:09:00,357 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:09:00,357 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:09:00,357 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:09:00,357 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:09:00,357 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:09:00,358 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:09:00,358 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:09:00,358 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:09:00,358 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:09:00,359 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:09:00,359 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:09:00,359 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:09:00,359 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:09:10,628 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:09:10 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:09:10,630 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:09:10,631 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:09:10,631 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:09:10,632 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:09:10,632 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:09:10,633 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:09:10,633 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:09:10,634 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:09:10,635 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:09:10,636 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:09:10,636 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:09:10,636 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:09:10,636 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:09:20,894 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:09:20 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:09:20,894 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:09:20,894 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:09:20,894 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:09:20,894 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:09:20,894 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:09:20,895 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:09:20,895 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:09:20,895 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:09:20,895 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:09:20,895 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:09:20,895 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:09:20,895 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:09:20,895 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:09:31,214 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:09:31 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:09:31,215 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:09:31,215 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:09:31,215 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:09:31,215 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:09:31,215 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:09:31,216 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:09:31,216 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:09:31,217 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:09:31,218 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:09:31,218 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:09:31,218 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:09:31,218 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:09:31,218 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:09:41,481 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:09:41 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:09:41,482 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:09:41,482 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:09:41,483 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:09:41,483 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:09:41,483 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:09:41,484 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:09:41,484 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:09:41,484 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:09:41,485 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:09:41,485 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:09:41,485 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:09:41,486 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:09:41,486 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:09:51,749 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:09:51 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:09:51,751 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:09:51,751 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:09:51,751 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:09:51,751 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:09:51,751 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:09:51,751 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:09:51,752 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:09:51,752 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:09:51,752 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:09:51,753 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:09:51,753 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:09:51,753 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:09:51,753 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:10:02,014 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:10:01 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:10:02,015 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:10:02,015 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:10:02,015 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:10:02,015 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:10:02,015 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:10:02,015 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:10:02,015 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:10:02,016 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:10:02,016 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:10:02,016 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:10:02,016 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:10:02,017 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:10:02,017 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:10:12,291 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:10:12 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:10:12,292 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:10:12,293 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:10:12,293 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:10:12,293 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:10:12,293 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:10:12,293 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:10:12,293 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:10:12,293 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:10:12,294 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:10:12,294 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:10:12,294 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:10:12,295 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:10:12,295 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:10:22,555 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:10:22 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:10:22,555 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:10:22,555 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:10:22,555 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:10:22,556 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:10:22,556 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:10:22,556 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:10:22,556 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:10:22,556 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:10:22,557 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:10:22,557 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:10:22,557 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:10:22,557 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:10:22,557 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:10:32,819 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:10:32 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:10:32,819 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:10:32,819 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:10:32,819 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:10:32,819 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:10:32,820 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:10:32,820 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:10:32,820 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:10:32,820 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:10:32,821 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:10:32,821 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:10:32,821 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:10:32,821 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:10:32,821 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:10:43,081 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:10:42 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:10:43,081 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:10:43,081 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:10:43,081 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:10:43,081 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:10:43,081 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:10:43,081 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:10:43,082 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:10:43,082 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:10:43,082 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:10:43,082 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:10:43,082 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:10:43,082 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:10:43,082 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:10:53,398 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:10:53 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:10:53,400 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:10:53,400 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:10:53,400 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:10:53,400 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:10:53,401 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:10:53,401 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:10:53,401 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:10:53,402 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:10:53,402 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:10:53,403 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:10:53,403 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:10:53,403 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:10:53,403 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:11:03,680 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:11:03 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:11:03,681 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:11:03,681 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:11:03,682 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:11:03,682 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:11:03,682 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:11:03,682 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:11:03,683 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:11:03,683 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:11:03,684 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:11:03,684 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:11:03,684 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:11:03,685 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:11:03,685 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:11:13,953 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:11:13 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:11:13,954 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:11:13,954 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:11:13,954 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:11:13,955 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:11:13,955 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:11:13,955 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:11:13,955 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:11:13,956 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:11:13,956 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:11:13,957 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:11:13,957 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:11:13,957 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:11:13,957 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:11:24,261 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:11:24 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:11:24,261 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:11:24,262 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:11:24,262 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:11:24,262 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:11:24,262 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:11:24,262 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:11:24,262 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:11:24,262 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:11:24,262 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:11:24,263 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:11:24,263 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:11:24,263 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:11:24,263 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:11:34,525 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:11:34 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:11:34,527 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:11:34,527 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:11:34,527 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:11:34,527 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:11:34,528 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:11:34,528 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:11:34,528 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:11:34,529 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:11:34,530 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:11:34,530 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:11:34,530 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:11:34,531 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:11:34,531 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:11:44,836 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:11:44 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:11:44,836 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:11:44,836 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:11:44,836 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:11:44,836 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:11:44,837 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:11:44,837 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:11:44,837 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:11:44,837 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:11:44,837 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:11:44,837 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:11:44,837 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:11:44,842 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:11:44,842 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:11:55,143 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:11:55 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:11:55,144 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:11:55,145 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:11:55,145 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:11:55,145 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:11:55,145 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:11:55,146 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:11:55,146 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:11:55,146 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:11:55,147 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:11:55,148 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:11:55,148 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:11:55,148 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:11:55,148 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:12:05,740 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:12:05 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:12:05,740 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:12:05,740 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:12:05,740 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:12:05,740 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:12:05,740 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:12:05,741 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:12:05,741 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:12:05,741 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:12:05,741 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:12:05,741 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:12:05,741 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:12:05,742 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:12:05,742 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:12:16,110 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:12:15 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:12:16,111 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:12:16,111 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:12:16,111 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:12:16,112 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:12:16,112 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:12:16,112 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:12:16,112 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:12:16,113 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:12:16,113 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:12:16,114 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:12:16,114 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:12:16,114 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:12:16,114 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:12:26,372 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:12:26 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:12:26,373 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:12:26,373 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:12:26,373 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:12:26,373 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:12:26,373 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:12:26,374 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:12:26,374 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:12:26,374 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:12:26,375 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:12:26,375 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:12:26,375 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:12:26,375 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:12:26,375 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:12:36,643 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:12:36 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:12:36,646 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:12:36,646 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:12:36,646 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:12:36,647 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:12:36,647 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:12:36,647 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:12:36,647 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:12:36,648 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:12:36,648 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:12:36,649 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:12:36,649 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:12:36,649 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:12:36,649 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:12:47,023 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:12:46 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:12:47,024 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:12:47,024 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:12:47,024 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:12:47,024 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:12:47,024 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:12:47,024 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:12:47,024 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:12:47,024 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:12:47,025 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:12:47,025 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:12:47,025 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:12:47,025 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:12:47,025 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:12:57,296 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:12:57 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:12:57,297 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:12:57,297 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:12:57,297 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:12:57,298 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:12:57,298 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:12:57,298 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:12:57,298 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:12:57,298 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:12:57,299 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:12:57,300 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:12:57,300 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:12:57,300 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:12:57,300 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:13:07,560 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:13:07 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:13:07,563 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:13:07,563 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:13:07,563 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:13:07,563 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:13:07,564 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:13:07,564 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:13:07,565 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:13:07,565 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:13:07,566 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:13:07,566 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:13:07,566 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:13:07,567 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:13:07,567 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:13:17,912 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:13:17 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:13:17,914 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:13:17,914 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:13:17,914 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:13:17,914 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:13:17,914 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:13:17,915 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:13:17,915 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:13:17,915 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:13:17,916 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:13:17,916 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:13:17,917 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:13:17,917 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:13:17,917 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:13:28,228 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:13:28 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:13:28,230 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:13:28,230 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:13:28,230 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:13:28,230 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:13:28,231 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:13:28,231 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:13:28,231 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:13:28,231 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:13:28,232 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:13:28,232 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:13:28,232 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:13:28,232 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:13:28,232 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-18 11:13:38,513 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.18.0'), (b'Date', b'Thu, 18 Sep 2025 03:13:38 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'23'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+2025-09-18 11:13:38,515 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY/getUpdates "HTTP/1.1 200 OK"
+2025-09-18 11:13:38,516 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-18 11:13:38,516 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-18 11:13:38,516 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-18 11:13:38,517 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-18 11:13:38,517 - telegram.ext.ExtBot - DEBUG - Call to Bot API endpoint `getUpdates` finished with return value `[]`
+2025-09-18 11:13:38,517 - telegram.ext.ExtBot - DEBUG - No new updates found.
+2025-09-18 11:13:38,518 - telegram.ext.ExtBot - DEBUG - Calling Bot API endpoint `getUpdates` with parameters `{'timeout': 10, 'offset': 808304548, 'allowed_updates': ['message', 'callback_query']}`
+2025-09-18 11:13:38,518 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-18 11:13:38,519 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-18 11:13:38,519 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-18 11:13:38,519 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-18 11:13:38,519 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
