@@ -28,8 +28,8 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Hardcode bot token for testing
-BOT_TOKEN = "8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY"
+# Bot token: prefer environment variable for deployment; fall back to test token
+BOT_TOKEN = (os.getenv("BOT_TOKEN", "").strip() or "8052956286:AAHDCvxEzQej-xvR0TUyLNwf0bzPlgcn3dY")
 
 # Using Redis-backed Vercel API for state
 
