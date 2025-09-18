@@ -192,7 +192,7 @@
         }
       });
 
-      // Update first step wording depending on state (1 vs 2)
+      // Update first step wording (always the same copy regardless of state)
       updateFirstStepText(p.state|0);
       // Toggle timeline layout: hide aside until state >= 6
       try {
@@ -401,20 +401,15 @@
       var descWrap = first.querySelector('.step-row.step-content .step-desc');
       var btn = first.querySelector('.step-row.step-content .step-actions .btn');
       if (!labelEl || !titleEl || !btn) return;
-      if (state >= 2) {
-        labelEl.textContent = 'XREX Pay';
-        titleEl.textContent = 'Start';
+      // Always show the same wording for step 1 regardless of state
+      labelEl.textContent = 'XREX Pay';
+      titleEl.textContent = 'Start';
+      if (descWrap) {
         descWrap.textContent = 'Generate unique QR code and link';
-        if (descWrap) { descWrap.style.display = ''; descWrap.removeAttribute('aria-hidden'); }
-        btn.textContent = 'Generate link';
-      } else {
-        // default for state 1 and others
-        labelEl.textContent = 'XREX Pay';
-        titleEl.textContent = 'Enable 2FA';
-        descWrap.textContent = 'Two-factor authentication is required';
-        if (descWrap) { descWrap.style.display = ''; descWrap.removeAttribute('aria-hidden'); }
-        btn.textContent = 'Enable 2FA';
+        descWrap.style.display = '';
+        descWrap.removeAttribute('aria-hidden');
       }
+      btn.textContent = 'Generate link';
     } catch(_) {}
   }
 
@@ -753,7 +748,26 @@
     } catch(_) {}
   }
 
+  // Helper to open 2FA modal via the existing button wiring
+  function openTwoFaModal(){
+    try {
+      var openBtn = document.getElementById('btnEnable2FA');
+      if (openBtn) openBtn.click();
+      else if (typeof showSnackbar === 'function') showSnackbar('Two-factor authentication is required');
+    } catch(_) {}
+  }
+
   function activate(tab) {
+    var wantSetup = (tab === 'setup');
+    try {
+      var s = (getProgress().state|0);
+      // Gate Setup when at state 1 or below
+      if (wantSetup && s <= 1) {
+        // Keep Intro active instead and trigger 2FA modal
+        tab = 'intro';
+        openTwoFaModal();
+      }
+    } catch(_) {}
     var isIntro = tab === 'intro';
     if (tabIntro && tabSetup) {
       tabIntro.classList.toggle('active', isIntro);
@@ -769,6 +783,8 @@
     try { saveProgress({ lastTab: isIntro ? 'intro' : 'setup' }); } catch(_) {}
     // Update top CTA visibility per state/tab
     try { updateTopCta(); } catch(_) {}
+    // Return whether Setup is actually active
+    return !isIntro;
   }
 
   if (tabIntro) tabIntro.addEventListener('click', function () { 
@@ -780,10 +796,10 @@
     } catch(_) {}
   });
   if (tabSetup) tabSetup.addEventListener('click', function () { 
-    activate('setup'); 
+    var ok = activate('setup'); 
     try {
       var url2 = new URL(window.location.href);
-      url2.searchParams.set('tab','setup');
+      url2.searchParams.set('tab', ok ? 'setup' : 'intro');
       window.history.replaceState({}, '', url2.toString());
     } catch(_) {}
   });
@@ -846,25 +862,29 @@
   });
 
   var startLinkBtn = document.getElementById('startLinkBtn');
-  if (startLinkBtn) startLinkBtn.addEventListener('click', function () {
+  if (startLinkBtn) startLinkBtn.addEventListener('click', function (e) {
     try {
+      var s0 = (getProgress().state|0);
+      if (s0 <= 1) { e && e.preventDefault && e.preventDefault(); openTwoFaModal(); return; }
       var u = new URL(window.location.href);
       u.searchParams.set('view','content');
       u.searchParams.set('page','telegram');
       u.searchParams.set('tab','setup');
       window.location.href = u.toString();
-    } catch(_) { activate('setup'); }
+    } catch(_) { var ok2 = activate('setup'); if (!ok2) openTwoFaModal(); }
   });
   // CTA button in intro content should also switch to Setup
   document.querySelectorAll('.js-start-link').forEach(function(btn){
-    btn.addEventListener('click', function(){ 
+    btn.addEventListener('click', function(e){ 
       try {
+        var s1 = (getProgress().state|0);
+        if (s1 <= 1) { e && e.preventDefault && e.preventDefault(); openTwoFaModal(); return; }
         var u2 = new URL(window.location.href);
         u2.searchParams.set('view','content');
         u2.searchParams.set('page','telegram');
         u2.searchParams.set('tab','setup');
         window.location.href = u2.toString();
-      } catch(_) { activate('setup'); }
+      } catch(_) { var ok3 = activate('setup'); if (!ok3) openTwoFaModal(); }
     });
   });
 
