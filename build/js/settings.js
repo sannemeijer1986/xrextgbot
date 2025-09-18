@@ -241,13 +241,15 @@
         var p = getProgress();
         var lm = document.getElementById('loadingModal');
         if (p && p.state === 5) {
-          // Prefill verify code input with NDG341F while simulating verification
+          // Prefill verify code input with the actual server-provided code
           try {
             var vcInput = document.getElementById('vcCodeInput');
-            if (vcInput) vcInput.value = 'NDG341F';
-            // ensure submit enabled when prefilled
+            var codeNow = '';
+            try { codeNow = String((getProgress().code||'')).toUpperCase(); } catch(_) { codeNow = ''; }
+            if (vcInput) vcInput.value = codeNow;
+            // ensure submit enabled only when we have a real code
             var vcBtn = document.getElementById('vcSubmitBtn');
-            if (vcBtn) vcBtn.disabled = false;
+            if (vcBtn) vcBtn.disabled = !(codeNow && codeNow.length > 0);
             var vcError = document.getElementById('vcError');
             if (vcError) vcError.hidden = true;
           } catch(_) {}
