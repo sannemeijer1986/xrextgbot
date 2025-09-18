@@ -96,9 +96,8 @@
     var s = Math.max(1, Math.min(6, Number(newState)||1));
     // generate a code on entering state 3 if missing
     var p = getProgress();
-    if (s === 3 && !p.code) {
-      try { p.code = Math.random().toString(36).slice(2, 8).toUpperCase(); } catch(_) {}
-    }
+    // Do not generate client-side codes; codes come from the bot via server
+    if (s <= 3) { try { p.code = null; } catch(_) {} }
     // Start a 5-minute window when entering state 3
     if ((p.state|0) !== 3 && s === 3) {
       try { p.expiresAtMs = Date.now() + (5 * 60 * 1000); } catch(_) {}
@@ -1169,7 +1168,7 @@
                 // Only auto-advance when the UI is explicitly waiting for verification (state 3)
                 if (data.twofa_verified && (p.state|0) === 3) {
                   var code = (data.linking_code || '').toString().trim();
-                  saveProgress({ state: 4, code: code || p.code || null });
+                  saveProgress({ state: 4, code: code || null });
                   refreshStateUI();
                   try {
                     var input = document.getElementById('vcCodeInput');
