@@ -69,6 +69,23 @@ $bp-md: 1280px;     // main responsive breakpoint
 .modal-body { color: $color-text-primary; font: 400 14px $font-manrope; }
 .modal-footer { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
 
+// Small prompt modal (Require 2FA) base styles
+.modal.modal-small {
+  .modal-body {
+    .m-title {
+      font: 700 20px $font-sora;
+      width: 100%;
+      margin-bottom: 8px;
+    }
+    .m-paragraph {
+      color: #6B7280;
+      font: 400 16px $font-manrope;
+      line-height: 1.5;
+      width: 100%;
+    }
+  }
+}
+
 // Modal content styles
 .m-step { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
 .m-step-meta { color: #73A2F5; font: 500 13px $font-manrope; }
@@ -153,7 +170,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 @media (max-width: 720px) {
   .modal-wrapper { width: 100%; height: 100%; max-width: none; border-radius: 0; }
   .modal-content { height: 100%; padding: 0; display: flex; flex-direction: column; overflow-y: auto; }
-  .modal-header { padding: 20px; margin: 0; border-bottom: 1px solid #EEEEEE; }
+  .modal-header { padding: 20px; margin: 0; border-bottom: 1px solid #EEEEEE; min-height: 72px; }
   .modal-body { padding: 20px; }
   .modal-footer { margin-top: auto; padding: 12px 20px 20px; flex-direction: column; gap: 10px; }
   .modal-footer .btn { width: 100%; max-width: none; min-width: 0; }
@@ -161,6 +178,31 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .modal-footer #modalConfirm { order: 0; }
   .modal-footer #modalCancel { order: 1; }
   .modal-loading .modal-content { height: 100%; padding: 0; display: grid; place-items: center; }
+
+  // Small prompt modal (Require 2FA) mobile layout
+  .modal.modal-small {
+    .modal-content { height: 100%; padding: 56px 20px 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .require2fa-header { position: absolute; top: 0; left: 0; right: 0; height: 56px; display: flex; align-items: center; justify-content: flex-start; padding: 20px; margin: 0; border: none; }
+    .require2fa-header[hidden] { display: none; }
+    .require2fa-header h2 { display: none; }
+    .modal-body.m-require { padding: 0 20px; text-align: center; max-width: 560px; }
+    .modal-body.m-require .m-title { display: block; }
+    .modal-footer { width: 100%; margin-top: 16px; padding: 12px 20px 20px; flex-direction: column; gap: 10px; }
+    .modal-footer .btn { width: 100%; max-width: none; min-width: 0; height: $btn-md-height; font-size: $btn-md-font-size; border-radius: 8px; }
+  }
+}
+
+// Desktop/tablet tweaks for small modal header
+@media (min-width: 721px) {
+  .modal.modal-small {
+    .modal-wrapper { max-width: 480px; }
+    .require2fa-header { display: flex; align-items: center; justify-content: space-between; padding: 0; margin: 0 0 16px 0; border: none; }
+    .require2fa-header h2 { margin: 0; font: 800 20px $font-sora; }
+    .require2fa-header .modal-close { opacity: 0; pointer-events: none; }
+    .modal-body.m-require { padding: 0; }
+    .modal-footer { padding: 16px 0 0; }
+    .modal-body.m-require .m-title { display: none; }
+  }
 }
 
 // Step 1 QR + field layout: stack and center QR on small screens
