@@ -3,6 +3,14 @@ const { createClient } = require('redis');
 // Reuse a single Redis client across warm invocations (serverless best practice)
 let __redis_client = null;
 let __redis_connecting = null;
+const CONNECT_TIMEOUT_MS = (function(){ try { return Math.max(1000, Math.min(15000, parseInt(process.env.REDIS_CONNECT_TIMEOUT_MS||'4000',10)||4000)); } catch(_) { return 4000; } })();
+
+function withTimeout(p, ms, msg){
+  return Promise.race([
+    p,
+    new Promise(function(_, reject){ setTimeout(function(){ reject(new Error(msg||('Timeout after '+ms+'ms'))); }, ms); })
+  ]);
+}
 
 async function getRedisClient() {
   const redisUrl = process.env.REDIS_URL_TLS || process.env.REDIS_URL;
@@ -18,7 +26,7 @@ async function getRedisClient() {
   __redis_client = createClient({ url: redisUrl, socket: socketOpts });
   __redis_client.on('error', function(_){});
   __redis_connecting = __redis_client.connect();
-  await __redis_connecting;
+  await withTimeout(__redis_connecting, CONNECT_TIMEOUT_MS, 'Redis connect timeout');
   return __redis_client;
 }
 
@@ -38,7 +46,6 @@ module.exports = async (req, res) => {
   let client;
   try {
     client = await getRedisClient();
-    try { await client.ping(); } catch(_) {}
   } catch (e) {
     res.status(500).json({ error: 'Redis connect failed', detail: (e && e.message) ? e.message : String(e) });
     return;
