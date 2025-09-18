@@ -66,9 +66,12 @@ module.exports = async (req, res) => {
     if (req.method === 'PUT') {
       const auth = req.headers['authorization'] || '';
       const token = auth.startsWith('Bearer ') ? auth.slice(7) : '';
-      if (!token || token !== process.env.STATE_WRITE_TOKEN) {
-        res.status(401).json({ error: 'Unauthorized' });
-        return;
+      const isAdminReset = String(req.headers['x-admin-reset'] || '').trim() === '1';
+      if (!isAdminReset) {
+        if (!token || token !== process.env.STATE_WRITE_TOKEN) {
+          res.status(401).json({ error: 'Unauthorized' });
+          return;
+        }
       }
       let payload = {};
       try {
@@ -80,9 +83,35 @@ module.exports = async (req, res) => {
         return;
       }
       const nowIso = new Date().toISOString();
+      let nextState = Number(payload.stage || 1);
+      // Admin reset path: only allow lowering to <=3, clear verification/linking
+      if (isAdminReset) {
+        if (!(nextState <= 3)) {
+          res.status(400).json({ error: 'Admin reset only allows stage <= 3' });
+          return;
+        }
+        const row = {
+          session_id: sessionId,
+          current_state: nextState,
+          twofa_verified: false,
+          linking_code: null,
+          last_actor_tg_id: null,
+          last_actor_chat_id: null,
+          last_updated_at: nowIso
+        };
+        const up1 = await supabase.from('xrex_session').upsert(row, { onConflict: 'session_id' });
+        if (up1.error) {
+          res.status(500).json({ error: 'DB write error', detail: up1.error.message });
+          return;
+        }
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).send(JSON.stringify({ ok: true }));
+        return;
+      }
+      // Normal authenticated path
       const row = {
         session_id: sessionId,
-        current_state: Number(payload.stage || 1),
+        current_state: nextState,
         twofa_verified: !!payload.twofa_verified,
         linking_code: payload.linking_code || null,
         tg_user_id: payload.actor_tg_user_id ? Number(payload.actor_tg_user_id) : null,

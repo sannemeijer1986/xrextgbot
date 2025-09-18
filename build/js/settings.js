@@ -430,14 +430,21 @@
         linkEl.setAttribute('aria-label', 'Open Telegram link ' + url);
         if (textSpan) textSpan.textContent = url;
       }
-      // Generate QR from the same dynamic link (simple Google Chart API fallback)
+      // Generate QR from the same dynamic link using inline SVG (qrcode-generator)
       try {
         var qrEl = document.getElementById('ibQr');
-        if (qrEl) {
-          var enc = encodeURIComponent(url);
-          var qrUrl = 'https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=' + enc + '&chld=L|0';
-          qrEl.src = qrUrl;
-          qrEl.setAttribute('aria-label', 'QR to open ' + url);
+        if (qrEl && typeof window.qrcode === 'function') {
+          var qr = window.qrcode(0, 'L');
+          qr.addData(url);
+          qr.make();
+          var svg = qr.createSvgTag(4, 0);
+          // Replace the <img> with SVG for sharper rendering
+          var wrap = qrEl.parentElement;
+          if (wrap) {
+            wrap.innerHTML = svg;
+            var svgEl = wrap.querySelector('svg');
+            if (svgEl) { svgEl.setAttribute('width', '180'); svgEl.setAttribute('height', '180'); svgEl.setAttribute('aria-label', 'QR to open ' + url); }
+          }
         }
       } catch(_) {}
 
@@ -708,8 +715,21 @@
       btnUp.textContent = '+';
       btnUp.style.cssText = btnDown.style.cssText;
       function update(){ refreshStateUI(); }
-      btnDown.addEventListener('click', function(){ var s = getProgress().state; setState(Math.max(1, s-1)); update(); });
-      btnUp.addEventListener('click', function(){ var s = getProgress().state; setState(Math.min(6, s+1)); update(); });
+      btnDown.addEventListener('click', function(){
+        var s = getProgress().state;
+        var next = Math.max(1, s-1);
+        setState(next); update();
+        // If lowering to <=3, send admin reset to server to clear verification
+        try {
+          var sid = (function(){ try { return localStorage.getItem('xrex.session.id.v1'); } catch(_) { return null; } })();
+          var sync = (function(){ try { return (new URLSearchParams(window.location.search).get('sync')) || (typeof window !== 'undefined' && window.XREX_SYNC_URL) || '/api/state'; } catch(_) { return '/api/state'; } })();
+          if (next <= 3 && sid) {
+            var url = sync + (sync.indexOf('?') === -1 ? '?session=' + encodeURIComponent(sid) : '&session=' + encodeURIComponent(sid));
+            fetch(url, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Admin-Reset': '1' }, body: JSON.stringify({ stage: next }) }).catch(function(){});
+          }
+        } catch(_) {}
+      });
+      btnUp.addEventListener('click', function(){ var s = getProgress().state; var next = Math.min(6, s+1); setState(next); update(); });
       tool.appendChild(label); tool.appendChild(val); tool.appendChild(btnDown); tool.appendChild(btnUp);
       document.body.appendChild(tool);
       update();
