@@ -349,7 +349,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
     
     # Normal start flow (no verification token)
-    keyboard = [[InlineKeyboardButton("↗️ Go to XREX Pay", url="https://sannemeijer1986.github.io/xrextgbot/settings.html?view=content&page=telegram&tab=setup")]]
+    keyboard = [[InlineKeyboardButton("↗️ Go to XREX Pay", url="https://xrextgbot.vercel.app/settings.html?view=content&page=telegram&tab=setup")]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     try:
         await update.message.reply_text(
@@ -924,7 +924,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
                 # Final instruction with buttons and pin
                 keyboard = [[
-                    InlineKeyboardButton("↗️ Go to XREX Pay", url="https://sannemeijer1986.github.io/xrextgbot/settings.html?view=content&page=telegram&tab=setup"),
+                    InlineKeyboardButton("↗️ Go to XREX Pay", url="https://xrextgbot.vercel.app/"),
                     InlineKeyboardButton("📋 Copy code", callback_data="copy_code")
                 ], [
                     InlineKeyboardButton("...  More", callback_data="more")
