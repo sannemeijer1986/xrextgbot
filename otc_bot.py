@@ -129,10 +129,10 @@ async def make_sync_app():
     return app
 
 async def poll_remote_and_sync(session_id: str = None):
-    """Background task: poll Redis-backed state to sync local state; allows website-driven reset."""
+    """Background task: poll remote state (Supabase-backed via API) and notify on stage 6."""
     if httpx is None:
         return
-    base = os.getenv("STATE_BASE_URL", "").strip() or "http://127.0.0.1:8787"
+    base = os.getenv("STATE_BASE_URL", "").strip() or "https://xrextgbot.vercel.app"
     url_latest = (base.rstrip('/') + "/api/state") + (f"?session={session_id}" if session_id else "")
     last_seen = 0
     poll_until_ts = 0
@@ -892,8 +892,22 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 await update.message.reply_text("✅️ 2FA verified! \n\nGenerating linking code... ")
                 await asyncio.sleep(1)
 
-                # Send the linking code in a separate message
-                linking_code = state.get('linking_code', 'NDG341F')
+                # Generate a dynamic linking code per session/user
+                try:
+                    sid = None
+                    try:
+                        last_token = user_state.get(user_id, {}).get('verify_token') or verify_token
+                        if last_token and '_s' in last_token:
+                            sid = last_token.split('_s',1)[1]
+                    except Exception:
+                        pass
+                    # Simple deterministic code per session/user for demo
+                    base = (sid or '') + ':' + str(user_id)
+                    import hashlib
+                    code_hash = hashlib.sha1(base.encode('utf-8')).hexdigest().upper()
+                    linking_code = code_hash[:6]
+                except Exception:
+                    linking_code = state.get('linking_code', 'NDG341F')
                 await update.message.reply_text(linking_code)
 
                 # Final instruction with buttons and pin

@@ -522,7 +522,8 @@
       function handle(){
         try {
           var val = (input && input.value || '').trim().toUpperCase();
-          if (val === 'NDG341F') {
+          var expected = (function(){ try { return String((getProgress().code||'')).toUpperCase(); } catch(_) { return ''; } })();
+          if (expected && val === expected) {
             if (errorEl) errorEl.hidden = true;
             setState(5); refreshStateUI();
           } else {
