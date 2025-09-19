@@ -178,6 +178,16 @@ async def poll_remote_and_sync(session_id: str = None):
                             poll_until_ts = int(time.time()) + 5*60
                         if stage <= 2:
                             set_sync_state(stage=stage or 1, twofa_verified=False, linking_code=None)
+                            # Reset per-user notification flags so future link/unlink events notify again
+                            try:
+                                for uid, st in list(user_state.items()):
+                                    if st.get('stage6_notified'):
+                                        st.pop('stage6_notified', None)
+                                    if st.get('stage7_notified'):
+                                        st.pop('stage7_notified', None)
+                                    user_state[uid] = st
+                            except Exception:
+                                pass
                         else:
                             set_sync_state(stage=stage, twofa_verified=twofa, linking_code=code)
                         # Detect session expiry transition (>=3 -> <=2)

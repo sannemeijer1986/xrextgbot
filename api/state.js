@@ -117,10 +117,11 @@ module.exports = async (req, res) => {
       // Authenticated path OR limited client finalize
       let row;
       if (isClientFinalize || isClientUnlink) {
-        // Preserve existing linking_code and twofa flag; only bump stage to 6
+        // Preserve existing linking_code and twofa flag; bump to 6/7
+        // For unlink (7), also preserve last_actor ids so the bot can target the right user
         let existing = null;
         try {
-          const r = await supabase.from('xrex_session').select('twofa_verified,linking_code').eq('session_id', sessionId).single();
+          const r = await supabase.from('xrex_session').select('twofa_verified,linking_code,last_actor_tg_id,last_actor_chat_id').eq('session_id', sessionId).single();
           if (!r.error) existing = r.data;
         } catch(_) {}
         row = {
@@ -128,8 +129,8 @@ module.exports = async (req, res) => {
           current_state: isClientUnlink ? 7 : 6,
           twofa_verified: existing ? !!existing.twofa_verified : true,
           linking_code: existing ? (existing.linking_code || null) : null,
-          last_actor_tg_id: null,
-          last_actor_chat_id: null,
+          last_actor_tg_id: isClientUnlink && existing ? (existing.last_actor_tg_id || null) : null,
+          last_actor_chat_id: isClientUnlink && existing ? (existing.last_actor_chat_id || null) : null,
           last_updated_at: nowIso
         };
       } else {
