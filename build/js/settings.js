@@ -794,7 +794,22 @@
           }
         } catch(_) {}
       });
-      btnUp.addEventListener('click', function(){ var s = getProgress().state; var next = Math.min(7, s+1); setState(next); update(); });
+      btnUp.addEventListener('click', function(){
+        var s = getProgress().state;
+        var next = Math.min(7, s+1);
+        if ((s === 2 || s === 7) && next === 3) {
+          // Mimic "Generate link": start a fresh 5-minute window
+          try {
+            var p = getProgress();
+            p.expiresAtMs = Date.now() + (5 * 60 * 1000);
+            saveProgress({ state: 3, expiresAtMs: p.expiresAtMs, code: p.code || null });
+          } catch(_) { setState(next); }
+          update();
+          return;
+        }
+        setState(next);
+        update();
+      });
       tool.appendChild(label); tool.appendChild(val); tool.appendChild(btnDown); tool.appendChild(btnUp);
       document.body.appendChild(tool);
       update();
