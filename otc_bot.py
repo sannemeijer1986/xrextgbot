@@ -227,7 +227,7 @@ async def poll_remote_and_sync(session_id: str = None):
                         except Exception:
                             pass
                         prev_stage = stage
-                        # If stage 6 reached, send success message and unpin for active users
+                        # If stage 6 reached, send success message; if stage 7 reached, send unlink message
                         if stage >= 6:
                             try:
                                 # Iterate known users and notify those who had the BOTC flow
@@ -243,7 +243,9 @@ async def poll_remote_and_sync(session_id: str = None):
                                             pass
                                     if not chat_id:
                                         continue
-                                    if st.get('stage6_notified'):
+                                    if stage == 6 and st.get('stage6_notified'):
+                                        continue
+                                    if stage == 7 and st.get('stage7_notified'):
                                         continue
                                     # Unpin any pinned messages we created
                                     # No unpinning per updated spec
@@ -257,13 +259,15 @@ async def poll_remote_and_sync(session_id: str = None):
                                         if bot_for_notifications:
                                             await bot_for_notifications.send_message(
                                                 chat_id=chat_id,
-                                                text=(
-                                                    "✅️ Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
-                                                    "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more."
-                                                ),
+                                                text=("✅️ Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
+                                                     "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more.") if stage == 6 else
+                                                     ("✅️ Telegram Bot successfully unlinked from XREX Pay account @AG***CH"),
                                                 reply_markup=reply_markup
                                             )
-                                            st['stage6_notified'] = True
+                                            if stage == 6:
+                                                st['stage6_notified'] = True
+                                            else:
+                                                st['stage7_notified'] = True
                                             user_state[uid] = st
                                     except Exception:
                                         pass

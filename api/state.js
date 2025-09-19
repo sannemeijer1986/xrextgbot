@@ -75,6 +75,7 @@ module.exports = async (req, res) => {
       const isAdminReset = String(req.headers['x-admin-reset'] || '').trim() === '1';
       const hdrStage = String(req.headers['x-client-stage'] || '').trim();
       const isClientFinalize = (hdrStage === '6' && Number(payload.stage || 0) === 6);
+      const isClientUnlink = (hdrStage === '7' && Number(payload.stage || 0) === 7);
       if (!isAdminReset) {
         if (!isClientFinalize && (!token || token !== process.env.STATE_WRITE_TOKEN)) {
           res.status(401).json({ error: 'Unauthorized' });
@@ -113,7 +114,7 @@ module.exports = async (req, res) => {
       }
       // Authenticated path OR limited client finalize
       let row;
-      if (isClientFinalize) {
+      if (isClientFinalize || isClientUnlink) {
         // Preserve existing linking_code and twofa flag; only bump stage to 6
         let existing = null;
         try {
@@ -122,7 +123,7 @@ module.exports = async (req, res) => {
         } catch(_) {}
         row = {
           session_id: sessionId,
-          current_state: 6,
+          current_state: isClientUnlink ? 7 : 6,
           twofa_verified: existing ? !!existing.twofa_verified : true,
           linking_code: existing ? (existing.linking_code || null) : null,
           last_actor_tg_id: null,

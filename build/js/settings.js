@@ -152,8 +152,11 @@
       var activeIdx = Math.max(0, Math.min(lastIdx, s - 2));
       // Special-case: for db state 4 and 5, focus the Verify Code step (index 3)
       if (s === 4 || s === 5) activeIdx = Math.min(lastIdx, 3);
-      // Special-case: for db state >=6, everything completed, no active step
-      if (s >= 6) activeIdx = -1;
+      // Special-case:
+      // - for state >=6 and !=7, everything completed, no active step
+      // - for state 7 (unlinked), keep first step as active like state 2
+      if (s >= 6 && s !== 7) activeIdx = -1;
+      if (s === 7) activeIdx = 0;
       steps.forEach(function(stepEl, idx){
         var isActive = activeIdx >= 0 && idx === activeIdx;
         var isCompleted = (s >= 6) ? true : idx < activeIdx; // all completed at state >=6
@@ -194,11 +197,11 @@
 
       // Update first step wording (always the same copy regardless of state)
       updateFirstStepText(p.state|0);
-      // Toggle timeline layout: hide aside until state >= 6
+      // Toggle timeline layout: hide aside until state >= 6 (also compact for state 7)
       try {
         var timeline = document.querySelector('.timeline');
         if (timeline) {
-          timeline.classList.toggle('is-compact', (p.state|0) < 6);
+          timeline.classList.toggle('is-compact', (p.state|0) < 6 || (p.state|0) === 7);
           timeline.classList.toggle('is-linked', (p.state|0) >= 6);
         }
       } catch(_) {}
@@ -380,7 +383,8 @@
           if (body) body.textContent = 'Your Telegram (ID 12***89) has been linked to XREX Pay';
         }
         if (meta) {
-          meta.textContent = 'Linkage authorized on ' + formatDate(p.updatedAt);
+          if (s === 7) meta.textContent = 'Unlinked on ' + formatDate(p.updatedAt);
+          else meta.textContent = 'Linkage authorized on ' + formatDate(p.updatedAt);
         }
         if (unlink) unlink.style.display = '';
       } else {
@@ -876,8 +880,26 @@
         var v = (input && input.value || '').trim();
         if (!v) { if (err) err.hidden = false; if (input) input.focus(); return; }
         if (err) err.hidden = true;
+        // Advance to stage 7 via API and local state
+        try {
+          // Local progress to stage 7
+          setState(7); refreshStateUI();
+          // Show loader briefly
+          var lm = document.getElementById('loadingModal');
+          if (lm) { lm.hidden = false; lm.setAttribute('aria-hidden','false'); }
+          setTimeout(function(){
+            if (lm) { lm.setAttribute('aria-hidden','true'); lm.hidden = true; }
+            try { if (typeof showSnackbar === 'function') showSnackbar('XREX Telegram Bot successfully unlinked from your XREX Pay account'); } catch(_) {}
+          }, 1200);
+          // Remote: PUT stage=7 with X-Client-Stage header so API allows it
+          var sid = (function(){ try { return localStorage.getItem('xrex.session.id.v1'); } catch(_) { return null; } })();
+          var sync = (function(){ try { return (new URLSearchParams(window.location.search).get('sync')) || (typeof window !== 'undefined' && window.XREX_SYNC_URL) || '/api/state'; } catch(_) { return '/api/state'; } })();
+          if (sid && sync) {
+            var url = sync + (sync.indexOf('?') === -1 ? '?session=' + encodeURIComponent(sid) : '&session=' + encodeURIComponent(sid));
+            fetch(url, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Client-Stage': '7' }, body: JSON.stringify({ stage: 7 }) }).catch(function(){});
+          }
+        } catch(_) {}
         close();
-        try { if (typeof showSnackbar === 'function') showSnackbar('Unlink request submitted'); } catch(_) {}
       });
       modal.addEventListener('click', function(e){ if (e.target === modal) close(); });
       document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !modal.hidden) close(); });
