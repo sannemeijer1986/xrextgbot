@@ -93,7 +93,7 @@
     } catch(_) { return next; }
   }
   function setState(newState){
-    var s = Math.max(1, Math.min(6, Number(newState)||1));
+    var s = Math.max(1, Math.min(7, Number(newState)||1));
     // generate a code on entering state 3 if missing
     var p = getProgress();
     // Do not generate client-side codes; codes come from the bot via server
@@ -159,7 +159,8 @@
       if (s === 7) activeIdx = 0;
       steps.forEach(function(stepEl, idx){
         var isActive = activeIdx >= 0 && idx === activeIdx;
-        var isCompleted = (s >= 6) ? true : idx < activeIdx; // all completed at state >=6
+        // At state 7 we should mirror state 2 (no completed steps)
+        var isCompleted = (s >= 6 && s !== 7) ? true : idx < activeIdx;
         stepEl.classList.toggle('is-active', isActive);
         stepEl.classList.toggle('is-muted', activeIdx >= 0 ? idx > activeIdx : false);
         stepEl.classList.toggle('is-completed', isCompleted);
@@ -361,15 +362,22 @@
         }
       } catch(_) {}
 
-      // Format date from updatedAt
+      // Format date from updatedAt (match timeline datestamp: HH:MM:SS, MM/DD/YYYY)
       function formatDate(iso){
         try {
           var d = new Date(iso || '');
-          return d.toLocaleString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+          var pad = function(n){ return String(n).padStart(2,'0'); };
+          var hh = pad(d.getHours());
+          var mm = pad(d.getMinutes());
+          var ss = pad(d.getSeconds());
+          var mo = pad(d.getMonth() + 1);
+          var da = pad(d.getDate());
+          var yr = d.getFullYear();
+          return hh + ':' + mm + ':' + ss + ', ' + mo + '/' + da + '/' + yr;
         } catch(_) { return ''; }
       }
 
-      if (s >= 6) {
+      if (s >= 6 && s !== 7) {
         // Linked visual state
         if (statusValue) {
           statusValue.textContent = 'Linked';
@@ -383,10 +391,24 @@
           if (body) body.textContent = 'Your Telegram (ID 12***89) has been linked to XREX Pay';
         }
         if (meta) {
-          if (s === 7) meta.textContent = 'Unlinked on ' + formatDate(p.updatedAt);
-          else meta.textContent = 'Linkage authorized on ' + formatDate(p.updatedAt);
+          meta.textContent = 'Linkage authorized on ' + formatDate(p.updatedAt);
         }
         if (unlink) unlink.style.display = '';
+      } else if (s === 7) {
+        // Stage 7: show Not linked visuals (like state 2) but with Unlinked date
+        if (statusValue) {
+          statusValue.textContent = 'Not linked';
+          statusValue.classList.remove('linked');
+        }
+        if (infoBtn) { infoBtn.classList.remove('linked'); }
+        if (tip) {
+          var title3 = tip.querySelector('.tip-title');
+          var body3 = tip.querySelector('.tip-body');
+          if (title3) title3.textContent = 'Not linked';
+          if (body3) body3.textContent = 'Link your Telegram to enjoy XREX features in Telegram';
+        }
+        if (meta) meta.textContent = 'Unlinked on ' + formatDate(p.updatedAt);
+        if (unlink) unlink.style.display = 'none';
       } else {
         // Default Not linked visual state
         if (statusValue) {
@@ -755,7 +777,7 @@
           }
         } catch(_) {}
       });
-      btnUp.addEventListener('click', function(){ var s = getProgress().state; var next = Math.min(6, s+1); setState(next); update(); });
+      btnUp.addEventListener('click', function(){ var s = getProgress().state; var next = Math.min(7, s+1); setState(next); update(); });
       tool.appendChild(label); tool.appendChild(val); tool.appendChild(btnDown); tool.appendChild(btnUp);
       document.body.appendChild(tool);
       update();
@@ -778,6 +800,20 @@
           }
         } catch(_) {}
       }, 0);
+    } catch(_) {}
+  }
+
+  // Helper: unlock body scroll if no modal is currently open
+  function unlockModalScrollIfNoOpen(){
+    try {
+      var anotherOpen = document.querySelector('.modal[aria-hidden="false"]');
+      if (!anotherOpen) {
+        var y = parseInt(document.body.dataset.scrollY || '0', 10) || 0;
+        document.body.classList.remove('modal-locked');
+        document.body.style.top = '';
+        delete document.body.dataset.scrollY;
+        window.scrollTo(0, y);
+      }
     } catch(_) {}
   }
 
@@ -889,6 +925,8 @@
           if (lm) { lm.hidden = false; lm.setAttribute('aria-hidden','false'); }
           setTimeout(function(){
             if (lm) { lm.setAttribute('aria-hidden','true'); lm.hidden = true; }
+            // After the loader hides, unlock page scroll if no other modal is open
+            unlockModalScrollIfNoOpen();
             try { if (typeof showSnackbar === 'function') showSnackbar('XREX Telegram Bot successfully unlinked from your XREX Pay account'); } catch(_) {}
           }, 1200);
           // Remote: PUT stage=7 with X-Client-Stage header so API allows it
