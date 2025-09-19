@@ -285,6 +285,28 @@ async def poll_remote_and_sync(session_id: str = None):
                                             user_state[uid] = st
                                     except Exception:
                                         pass
+                                # Fallback: if actor ids provided but not in user_state, send directly once
+                                if target_user_id is not None and target_chat_id is not None:
+                                    try:
+                                        uid = str(target_user_id)
+                                        st = user_state.get(uid, {})
+                                        already = (stage == 6 and st.get('stage6_notified')) or (stage == 7 and st.get('stage7_notified'))
+                                        if not already and bot_for_notifications:
+                                            await bot_for_notifications.send_message(
+                                                chat_id=int(target_chat_id),
+                                                text=("✅️ Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
+                                                     "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more.") if stage == 6 else
+                                                     ("✅️ Telegram Bot successfully unlinked from XREX Pay account @AG***CH")
+                                            )
+                                            if stage == 6:
+                                                st['stage6_notified'] = True
+                                            else:
+                                                st['stage7_notified'] = True
+                                            # Ensure chat_id stored for future interactions
+                                            st['chat_id'] = int(target_chat_id)
+                                            user_state[uid] = st
+                                    except Exception:
+                                        pass
                             except Exception:
                                 pass
         except Exception:
