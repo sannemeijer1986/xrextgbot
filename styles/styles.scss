@@ -91,6 +91,26 @@ $bp-md: 1280px;     // main responsive breakpoint
 .m-step-meta { color: #73A2F5; font: 500 13px $font-manrope; }
 .m-step-title { color: $color-text-primary; font: 600 18px $font-manrope; }
 .m-desc { color: $color-text-secondary; font: 300 14px $font-manrope; }
+
+// Informative inline alert (used in unlink modal)
+.m-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(77, 136, 255, 0.15);
+  color: #4D88FF;
+  font: 600 14px $font-manrope;
+  margin-bottom: 32px;
+  margin-top: -8px;
+}
+.m-info .mi-icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 18px;
+  background: url('../assets/icon_info.svg') center/contain no-repeat;
+}
 .m-field { display: flex; flex-direction: column; gap: 8px; }
 .m-field-with-qr { margin-top: 24px; display: flex; gap: 32px; align-items: flex-end; }
 .m-field-with-qr .m-field { flex: 1 1 auto; }
@@ -177,6 +197,9 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   // 2FA modal: put Confirm above Cancel on mobile
   .modal-footer #modalConfirm { order: 0; }
   .modal-footer #modalCancel { order: 1; }
+  // Unlink modal: place primary above cancel on mobile
+  #unlinkModal .modal-footer #unlinkConfirm { order: 0; }
+  #unlinkModal .modal-footer #unlinkCancel { order: 1; }
   .modal-loading .modal-content { height: 100%; padding: 0; display: grid; place-items: center; }
 
   // Small prompt modal (Require 2FA) mobile layout
@@ -202,6 +225,12 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     .modal-body.m-require { padding: 0; }
     .modal-footer { padding: 16px 0 0; }
     .modal-body.m-require .m-title { display: none; }
+  }
+
+  // Ensure desktop/tablet modals scroll when taller than the viewport
+  .modal {
+    .modal-wrapper { max-height: calc(100vh - 32px); overflow-y: auto; }
+    .modal-content { overflow-y: auto; }
   }
 }
 

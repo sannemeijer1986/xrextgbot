@@ -347,6 +347,16 @@
         // No action for now; placeholder only
         sub.appendChild(unlink);
       }
+      // Wire unlink click to open the unlink modal (once)
+      try {
+        if (unlink && !unlink.__wired) {
+          unlink.__wired = true;
+          unlink.addEventListener('click', function(e){
+            e.preventDefault();
+            if (window.__openUnlinkModal) window.__openUnlinkModal();
+          });
+        }
+      } catch(_) {}
 
       // Format date from updatedAt
       function formatDate(iso){
@@ -822,6 +832,58 @@
   function openRequire2faModal(){
     try { var m = document.getElementById('require2faModal'); if (m && m.__open) m.__open(); else openTwoFaModal(); } catch(_) { openTwoFaModal(); }
   }
+
+  // Unlink modal wiring
+  (function initUnlinkModal(){
+    try {
+      var modal = document.getElementById('unlinkModal');
+      if (!modal) return;
+      var btnClose = document.getElementById('unlinkClose');
+      var btnCancel = document.getElementById('unlinkCancel');
+      var btnConfirm = document.getElementById('unlinkConfirm');
+      var input = document.getElementById('unlinkCodeInput');
+      var err = document.getElementById('unlinkCodeError');
+      function syncConfirmState(){
+        try {
+          var v = (input && input.value || '').trim();
+          if (btnConfirm) btnConfirm.disabled = (v.length < 1);
+        } catch(_) {}
+      }
+      if (input) input.addEventListener('input', syncConfirmState);
+      function open(){
+        try {
+          modal.hidden = false; modal.setAttribute('aria-hidden','false');
+          var y = window.scrollY || window.pageYOffset || 0; document.body.dataset.scrollY = String(y); document.body.style.top = '-' + y + 'px'; document.body.classList.add('modal-locked');
+          if (input) { input.value = ''; input.focus(); if (input.select) input.select(); }
+          if (err) err.hidden = true;
+          syncConfirmState();
+        } catch(_) {}
+      }
+      function close(){
+        try {
+          modal.setAttribute('aria-hidden','true'); modal.hidden = true;
+          var anotherOpen = document.querySelector('.modal[aria-hidden="false"]');
+          if (!anotherOpen) {
+            var y = parseInt(document.body.dataset.scrollY || '0', 10) || 0; document.body.classList.remove('modal-locked'); document.body.style.top = ''; delete document.body.dataset.scrollY; window.scrollTo(0, y);
+          }
+        } catch(_) {}
+      }
+      modal.__open = open; modal.__close = close;
+      if (btnClose) btnClose.addEventListener('click', function(e){ e.preventDefault(); close(); });
+      if (btnCancel) btnCancel.addEventListener('click', function(e){ e.preventDefault(); close(); });
+      if (btnConfirm) btnConfirm.addEventListener('click', function(e){
+        e.preventDefault();
+        var v = (input && input.value || '').trim();
+        if (!v) { if (err) err.hidden = false; if (input) input.focus(); return; }
+        if (err) err.hidden = true;
+        close();
+        try { if (typeof showSnackbar === 'function') showSnackbar('Unlink request submitted'); } catch(_) {}
+      });
+      modal.addEventListener('click', function(e){ if (e.target === modal) close(); });
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !modal.hidden) close(); });
+      window.__openUnlinkModal = open;
+    } catch(_) {}
+  })();
 
   function activate(tab) {
     var wantSetup = (tab === 'setup');

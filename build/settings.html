@@ -547,6 +547,44 @@
         </div>
     </div>
 
+    <!-- Unlink Modal: confirm unlink with 2FA -->
+    <div id="unlinkModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+        <div class="modal-wrapper">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Unlink Telegram bot</h2>
+                    <button class="modal-close" id="unlinkClose" aria-label="Close modal">
+                        <img src="assets/icon_modal_close.svg" width="24" height="24" alt="close" />
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="m-info"">
+                        <span class="mi-icon" aria-hidden="true"></span>
+                        <span>Once unlinked, you will no longer be able to access XREX Pay features in Telegram.</span>
+                    </div>
+
+                    <div class="m-step">
+                        <div class="m-step-title">Enter your authentication code to confirm unlinking</div>
+                        <div class="m-desc">Copy the 6‑digit code from your authenticator app and enter it below.</div>
+                        <div class="m-field">
+                            <div class="m-field-group">
+                                <label class="m-label" for="unlinkCodeInput">Authentication code</label>
+                                <div class="m-input-row m-input-row--plain">
+                                    <input id="unlinkCodeInput" class="m-input" type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="Enter the authentication code" maxlength="6" />
+                                </div>
+                            </div>
+                            <div id="unlinkCodeError" class="m-error" aria-live="polite" hidden>Incorrect authentication code</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary btn-md" id="unlinkCancel">Cancel</button>
+                    <button class="btn btn-primary btn-md" id="unlinkConfirm">Unlink</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Loading Modal (state 5 transition) -->
     <div id="loadingModal" class="modal modal-loading" role="dialog" aria-modal="true" aria-hidden="true" hidden>
         <div class="modal-wrapper">
