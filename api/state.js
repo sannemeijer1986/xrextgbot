@@ -79,7 +79,7 @@ module.exports = async (req, res) => {
       const isClientFinalize = (hdrStage === '6' && Number(payload.stage || 0) === 6);
       const isClientUnlink = (hdrStage === '7' && Number(payload.stage || 0) === 7);
       if (!isAdminReset) {
-        if (!isClientFinalize && (!token || token !== process.env.STATE_WRITE_TOKEN)) {
+        if (!isClientFinalize && !isClientUnlink && (!token || token !== process.env.STATE_WRITE_TOKEN)) {
           res.status(401).json({ error: 'Unauthorized' });
           return;
         }
