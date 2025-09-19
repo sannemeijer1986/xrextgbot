@@ -243,6 +243,21 @@
       try { updateStatusRowUI(); } catch(_) {}
       // Sync Start/Go-to-bot CTA depending on state
       try { updateTopCta(); } catch(_) {}
+      // If state is 1, and we're on Telegram Setup tab, force switch to Intro
+      try {
+        var p = getProgress();
+        if ((p.state|0) === 1) {
+          var params = new URLSearchParams(window.location.search);
+          var page = params.get('page') || '';
+          var tabParam = params.get('tab') || '';
+          var isSetupActive = tabSetup && tabSetup.classList.contains('active');
+          if (page === 'telegram' && (tabParam === 'setup' || isSetupActive)) {
+            activate('intro');
+            params.set('tab','intro');
+            window.history.replaceState({}, '', window.location.pathname + '?' + params.toString());
+          }
+        }
+      } catch(_) {}
       // If we are at state 5, always show loading modal for 2s then advance to 6
       try {
         var p = getProgress();
