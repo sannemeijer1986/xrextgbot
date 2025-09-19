@@ -115,6 +115,14 @@ async def push_state(stage: int = None, twofa_verified: bool = None, linking_cod
                     logger.error(f"Vercel state push failed: {resp.status_code} {resp.text}")
         except Exception as e:
             logger.error(f"Error pushing to Vercel state: {str(e)}")
+    # Fallback: even if we couldn't write (missing token/network), still start poller for this session
+    try:
+        if session_id:
+            global session_poll_tasks
+            if session_id not in session_poll_tasks or session_poll_tasks[session_id].done():
+                session_poll_tasks[session_id] = asyncio.create_task(poll_remote_and_sync(session_id=session_id))
+    except Exception:
+        pass
     return False
 
 async def make_sync_app():
