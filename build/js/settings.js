@@ -319,6 +319,8 @@
           }
         }
       } catch(_) {}
+      // Update/mount countdown after status/timeline updates
+      try { mountSessionCountdown(); } catch(_) {}
     } catch(_) {}
   }
 
@@ -362,6 +364,9 @@
         // No action for now; placeholder only
         sub.appendChild(unlink);
       }
+      // Hide any legacy inline countdown badge; floating tool will be used instead
+      var countdown = row.querySelector('.status-countdown');
+      if (countdown) countdown.style.display = 'none';
       // Wire unlink click to open the unlink modal (once)
       try {
         if (unlink && !unlink.__wired) {
@@ -436,6 +441,77 @@
         if (meta) meta.textContent = '';
         if (unlink) unlink.style.display = 'none';
       }
+    } catch(_) {}
+  }
+
+  // Mount/update a tiny countdown while in stage 3/4 using local expiresAtMs
+  function mountSessionCountdown(){
+    try {
+      // Create floating tool near adminStateTool
+      var id = 'sessionTimerTool';
+      var tool = document.getElementById(id);
+      if (!tool) {
+        tool = document.createElement('div');
+        tool.id = id;
+        tool.style.position = 'fixed';
+        tool.style.left = '16px';
+        tool.style.bottom = '56px';
+        tool.style.zIndex = '1201';
+        tool.style.background = '#111827CC';
+        tool.style.color = '#fff';
+        tool.style.fontFamily = 'system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
+        tool.style.fontSize = '12px';
+        tool.style.width = '145px';
+        tool.style.height = '40px';
+        tool.style.padding = '10px 12px';
+        tool.style.borderRadius = '10px';
+        tool.style.margin = '0 0 4px 0';
+        tool.style.display = 'none';
+        tool.style.alignItems = 'center';
+        tool.style.gap = '8px';
+        tool.setAttribute('role','status');
+        var label = document.createElement('span');
+        label.textContent = 'Expires in:';
+        label.style.opacity = '0.9';
+        label.style.width = '100%';
+        var val = document.createElement('strong');
+        val.id = 'sessionTimerValue';
+        val.style.minWidth = '40px';
+        val.style.textAlign = 'right';
+        tool.appendChild(label);
+        tool.appendChild(val);
+        document.body.appendChild(tool);
+      }
+      var valueEl = document.getElementById('sessionTimerValue');
+      function fmt(ms){
+        var sec = Math.max(0, Math.floor(ms/1000));
+        var m = Math.floor(sec/60);
+        var s = sec % 60;
+        return String(m) + ':' + (s < 10 ? ('0' + s) : String(s));
+      }
+      function tick(){
+        try {
+          var p = getProgress();
+          var s = (p.state|0);
+          var t = Number(p.expiresAtMs||0);
+          var now = Date.now();
+          var active = (s === 3 || s === 4) && t && t > now;
+          if (active) {
+            var remain = Math.max(0, t - now);
+            if (valueEl) valueEl.textContent = fmt(remain);
+            tool.style.display = 'flex';
+          } else {
+            tool.style.display = 'none';
+          }
+          if (!active && window.__countdown_timer) {
+            clearInterval(window.__countdown_timer);
+            window.__countdown_timer = null;
+          }
+        } catch(_) {}
+      }
+      if (window.__countdown_timer) { tick(); return; }
+      tick();
+      window.__countdown_timer = setInterval(tick, 1000);
     } catch(_) {}
   }
 
@@ -754,13 +830,15 @@
       tool.style.left = '16px';
       tool.style.bottom = '16px';
       tool.style.zIndex = '1201';
+      tool.style.width = '145px';
+      tool.style.height = '40px';
       tool.style.background = '#111827CC';
       tool.style.color = '#fff';
       tool.style.fontFamily = 'system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
       tool.style.fontSize = '12px';
       tool.style.padding = '10px 12px';
       tool.style.borderRadius = '10px';
-      tool.style.boxShadow = '0 8px 18px rgba(0,0,0,0.35)';
+
       tool.style.display = 'flex';
       tool.style.alignItems = 'center';
       tool.style.gap = '8px';

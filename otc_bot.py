@@ -242,10 +242,10 @@ async def poll_remote_and_sync(session_id: str = None):
                                         pass
                         except Exception:
                             pass
-                        prev_stage = stage
-                        # Stage 6: Linked success notification
-                        if stage == 6:
+                        # Stage 6: Linked success notification (only on transition into 6)
+                        if stage == 6 and prev_stage != 6:
                             try:
+                                notified_any = False
                                 # Iterate known users and notify those who had the BOTC flow
                                 for uid, st in list(user_state.items()):
                                     # If remote state indicates a specific actor, only notify that user
@@ -283,13 +283,14 @@ async def poll_remote_and_sync(session_id: str = None):
                                             )
                                             st['stage6_notified'] = True
                                             user_state[uid] = st
+                                            notified_any = True
                                     except Exception:
                                         pass
                                 # Fallback: if actor ids provided but not in user_state, send directly once
-                                if target_user_id is not None and target_chat_id is not None:
+                                if (not notified_any) and target_user_id is not None and target_chat_id is not None:
                                     try:
-                                        uid = str(target_user_id)
-                                        st = user_state.get(uid, {})
+                                        uid_key = int(target_user_id)
+                                        st = user_state.get(uid_key, {})
                                         already = st.get('stage6_notified')
                                         if not already and bot_for_notifications:
                                             await bot_for_notifications.send_message(
@@ -300,14 +301,16 @@ async def poll_remote_and_sync(session_id: str = None):
                                             st['stage6_notified'] = True
                                             # Ensure chat_id stored for future interactions
                                             st['chat_id'] = int(target_chat_id)
-                                            user_state[uid] = st
+                                            user_state[uid_key] = st
+                                            notified_any = True
                                     except Exception:
                                         pass
                             except Exception:
                                 pass
-                        # Stage 7: Unlinked notification
-                        elif stage == 7:
+                        # Stage 7: Unlinked notification (only on transition into 7)
+                        elif stage == 7 and prev_stage != 7:
                             try:
+                                notified_any_7 = False
                                 for uid, st in list(user_state.items()):
                                     if target_user_id is not None:
                                         try:
@@ -333,12 +336,13 @@ async def poll_remote_and_sync(session_id: str = None):
                                             )
                                             st['stage7_notified'] = True
                                             user_state[uid] = st
+                                            notified_any_7 = True
                                     except Exception:
                                         pass
-                                if target_user_id is not None and target_chat_id is not None:
+                                if (not notified_any_7) and target_user_id is not None and target_chat_id is not None:
                                     try:
-                                        uid = str(target_user_id)
-                                        st = user_state.get(uid, {})
+                                        uid_key = int(target_user_id)
+                                        st = user_state.get(uid_key, {})
                                         if not st.get('stage7_notified') and bot_for_notifications:
                                             await bot_for_notifications.send_message(
                                                 chat_id=int(target_chat_id),
@@ -346,11 +350,14 @@ async def poll_remote_and_sync(session_id: str = None):
                                             )
                                             st['stage7_notified'] = True
                                             st['chat_id'] = int(target_chat_id)
-                                            user_state[uid] = st
+                                            user_state[uid_key] = st
+                                            notified_any_7 = True
                                     except Exception:
                                         pass
                             except Exception:
                                 pass
+                        # Update previous stage after handling notifications
+                        prev_stage = stage
         except Exception:
             pass
         # Sleep longer when idle; if within 5-min window, keep 60s; otherwise back off to 5 minutes
