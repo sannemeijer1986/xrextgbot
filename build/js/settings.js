@@ -98,12 +98,8 @@
     var p = getProgress();
     // Do not generate client-side codes; codes come from the bot via server
     if (s <= 3) { try { p.code = null; } catch(_) {} }
-    // Start a 5-minute window when entering state 3 or 4 from any other state
+    // Only start the 5-minute window from the explicit Generate Link action (not on generic setState)
     var prev = (p.state|0);
-    var enteringWindow = (prev !== 3 && prev !== 4) && (s === 3 || s === 4);
-    if (enteringWindow) {
-      try { p.expiresAtMs = Date.now() + (5 * 60 * 1000); } catch(_) {}
-    }
     // Clear the window after leaving states 3/4 to any other state
     var leavingWindow = (prev === 3 || prev === 4) && (s !== 3 && s !== 4);
     if (leavingWindow) {
@@ -675,7 +671,13 @@
               if (lm0) { lm0.hidden = false; lm0.setAttribute('aria-hidden','false'); }
               setTimeout(function(){
                 if (lm0) { lm0.setAttribute('aria-hidden','true'); lm0.hidden = true; }
-                setState(3); refreshStateUI();
+                // Start a fresh 5-minute window only from this action
+                try {
+                  var p = getProgress();
+                  p.expiresAtMs = Date.now() + (5 * 60 * 1000);
+                  saveProgress({ state: 3, expiresAtMs: p.expiresAtMs, code: p.code || null });
+                } catch(_) { setState(3); }
+                refreshStateUI();
                 try { if (typeof showSnackbar === 'function') showSnackbar('Unique QR code and link generated successfully'); } catch(_) {}
               }, 1000);
             } catch(_) { setState(3); refreshStateUI(); }

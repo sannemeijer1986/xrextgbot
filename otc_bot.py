@@ -179,8 +179,8 @@ async def poll_remote_and_sync(session_id: str = None):
                         twofa = bool(record.get('twofa_verified'))
                         target_user_id = record.get('actor_tg_user_id')
                         target_chat_id = record.get('actor_chat_id')
-                        # Start/extend a 5-minute polling window when stage enters 3
-                        if stage >= 3:
+                        # Start/extend a 5-minute polling window only in stages 3 or 4
+                        if stage == 3 or stage == 4:
                             poll_until_ts = int(time.time()) + 5*60
                         if stage <= 2:
                             set_sync_state(stage=stage or 1, twofa_verified=False, linking_code=None)

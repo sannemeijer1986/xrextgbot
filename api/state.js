@@ -121,16 +121,19 @@ module.exports = async (req, res) => {
         // For unlink (7), also preserve last_actor ids so the bot can target the right user
         let existing = null;
         try {
-          const r = await supabase.from('xrex_session').select('twofa_verified,linking_code,last_actor_tg_id,last_actor_chat_id').eq('session_id', sessionId).single();
+          const r = await supabase.from('xrex_session').select('twofa_verified,linking_code,last_actor_tg_id,last_actor_chat_id,tg_user_id,tg_chat_id').eq('session_id', sessionId).single();
           if (!r.error) existing = r.data;
         } catch(_) {}
+        // Fallback actor ids from persistent tg_user_id/chat_id if last_actor is missing
+        const fallbackUserId = existing && existing.last_actor_tg_id ? existing.last_actor_tg_id : (existing && existing.tg_user_id ? existing.tg_user_id : null);
+        const fallbackChatId = existing && existing.last_actor_chat_id ? existing.last_actor_chat_id : (existing && existing.tg_chat_id ? existing.tg_chat_id : null);
         row = {
           session_id: sessionId,
           current_state: isClientUnlink ? 7 : 6,
           twofa_verified: existing ? !!existing.twofa_verified : true,
           linking_code: existing ? (existing.linking_code || null) : null,
-          last_actor_tg_id: isClientUnlink && existing ? (existing.last_actor_tg_id || null) : null,
-          last_actor_chat_id: isClientUnlink && existing ? (existing.last_actor_chat_id || null) : null,
+          last_actor_tg_id: fallbackUserId,
+          last_actor_chat_id: fallbackChatId,
           last_updated_at: nowIso
         };
       } else {
