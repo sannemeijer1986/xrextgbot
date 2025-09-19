@@ -3,7 +3,7 @@ const { createClient } = require('@supabase/supabase-js');
 function allowCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Client-Stage, X-Admin-Reset');
 }
 
 module.exports = async (req, res) => {
