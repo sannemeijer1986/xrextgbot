@@ -243,8 +243,8 @@ async def poll_remote_and_sync(session_id: str = None):
                         except Exception:
                             pass
                         prev_stage = stage
-                        # If stage 6 reached, send success message; if stage 7 reached, send unlink message
-                        if stage >= 6:
+                        # Stage 6: Linked success notification
+                        if stage == 6:
                             try:
                                 # Iterate known users and notify those who had the BOTC flow
                                 for uid, st in list(user_state.items()):
@@ -263,9 +263,7 @@ async def poll_remote_and_sync(session_id: str = None):
                                             pass
                                     if not chat_id:
                                         continue
-                                    if stage == 6 and st.get('stage6_notified'):
-                                        continue
-                                    if stage == 7 and st.get('stage7_notified'):
+                                    if st.get('stage6_notified'):
                                         continue
                                     # Unpin any pinned messages we created
                                     # No unpinning per updated spec
@@ -280,14 +278,10 @@ async def poll_remote_and_sync(session_id: str = None):
                                             await bot_for_notifications.send_message(
                                                 chat_id=chat_id,
                                                 text=("✅️ Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
-                                                     "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more.") if stage == 6 else
-                                                     ("✅️ Telegram Bot successfully unlinked from XREX Pay account @AG***CH"),
+                                                     "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more."),
                                                 reply_markup=reply_markup
                                             )
-                                            if stage == 6:
-                                                st['stage6_notified'] = True
-                                            else:
-                                                st['stage7_notified'] = True
+                                            st['stage6_notified'] = True
                                             user_state[uid] = st
                                     except Exception:
                                         pass
@@ -296,19 +290,61 @@ async def poll_remote_and_sync(session_id: str = None):
                                     try:
                                         uid = str(target_user_id)
                                         st = user_state.get(uid, {})
-                                        already = (stage == 6 and st.get('stage6_notified')) or (stage == 7 and st.get('stage7_notified'))
+                                        already = st.get('stage6_notified')
                                         if not already and bot_for_notifications:
                                             await bot_for_notifications.send_message(
                                                 chat_id=int(target_chat_id),
                                                 text=("✅️ Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
-                                                     "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more.") if stage == 6 else
-                                                     ("✅️ Telegram Bot successfully unlinked from XREX Pay account @AG***CH")
+                                                     "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more.")
                                             )
-                                            if stage == 6:
-                                                st['stage6_notified'] = True
-                                            else:
-                                                st['stage7_notified'] = True
+                                            st['stage6_notified'] = True
                                             # Ensure chat_id stored for future interactions
+                                            st['chat_id'] = int(target_chat_id)
+                                            user_state[uid] = st
+                                    except Exception:
+                                        pass
+                            except Exception:
+                                pass
+                        # Stage 7: Unlinked notification
+                        elif stage == 7:
+                            try:
+                                for uid, st in list(user_state.items()):
+                                    if target_user_id is not None:
+                                        try:
+                                            if int(uid) != int(target_user_id):
+                                                continue
+                                        except Exception:
+                                            pass
+                                    chat_id = st.get('chat_id')
+                                    if target_chat_id is not None:
+                                        try:
+                                            chat_id = int(target_chat_id)
+                                        except Exception:
+                                            pass
+                                    if not chat_id:
+                                        continue
+                                    if st.get('stage7_notified'):
+                                        continue
+                                    try:
+                                        if bot_for_notifications:
+                                            await bot_for_notifications.send_message(
+                                                chat_id=chat_id,
+                                                text=("✅️ Telegram Bot successfully unlinked from XREX Pay account @AG***CH")
+                                            )
+                                            st['stage7_notified'] = True
+                                            user_state[uid] = st
+                                    except Exception:
+                                        pass
+                                if target_user_id is not None and target_chat_id is not None:
+                                    try:
+                                        uid = str(target_user_id)
+                                        st = user_state.get(uid, {})
+                                        if not st.get('stage7_notified') and bot_for_notifications:
+                                            await bot_for_notifications.send_message(
+                                                chat_id=int(target_chat_id),
+                                                text=("✅️ Telegram Bot successfully unlinked from XREX Pay account @AG***CH")
+                                            )
+                                            st['stage7_notified'] = True
                                             st['chat_id'] = int(target_chat_id)
                                             user_state[uid] = st
                                     except Exception:
