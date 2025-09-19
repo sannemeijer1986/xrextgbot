@@ -135,6 +135,79 @@
     } catch(_) { return null; }
   }
 
+  // Illustration helpers for active timeline step
+  function mountActiveIllustrations(stepEl){
+    try {
+      if (!stepEl || !(stepEl.classList && stepEl.classList.contains('step'))) return;
+      // If already mounted, just update visibility
+      var flex = stepEl.querySelector('.step-flex');
+      if (!flex) {
+        // Capture original children first
+        var original = Array.prototype.slice.call(stepEl.children);
+        // Create container and wrapper
+        flex = document.createElement('div');
+        flex.className = 'step-flex';
+        var wrap = document.createElement('div');
+        wrap.className = 'step-wrapper';
+        var ill = document.createElement('div');
+        ill.className = 'step-illustration';
+        // placeholder content centered
+        var ph = document.createElement('div'); ph.className = 'ph';
+        ph.textContent = 'Explanatory Illustration';
+        ill.appendChild(ph);
+        // Build structure
+        stepEl.appendChild(flex);
+        flex.appendChild(wrap);
+        flex.appendChild(ill);
+        // Move original rows into wrapper
+        original.forEach(function(ch){ wrap.appendChild(ch); });
+        // Also add a mobile illustration above label inside the label content-wrapper
+        try {
+          var labelCw = wrap.querySelector('.step-row.step-label .content-wrapper');
+          if (labelCw && !labelCw.querySelector('.step-illustration-mobile')) {
+            var illm = document.createElement('div');
+            illm.className = 'step-illustration-mobile';
+            var phm = document.createElement('div'); phm.className = 'ph';
+            phm.textContent = 'Explanatory Illustration';
+            illm.appendChild(phm);
+            labelCw.insertBefore(illm, labelCw.firstChild);
+          }
+        } catch(_) {}
+      }
+      updateActiveIllustrationVisibility(stepEl);
+    } catch(_) {}
+  }
+
+  function unmountActiveIllustrations(stepEl){
+    try {
+      if (!stepEl) return;
+      var flex = stepEl.querySelector('.step-flex');
+      if (flex) {
+        var wrap = flex.querySelector('.step-wrapper');
+        if (wrap) {
+          var items = Array.prototype.slice.call(wrap.children);
+          items.forEach(function(ch){ stepEl.appendChild(ch); });
+        }
+        flex.remove();
+      }
+      // remove mobile illustration if present
+      try {
+        var illm = stepEl.querySelector('.step-row.step-label .content-wrapper .step-illustration-mobile');
+        if (illm && illm.parentElement) illm.parentElement.removeChild(illm);
+      } catch(_) {}
+    } catch(_) {}
+  }
+
+  function updateActiveIllustrationVisibility(stepEl){
+    try {
+      var isDesktop = window.matchMedia('(min-width: 1280px)').matches;
+      var ill = stepEl.querySelector('.step-illustration');
+      var illm = stepEl.querySelector('.step-illustration-mobile');
+      if (ill) ill.style.display = isDesktop ? 'block' : 'none';
+      if (illm) illm.style.display = isDesktop ? 'none' : '';
+    } catch(_) {}
+  }
+
   // Apply progress to the timeline (no UI text changes yet; class toggles only)
   function applyTimelineFromProgress(){
     try {
@@ -160,6 +233,14 @@
         stepEl.classList.toggle('is-active', isActive);
         stepEl.classList.toggle('is-muted', activeIdx >= 0 ? idx > activeIdx : false);
         stepEl.classList.toggle('is-completed', isCompleted);
+        // Manage illustration wrappers for the active step only
+        try {
+          if (isActive) {
+            mountActiveIllustrations(stepEl);
+          } else {
+            unmountActiveIllustrations(stepEl);
+          }
+        } catch(_) {}
         // Add datestamp for completed steps if missing
         if (isCompleted) {
           var contentRow = ensureContentRow(stepEl);
@@ -191,6 +272,21 @@
           }
         }
       });
+      // Update visibility based on viewport
+      try {
+        var activeStep = document.querySelector('.timeline-steps .step.is-active');
+        if (activeStep) updateActiveIllustrationVisibility(activeStep);
+        // Re-evaluate on viewport change
+        if (!window.__ill_mq) {
+          window.__ill_mq = window.matchMedia('(min-width: 1280px)');
+          window.__ill_mq.addEventListener('change', function(){
+            try {
+              var as = document.querySelector('.timeline-steps .step.is-active');
+              if (as) updateActiveIllustrationVisibility(as);
+            } catch(_) {}
+          });
+        }
+      } catch(_) {}
 
       // Update first step wording (always the same copy regardless of state)
       updateFirstStepText(p.state|0);
@@ -453,31 +549,12 @@
       if (!tool) {
         tool = document.createElement('div');
         tool.id = id;
-        tool.style.position = 'fixed';
-        tool.style.left = '16px';
-        tool.style.bottom = '56px';
-        tool.style.zIndex = '1201';
-        tool.style.background = '#111827CC';
-        tool.style.color = '#fff';
-        tool.style.fontFamily = 'system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
-        tool.style.fontSize = '12px';
-        tool.style.width = '145px';
-        tool.style.height = '40px';
-        tool.style.padding = '10px 12px';
-        tool.style.borderRadius = '10px';
-        tool.style.margin = '0 0 4px 0';
-        tool.style.display = 'none';
-        tool.style.alignItems = 'center';
-        tool.style.gap = '8px';
         tool.setAttribute('role','status');
         var label = document.createElement('span');
+        label.className = 'label';
         label.textContent = 'Expires in:';
-        label.style.opacity = '0.9';
-        label.style.width = '100%';
         var val = document.createElement('strong');
         val.id = 'sessionTimerValue';
-        val.style.minWidth = '40px';
-        val.style.textAlign = 'right';
         tool.appendChild(label);
         tool.appendChild(val);
         document.body.appendChild(tool);

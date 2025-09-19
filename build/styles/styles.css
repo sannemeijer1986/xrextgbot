@@ -1583,7 +1583,7 @@ body.modal-locked {
 .content .timeline-steps .step {
   display: block;
   position: relative;
-  padding: 0 32px 0 8px;
+  padding: 0 16px 0 8px;
   --rail-width: 44px;
   --track-x: 24px;
   --node-size: 16px;
@@ -2746,5 +2746,116 @@ body.modal-locked {
   }
   .snackbar.leaving {
     transform: translateX(-50%) translateY(8px);
+  }
+}
+.timeline-steps .step .step-flex {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  width: 100%;
+}
+.timeline-steps .step .step-wrapper {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.timeline-steps .step .step-illustration {
+  flex: 0 0 280px;
+  max-width: 300px;
+  border-radius: 12px;
+  background: #E5E7EB;
+  height: 150px;
+  margin: 24px 8px 24px 0px;
+  align-self: stretch;
+  display: none;
+}
+.timeline-steps .step .step-illustration > .ph {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6B7280;
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  text-align: center;
+}
+.timeline-steps .step .step-illustration-mobile {
+  width: 200px;
+  border-radius: 12px;
+  background: #E5E7EB;
+  height: 100px;
+  margin: 20px 0 16px 0;
+  display: block;
+}
+.timeline-steps .step .step-illustration-mobile > .ph {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6B7280;
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  text-align: center;
+}
+
+@media (min-width: 1280px) {
+  .timeline-steps .step .step-illustration {
+    display: block;
+  }
+  .timeline-steps .step .step-illustration-mobile {
+    display: none;
+  }
+}
+#sessionTimerTool {
+  position: fixed;
+  left: 16px;
+  bottom: 56px;
+  z-index: 1201;
+  background: rgba(17, 24, 39, 0.8);
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 12px;
+  width: 145px;
+  height: 40px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin: 0 0 4px 0;
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+#sessionTimerTool .label {
+  opacity: 0.9;
+  width: 100%;
+}
+#sessionTimerTool #sessionTimerValue {
+  min-width: 40px;
+  text-align: right;
+}
+
+@media (min-width: 1280px) {
+  .timeline-steps .step.is-active .step-flex {
+    align-items: stretch;
+  }
+  .timeline-steps .step.is-active .step-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .timeline-steps .step.is-active .step-row.step-content {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .timeline-steps .step.is-active .step-row.step-content .content-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 0;
+  }
+  .timeline-steps .step.is-active .step-row.step-content .track-wrapper {
+    height: 100%;
+  }
+  .timeline-steps .step.is-active .step-row.step-content .track-wrapper .track {
+    height: 100%;
   }
 }
