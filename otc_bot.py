@@ -94,7 +94,6 @@ async def push_state(stage: int = None, twofa_verified: bool = None, linking_cod
                     # Start per-session poller (so we can detect stage 6 for this visitor)
                     try:
                         if session_id:
-                            global session_poll_tasks
                             if session_id not in session_poll_tasks or session_poll_tasks[session_id].done():
                                 session_poll_tasks[session_id] = asyncio.create_task(poll_remote_and_sync(session_id=session_id))
                             # Track actor for this session for targeted notifications
@@ -118,7 +117,6 @@ async def push_state(stage: int = None, twofa_verified: bool = None, linking_cod
     # Fallback: even if we couldn't write (missing token/network), still start poller for this session
     try:
         if session_id:
-            global session_poll_tasks
             if session_id not in session_poll_tasks or session_poll_tasks[session_id].done():
                 session_poll_tasks[session_id] = asyncio.create_task(poll_remote_and_sync(session_id=session_id))
     except Exception:
