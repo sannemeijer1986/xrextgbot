@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
     if (req.method === 'GET') {
       const { data, error, status } = await supabase
         .from('xrex_session')
-        .select('current_state,twofa_verified,linking_code,last_updated_at')
+        .select('current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id')
         .eq('session_id', sessionId)
         .single();
       if (error && status !== 406) {
@@ -54,7 +54,9 @@ module.exports = async (req, res) => {
           stage: Number(data.current_state || 1),
           twofa_verified: !!data.twofa_verified,
           linking_code: data.linking_code || null,
-          updated_at: ts
+          updated_at: ts,
+          actor_tg_user_id: data.last_actor_tg_id || null,
+          actor_chat_id: data.last_actor_chat_id || null
         };
       }
       const body = JSON.stringify(bodyObj);

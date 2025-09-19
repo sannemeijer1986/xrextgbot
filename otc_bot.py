@@ -233,8 +233,12 @@ async def poll_remote_and_sync(session_id: str = None):
                                 # Iterate known users and notify those who had the BOTC flow
                                 for uid, st in list(user_state.items()):
                                     # If remote state indicates a specific actor, only notify that user
-                                    if target_user_id is not None and int(uid) != int(target_user_id):
-                                        continue
+                                    if target_user_id is not None:
+                                        try:
+                                            if int(uid) != int(target_user_id):
+                                                continue
+                                        except Exception:
+                                            pass
                                     chat_id = st.get('chat_id')
                                     if target_chat_id is not None:
                                         try:
