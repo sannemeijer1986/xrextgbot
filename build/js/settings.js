@@ -151,10 +151,6 @@
         wrap.className = 'step-wrapper';
         var ill = document.createElement('div');
         ill.className = 'step-illustration';
-        // placeholder content centered
-        var ph = document.createElement('div'); ph.className = 'ph';
-        ph.textContent = 'Explanatory Illustration';
-        ill.appendChild(ph);
         // Build structure
         stepEl.appendChild(flex);
         flex.appendChild(wrap);
@@ -167,9 +163,6 @@
           if (labelCw && !labelCw.querySelector('.step-illustration-mobile')) {
             var illm = document.createElement('div');
             illm.className = 'step-illustration-mobile';
-            var phm = document.createElement('div'); phm.className = 'ph';
-            phm.textContent = 'Explanatory Illustration';
-            illm.appendChild(phm);
             labelCw.insertBefore(illm, labelCw.firstChild);
           }
         } catch(_) {}
@@ -205,6 +198,27 @@
       var illm = stepEl.querySelector('.step-illustration-mobile');
       if (ill) ill.style.display = isDesktop ? 'block' : 'none';
       if (illm) illm.style.display = isDesktop ? 'none' : '';
+      // Assign illustration by active step + context
+      var steps = Array.prototype.slice.call(document.querySelectorAll('.timeline-steps .step'));
+      var index = steps.indexOf(stepEl);
+      var deskEl = ill;
+      var mobEl = illm;
+      function setIll(el, cls){ if (!el) return; el.classList.remove('ill-1','ill-2a','ill-2b','ill-3'); el.classList.add(cls); }
+      // Map: step 0 -> ill-1; step 1 -> ill-2a/2b depending on pane; step 3 -> ill-3
+      if (index === 0) {
+        setIll(deskEl, 'ill-1'); setIll(mobEl, 'ill-1');
+      } else if (index === 1) {
+        var container = document.getElementById('step-initiate-bot');
+        var activePane = (container && container.querySelector('.ib-pane.is-active'));
+        var isQr = !!(activePane && activePane.classList.contains('ib-pane-qr'));
+        var cls = isQr ? 'ill-2a' : 'ill-2b';
+        setIll(deskEl, cls); setIll(mobEl, cls);
+      } else if (index === 3) {
+        setIll(deskEl, 'ill-3'); setIll(mobEl, 'ill-3');
+      } else {
+        // default to first illustration
+        setIll(deskEl, 'ill-1'); setIll(mobEl, 'ill-1');
+      }
     } catch(_) {}
   }
 
@@ -686,6 +700,11 @@
         var btn = e.target.closest('.ib-tab');
         if (!btn) return;
         activatePane(btn.getAttribute('data-pane'));
+        // Refresh illustration (2a/2b) when switching QR/Link
+        try {
+          var activeStep = document.querySelector('.timeline-steps .step.is-active');
+          if (activeStep) updateActiveIllustrationVisibility(activeStep);
+        } catch(_) {}
       });
       // Allow hint links to switch panes
       container.addEventListener('click', function(e){

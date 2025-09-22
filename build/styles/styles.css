@@ -1864,7 +1864,7 @@ body.modal-locked {
   display: grid;
   place-items: center;
   background: #fff;
-  border-radius: 16px;
+  border-radius: 8px;
   border: 1px solid #eaeaea;
 }
 .content .initiate-bot .ib-qr svg {
@@ -2751,7 +2751,7 @@ body.modal-locked {
 .timeline-steps .step .step-flex {
   display: flex;
   align-items: stretch;
-  gap: 16px;
+  gap: 40px;
   width: 100%;
 }
 .timeline-steps .step .step-wrapper {
@@ -2759,11 +2759,13 @@ body.modal-locked {
   min-width: 0;
 }
 .timeline-steps .step .step-illustration {
-  flex: 0 0 280px;
-  max-width: 300px;
+  flex: 0 0 240px;
+  max-width: 240px;
   border-radius: 12px;
-  background: #E5E7EB;
-  height: 150px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 144px;
   margin: 24px 8px 24px 0px;
   align-self: stretch;
   display: none;
@@ -2779,12 +2781,14 @@ body.modal-locked {
   text-align: center;
 }
 .timeline-steps .step .step-illustration-mobile {
-  width: 200px;
+  width: 120px;
   border-radius: 12px;
-  background: #E5E7EB;
-  height: 100px;
+  height: 72.3px;
   margin: 20px 0 16px 0;
   display: block;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 .timeline-steps .step .step-illustration-mobile > .ph {
   height: 100%;
@@ -2830,6 +2834,27 @@ body.modal-locked {
 #sessionTimerTool #sessionTimerValue {
   min-width: 40px;
   text-align: right;
+}
+
+.ill-1 {
+  background-image: url("../assets/illu_timeline_1.svg");
+}
+
+.ill-2a {
+  background-image: url("../assets/illu_timeline_2a.svg");
+}
+
+.ill-2b {
+  background-image: url("../assets/illu_timeline_2b.svg");
+}
+
+.ill-3 {
+  background-image: url("../assets/illu_timeline_3.svg");
+}
+
+.step-illustration[class*=ill-] > .ph,
+.step-illustration-mobile[class*=ill-] > .ph {
+  display: none;
 }
 
 @media (min-width: 1280px) {
