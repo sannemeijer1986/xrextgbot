@@ -1267,7 +1267,7 @@ body.modal-locked {
 }
 .content .tabs {
   display: flex;
-  gap: 16px;
+  gap: 4px;
   border-bottom: 1px solid #eaeaea;
 }
 .content .tabs .tab {
@@ -1278,7 +1278,7 @@ body.modal-locked {
   margin: 0;
   color: #797A7B;
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   position: relative;
@@ -1299,6 +1299,9 @@ body.modal-locked {
   width: 40px;
 }
 @media (min-width: 1280px) {
+  .content .tabs {
+    gap: 8px;
+  }
   .content .tabs .tab {
     padding: 10px 20px;
     font-size: 16px;

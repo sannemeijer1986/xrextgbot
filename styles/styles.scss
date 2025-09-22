@@ -861,7 +861,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 
   .tabs {
     display: flex;
-    gap: 16px;
+    gap: 4px;
     border-bottom: 1px solid $color-border;
 
     .tab {
@@ -872,7 +872,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       margin: 0;
       color: #797A7B;
       font-family: $font-manrope;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 600; // semi-bold
       cursor: pointer;
       position: relative;
@@ -899,6 +899,9 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 
   @media (min-width: $bp-md) {
     .tabs {
+
+      gap: 8px;
+
       .tab {
         padding: 10px 20px;
         font-size: 16px;
