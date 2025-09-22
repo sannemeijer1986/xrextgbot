@@ -987,6 +987,23 @@
       tool.appendChild(label); tool.appendChild(val); tool.appendChild(btnDown); tool.appendChild(btnUp);
       document.body.appendChild(tool);
       update();
+      // iOS double-tap/gesture zoom guard scoped to adminStateTool only
+      try {
+        if (!tool.__preventZoomWired) {
+          var __lastTouch_ts = 0;
+          tool.addEventListener('touchend', function(e){
+            try {
+              var now = Date.now();
+              if ((now - __lastTouch_ts) < 300 && e && e.cancelable) e.preventDefault();
+              __lastTouch_ts = now;
+            } catch(_) {}
+          }, { passive: false });
+          ['gesturestart','gesturechange','gestureend'].forEach(function(evt){
+            tool.addEventListener(evt, function(e){ try { if (e && e.cancelable) e.preventDefault(); } catch(_) {} }, { passive: false });
+          });
+          tool.__preventZoomWired = true;
+        }
+      } catch(_) {}
     } catch(_) {}
   }
 
