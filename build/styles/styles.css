@@ -1274,11 +1274,11 @@ body.modal-locked {
   appearance: none;
   background: transparent;
   border: none;
-  padding: 10px 20px;
+  padding: 8px 14px;
   margin: 0;
   color: #797A7B;
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   position: relative;
@@ -1297,6 +1297,12 @@ body.modal-locked {
   background: #6366f1;
   border-radius: 2px;
   width: 40px;
+}
+@media (min-width: 1280px) {
+  .content .tabs .tab {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
 }
 .content .feature-section {
   margin-top: 8px;
