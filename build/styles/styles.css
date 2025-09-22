@@ -823,6 +823,7 @@ body.modal-locked {
 }
 .container {
   max-width: 768px;
+  min-width: 320px;
   margin: 0 auto;
   padding: 20px;
   display: flex;
@@ -1330,6 +1331,12 @@ body.modal-locked {
 }
 .content #panel-setup.feature-wrapper {
   border: 0px solid;
+  padding: 8px;
+}
+@media (min-width: 1280px) {
+  .content #panel-setup.feature-wrapper {
+    padding: 32px;
+  }
 }
 .content .intro-slider {
   margin-top: 20px;
@@ -1594,9 +1601,14 @@ body.modal-locked {
 .content .timeline-steps .step-row {
   display: grid;
   grid-template-columns: var(--rail-width) 1fr;
-  gap: 8px;
+  gap: 6px;
   align-items: start;
   position: relative;
+}
+@media (min-width: 1280px) {
+  .content .timeline-steps .step-row {
+    gap: 8px;
+  }
 }
 .content .timeline-steps .content-wrapper {
   position: relative;
@@ -1643,7 +1655,12 @@ body.modal-locked {
 }
 .content .timeline-steps .step.is-active {
   background: #F8FAFF;
-  border-radius: 12px;
+  border-radius: 8px;
+}
+@media screen and (min-width: 1280px) {
+  .content .timeline-steps .step.is-active {
+    border-radius: 12px;
+  }
 }
 .content .timeline-steps .step.is-active .track-wrapper .node {
   display: flex;
@@ -1673,6 +1690,7 @@ body.modal-locked {
   font: 700 20px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #2d2f2f;
   line-height: 1.15;
+  padding: 8px 0px;
 }
 .content .timeline-steps .desc {
   color: #797a7b;
@@ -1877,7 +1895,6 @@ body.modal-locked {
   gap: 12px;
   align-items: center;
   margin-top: 8px;
-  flex-wrap: wrap;
 }
 .content .initiate-bot .ib-pill {
   display: inline-flex;
@@ -1890,6 +1907,14 @@ body.modal-locked {
   border-radius: 999px;
   font: 700 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   height: 32px;
+  min-width: 140px;
+  width: 100%;
+  max-width: 200px;
+}
+@media (min-width: 1280px) {
+  .content .initiate-bot .ib-pill {
+    width: auto;
+  }
 }
 .content .initiate-bot .ib-pill-text {
   max-width: 160px;
@@ -2086,7 +2111,12 @@ body.modal-locked {
   height: 32px;
   padding: 0 14px;
   font-size: 12px;
-  min-width: 100px;
+  min-width: 74px;
+}
+@media (min-width: 1280px) {
+  .content .verify-code .vc-submit {
+    min-width: 100px;
+  }
 }
 .content .verify-code .vc-links {
   flex-wrap: wrap;
@@ -2857,6 +2887,27 @@ body.modal-locked {
   display: none;
 }
 
+@media (max-width: 1279px) {
+  .timeline {
+    overflow-x: hidden;
+  }
+  .timeline-steps {
+    max-width: 100%;
+  }
+  .timeline-steps .step {
+    max-width: 100%;
+  }
+  .timeline-steps .step .step-row {
+    min-width: 0;
+  }
+  .timeline-steps .step .content-wrapper {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .timeline-steps .step .step-illustration-mobile {
+    width: min(120px, 100%);
+  }
+}
 @media (min-width: 1280px) {
   .timeline-steps .step.is-active .step-flex {
     align-items: stretch;
