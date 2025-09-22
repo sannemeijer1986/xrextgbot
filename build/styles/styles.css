@@ -1341,22 +1341,29 @@ body.modal-locked {
 .content .intro-slider {
   margin-top: 20px;
   width: 100%;
+  height: auto !important;
+}
+.content .intro-slider .swiper {
+  height: auto !important;
+}
+.content .intro-slider {
   --intro-slide-max-width: 320px;
 }
 .content .intro-slider .swiper-wrapper {
-  align-items: stretch;
+  align-items: center;
+  height: auto !important;
 }
 .content .intro-slider .swiper-slide {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: min(100%, var(--intro-slide-max-width));
+  width: 220px;
   flex: 0 0 auto;
+  height: auto !important;
 }
 .content .intro-slider .intro-slide-media {
-  width: 100%;
-  aspect-ratio: 4/4;
-  height: auto;
+  width: 220px;
+  height: 238.33 !important;
   border-radius: 4px;
   background: #0f172a;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
@@ -1378,13 +1385,28 @@ body.modal-locked {
 .content .intro-slider .swiper-button-next {
   color: #1f2937;
 }
+@media (min-width: 740px) and (max-width: 1279px) {
+  .content .intro-slider .intro-slide-media {
+    width: 260px;
+    height: 281.67px !important;
+  }
+  .content .intro-slider .swiper-slide {
+    width: 260px;
+    height: auto !important;
+  }
+}
 @media (min-width: 1280px) {
   .content .intro-slider {
     margin-top: 32px;
   }
   .content .intro-slider .intro-slide-media {
-    max-width: 880px;
+    width: 290px;
+    height: 314.17px !important;
     border-radius: 8px;
+  }
+  .content .intro-slider .swiper-slide {
+    width: 290px;
+    height: auto !important;
   }
   .content .intro-slider .swiper-button-prev,
   .content .intro-slider .swiper-button-next {
@@ -2934,4 +2956,7 @@ body.modal-locked {
   .timeline-steps .step.is-active .step-row.step-content .track-wrapper .track {
     height: 100%;
   }
+}
+#adminStateTool, #sessionTimerTool {
+  opacity: 0.5;
 }
