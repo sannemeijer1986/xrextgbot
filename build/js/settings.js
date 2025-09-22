@@ -1,5 +1,22 @@
 // moved from assets/js/settings.js
 (function () {
+  // Global iOS double-tap and gesture zoom guard (entire page)
+  try {
+    if (!window.__ios_zoom_guard_all__) {
+      var __lastTouchAll = 0;
+      document.addEventListener('touchend', function(e){
+        try {
+          var now = Date.now();
+          if ((now - __lastTouchAll) < 300 && e && e.cancelable) e.preventDefault();
+          __lastTouchAll = now;
+        } catch(_) {}
+      }, { passive: false });
+      ['gesturestart','gesturechange','gestureend'].forEach(function(evt){
+        document.addEventListener(evt, function(e){ try { if (e && e.cancelable) e.preventDefault(); } catch(_) {} }, { passive: false });
+      });
+      window.__ios_zoom_guard_all__ = true;
+    }
+  } catch(_) {}
   // Mobile state switching via URL param `view` = 'menu' | 'content'
   try {
     var mqDesktop = window.matchMedia('(min-width: 1280px)');
