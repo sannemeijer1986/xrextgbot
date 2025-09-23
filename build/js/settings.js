@@ -366,6 +366,8 @@
       try { updateStatusRowUI(); } catch(_) {}
       // Sync Start/Go-to-bot CTA depending on state
       try { updateTopCta(); } catch(_) {}
+      // Sync inline Introduction CTA label
+      try { updateInlineIntroCta(); } catch(_) {}
       // If state is 1, and we're on Telegram Setup tab, force switch to Intro
       try {
         var p = getProgress();
@@ -408,6 +410,8 @@
             setState(6);
             applyTimelineFromProgress();
             try { updateStatusRowUI(); } catch(_) {}
+            try { updateTopCta(); } catch(_) {}
+            try { updateInlineIntroCta(); } catch(_) {}
             var val2 = document.getElementById('adminStateValue');
             if (val2) val2.textContent = String(getProgress().state);
             // Finalize server state to 6 so the bot can see success immediately
@@ -1211,6 +1215,8 @@
     try { saveProgress({ lastTab: isIntro ? 'intro' : 'setup' }); } catch(_) {}
     // Update top CTA visibility per state/tab
     try { updateTopCta(); } catch(_) {}
+    // Keep inline CTA text in sync when switching tabs
+    try { updateInlineIntroCta(); } catch(_) {}
     // Return whether Setup is actually active
     return !isIntro;
   }
@@ -1293,6 +1299,8 @@
   if (startLinkBtn) startLinkBtn.addEventListener('click', function (e) {
     try {
       var s0 = (getProgress().state|0);
+      // If already linked (state 6), open the bot directly
+      if (s0 === 6) { e && e.preventDefault && e.preventDefault(); window.open('https://t.me/SanneXREX_bot','_blank','noopener'); return; }
       if (s0 <= 1) { e && e.preventDefault && e.preventDefault(); openRequire2faModal(); return; }
       var u = new URL(window.location.href);
       u.searchParams.set('view','content');
@@ -1306,6 +1314,8 @@
     btn.addEventListener('click', function(e){ 
       try {
         var s1 = (getProgress().state|0);
+        // If already linked (state 6), open the bot directly
+        if (s1 === 6) { e && e.preventDefault && e.preventDefault(); window.open('https://t.me/SanneXREX_bot','_blank','noopener'); return; }
         if (s1 <= 1) { e && e.preventDefault && e.preventDefault(); openRequire2faModal(); return; }
         var u2 = new URL(window.location.href);
         u2.searchParams.set('view','content');
@@ -1325,13 +1335,9 @@
       var s = (p.state|0);
       var isDesk = window.matchMedia('(min-width: 1280px)').matches;
       // When linked (state 6): show Go to bot on both tabs
-      if (s >= 6) {
+      if (s === 6) {
         btn.textContent = 'Go to bot';
-        try {
-          var url = 'https://t.me/SanneXREX_bot';
-          // Turn the CTA into a link-like navigation
-          btn.onclick = function(){ window.open(url, '_blank', 'noopener'); };
-        } catch(_) {}
+        btn.onclick = null;
         btn.style.opacity = '1';
         btn.style.pointerEvents = '';
         btn.setAttribute('aria-hidden','false');
@@ -1345,6 +1351,18 @@
       btn.style.opacity = hidden ? '0' : '1';
       btn.style.pointerEvents = hidden ? 'none' : '';
       btn.setAttribute('aria-hidden', hidden ? 'true' : 'false');
+    } catch(_) {}
+  }
+
+  // Update the inline Introduction CTA text to match state
+  function updateInlineIntroCta(){
+    try {
+      var p = getProgress();
+      var s = (p.state|0);
+      var label = (s === 6) ? 'Go to bot' : 'Start linking';
+      document.querySelectorAll('.js-start-link').forEach(function(btn){
+        try { if (btn) btn.textContent = label; } catch(_) {}
+      });
     } catch(_) {}
   }
 
