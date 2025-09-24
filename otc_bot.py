@@ -779,11 +779,12 @@ def render_wallet_details(address: str) -> str:
         base = explorer
     lines = []
     lines.append("📎 Your queried wallet address:")
-    lines.append(f"<b>{address}</b>")
-    if base:
-        lines.append(base)
+    lines.append(f"<b>{address} + "69zkqmk6ee3ewf0j77s3h</b>")
+    # Show only one explorer reference (prefer full link if available)
     if explorer:
         lines.append(explorer)
+    elif base:
+        lines.append(base)
     lines.append(f"Blockchain: <b>{chain}</b>")
     lines.append("📌 Exchange: <b>XREX</b>")
     lines.append("https://xrex.io/xray/app/entity/6")
