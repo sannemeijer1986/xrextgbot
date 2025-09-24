@@ -62,13 +62,22 @@ session_subscriptions = {}
 finalize_watch_tasks = {}
 notify_locks = {}
 
-def try_mark_stage6_notifying(user_id: int) -> bool:
+async def begin_stage6_notify(user_id: int) -> bool:
     try:
         uid = int(user_id)
-        st = user_state.get(uid, {})
-        if st.get('stage6_notified'):
+        lock = notify_locks.get(uid)
+        if lock is None:
+            lock = asyncio.Lock()
+            notify_locks[uid] = lock
+        if lock.locked():
             return False
-        if st.get('stage6_inflight'):
+        await lock.acquire()
+        st = user_state.get(uid, {})
+        if st.get('stage6_notified') or st.get('stage6_inflight'):
+            try:
+                lock.release()
+            except Exception:
+                pass
             return False
         st['stage6_inflight'] = True
         user_state[uid] = st
@@ -76,7 +85,7 @@ def try_mark_stage6_notifying(user_id: int) -> bool:
     except Exception:
         return False
 
-def complete_stage6_notify(user_id: int, success: bool):
+async def end_stage6_notify(user_id: int, success: bool):
     try:
         uid = int(user_id)
         st = user_state.get(uid, {})
@@ -84,6 +93,12 @@ def complete_stage6_notify(user_id: int, success: bool):
         if success:
             st['stage6_notified'] = True
         user_state[uid] = st
+        lock = notify_locks.get(uid)
+        if lock and lock.locked():
+            try:
+                lock.release()
+            except Exception:
+                pass
     except Exception:
         pass
 
@@ -176,7 +191,7 @@ async def maybe_notify_link_success(user_id: int, chat_id: int):
                 st = user_state.get(user_id, {})
                 if st.get('stage6_notified'):
                     return
-                if bot_for_notifications and try_mark_stage6_notifying(user_id):
+                if bot_for_notifications and await begin_stage6_notify(user_id):
                     ok = False
                     try:
                         keyboard = [[
@@ -196,7 +211,7 @@ async def maybe_notify_link_success(user_id: int, chat_id: int):
                             pass
                         ok = True
                     finally:
-                        complete_stage6_notify(user_id, ok)
+                        await end_stage6_notify(user_id, ok)
     except Exception:
         pass
 
@@ -567,7 +582,7 @@ async def poll_remote_and_sync(session_id: str = None):
                                     ]]
                                     reply_markup = InlineKeyboardMarkup(keyboard)
                                     try:
-                                        if bot_for_notifications and try_mark_stage6_notifying(uid):
+                                        if bot_for_notifications and await begin_stage6_notify(uid):
                                             ok = False
                                             try:
                                                 await bot_for_notifications.send_message(
@@ -582,7 +597,7 @@ async def poll_remote_and_sync(session_id: str = None):
                                                     pass
                                                 ok = True
                                             finally:
-                                                complete_stage6_notify(uid, ok)
+                                                await end_stage6_notify(uid, ok)
                                             notified_any = True
                                     except Exception:
                                         pass
@@ -592,7 +607,7 @@ async def poll_remote_and_sync(session_id: str = None):
                                         uid_key = int(target_user_id)
                                         st = user_state.get(uid_key, {})
                                         already = st.get('stage6_notified')
-                                        if not already and bot_for_notifications and try_mark_stage6_notifying(uid_key):
+                                        if not already and bot_for_notifications and await begin_stage6_notify(uid_key):
                                             ok2 = False
                                             try:
                                                 await bot_for_notifications.send_message(
@@ -611,7 +626,7 @@ async def poll_remote_and_sync(session_id: str = None):
                                                 ok2 = True
                                                 notified_any = True
                                             finally:
-                                                complete_stage6_notify(uid_key, ok2)
+                                                await end_stage6_notify(uid_key, ok2)
                                     except Exception:
                                         pass
                             except Exception:
