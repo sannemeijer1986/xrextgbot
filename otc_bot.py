@@ -435,9 +435,19 @@ async def poll_remote_and_sync(session_id: str = None):
                         else:
                             set_sync_state(stage=stage, twofa_verified=twofa, linking_code=code)
                             try:
-                                # If we see stage 4 for this session, start a finalize watch keyed by user id if provided
-                                if stage == 4 and target_user_id and target_chat_id:
-                                    ensure_finalize_watch(tg_user_id=int(target_user_id), chat_id=int(target_chat_id))
+                                # If we see stage 4/5 for this session, start a finalize watch keyed by user id
+                                if (stage == 4 or stage == 5):
+                                    if target_user_id and target_chat_id:
+                                        ensure_finalize_watch(tg_user_id=int(target_user_id), chat_id=int(target_chat_id))
+                                    else:
+                                        # Map session_id -> user via local user_state (fallback when actor ids missing)
+                                        try:
+                                            for uid2, st2 in list(user_state.items()):
+                                                if st2.get('session_id') == session_id and st2.get('chat_id'):
+                                                    ensure_finalize_watch(tg_user_id=int(uid2), chat_id=int(st2.get('chat_id')))
+                                                    break
+                                        except Exception:
+                                            pass
                             except Exception:
                                 pass
                         # Detect session expiry transition (>=3 -> <=2)
