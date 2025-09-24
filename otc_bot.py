@@ -749,6 +749,41 @@ async def check_webhook(bot):
     except Exception as e:
         logger.error(f"Error checking webhook: {str(e)}")
 
+def detect_chain_and_explorer(address: str):
+    try:
+        addr = (address or '').strip()
+        low = addr.lower()
+        # ETH
+        if low.startswith('0x') and len(low) >= 10:
+            return 'Ethereum', f"https://etherscan.io/address/{addr}"
+        # BTC (basic heuristics)
+        if low.startswith('bc1') or low.startswith('1') or low.startswith('3'):
+            return 'Bitcoin', f"https://www.blockchain.com/btc/address/{addr}"
+        # TRON
+        if addr.startswith('T'):
+            return 'TRON', f"https://tronscan.org/#/address/{addr}"
+        return 'Unknown', ''
+    except Exception:
+        return 'Unknown', ''
+
+def render_wallet_details(address: str) -> str:
+    chain, explorer = detect_chain_and_explorer(address)
+    lines = []
+    lines.append(f"📎 Wallet Address:\n{address}")
+    if explorer:
+        lines.append(f"🔗 {explorer}")
+    lines.append(f"🌐 Blockchain: {chain}  🏢 Exchange: XREX  🔗 View Entity")
+    lines.append(f"🏷️ Tag: None  📌 Type: Exchange – Hot Wallet")
+    lines.append("💰 On-chain Balance:\n(May not equal user account balance due to exchange accounting)")
+    lines.append("667.43 ETH")
+    lines.append("1,188,823.66 USDT")
+    lines.append("347,401.40 USDC")
+    lines.append("🚩 Risk Level: 🔴 High")
+    lines.append("Details:")
+    lines.append("This address has been reported.")
+    lines.append("It has interacted with reported addresses.")
+    return "\n".join(lines)
+
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     logger.debug(f"Entering start for user {update.effective_user.id}")
     user_name = update.effective_user.first_name
@@ -1620,6 +1655,16 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 )
                 return
 
+        # Handle awaiting wallet address for /check_wallet
+        if state.get('awaiting_wallet_address'):
+            addr = update.message.text.strip()
+            # Clear flag
+            state['awaiting_wallet_address'] = False
+            user_state[user_id] = state
+            # Render response
+            await update.message.reply_text(render_wallet_details(addr))
+            return
+
         # Normal OTC flow handling
         if not state or not state.get("awaiting_amount"):
             logger.debug(f"No awaiting amount for user {user_id}, ignoring text")
@@ -1706,44 +1751,21 @@ async def check_wallet_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     addr = (args[0].strip() if args and isinstance(args[0], str) else '')
     if not addr:
         msg = (
-            "Simply enter the command /check_wallet, paste the blockchain wallet address, and send the message. I will instantly help you check the address information, including which exchange it belongs to and its risk level.\n"
-            "Currently, supported blockchains are:\n"
+            "🔎 Please provide wallet address hash: I will help you check the wallet.\n\n"
+            "Supported blockchains:\n"
             "Bitcoin (BTC)\n"
             "Ethereum (ETH)\n"
-            "TRON (TRX)\n"
-            "👉 Example\n"
+            "TRON (TRX)\n\n"
+            "👉 Did you know? You can also combine this command with the address, example:\n"
             "/check_wallet bc1qm34lsc65zpw79lxes69zkqmk6ee3ewf0j77s3h"
         )
         await update.message.reply_text(msg)
+        # Set awaiting flag to capture next user message as address
+        st = user_state.get(update.effective_user.id, {})
+        st['awaiting_wallet_address'] = True
+        user_state[update.effective_user.id] = st
         return
-    # Heuristics to format explorer link and chain
-    chain = 'Ethereum'
-    explorer = f"https://etherscan.io/address/{addr}"
-    try:
-        low = addr.lower()
-        if low.startswith('0x') and len(low) >= 10:
-            chain = 'Ethereum'; explorer = f"https://etherscan.io/address/{addr}"
-        elif low.startswith('bc1') or low.startswith('1') or low.startswith('3'):
-            chain = 'Bitcoin'; explorer = f"https://www.blockchain.com/btc/address/{addr}"
-        elif addr.startswith('T'):
-            chain = 'TRON'; explorer = f"https://tronscan.org/#/address/{addr}"
-    except Exception:
-        pass
-    details = (
-        f"📎 Wallet Address:\n{addr}\n "
-        f"🔗 {explorer}\n"
-        f"🌐 Blockchain: {chain}  🏢 Exchange: XREX  🔗 View Entity\n"
-        f"🏷️ Tag: None  📌 Type: Exchange – Hot Wallet\n"
-        f"💰 On-chain Balance:\n(May not equal user account balance due to exchange accounting)\n"
-        f"667.43 ETH\n"
-        f"1,188,823.66 USDT\n"
-        f"347,401.40 USDC\n"
-        f"🚩 Risk Level: 🔴 High\n"
-        f"Details:\n"
-        f"This address has been reported.\n"
-        f"It has interacted with reported addresses."
-    )
-    await update.message.reply_text(details)
+    await update.message.reply_text(render_wallet_details(addr))
 
 async def otc_quote_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Guard linking in progress
