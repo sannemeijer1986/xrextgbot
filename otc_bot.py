@@ -618,6 +618,24 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
     
     # Normal start flow (no verification token)
+    # Guard: if user is in the middle of linking, don't switch context; remind them to continue
+    try:
+        st_link = user_state.get(user_id, {})
+        if st_link.get('awaiting_verification'):
+            verification_code = st_link.get('verification_code', 'N/A')
+            keyboard = [[InlineKeyboardButton("Generate New Code", callback_data="generate_new_code")]]
+            await update.message.reply_text(
+                f"🔐 Verification in progress\n\nYour verification code is: `{verification_code}`\nCopy this into the XREX Pay web app.",
+                parse_mode='Markdown',
+                reply_markup=InlineKeyboardMarkup(keyboard)
+            )
+            return
+        if st_link.get('awaiting_2fa'):
+            await update.message.reply_text("🔐 Linking in progress. Please enter your 2FA code to continue.")
+            return
+    except Exception:
+        pass
+
     try:
         linked, last_session = await is_linked_for_user(user_id)
     except Exception:
@@ -797,36 +815,26 @@ async def link_account_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def unlink_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    user_id = update.effective_user.id
-    chat_id = update.effective_chat.id
-    sess = user_state.get(user_id, {}).get('session_id')
-    if not sess:
-        try:
-            _, sess = await is_linked_for_user(user_id)
-        except Exception:
-            sess = None
-    if not sess:
-        keyboard = [[InlineKeyboardButton("↗️ Go to XREX Pay", url=xrex_link_url())]]
-        await update.message.reply_text(
-            "To Unlink from XREX Pay, please visit the XREX Pay Webapp",
-            reply_markup=InlineKeyboardMarkup(keyboard)
-        )
-        return
-    if httpx is None:
-        await update.message.reply_text("Network client unavailable to unlink right now.")
-        return
+    # Spec: only show guidance; do not unlink via API
     try:
-        async with httpx.AsyncClient(timeout=10.0) as client:
-            base = os.getenv("STATE_BASE_URL", "").strip() or "https://xrextgbot.vercel.app"
-            url = base.rstrip('/') + f"/api/state?session={sess}"
-            await client.put(url, headers={"Content-Type": "application/json", "X-Client-Stage": "7"}, json={"stage": 7})
-        await update.message.reply_text("Unlinked successfully.")
-        try:
-            await set_commands_unlinked(context.bot, chat_id)
-        except Exception:
-            pass
+        st = user_state.get(update.effective_user.id, {})
+        if st.get('awaiting_verification'):
+            keyboard_v = [[InlineKeyboardButton("Generate New Code", callback_data="generate_new_code")]]
+            await update.message.reply_text(
+                f"🔐 Verification in progress\n\nYour verification code is: `{st.get('verification_code','N/A')}`",
+                parse_mode='Markdown', reply_markup=InlineKeyboardMarkup(keyboard_v)
+            )
+            return
+        if st.get('awaiting_2fa'):
+            await update.message.reply_text("🔐 Linking in progress. Please enter your 2FA code to continue.")
+            return
     except Exception:
-        await update.message.reply_text("Could not unlink right now. Please try again.")
+        pass
+    keyboard = [[InlineKeyboardButton("↗️ Go to XREX Pay", url=xrex_link_url())]]
+    await update.message.reply_text(
+        "To Unlink from XREX Pay, please visit the XREX Pay Webapp",
+        reply_markup=InlineKeyboardMarkup(keyboard)
+    )
 
     if data == "copy_code":
         # Re-send the linking code with copy-friendly formatting
@@ -1424,6 +1432,21 @@ async def wallet_check_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("{$XRAY_WALLET_FLOW}")
 
 async def otc_quote_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # Guard linking in progress
+    try:
+        st = user_state.get(update.effective_user.id, {})
+        if st.get('awaiting_verification'):
+            keyboard_v = [[InlineKeyboardButton("Generate New Code", callback_data="generate_new_code")]]
+            await update.message.reply_text(
+                f"🔐 Verification in progress\n\nYour verification code is: `{st.get('verification_code','N/A')}`",
+                parse_mode='Markdown', reply_markup=InlineKeyboardMarkup(keyboard_v)
+            )
+            return
+        if st.get('awaiting_2fa'):
+            await update.message.reply_text("🔐 Linking in progress. Please enter your 2FA code to continue.")
+            return
+    except Exception:
+        pass
     try:
         linked, _ = await is_linked_for_user(update.effective_user.id)
     except Exception:
@@ -1431,8 +1454,7 @@ async def otc_quote_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not linked:
         await update.message.reply_text("Your Telegram is not linked. Open XREX Pay to link first.")
         return
-    keyboard = [[InlineKeyboardButton("Start quote", callback_data="request_quote")]]
-    await update.message.reply_text("{$OTC_FLOW}", reply_markup=InlineKeyboardMarkup(keyboard))
+    await update.message.reply_text("{$OTC_FLOW}")
 
 async def main():
     application = None
