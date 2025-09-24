@@ -65,30 +65,14 @@ notify_locks = {}
 def try_mark_stage6_notifying(user_id: int) -> bool:
     try:
         uid = int(user_id)
-        lock = notify_locks.get(uid)
-        if lock is None:
-            lock = asyncio.Lock()
-            notify_locks[uid] = lock
-        # Use the lock to serialize attempts
-        if lock.locked():
+        st = user_state.get(uid, {})
+        if st.get('stage6_notified'):
             return False
-        # Optimistically set inflight flag under lock
-        async def _mark():
-            async with lock:
-                st = user_state.get(uid, {})
-                if st.get('stage6_notified') or st.get('stage6_inflight'):
-                    return False
-                st['stage6_inflight'] = True
-                user_state[uid] = st
-                return True
-        # Run immediate lock section using ensure_future to respect sync signature
-        loop = asyncio.get_event_loop()
-        fut = loop.create_task(_mark())
-        # Busy-wait small (we are in async context typically); fallback to False on exception
-        try:
-            return fut is not None and loop.run_until_complete(fut)  # only once here
-        except Exception:
+        if st.get('stage6_inflight'):
             return False
+        st['stage6_inflight'] = True
+        user_state[uid] = st
+        return True
     except Exception:
         return False
 
