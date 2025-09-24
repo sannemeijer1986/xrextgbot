@@ -131,9 +131,9 @@ async def set_commands_linked(bot, chat_id: int):
     try:
         cmds = [
             BotCommand("start", "Intro to XREX Pay Bot"),
-            BotCommand("check_wallet", "Check any wallet address"),
-            BotCommand("otc_quote", "Request a quote"),
-            BotCommand("unlink_account", "Unlink from XREX Pay"),
+            BotCommand("checkwallet", "Check any wallet address"),
+            BotCommand("otcquote", "Request a quote"),
+            BotCommand("unlinkaccount", "Unlink from XREX Pay"),
             BotCommand("help", "We’re here to help!")
         ]
         await bot.set_my_commands(commands=cmds, scope=BotCommandScopeChat(chat_id))
@@ -144,7 +144,7 @@ async def set_commands_unlinked(bot, chat_id: int):
     try:
         cmds = [
             BotCommand("start", "Intro to XREX Pay Bot"),
-            BotCommand("link_account", "Link with XREX Pay"),
+            BotCommand("linkaccount", "Link with XREX Pay"),
             BotCommand("help", "We’re here to help!")
         ]
         await bot.set_my_commands(commands=cmds, scope=BotCommandScopeChat(chat_id))
@@ -1108,7 +1108,7 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def link_account_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [[InlineKeyboardButton("↗️ Go to XREX Pay", url=xrex_link_url())]]
     await update.message.reply_text(
-        "To link with XREX Pay, please visit the XREX Pay Webapp first",
+        "To link this Telegram bot with XREX Pay, please visit the XREX Pay Webapp first",
         reply_markup=InlineKeyboardMarkup(keyboard)
     )
 
@@ -1130,7 +1130,7 @@ async def unlink_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         pass
     keyboard = [[InlineKeyboardButton("↗️ Go to XREX Pay", url=xrex_link_url())]]
     await update.message.reply_text(
-        "To Unlink from XREX Pay, please visit the XREX Pay Webapp",
+        "To Unlink this Telegram bot from XREX Pay, please visit the XREX Pay Webapp",
         reply_markup=InlineKeyboardMarkup(keyboard)
     )
 
@@ -1838,9 +1838,9 @@ async def main():
         application.add_handler(CommandHandler("link_account", link_account_cmd), group=1)
         application.add_handler(CommandHandler("help", help_cmd), group=1)
         # Register only /check_wallet for current behavior
-        application.add_handler(CommandHandler("check_wallet", check_wallet_cmd), group=1)
-        application.add_handler(CommandHandler("otc_quote", otc_quote_cmd), group=1)
-        application.add_handler(CommandHandler("unlink_account", unlink_cmd), group=1)
+        application.add_handler(CommandHandler("checkwallet", check_wallet_cmd), group=1)
+        application.add_handler(CommandHandler("otcquote", otc_quote_cmd), group=1)
+        application.add_handler(CommandHandler("unlinkaccount", unlink_cmd), group=1)
         application.add_handler(CallbackQueryHandler(handle_callback), group=2)
         application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text), group=3)
         
