@@ -66,6 +66,25 @@ def xrex_link_url():
     except Exception:
         return "https://xrextgbot.vercel.app/"
 
+async def guard_midflow_and_remind(update: Update, context: ContextTypes.DEFAULT_TYPE) -> bool:
+    """Return True if a mid-flow reminder was sent and the caller should stop."""
+    try:
+        user_id = update.effective_user.id if update and update.effective_user else None
+        st = user_state.get(user_id, {}) if user_id else {}
+        if st.get('awaiting_verification'):
+            keyboard = [[InlineKeyboardButton("Generate New Code", callback_data="generate_new_code")]]
+            await update.message.reply_text(
+                f"🔐 Verification in progress\n\nYour verification code is: `{st.get('verification_code','N/A')}`\nCopy this into the XREX Pay web app.",
+                parse_mode='Markdown', reply_markup=InlineKeyboardMarkup(keyboard)
+            )
+            return True
+        if st.get('awaiting_2fa'):
+            await update.message.reply_text("🔐 Linking in progress. Please enter your 2FA code to continue.")
+            return True
+    except Exception:
+        pass
+    return False
+
 async def set_commands_linked(bot, chat_id: int):
     try:
         cmds = [
@@ -617,21 +636,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         return
     
-    # Normal start flow (no verification token)
-    # Guard: if user is in the middle of linking, don't switch context; remind them to continue
+    # Normal start flow (no verification token) – mid-flow guard
     try:
-        st_link = user_state.get(user_id, {})
-        if st_link.get('awaiting_verification'):
-            verification_code = st_link.get('verification_code', 'N/A')
-            keyboard = [[InlineKeyboardButton("Generate New Code", callback_data="generate_new_code")]]
-            await update.message.reply_text(
-                f"🔐 Verification in progress\n\nYour verification code is: `{verification_code}`\nCopy this into the XREX Pay web app.",
-                parse_mode='Markdown',
-                reply_markup=InlineKeyboardMarkup(keyboard)
-            )
-            return
-        if st_link.get('awaiting_2fa'):
-            await update.message.reply_text("🔐 Linking in progress. Please enter your 2FA code to continue.")
+        if await guard_midflow_and_remind(update, context):
             return
     except Exception:
         pass
@@ -1218,6 +1225,11 @@ async def handle_web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE
 
 async def test_webapp(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Test web app functionality"""
+    try:
+        if await guard_midflow_and_remind(update, context):
+            return
+    except Exception:
+        pass
     user_name = update.effective_user.first_name
     
     # Create a simple message with web app button
@@ -1412,6 +1424,11 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(f"{user_name}, an error occurred. Please try again.")
 
 async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    try:
+        if await guard_midflow_and_remind(update, context):
+            return
+    except Exception:
+        pass
     keyboard = [[
         InlineKeyboardButton("↗️ Help center", url="https://intercom.help/xrex-sg/en/"),
         InlineKeyboardButton("🔔 Account manager", callback_data="notify_am")
@@ -1422,6 +1439,11 @@ async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def wallet_check_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    try:
+        if await guard_midflow_and_remind(update, context):
+            return
+    except Exception:
+        pass
     try:
         linked, _ = await is_linked_for_user(update.effective_user.id)
     except Exception:
