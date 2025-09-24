@@ -73,7 +73,7 @@ async def set_commands_linked(bot, chat_id: int):
             BotCommand("wallet_check", "Check any wallet address"),
             BotCommand("otc_quote", "Request a quote"),
             BotCommand("unlink_account", "Unlink from XREX Pay"),
-            BotCommand("help", "Help center")
+            BotCommand("help", "We’re here to help!")
         ]
         await bot.set_my_commands(commands=cmds, scope=BotCommandScopeChat(chat_id))
     except Exception:
@@ -84,7 +84,7 @@ async def set_commands_unlinked(bot, chat_id: int):
         cmds = [
             BotCommand("start", "Intro to XREX Pay Bot"),
             BotCommand("link_account", "Link with XREX Pay"),
-            BotCommand("help", "Help center")
+            BotCommand("help", "We’re here to help!")
         ]
         await bot.set_my_commands(commands=cmds, scope=BotCommandScopeChat(chat_id))
     except Exception:
@@ -113,6 +113,44 @@ async def is_linked_for_user(tg_user_id: int):
         pass
     return False, None
 
+async def maybe_notify_link_success(user_id: int, chat_id: int):
+    """Fallback: if remote shows stage 6 for this user and we haven't notified, send success now."""
+    try:
+        if httpx is None:
+            return
+        base = os.getenv("STATE_BASE_URL", "").strip() or "https://xrextgbot.vercel.app"
+        url = base.rstrip('/') + f"/api/state?tg={user_id}"
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            r = await client.get(url)
+            if r.status_code != 200:
+                return
+            data = r.json() or {}
+            stage = int(data.get('stage') or 0)
+            if stage == 6:
+                st = user_state.get(user_id, {})
+                if st.get('stage6_notified'):
+                    return
+                keyboard = [[
+                    InlineKeyboardButton("📚 How to use", callback_data="how_to_use"),
+                    InlineKeyboardButton("...  More", callback_data="more")
+                ]]
+                reply_markup = InlineKeyboardMarkup(keyboard)
+                if bot_for_notifications:
+                    await bot_for_notifications.send_message(
+                        chat_id=chat_id,
+                        text=("🎉 Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
+                             "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more."),
+                        reply_markup=reply_markup
+                    )
+                    try:
+                        await set_commands_linked(bot_for_notifications, chat_id)
+                    except Exception:
+                        pass
+                    st['stage6_notified'] = True
+                    user_state[user_id] = st
+    except Exception:
+        pass
+
 async def push_state(stage: int = None, twofa_verified: bool = None, linking_code: str = None, actor_tg_user_id: int = None, actor_chat_id: int = None, session_id: str = None):
     """Push state to Redis-backed API (Vercel)."""
     if httpx is None:
@@ -137,6 +175,10 @@ async def push_state(stage: int = None, twofa_verified: bool = None, linking_cod
                 url = base.rstrip('/') + "/api/state"
                 if session_id:
                     url = url + ("?session=" + session_id)
+                try:
+                    logger.info(f"push_state: PUT {url} stage={payload.get('stage')} twofa={payload.get('twofa_verified')} actor_uid={actor_tg_user_id} actor_chat={actor_chat_id}")
+                except Exception:
+                    pass
                 resp = await client.put(
                     url,
                     headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
@@ -148,6 +190,7 @@ async def push_state(stage: int = None, twofa_verified: bool = None, linking_cod
                     try:
                         if session_id:
                             if session_id not in session_poll_tasks or session_poll_tasks[session_id].done():
+                                logger.info(f"push_state: starting poller for session {session_id}")
                                 session_poll_tasks[session_id] = asyncio.create_task(poll_remote_and_sync(session_id=session_id))
                             # Track actor for this session for targeted notifications
                             try:
@@ -220,12 +263,20 @@ async def poll_remote_and_sync(session_id: str = None):
     while True:
         try:
             async with httpx.AsyncClient(timeout=10.0) as client:
+                try:
+                    logger.debug(f"poller[{session_id or 'none'}]: GET {url_latest}")
+                except Exception:
+                    pass
                 r = await client.get(url_latest)
                 if r.status_code == 200:
                     record = r.json() or {}
                     ts = int(record.get('updated_at') or 0)
                     if ts > last_seen:
                         last_seen = ts
+                        try:
+                            logger.info(f"poller[{session_id or 'none'}]: stage={record.get('stage')} twofa={record.get('twofa_verified')} tg={record.get('actor_tg_user_id')} chat={record.get('actor_chat_id')}")
+                        except Exception:
+                            pass
                         # If website reset to stage 1 or 2, reflect locally
                         stage = int(record.get('stage') or 0)
                         code = record.get('linking_code')
@@ -586,6 +637,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await set_commands_linked(context.bot, chat_id)
         except Exception:
             pass
+        # Fallback: if poller misses stage 6, explicitly verify and notify once
+        try:
+            await maybe_notify_link_success(user_id=user_id, chat_id=chat_id)
+        except Exception:
+            pass
         keyboard = [[
             InlineKeyboardButton("📚 How to use", url=xrex_link_url()),
             InlineKeyboardButton("...  More", url=xrex_link_url())
@@ -695,7 +751,7 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if data == "notify_am":
         await context.bot.send_message(
             chat_id=query.message.chat_id,
-            text="🔔 Account Manager notified, please wait..."
+            text="🔔 Account manager notified, please wait..."
         )
         return
 
@@ -1350,10 +1406,10 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [[
         InlineKeyboardButton("↗️ Help center", url="https://intercom.help/xrex-sg/en/"),
-        InlineKeyboardButton("🔔 Account Manager", callback_data="notify_am")
+        InlineKeyboardButton("🔔 Account manager", callback_data="notify_am")
     ]]
     await update.message.reply_text(
-        "We're here to help, visit our Help center or request help from an Account Manager",
+        "We're here to help, visit our Help center or request help from an Account manager",
         reply_markup=InlineKeyboardMarkup(keyboard)
     )
 
