@@ -671,6 +671,29 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # Prototype flow: special handling for BOTC tokens (e.g., BOTC158, BOTC1583)
         token_upper = str(verify_token).upper()
         if token_upper.startswith("BOTC"):
+            # Reset Telegram-side "linked" status for this user (prototype) without notifying
+            try:
+                st_reset = user_state.get(user_id, {})
+                if 'stage6_notified' in st_reset: st_reset.pop('stage6_notified', None)
+                if 'stage7_notified' in st_reset: st_reset.pop('stage7_notified', None)
+                user_state[user_id] = st_reset
+                try:
+                    await set_commands_unlinked(context.bot, chat_id)
+                except Exception:
+                    pass
+                # Cancel any in-flight finalize watcher to avoid stale success notices
+                try:
+                    tw = finalize_watch_tasks.get(int(user_id))
+                    if tw:
+                        try:
+                            tw.cancel()
+                        except Exception:
+                            pass
+                        finalize_watch_tasks.pop(int(user_id), None)
+                except Exception:
+                    pass
+            except Exception:
+                pass
             keyboard = [[
                 InlineKeyboardButton("📋 What is 2FA", callback_data="what_is_2fa"),
                 InlineKeyboardButton("...  More", callback_data="more")
