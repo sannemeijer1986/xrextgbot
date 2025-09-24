@@ -60,6 +60,29 @@ bot_for_notifications = None
 session_poll_tasks = {}
 session_subscriptions = {}
 
+async def is_linked_for_user(tg_user_id: int):
+    """Query server by Telegram user id to determine if user is linked.
+    Returns (linked_bool, session_id_or_None).
+    """
+    if httpx is None:
+        return False, None
+    base = os.getenv("STATE_BASE_URL", "").strip() or "https://xrextgbot.vercel.app"
+    url = base.rstrip('/') + f"/api/state?tg={tg_user_id}"
+    try:
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            r = await client.get(url)
+            if r.status_code == 200:
+                d = r.json() or {}
+                try:
+                    stage = int(d.get('stage') or 0)
+                except Exception:
+                    stage = 0
+                linked = (stage >= 6 and stage != 7)
+                return linked, d.get('session_id')
+    except Exception:
+        pass
+    return False, None
+
 async def push_state(stage: int = None, twofa_verified: bool = None, linking_code: str = None, actor_tg_user_id: int = None, actor_chat_id: int = None, session_id: str = None):
     """Push state to Redis-backed API (Vercel)."""
     if httpx is None:
@@ -498,6 +521,35 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
     
     # Normal start flow (no verification token)
+    try:
+        linked, last_session = await is_linked_for_user(user_id)
+    except Exception:
+        linked, last_session = (False, None)
+
+    if linked:
+        try:
+            # Persist session for later unlink operations
+            st = user_state.get(user_id, {})
+            if last_session:
+                st['session_id'] = last_session
+            st['chat_id'] = chat_id
+            user_state[user_id] = st
+        except Exception:
+            pass
+        keyboard = [[
+            InlineKeyboardButton("💼 Wallet", callback_data="wallet"),
+            InlineKeyboardButton("🔌 Unlink", callback_data="init_unlink")
+        ]]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        try:
+            await update.message.reply_text(
+                "You are linked to XREX Pay. What would you like to do?",
+                reply_markup=reply_markup
+            )
+        except Exception:
+            pass
+        return
+
     keyboard = [[InlineKeyboardButton("↗️ Go to XREX Pay", url="https://xrextgbot.vercel.app/settings.html?view=content&page=telegram&tab=setup")]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     try:
@@ -583,6 +635,54 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 "This is a prototype flow; more options will appear here later."
             )
         )
+        return
+
+    # Linked actions (prototype)
+    if data == "wallet":
+        try:
+            linked, _ = await is_linked_for_user(user_id)
+        except Exception:
+            linked = False
+        if not linked:
+            await context.bot.send_message(
+                chat_id=query.message.chat_id,
+                text="Your Telegram is not linked. Open XREX Pay to link first."
+            )
+            return
+        await context.bot.send_message(
+            chat_id=query.message.chat_id,
+            text="Wallet coming soon: balances, recent activity, and risk checks."
+        )
+        return
+
+    if data == "init_unlink":
+        # Find session for this user, prefer stored one; otherwise query latest by tg
+        sess = user_state.get(user_id, {}).get('session_id')
+        if not sess:
+            try:
+                _, sess = await is_linked_for_user(user_id)
+            except Exception:
+                sess = None
+        if not sess:
+            await context.bot.send_message(
+                chat_id=query.message.chat_id,
+                text="Unable to find your active session. Please open XREX Pay and unlink from there."
+            )
+            return
+        if httpx is None:
+            await context.bot.send_message(
+                chat_id=query.message.chat_id,
+                text="Network client unavailable to unlink right now."
+            )
+            return
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                base = os.getenv("STATE_BASE_URL", "").strip() or "https://xrextgbot.vercel.app"
+                url = base.rstrip('/') + f"/api/state?session={sess}"
+                await client.put(url, headers={"Content-Type": "application/json", "X-Client-Stage": "7"}, json={"stage": 7})
+            await context.bot.send_message(chat_id=query.message.chat_id, text="Unlinked successfully.")
+        except Exception:
+            await context.bot.send_message(chat_id=query.message.chat_id, text="Could not unlink right now. Please try again.")
         return
 
     if data == "copy_code":

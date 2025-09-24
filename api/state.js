@@ -33,6 +33,43 @@ module.exports = async (req, res) => {
     const sessionId = session || 'default';
 
     if (req.method === 'GET') {
+      // Optional: lookup by Telegram user id for quick status checks
+      try {
+        const tgParam = (req.query && (req.query.tg || req.query.tg_user_id));
+        const tgStr = (tgParam !== undefined && tgParam !== null) ? String(tgParam).trim() : '';
+        if (tgStr) {
+          const { data: latest, error: errLatest } = await supabase
+            .from('xrex_session')
+            .select('session_id,current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_user_id,tg_chat_id')
+            .or(`tg_user_id.eq.${tgStr},last_actor_tg_id.eq.${tgStr}`)
+            .order('last_updated_at', { ascending: false })
+            .limit(1)
+            .maybeSingle();
+          if (errLatest && errLatest.code !== 'PGRST116') {
+            res.status(500).json({ error: 'DB read error', detail: errLatest.message });
+            return;
+          }
+          if (!latest) {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(200).send('{}');
+            return;
+          }
+          const ts2 = (latest.last_updated_at ? Math.floor(new Date(latest.last_updated_at).getTime() / 1000) : Math.floor(Date.now()/1000));
+          res.setHeader('Content-Type', 'application/json');
+          res.status(200).send(JSON.stringify({
+            session_id: latest.session_id,
+            stage: Number(latest.current_state || 1),
+            twofa_verified: !!latest.twofa_verified,
+            linking_code: latest.linking_code || null,
+            updated_at: ts2,
+            actor_tg_user_id: latest.last_actor_tg_id || latest.tg_user_id || null,
+            actor_chat_id: latest.last_actor_chat_id || latest.tg_chat_id || null
+          }));
+          return;
+        }
+      } catch(_) {}
+
+      // Default: lookup by session id
       const { data, error, status } = await supabase
         .from('xrex_session')
         .select('current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id')
