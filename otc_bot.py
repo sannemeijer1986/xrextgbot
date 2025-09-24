@@ -60,18 +60,35 @@ bot_for_notifications = None
 session_poll_tasks = {}
 session_subscriptions = {}
 finalize_watch_tasks = {}
+notify_locks = {}
 
 def try_mark_stage6_notifying(user_id: int) -> bool:
     try:
         uid = int(user_id)
-        st = user_state.get(uid, {})
-        if st.get('stage6_notified'):
+        lock = notify_locks.get(uid)
+        if lock is None:
+            lock = asyncio.Lock()
+            notify_locks[uid] = lock
+        # Use the lock to serialize attempts
+        if lock.locked():
             return False
-        if st.get('stage6_inflight'):
+        # Optimistically set inflight flag under lock
+        async def _mark():
+            async with lock:
+                st = user_state.get(uid, {})
+                if st.get('stage6_notified') or st.get('stage6_inflight'):
+                    return False
+                st['stage6_inflight'] = True
+                user_state[uid] = st
+                return True
+        # Run immediate lock section using ensure_future to respect sync signature
+        loop = asyncio.get_event_loop()
+        fut = loop.create_task(_mark())
+        # Busy-wait small (we are in async context typically); fallback to False on exception
+        try:
+            return fut is not None and loop.run_until_complete(fut)  # only once here
+        except Exception:
             return False
-        st['stage6_inflight'] = True
-        user_state[uid] = st
-        return True
     except Exception:
         return False
 
@@ -430,6 +447,8 @@ async def poll_remote_and_sync(session_id: str = None):
                                 for uid, st in list(user_state.items()):
                                     if st.get('stage6_notified'):
                                         st.pop('stage6_notified', None)
+                                    if st.get('stage6_inflight'):
+                                        st.pop('stage6_inflight', None)
                                     if st.get('stage7_notified'):
                                         st.pop('stage7_notified', None)
                                     user_state[uid] = st
@@ -754,6 +773,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             try:
                 st_reset = user_state.get(user_id, {})
                 if 'stage6_notified' in st_reset: st_reset.pop('stage6_notified', None)
+                if 'stage6_inflight' in st_reset: st_reset.pop('stage6_inflight', None)
                 if 'stage7_notified' in st_reset: st_reset.pop('stage7_notified', None)
                 user_state[user_id] = st_reset
                 try:
