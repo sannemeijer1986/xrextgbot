@@ -1,4 +1,4 @@
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo, BotCommand, BotCommandScopeChat
 from telegram.ext import (
     ApplicationBuilder, CommandHandler, CallbackQueryHandler,
     MessageHandler, filters, ContextTypes
@@ -59,6 +59,26 @@ def set_sync_state(stage: int = None, twofa_verified: bool = None, linking_code:
 bot_for_notifications = None
 session_poll_tasks = {}
 session_subscriptions = {}
+
+async def set_commands_linked(bot, chat_id: int):
+    try:
+        cmds = [
+            BotCommand("wallet", "Show wallet summary"),
+            BotCommand("unlink", "Unlink this Telegram from XREX Pay"),
+            BotCommand("start", "Show start menu")
+        ]
+        await bot.set_my_commands(commands=cmds, scope=BotCommandScopeChat(chat_id))
+    except Exception:
+        pass
+
+async def set_commands_unlinked(bot, chat_id: int):
+    try:
+        cmds = [
+            BotCommand("start", "Start linking flow")
+        ]
+        await bot.set_my_commands(commands=cmds, scope=BotCommandScopeChat(chat_id))
+    except Exception:
+        pass
 
 async def is_linked_for_user(tg_user_id: int):
     """Query server by Telegram user id to determine if user is linked.
@@ -304,6 +324,10 @@ async def poll_remote_and_sync(session_id: str = None):
                                                      "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more."),
                                                 reply_markup=reply_markup
                                             )
+                                            try:
+                                                await set_commands_linked(bot_for_notifications, chat_id)
+                                            except Exception:
+                                                pass
                                             st['stage6_notified'] = True
                                             user_state[uid] = st
                                             notified_any = True
@@ -321,6 +345,10 @@ async def poll_remote_and_sync(session_id: str = None):
                                                 text=("✅️ Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
                                                      "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more.")
                                             )
+                                            try:
+                                                await set_commands_linked(bot_for_notifications, int(target_chat_id))
+                                            except Exception:
+                                                pass
                                             st['stage6_notified'] = True
                                             # Ensure chat_id stored for future interactions
                                             st['chat_id'] = int(target_chat_id)
@@ -357,6 +385,10 @@ async def poll_remote_and_sync(session_id: str = None):
                                                 chat_id=chat_id,
                                                 text=("🔌️ Telegram Bot successfully unlinked from XREX Pay account @AG***CH")
                                             )
+                                            try:
+                                                await set_commands_unlinked(bot_for_notifications, chat_id)
+                                            except Exception:
+                                                pass
                                             st['stage7_notified'] = True
                                             user_state[uid] = st
                                             notified_any_7 = True
@@ -371,6 +403,10 @@ async def poll_remote_and_sync(session_id: str = None):
                                                 chat_id=int(target_chat_id),
                                                 text=("✅️ Telegram Bot successfully unlinked from XREX Pay account @AG***CH")
                                             )
+                                            try:
+                                                await set_commands_unlinked(bot_for_notifications, int(target_chat_id))
+                                            except Exception:
+                                                pass
                                             st['stage7_notified'] = True
                                             st['chat_id'] = int(target_chat_id)
                                             user_state[uid_key] = st
@@ -536,6 +572,10 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             user_state[user_id] = st
         except Exception:
             pass
+        try:
+            await set_commands_linked(context.bot, chat_id)
+        except Exception:
+            pass
         keyboard = [[
             InlineKeyboardButton("💼 Wallet", callback_data="wallet"),
             InlineKeyboardButton("🔌 Unlink", callback_data="init_unlink")
@@ -550,6 +590,10 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             pass
         return
 
+    try:
+        await set_commands_unlinked(context.bot, chat_id)
+    except Exception:
+        pass
     keyboard = [[InlineKeyboardButton("↗️ Go to XREX Pay", url="https://xrextgbot.vercel.app/settings.html?view=content&page=telegram&tab=setup")]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     try:
@@ -681,9 +725,52 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 url = base.rstrip('/') + f"/api/state?session={sess}"
                 await client.put(url, headers={"Content-Type": "application/json", "X-Client-Stage": "7"}, json={"stage": 7})
             await context.bot.send_message(chat_id=query.message.chat_id, text="Unlinked successfully.")
+            try:
+                await set_commands_unlinked(context.bot, query.message.chat_id)
+            except Exception:
+                pass
         except Exception:
             await context.bot.send_message(chat_id=query.message.chat_id, text="Could not unlink right now. Please try again.")
         return
+
+async def wallet_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_id = update.effective_user.id
+    try:
+        linked, _ = await is_linked_for_user(user_id)
+    except Exception:
+        linked = False
+    if not linked:
+        await update.message.reply_text("Your Telegram is not linked. Open XREX Pay to link first.")
+        return
+    await update.message.reply_text("Wallet coming soon: balances, recent activity, and risk checks.")
+
+async def unlink_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_id = update.effective_user.id
+    chat_id = update.effective_chat.id
+    sess = user_state.get(user_id, {}).get('session_id')
+    if not sess:
+        try:
+            _, sess = await is_linked_for_user(user_id)
+        except Exception:
+            sess = None
+    if not sess:
+        await update.message.reply_text("Unable to find your active session. Please open XREX Pay and unlink from there.")
+        return
+    if httpx is None:
+        await update.message.reply_text("Network client unavailable to unlink right now.")
+        return
+    try:
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            base = os.getenv("STATE_BASE_URL", "").strip() or "https://xrextgbot.vercel.app"
+            url = base.rstrip('/') + f"/api/state?session={sess}"
+            await client.put(url, headers={"Content-Type": "application/json", "X-Client-Stage": "7"}, json={"stage": 7})
+        await update.message.reply_text("Unlinked successfully.")
+        try:
+            await set_commands_unlinked(context.bot, chat_id)
+        except Exception:
+            pass
+    except Exception:
+        await update.message.reply_text("Could not unlink right now. Please try again.")
 
     if data == "copy_code":
         # Re-send the linking code with copy-friendly formatting
@@ -1289,6 +1376,8 @@ async def main():
         # Register handlers in correct order: web app data first, then others, debug last
         application.add_handler(MessageHandler(filters.StatusUpdate.WEB_APP_DATA, handle_web_app_data), group=0)
         application.add_handler(CommandHandler("start", start), group=1)
+        application.add_handler(CommandHandler("wallet", wallet_cmd), group=1)
+        application.add_handler(CommandHandler("unlink", unlink_cmd), group=1)
         application.add_handler(CallbackQueryHandler(handle_callback), group=2)
         application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text), group=3)
         
