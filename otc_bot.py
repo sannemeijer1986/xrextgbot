@@ -550,8 +550,8 @@ async def poll_remote_and_sync(session_id: str = None):
                                         pass
                         except Exception:
                             pass
-                        # Stage 6: Linked success notification (only on transition into 6)
-                        if stage == 6 and prev_stage != 6:
+                        # Stage 6: Linked success notification (idempotent via notify guard)
+                        if stage == 6:
                             try:
                                 notified_any = False
                                 # Iterate known users and notify those who had the BOTC flow
