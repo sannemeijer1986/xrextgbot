@@ -175,24 +175,27 @@ async def maybe_notify_link_success(user_id: int, chat_id: int):
                 st = user_state.get(user_id, {})
                 if st.get('stage6_notified'):
                     return
-                keyboard = [[
-                    InlineKeyboardButton("📚 How to use", callback_data="how_to_use"),
-                    InlineKeyboardButton("...  More", callback_data="more")
-                ]]
-                reply_markup = InlineKeyboardMarkup(keyboard)
-                if bot_for_notifications:
-                    await bot_for_notifications.send_message(
-                        chat_id=chat_id,
-                        text=("🎉 Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
-                             "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more."),
-                        reply_markup=reply_markup
-                    )
+                if bot_for_notifications and try_mark_stage6_notifying(user_id):
+                    ok = False
                     try:
-                        await set_commands_linked(bot_for_notifications, chat_id)
-                    except Exception:
-                        pass
-                    st['stage6_notified'] = True
-                    user_state[user_id] = st
+                        keyboard = [[
+                            InlineKeyboardButton("📚 How to use", callback_data="how_to_use"),
+                            InlineKeyboardButton("...  More", callback_data="more")
+                        ]]
+                        reply_markup = InlineKeyboardMarkup(keyboard)
+                        await bot_for_notifications.send_message(
+                            chat_id=chat_id,
+                            text=("🎉 Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
+                                 "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more."),
+                            reply_markup=reply_markup
+                        )
+                        try:
+                            await set_commands_linked(bot_for_notifications, chat_id)
+                        except Exception:
+                            pass
+                        ok = True
+                    finally:
+                        complete_stage6_notify(user_id, ok)
     except Exception:
         pass
 
