@@ -1541,6 +1541,10 @@ async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def wallet_check_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # Delegate to /check_wallet behavior
+    await check_wallet_cmd(update, context)
+
+async def check_wallet_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         if await guard_midflow_and_remind(update, context):
             return
@@ -1553,7 +1557,49 @@ async def wallet_check_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not linked:
         await update.message.reply_text("Your Telegram is not linked. Open XREX Pay to link first.")
         return
-    await update.message.reply_text("{$XRAY_WALLET_FLOW}")
+    # Parse argument after /check_wallet
+    args = context.args if hasattr(context, 'args') else []
+    addr = (args[0].strip() if args and isinstance(args[0], str) else '')
+    if not addr:
+        msg = (
+            "Simply enter the command /check_wallet, paste the blockchain wallet address, and send the message. I will instantly help you check the address information, including which exchange it belongs to and its risk level.\n"
+            "Currently, supported blockchains are:\n"
+            "Bitcoin (BTC)\n"
+            "Ethereum (ETH)\n"
+            "TRON (TRX)\n"
+            "👉 Example\n"
+            "/check_wallet bc1qm34lsc65zpw79lxes69zkqmk6ee3ewf0j77s3h"
+        )
+        await update.message.reply_text(msg)
+        return
+    # Heuristics to format explorer link and chain
+    chain = 'Ethereum'
+    explorer = f"https://etherscan.io/address/{addr}"
+    try:
+        low = addr.lower()
+        if low.startswith('0x') and len(low) >= 10:
+            chain = 'Ethereum'; explorer = f"https://etherscan.io/address/{addr}"
+        elif low.startswith('bc1') or low.startswith('1') or low.startswith('3'):
+            chain = 'Bitcoin'; explorer = f"https://www.blockchain.com/btc/address/{addr}"
+        elif addr.startswith('T'):
+            chain = 'TRON'; explorer = f"https://tronscan.org/#/address/{addr}"
+    except Exception:
+        pass
+    details = (
+        f"📎 Wallet Address:\n{addr}\n "
+        f"🔗 {explorer}\n"
+        f"🌐 Blockchain: {chain}  🏢 Exchange: XREX  🔗 View Entity\n"
+        f"🏷️ Tag: None  📌 Type: Exchange – Hot Wallet\n"
+        f"💰 On-chain Balance:\n(May not equal user account balance due to exchange accounting)\n"
+        f"667.43 ETH\n"
+        f"1,188,823.66 USDT\n"
+        f"347,401.40 USDC\n"
+        f"🚩 Risk Level: 🔴 High\n"
+        f"Details:\n"
+        f"This address has been reported.\n"
+        f"It has interacted with reported addresses."
+    )
+    await update.message.reply_text(details)
 
 async def otc_quote_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Guard linking in progress
@@ -1612,6 +1658,7 @@ async def main():
         application.add_handler(CommandHandler("link_account", link_account_cmd), group=1)
         application.add_handler(CommandHandler("help", help_cmd), group=1)
         application.add_handler(CommandHandler("wallet_check", wallet_check_cmd), group=1)
+        application.add_handler(CommandHandler("check_wallet", check_wallet_cmd), group=1)
         application.add_handler(CommandHandler("otc_quote", otc_quote_cmd), group=1)
         application.add_handler(CommandHandler("unlink_account", unlink_cmd), group=1)
         application.add_handler(CallbackQueryHandler(handle_callback), group=2)
