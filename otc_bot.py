@@ -779,7 +779,7 @@ def render_wallet_details(address: str) -> str:
         base = explorer
     lines = []
     lines.append("📎 Your queried wallet address:")
-    lines.append(f"<b>{address} + "69zkqmk6ee3ewf0j77s3h</b>")
+    lines.append(f"<b>{address}" + "69zkqmk6ee3ewf0j77s3h</b>")
     # Show only one explorer reference (prefer full link if available)
     if explorer:
         lines.append(explorer)
