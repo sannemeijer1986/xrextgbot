@@ -131,7 +131,7 @@ async def set_commands_linked(bot, chat_id: int):
     try:
         cmds = [
             BotCommand("start", "Intro to XREX Pay Bot"),
-            BotCommand("wallet_check", "Check any wallet address"),
+            BotCommand("check_wallet", "Check any wallet address"),
             BotCommand("otc_quote", "Request a quote"),
             BotCommand("unlink_account", "Unlink from XREX Pay"),
             BotCommand("help", "We’re here to help!")
@@ -1743,8 +1743,8 @@ async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=InlineKeyboardMarkup(keyboard)
     )
 
+# Deprecated alias kept temporarily if referenced elsewhere
 async def wallet_check_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # Delegate to /check_wallet behavior
     await check_wallet_cmd(update, context)
 
 async def check_wallet_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -1837,7 +1837,7 @@ async def main():
         application.add_handler(CommandHandler("start", start), group=1)
         application.add_handler(CommandHandler("link_account", link_account_cmd), group=1)
         application.add_handler(CommandHandler("help", help_cmd), group=1)
-        application.add_handler(CommandHandler("wallet_check", wallet_check_cmd), group=1)
+        # Register only /check_wallet for current behavior
         application.add_handler(CommandHandler("check_wallet", check_wallet_cmd), group=1)
         application.add_handler(CommandHandler("otc_quote", otc_quote_cmd), group=1)
         application.add_handler(CommandHandler("unlink_account", unlink_cmd), group=1)
