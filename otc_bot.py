@@ -59,6 +59,7 @@ def set_sync_state(stage: int = None, twofa_verified: bool = None, linking_code:
 bot_for_notifications = None
 session_poll_tasks = {}
 session_subscriptions = {}
+finalize_watch_tasks = {}
 
 def xrex_link_url():
     try:
@@ -169,6 +170,70 @@ async def maybe_notify_link_success(user_id: int, chat_id: int):
                     user_state[user_id] = st
     except Exception:
         pass
+
+def ensure_finalize_watch(tg_user_id: int, chat_id: int):
+    try:
+        key = int(tg_user_id)
+        task = finalize_watch_tasks.get(key)
+        if task is None or task.done():
+            finalize_watch_tasks[key] = asyncio.create_task(watch_finalize_for_user(tg_user_id=key, chat_id=int(chat_id)))
+    except Exception:
+        pass
+
+async def watch_finalize_for_user(tg_user_id: int, chat_id: int, timeout_seconds: int = 15):
+    if httpx is None:
+        return
+    base = os.getenv("STATE_BASE_URL", "").strip() or "https://xrextgbot.vercel.app"
+    url = base.rstrip('/') + f"/api/state?tg={tg_user_id}"
+    started = int(time.time())
+    try:
+        while (int(time.time()) - started) <= int(timeout_seconds):
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    r = await client.get(url)
+                    if r.status_code == 200:
+                        d = r.json() or {}
+                        stage = 0
+                        try:
+                            stage = int(d.get('stage') or 0)
+                        except Exception:
+                            stage = 0
+                        if stage >= 6 and stage != 7:
+                            st = user_state.get(tg_user_id, {})
+                            if not st.get('stage6_notified'):
+                                keyboard = [[
+                                    InlineKeyboardButton("📚 How to use", callback_data="how_to_use"),
+                                    InlineKeyboardButton("...  More", callback_data="more")
+                                ]]
+                                reply_markup = InlineKeyboardMarkup(keyboard)
+                                if bot_for_notifications:
+                                    try:
+                                        await bot_for_notifications.send_message(
+                                            chat_id=int(chat_id),
+                                            text=("🎉 Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
+                                                 "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more."),
+                                            reply_markup=reply_markup
+                                        )
+                                    except Exception:
+                                        pass
+                                    try:
+                                        await set_commands_linked(bot_for_notifications, int(chat_id))
+                                    except Exception:
+                                        pass
+                                    st['stage6_notified'] = True
+                                    st['chat_id'] = int(chat_id)
+                                    user_state[tg_user_id] = st
+                            break
+            except Exception:
+                pass
+            await asyncio.sleep(1.0)
+    finally:
+        try:
+            key = int(tg_user_id)
+            if finalize_watch_tasks.get(key) and finalize_watch_tasks[key].done():
+                finalize_watch_tasks.pop(key, None)
+        except Exception:
+            pass
 
 async def push_state(stage: int = None, twofa_verified: bool = None, linking_code: str = None, actor_tg_user_id: int = None, actor_chat_id: int = None, session_id: str = None):
     """Push state to Redis-backed API (Vercel)."""
@@ -344,6 +409,12 @@ async def poll_remote_and_sync(session_id: str = None):
                                 pass
                         else:
                             set_sync_state(stage=stage, twofa_verified=twofa, linking_code=code)
+                            try:
+                                # If we see stage 4 for this session, start a finalize watch keyed by user id if provided
+                                if stage == 4 and target_user_id and target_chat_id:
+                                    ensure_finalize_watch(tg_user_id=int(target_user_id), chat_id=int(target_chat_id))
+                            except Exception:
+                                pass
                         # Detect session expiry transition (>=3 -> <=2)
                         try:
                             if prev_stage is not None and prev_stage >= 3 and stage <= 2:
@@ -1391,6 +1462,10 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     except Exception:
                         pass
                     await push_state(stage=4, twofa_verified=True, linking_code=linking_code, actor_tg_user_id=user_id, actor_chat_id=update.message.chat_id, session_id=sess)
+                    try:
+                        ensure_finalize_watch(tg_user_id=user_id, chat_id=update.message.chat_id)
+                    except Exception:
+                        pass
                 except Exception:
                     pass
                 return
