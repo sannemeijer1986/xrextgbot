@@ -230,6 +230,7 @@ async def watch_finalize_for_user(tg_user_id: int, chat_id: int, timeout_seconds
     base = os.getenv("STATE_BASE_URL", "").strip() or "https://xrextgbot.vercel.app"
     url = base.rstrip('/') + f"/api/state?tg={tg_user_id}"
     started = int(time.time())
+    stage4_seen_ts = 0
     try:
         while (int(time.time()) - started) <= int(timeout_seconds):
             try:
@@ -242,15 +243,35 @@ async def watch_finalize_for_user(tg_user_id: int, chat_id: int, timeout_seconds
                             stage = int(d.get('stage') or 0)
                         except Exception:
                             stage = 0
+                        # If stuck at stage 4 with twofa and code, try client finalize after 3s
+                        try:
+                            if stage == 4 and (d.get('twofa_verified') is True) and (d.get('linking_code')):
+                                if stage4_seen_ts == 0:
+                                    stage4_seen_ts = int(time.time())
+                                elif (int(time.time()) - stage4_seen_ts) >= 3:
+                                    sess_id = d.get('session_id')
+                                    if sess_id:
+                                        fin_url = (base.rstrip('/') + "/api/state") + f"?session={sess_id}"
+                                        try:
+                                            await client.put(fin_url, headers={"Content-Type": "application/json", "X-Client-Stage": "6"}, json={"stage": 6})
+                                        except Exception:
+                                            pass
+                            else:
+                                stage4_seen_ts = 0
+                        except Exception:
+                            pass
                         if stage >= 6 and stage != 7:
                             st = user_state.get(tg_user_id, {})
-                            if not st.get('stage6_notified'):
-                                keyboard = [[
-                                    InlineKeyboardButton("📚 How to use", callback_data="how_to_use"),
-                                    InlineKeyboardButton("...  More", callback_data="more")
-                                ]]
-                                reply_markup = InlineKeyboardMarkup(keyboard)
-                                if bot_for_notifications:
+                            if st.get('stage6_notified'):
+                                break
+                            if bot_for_notifications and await begin_stage6_notify(tg_user_id):
+                                ok = False
+                                try:
+                                    keyboard = [[
+                                        InlineKeyboardButton("📚 How to use", callback_data="how_to_use"),
+                                        InlineKeyboardButton("...  More", callback_data="more")
+                                    ]]
+                                    reply_markup = InlineKeyboardMarkup(keyboard)
                                     try:
                                         await bot_for_notifications.send_message(
                                             chat_id=int(chat_id),
@@ -258,15 +279,17 @@ async def watch_finalize_for_user(tg_user_id: int, chat_id: int, timeout_seconds
                                                  "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more."),
                                             reply_markup=reply_markup
                                         )
+                                        try:
+                                            await set_commands_linked(bot_for_notifications, int(chat_id))
+                                        except Exception:
+                                            pass
+                                        st['chat_id'] = int(chat_id)
+                                        user_state[tg_user_id] = st
+                                        ok = True
                                     except Exception:
                                         pass
-                                    try:
-                                        await set_commands_linked(bot_for_notifications, int(chat_id))
-                                    except Exception:
-                                        pass
-                                    st['stage6_notified'] = True
-                                    st['chat_id'] = int(chat_id)
-                                    user_state[tg_user_id] = st
+                                finally:
+                                    await end_stage6_notify(tg_user_id, ok)
                             break
             except Exception:
                 pass
@@ -550,8 +573,8 @@ async def poll_remote_and_sync(session_id: str = None):
                                         pass
                         except Exception:
                             pass
-                        # Stage 6: Linked success notification (idempotent via notify guard)
-                        if stage == 6:
+                        # Stage 6: Linked success notification (only on transition into 6)
+                        if stage == 6 and prev_stage != 6:
                             try:
                                 notified_any = False
                                 # Iterate known users and notify those who had the BOTC flow

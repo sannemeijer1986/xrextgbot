@@ -386,6 +386,8 @@
       // If we are at state 5, always show loading modal for 2s then advance to 6
       try {
         var p = getProgress();
+        // If user is not yet linked (<=4), clear one-time finalize guard so a new flow can finalize to 6 again
+        try { if (p && (p.state|0) <= 4) { window.__xrex_finalized_6 = false; } } catch(_) {}
         var lm = document.getElementById('loadingModal');
         if (p && p.state === 5) {
           // Prefill verify code input with the actual server-provided code
@@ -433,6 +435,8 @@
           if (lm) { lm.setAttribute('aria-hidden','true'); lm.hidden = true; }
           // If at state 4 (e.g., via admin tool), clear verify input and hide error
           if (p && p.state === 4) {
+            // Clear one-time finalize guard upon re-entering state 4
+            try { window.__xrex_finalized_6 = false; } catch(_) {}
             try {
               var vcInput2 = document.getElementById('vcCodeInput');
               if (vcInput2) {
