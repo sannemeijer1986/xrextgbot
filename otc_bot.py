@@ -778,23 +778,23 @@ def render_wallet_details(address: str) -> str:
     except Exception:
         base = explorer
     lines = []
-    lines.append("• Your queried wallet address:")
-    lines.append(address)
+    lines.append("📎 Your queried wallet address:")
+    lines.append(f"<b>{address}</b>")
     if base:
         lines.append(base)
     if explorer:
         lines.append(explorer)
-    lines.append(f"Blockchain: {chain}")
-    lines.append("* Exchange: XREX")
+    lines.append(f"Blockchain: <b>{chain}</b>")
+    lines.append("📌 Exchange: <b>XREX</b>")
     lines.append("https://xrex.io/xray/app/entity/6")
-    lines.append("On-chain Label: None")
-    lines.append("Address Category: Unknown")
+    lines.append("On-chain Label: <b>None</b>")
+    lines.append("Address Category: <b>Unknown</b>")
     lines.append("On-chain Wallet Balance:")
     lines.append("(Note: Due to different accounting logic among exchanges, the balance shown here does not equal")
     lines.append("'user assets in the exchange account')")
-    lines.append("• 17.50 USDT")
-    lines.append("Risk Level: Low")
-    lines.append("Risk Description: None")
+    lines.append("• <b>17.50 USDT</b>")
+    lines.append("Risk Level: <b>Low 🟢</b>")
+    lines.append("Risk Description: <b>None</b>")
     return "\n".join(lines)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -1675,7 +1675,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
             state['awaiting_wallet_address'] = False
             user_state[user_id] = state
             # Render response
-            await update.message.reply_text(render_wallet_details(addr))
+            await update.message.reply_text(render_wallet_details(addr), parse_mode='HTML', disable_web_page_preview=True)
             return
 
         # Normal OTC flow handling
@@ -1778,7 +1778,7 @@ async def check_wallet_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         st['awaiting_wallet_address'] = True
         user_state[update.effective_user.id] = st
         return
-    await update.message.reply_text(render_wallet_details(addr))
+    await update.message.reply_text(render_wallet_details(addr), parse_mode='HTML', disable_web_page_preview=True)
 
 async def otc_quote_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Guard linking in progress
