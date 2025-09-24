@@ -60,12 +60,20 @@ bot_for_notifications = None
 session_poll_tasks = {}
 session_subscriptions = {}
 
+def xrex_link_url():
+    try:
+        return "https://xrextgbot.vercel.app/settings.html?view=content&page=telegram&tab=setup"
+    except Exception:
+        return "https://xrextgbot.vercel.app/"
+
 async def set_commands_linked(bot, chat_id: int):
     try:
         cmds = [
-            BotCommand("wallet", "Show wallet summary"),
-            BotCommand("unlink", "Unlink this Telegram from XREX Pay"),
-            BotCommand("start", "Show start menu")
+            BotCommand("start", "Intro to XREX Pay Bot"),
+            BotCommand("wallet_check", "Check any wallet address"),
+            BotCommand("otc_quote", "Request a quote"),
+            BotCommand("unlink_account", "Unlink from XREX Pay"),
+            BotCommand("help", "Help center")
         ]
         await bot.set_my_commands(commands=cmds, scope=BotCommandScopeChat(chat_id))
     except Exception:
@@ -74,7 +82,9 @@ async def set_commands_linked(bot, chat_id: int):
 async def set_commands_unlinked(bot, chat_id: int):
     try:
         cmds = [
-            BotCommand("start", "Start linking flow")
+            BotCommand("start", "Intro to XREX Pay Bot"),
+            BotCommand("link_account", "Link with XREX Pay"),
+            BotCommand("help", "Help center")
         ]
         await bot.set_my_commands(commands=cmds, scope=BotCommandScopeChat(chat_id))
     except Exception:
@@ -577,13 +587,13 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         except Exception:
             pass
         keyboard = [[
-            InlineKeyboardButton("💼 Wallet", callback_data="wallet"),
-            InlineKeyboardButton("🔌 Unlink", callback_data="init_unlink")
+            InlineKeyboardButton("📚 How to use", url=xrex_link_url()),
+            InlineKeyboardButton("...  More", url=xrex_link_url())
         ]]
         reply_markup = InlineKeyboardMarkup(keyboard)
         try:
             await update.message.reply_text(
-                "You are linked to XREX Pay. What would you like to do?",
+                "You're linked with XREX Pay: Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more.",
                 reply_markup=reply_markup
             )
         except Exception:
@@ -594,7 +604,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await set_commands_unlinked(context.bot, chat_id)
     except Exception:
         pass
-    keyboard = [[InlineKeyboardButton("↗️ Go to XREX Pay", url="https://xrextgbot.vercel.app/settings.html?view=content&page=telegram&tab=setup")]]
+    keyboard = [[InlineKeyboardButton("↗️ Go to XREX Pay", url=xrex_link_url())]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     try:
         await update.message.reply_text(
@@ -681,21 +691,11 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         return
 
-    # Linked actions (prototype)
-    if data == "wallet":
-        try:
-            linked, _ = await is_linked_for_user(user_id)
-        except Exception:
-            linked = False
-        if not linked:
-            await context.bot.send_message(
-                chat_id=query.message.chat_id,
-                text="Your Telegram is not linked. Open XREX Pay to link first."
-            )
-            return
+    # Help center callback
+    if data == "notify_am":
         await context.bot.send_message(
             chat_id=query.message.chat_id,
-            text="Wallet coming soon: balances, recent activity, and risk checks."
+            text="🔔 Account Manager notified, please wait..."
         )
         return
 
@@ -733,16 +733,12 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await context.bot.send_message(chat_id=query.message.chat_id, text="Could not unlink right now. Please try again.")
         return
 
-async def wallet_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    user_id = update.effective_user.id
-    try:
-        linked, _ = await is_linked_for_user(user_id)
-    except Exception:
-        linked = False
-    if not linked:
-        await update.message.reply_text("Your Telegram is not linked. Open XREX Pay to link first.")
-        return
-    await update.message.reply_text("Wallet coming soon: balances, recent activity, and risk checks.")
+async def link_account_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [[InlineKeyboardButton("↗️ Go to XREX Pay", url=xrex_link_url())]]
+    await update.message.reply_text(
+        "To link with XREX Pay, please visit the XREX Pay Webapp first",
+        reply_markup=InlineKeyboardMarkup(keyboard)
+    )
 
 async def unlink_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
@@ -754,7 +750,11 @@ async def unlink_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         except Exception:
             sess = None
     if not sess:
-        await update.message.reply_text("Unable to find your active session. Please open XREX Pay and unlink from there.")
+        keyboard = [[InlineKeyboardButton("↗️ Go to XREX Pay", url=xrex_link_url())]]
+        await update.message.reply_text(
+            "To Unlink from XREX Pay, please visit the XREX Pay Webapp",
+            reply_markup=InlineKeyboardMarkup(keyboard)
+        )
         return
     if httpx is None:
         await update.message.reply_text("Network client unavailable to unlink right now.")
@@ -1347,6 +1347,37 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
         logger.error(f"Error in handle_text for user {user_id}: {str(e)}")
         await update.message.reply_text(f"{user_name}, an error occurred. Please try again.")
 
+async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [[
+        InlineKeyboardButton("↗️ Help center", url="https://intercom.help/xrex-sg/en/"),
+        InlineKeyboardButton("🔔 Account Manager", callback_data="notify_am")
+    ]]
+    await update.message.reply_text(
+        "We're here to help, visit our Help center or request help from an Account Manager",
+        reply_markup=InlineKeyboardMarkup(keyboard)
+    )
+
+async def wallet_check_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    try:
+        linked, _ = await is_linked_for_user(update.effective_user.id)
+    except Exception:
+        linked = False
+    if not linked:
+        await update.message.reply_text("Your Telegram is not linked. Open XREX Pay to link first.")
+        return
+    await update.message.reply_text("{$XRAY_WALLET_FLOW}")
+
+async def otc_quote_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    try:
+        linked, _ = await is_linked_for_user(update.effective_user.id)
+    except Exception:
+        linked = False
+    if not linked:
+        await update.message.reply_text("Your Telegram is not linked. Open XREX Pay to link first.")
+        return
+    keyboard = [[InlineKeyboardButton("Start quote", callback_data="request_quote")]]
+    await update.message.reply_text("{$OTC_FLOW}", reply_markup=InlineKeyboardMarkup(keyboard))
+
 async def main():
     application = None
     runner = None
@@ -1376,8 +1407,11 @@ async def main():
         # Register handlers in correct order: web app data first, then others, debug last
         application.add_handler(MessageHandler(filters.StatusUpdate.WEB_APP_DATA, handle_web_app_data), group=0)
         application.add_handler(CommandHandler("start", start), group=1)
-        application.add_handler(CommandHandler("wallet", wallet_cmd), group=1)
-        application.add_handler(CommandHandler("unlink", unlink_cmd), group=1)
+        application.add_handler(CommandHandler("link_account", link_account_cmd), group=1)
+        application.add_handler(CommandHandler("help", help_cmd), group=1)
+        application.add_handler(CommandHandler("wallet_check", wallet_check_cmd), group=1)
+        application.add_handler(CommandHandler("otc_quote", otc_quote_cmd), group=1)
+        application.add_handler(CommandHandler("unlink_account", unlink_cmd), group=1)
         application.add_handler(CallbackQueryHandler(handle_callback), group=2)
         application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text), group=3)
         
