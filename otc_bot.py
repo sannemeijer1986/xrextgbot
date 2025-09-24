@@ -61,6 +61,31 @@ session_poll_tasks = {}
 session_subscriptions = {}
 finalize_watch_tasks = {}
 
+def try_mark_stage6_notifying(user_id: int) -> bool:
+    try:
+        uid = int(user_id)
+        st = user_state.get(uid, {})
+        if st.get('stage6_notified'):
+            return False
+        if st.get('stage6_inflight'):
+            return False
+        st['stage6_inflight'] = True
+        user_state[uid] = st
+        return True
+    except Exception:
+        return False
+
+def complete_stage6_notify(user_id: int, success: bool):
+    try:
+        uid = int(user_id)
+        st = user_state.get(uid, {})
+        st.pop('stage6_inflight', None)
+        if success:
+            st['stage6_notified'] = True
+        user_state[uid] = st
+    except Exception:
+        pass
+
 def xrex_link_url():
     try:
         return "https://xrextgbot.vercel.app/settings.html?view=content&page=telegram&tab=setup"
@@ -493,19 +518,22 @@ async def poll_remote_and_sync(session_id: str = None):
                                     ]]
                                     reply_markup = InlineKeyboardMarkup(keyboard)
                                     try:
-                                        if bot_for_notifications:
-                                            await bot_for_notifications.send_message(
-                                                chat_id=chat_id,
-                                                text=("🎉 Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
-                                                     "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more."),
-                                                reply_markup=reply_markup
-                                            )
+                                        if bot_for_notifications and try_mark_stage6_notifying(uid):
+                                            ok = False
                                             try:
-                                                await set_commands_linked(bot_for_notifications, chat_id)
-                                            except Exception:
-                                                pass
-                                            st['stage6_notified'] = True
-                                            user_state[uid] = st
+                                                await bot_for_notifications.send_message(
+                                                    chat_id=chat_id,
+                                                    text=("🎉 Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
+                                                         "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more."),
+                                                    reply_markup=reply_markup
+                                                )
+                                                try:
+                                                    await set_commands_linked(bot_for_notifications, chat_id)
+                                                except Exception:
+                                                    pass
+                                                ok = True
+                                            finally:
+                                                complete_stage6_notify(uid, ok)
                                             notified_any = True
                                     except Exception:
                                         pass
@@ -515,21 +543,26 @@ async def poll_remote_and_sync(session_id: str = None):
                                         uid_key = int(target_user_id)
                                         st = user_state.get(uid_key, {})
                                         already = st.get('stage6_notified')
-                                        if not already and bot_for_notifications:
-                                            await bot_for_notifications.send_message(
-                                                chat_id=int(target_chat_id),
-                                                text=("✅️ Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
-                                                     "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more.")
-                                            )
+                                        if not already and bot_for_notifications and try_mark_stage6_notifying(uid_key):
+                                            ok2 = False
                                             try:
-                                                await set_commands_linked(bot_for_notifications, int(target_chat_id))
-                                            except Exception:
-                                                pass
-                                            st['stage6_notified'] = True
-                                            # Ensure chat_id stored for future interactions
-                                            st['chat_id'] = int(target_chat_id)
-                                            user_state[uid_key] = st
-                                            notified_any = True
+                                                await bot_for_notifications.send_message(
+                                                    chat_id=int(target_chat_id),
+                                                    text=("✅️ Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
+                                                         "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more.")
+                                                )
+                                                try:
+                                                    await set_commands_linked(bot_for_notifications, int(target_chat_id))
+                                                except Exception:
+                                                    pass
+                                                st['stage6_notified'] = True
+                                                # Ensure chat_id stored for future interactions
+                                                st['chat_id'] = int(target_chat_id)
+                                                user_state[uid_key] = st
+                                                ok2 = True
+                                                notified_any = True
+                                            finally:
+                                                complete_stage6_notify(uid_key, ok2)
                                     except Exception:
                                         pass
                             except Exception:
