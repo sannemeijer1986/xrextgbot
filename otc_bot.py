@@ -768,22 +768,33 @@ def detect_chain_and_explorer(address: str):
 
 def render_wallet_details(address: str) -> str:
     chain, explorer = detect_chain_and_explorer(address)
+    # Derive explorer base (up to 'address/' if present)
+    try:
+        base = explorer
+        for token in ['/address/', '/#/address/']:
+            if token in explorer:
+                base = explorer.split(token)[0] + token
+                break
+    except Exception:
+        base = explorer
     lines = []
-    lines.append(f"📎 Wallet Address:\n{address}")
+    lines.append("• Your queried wallet address:")
+    lines.append(address)
+    if base:
+        lines.append(base)
     if explorer:
-        lines.append(f"🔗 {explorer}")
-    lines.append(f"\033🌐 Blockchain:\033 \n{chain}\n")
-    lines.append("\033🏢 Exchange:\033 \nXREX 🔗 View Entity\n")   
-    lines.append("\033🏷️ Tag:\033 \nNone\n")
-    lines.append("\033📌 Type:\033 \nExchange – Hot Wallet\n")
-    lines.append("\033💰 On-chain Balance:\033 \n")
-    lines.append("667.43 ETH")
-    lines.append("1,188,823.66 USDT")
-    lines.append("347,401.40 USDC\n")
-    lines.append("\033🚩 Risk Level:\033 \n🔴 High\n")
-    lines.append("\033Details:\033")
-    lines.append("This address has been reported.")
-    lines.append("It has interacted with reported addresses.")
+        lines.append(explorer)
+    lines.append(f"Blockchain: {chain}")
+    lines.append("* Exchange: XREX")
+    lines.append("https://xrex.io/xray/app/entity/6")
+    lines.append("On-chain Label: None")
+    lines.append("Address Category: Unknown")
+    lines.append("On-chain Wallet Balance:")
+    lines.append("(Note: Due to different accounting logic among exchanges, the balance shown here does not equal")
+    lines.append("'user assets in the exchange account')")
+    lines.append("• 17.50 USDT")
+    lines.append("Risk Level: Low")
+    lines.append("Risk Description: None")
     return "\n".join(lines)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
