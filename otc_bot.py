@@ -279,6 +279,9 @@ async def poll_remote_and_sync(session_id: str = None):
     last_seen = 0
     poll_until_ts = 0
     prev_stage = None
+    stage5_seen_ts = 0
+    forced_finalize_done = False
+    last_stage_for_delay = 0
     while True:
         try:
             async with httpx.AsyncClient(timeout=10.0) as client:
@@ -298,6 +301,7 @@ async def poll_remote_and_sync(session_id: str = None):
                             pass
                         # If website reset to stage 1 or 2, reflect locally
                         stage = int(record.get('stage') or 0)
+                        last_stage_for_delay = stage
                         code = record.get('linking_code')
                         twofa = bool(record.get('twofa_verified'))
                         target_user_id = record.get('actor_tg_user_id')
@@ -305,6 +309,27 @@ async def poll_remote_and_sync(session_id: str = None):
                         # Start/extend a 5-minute polling window only in stages 3 or 4
                         if stage == 3 or stage == 4:
                             poll_until_ts = int(time.time()) + 5*60
+                        # Aggressive finalize: if stage 5 lingers >2s, force finalize to 6 for this session
+                        if stage == 5:
+                            try:
+                                if stage5_seen_ts == 0:
+                                    stage5_seen_ts = int(time.time())
+                                elapsed = int(time.time()) - int(stage5_seen_ts)
+                                if (elapsed >= 2) and (not forced_finalize_done):
+                                    fin_url = url_latest
+                                    try:
+                                        logger.info(f"poller[{session_id or 'none'}]: forcing finalize to 6 after {elapsed}s at stage 5")
+                                    except Exception:
+                                        pass
+                                    try:
+                                        await client.put(fin_url, headers={"Content-Type": "application/json", "X-Client-Stage": "6"}, json={"stage": 6})
+                                        forced_finalize_done = True
+                                    except Exception:
+                                        pass
+                            except Exception:
+                                pass
+                        else:
+                            stage5_seen_ts = 0
                         if stage <= 2:
                             set_sync_state(stage=stage or 1, twofa_verified=False, linking_code=None)
                             # Reset per-user notification flags so future link/unlink events notify again
@@ -502,8 +527,10 @@ async def poll_remote_and_sync(session_id: str = None):
         # Sleep longer when idle; if within 5-min window, keep 60s; otherwise back off to 5 minutes
         try:
             now_ts = int(time.time())
-            if poll_until_ts and now_ts < poll_until_ts:
-                base_delay = 1.5   # active window ~10x faster
+            if (last_stage_for_delay == 5):
+                base_delay = 0.5   # very aggressive during stage 5
+            elif poll_until_ts and now_ts < poll_until_ts:
+                base_delay = 1.0   # active window faster
             else:
                 base_delay = 4.5   # idle but still reasonably quick
             # add tiny jitter to avoid sync
