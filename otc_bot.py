@@ -435,6 +435,39 @@ async def poll_remote_and_sync(session_id: str = None):
                                     user_state[uid] = st
                             except Exception:
                                 pass
+                            # Ensure commands are unlinked silently when session drops to <=2
+                            try:
+                                if bot_for_notifications:
+                                    if target_chat_id is not None:
+                                        try:
+                                            await set_commands_unlinked(bot_for_notifications, int(target_chat_id))
+                                        except Exception:
+                                            pass
+                                    else:
+                                        try:
+                                            for uid2, st2 in list(user_state.items()):
+                                                if st2.get('session_id') == session_id and st2.get('chat_id') is not None:
+                                                    try:
+                                                        await set_commands_unlinked(bot_for_notifications, int(st2.get('chat_id')))
+                                                    except Exception:
+                                                        pass
+                                                    break
+                                        except Exception:
+                                            pass
+                                # cancel any finalize watcher for this user if known
+                                try:
+                                    if target_user_id is not None:
+                                        tw = finalize_watch_tasks.get(int(target_user_id))
+                                        if tw:
+                                            try:
+                                                tw.cancel()
+                                            except Exception:
+                                                pass
+                                            finalize_watch_tasks.pop(int(target_user_id), None)
+                                except Exception:
+                                    pass
+                            except Exception:
+                                pass
                         else:
                             set_sync_state(stage=stage, twofa_verified=twofa, linking_code=code)
                             try:
