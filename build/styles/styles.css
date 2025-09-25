@@ -521,9 +521,8 @@ body.modal-locked {
   place-items: center;
 }
 .modal.modal-small .m-node-wrap img {
-  width: 24px;
-  height: 24px;
-  opacity: 0.65;
+  width: 32px;
+  height: 32px;
 }
 .modal.modal-small .m-node {
   width: 28px;
