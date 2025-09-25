@@ -1080,8 +1080,8 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       grid-template-columns: 16px 1fr;
       grid-auto-rows: auto;
       align-items: start;
-      column-gap: 8px;
-      row-gap: 6px;
+      column-gap: 10px;
+      row-gap: 2px;
       background:  rgba(77, 136, 255, 0.15);
       border-radius: 8px;
       padding: 8px 8px 8px 8px;
@@ -1089,15 +1089,15 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       margin: 4px 0 24px 0;
       &[hidden] { display: none; }
       .iib-left { display: contents; }
-      .iib-left img { grid-column: 1; align-self: start; width: 20px; height: 20px; }
-      .iib-text { grid-column: 2; color: #4D88FF; font-size: 14px; line-height: 20px; }
+      .iib-left img { grid-column: 1; align-self: center; width: 24px; height: 24px; }
+      .iib-text { grid-column: 2; color: #4D88FF; font-size: 14px; line-height: 20px; margin-top: 2px; }
       .iib-link { grid-column: 2; color: #2250F7; font: 700 14px $font-manrope; text-decoration: none; }
       .iib-link:hover { text-decoration: none; }
       // Desktop: use a simple row layout so text and link hug naturally
       @media (min-width: $bp-md) {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 4px;
         .iib-left { display: contents; }
         .iib-text { margin-right: 4px; }
         .iib-link { margin-left: 0; }

@@ -1588,8 +1588,8 @@ body.modal-locked {
   grid-template-columns: 16px 1fr;
   grid-auto-rows: auto;
   align-items: start;
-  column-gap: 8px;
-  row-gap: 6px;
+  column-gap: 10px;
+  row-gap: 2px;
   background: rgba(77, 136, 255, 0.15);
   border-radius: 8px;
   padding: 8px 8px 8px 8px;
@@ -1604,15 +1604,16 @@ body.modal-locked {
 }
 .content .intro-content .intro-info-banner .iib-left img {
   grid-column: 1;
-  align-self: start;
-  width: 20px;
-  height: 20px;
+  align-self: center;
+  width: 24px;
+  height: 24px;
 }
 .content .intro-content .intro-info-banner .iib-text {
   grid-column: 2;
   color: #4D88FF;
   font-size: 14px;
   line-height: 20px;
+  margin-top: 2px;
 }
 .content .intro-content .intro-info-banner .iib-link {
   grid-column: 2;
@@ -1627,7 +1628,7 @@ body.modal-locked {
   .content .intro-content .intro-info-banner {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
   }
   .content .intro-content .intro-info-banner .iib-left {
     display: contents;
