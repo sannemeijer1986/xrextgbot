@@ -243,19 +243,23 @@ async def watch_finalize_for_user(tg_user_id: int, chat_id: int, timeout_seconds
                             stage = int(d.get('stage') or 0)
                         except Exception:
                             stage = 0
-                        # If stuck at stage 4 with twofa and code, try client finalize after 3s
+                        # Optional: if stuck at stage 5 (code submitted), we can (optionally) push finalize->6
+                        # Gate behind env FORCE_FINALIZE_STAGE5=1 and use a conservative delay to avoid premature finalize
                         try:
-                            if stage == 4 and (d.get('twofa_verified') is True) and (d.get('linking_code')):
-                                if stage4_seen_ts == 0:
-                                    stage4_seen_ts = int(time.time())
-                                elif (int(time.time()) - stage4_seen_ts) >= 3:
-                                    sess_id = d.get('session_id')
-                                    if sess_id:
-                                        fin_url = (base.rstrip('/') + "/api/state") + f"?session={sess_id}"
-                                        try:
-                                            await client.put(fin_url, headers={"Content-Type": "application/json", "X-Client-Stage": "6"}, json={"stage": 6})
-                                        except Exception:
-                                            pass
+                            if os.getenv('FORCE_FINALIZE_STAGE5', '0') == '1':
+                                if stage == 5 and (d.get('twofa_verified') is True) and (d.get('linking_code')):
+                                    if stage4_seen_ts == 0:
+                                        stage4_seen_ts = int(time.time())
+                                    elif (int(time.time()) - stage4_seen_ts) >= 5:
+                                        sess_id = d.get('session_id')
+                                        if sess_id:
+                                            fin_url = (base.rstrip('/') + "/api/state") + f"?session={sess_id}"
+                                            try:
+                                                await client.put(fin_url, headers={"Content-Type": "application/json", "X-Client-Stage": "6"}, json={"stage": 6})
+                                            except Exception:
+                                                pass
+                                else:
+                                    stage4_seen_ts = 0
                             else:
                                 stage4_seen_ts = 0
                         except Exception:
@@ -1057,8 +1061,7 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await context.bot.send_message(
             chat_id=query.message.chat_id,
             text=(
-                "You can link your Telegram to XREX Pay using a valid link and your 2FA. "
-                "This is a prototype flow; more options will appear here later."
+                "Not in prototype"
             )
         )
         return
@@ -1804,7 +1807,7 @@ async def otc_quote_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not linked:
         await update.message.reply_text("Your Telegram is not linked. Open XREX Pay to link first.")
         return
-    await update.message.reply_text("{$OTC_FLOW}")
+    await update.message.reply_text("Coming soon!")
 
 async def main():
     application = None
