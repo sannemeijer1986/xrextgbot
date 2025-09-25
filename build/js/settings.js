@@ -1480,19 +1480,19 @@
       var isDesktop = window.matchMedia('(min-width: 1280px)');
       var swiper = new Swiper(container, {
         slidesPerView: 'auto',
-        spaceBetween: 12,
+        spaceBetween: 8,
         loop: false,
         slidesOffsetBefore: 20,
-        slidesOffsetAfter: 16,
+        slidesOffsetAfter: 24,
         grabCursor: true,
         simulateTouch: true,
         mousewheel: { forceToAxis: true, sensitivity: 1, releaseOnEdges: true },
         pagination: { el: container.querySelector('.swiper-pagination'), clickable: true },
         navigation: { nextEl: container.querySelector('.swiper-button-next'), prevEl: container.querySelector('.swiper-button-prev') },
         breakpoints: {
-          600: { spaceBetween: 14, slidesOffsetBefore: 16, slidesOffsetAfter: 16 },
-          900: { spaceBetween: 16, slidesOffsetBefore: 24, slidesOffsetAfter: 24 },
-          1280: { spaceBetween: 20, slidesOffsetBefore: 32, slidesOffsetAfter: 32 }
+          600: { slidesOffsetBefore: 20, slidesOffsetAfter: 20 },
+          900: { slidesOffsetBefore: 20, slidesOffsetAfter: 28 },
+          1280: { spaceBetween: 12, slidesOffsetBefore: 32, slidesOffsetAfter: 40 }
         },
         // Show arrows on desktop; pagination on mobile
         on: {
