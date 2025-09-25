@@ -242,32 +242,42 @@
                     <div class="intro-info-banner" id="introInfoBanner" hidden>
                         <div class="iib-left">
                             <img src="assets/icon_info.svg" width="24" height="24" alt="info">
-                            <span class="iib-text">This feature requires you to enable Two-factor authentication</span>
+                            <span class="iib-text">This feature requires an extra layer of security via Two-factor authentication</span>
                         </div>
                         <a href="#" class="iib-link" id="iibSetup2faBtn">Learn more</a>
                     </div>
 
-                    <h2 class="intro-title-part1">XREX Pay Telegram Bot simplifies trades and payments</h2>
-                    <h3 class="intro-title-part2">By linking your XREX Pay ID to your Telegram ID, you can manage OTC trades and payments in Telegram</h3>
+                    <h2 class="intro-title-part1">Access XREX Pay features, right from Telegram</h2>
+                    <h3 class="intro-title-part2">Link your XREX Pay ID with Telegram to check wallet ownership and risk levels, receive updates and access live support. More features, including OTC order management, are coming soon</h3>
 
 
 
                     <div class="intro-section">
                         <div class="intro-section-title">Features</div>
-                        <div class="intro-item">
+                        <!-- <div class="intro-item">
                             <div class="intro-icon"><img src="assets/icon_tgbot_telegram.svg" width="24" height="24" alt=""></div>
                             <div class="intro-subtitle">XREX features in Telegram</div>
                             <p class="intro-paragraph">Feature introduction text</p>
-                        </div>
+                        </div> -->
                         <div class="intro-item">
                             <div class="intro-icon"><img src="assets/icon_tgbot_walletcheck.svg" width="24" height="24" alt=""></div>
-                            <div class="intro-subtitle">Wallet risk check</div>
-                            <p class="intro-paragraph">Enter any blockchain wallet address to instantly view its exchange ownership and risk level</p>
+                            <div class="intro-subtitle">Check wallet risk</div>
+                            <p class="intro-paragraph">Enter any blockchain wallet address to instantly view its ownership and risk level</p>
                         </div>
                         <div class="intro-item">
-                            <div class="intro-icon"><img src="assets/icon_tgbot_ordertracking.svg" width="24" height="24" alt=""></div>
-                            <div class="intro-subtitle">OTC order tracking</div>
-                            <p class="intro-paragraph">Stay updated with the latest status of your OTC orders</p>
+                            <div class="intro-icon"><img src="assets/icon_tgbot_notifications.svg" width="24" height="24" alt=""></div>
+                            <div class="intro-subtitle">Stay up to date</div>
+                            <p class="intro-paragraph">Receive key XREX Pay updates in Telegram</p>
+                        </div>
+                        <div class="intro-item">
+                            <div class="intro-icon"><img src="assets/icon_tgbot_livesupport.svg" width="24" height="24" alt=""></div>
+                            <div class="intro-subtitle">Quick access to live support</div>
+                            <p class="intro-paragraph">Get help from our team, right inside Telegram</p>
+                        </div>
+                        <div class="intro-item" style="opacity: 0.25;">
+                            <div class="intro-icon"><img src="assets/icon_tgbot_otctrading.svg" width="24" height="24" alt=""></div>
+                            <div class="intro-subtitle">OTC trades (coming soon)</div>
+                            <p class="intro-paragraph">Track and manage OTC orders right from Telegram</p>
                         </div>
                     </div>
 
@@ -283,17 +293,17 @@
                         <div class="intro-item">
                             <div class="intro-icon"><img src="assets/icon_tgbot_checkwallet.svg" width="24" height="24" alt=""></div>
                             <div class="intro-subtitle">Check wallet risk</div>
-                            <p class="intro-paragraph">Use <span class="cmd">/check_wallet</span> &lt;address&gt; and paste a blockchain wallet address to instantly view its exchange affiliation, on-chain balances, and risk level</p>
+                            <p class="intro-paragraph">Use <span class="cmd">/check_wallet</span> and paste a blockchain wallet address to instantly view its exchange affiliation, on-chain balances, and risk level</p>
                         </div>
-                        <div class="intro-item">
+                        <!-- <div class="intro-item">
                             <div class="intro-icon"><img src="assets/icon_tgbot_otctrading.svg" width="24" height="24" alt=""></div>
                             <div class="intro-subtitle">OTC trading</div>
                             <p class="intro-paragraph">Request real-time OTC quotes using <span class="cmd">/otc_quote</span> and track orders with <span class="cmd">/otc_orders</span></p>
-                        </div>
+                        </div> -->
                         <div class="intro-item">
                             <div class="intro-icon"><img src="assets/icon_tgbot_notifications.svg" width="24" height="24" alt=""></div>
-                            <div class="intro-subtitle">Receive notifications</div>
-                            <p class="intro-paragraph">Get instant updates in 1:1 chats or group chats whenever your OTC order status changes</p>
+                            <div class="intro-subtitle">Get help within Telegram</div>
+                            <p class="intro-paragraph">Need support? Simply use the <span class="cmd">/help</span>  command</p>
                         </div>
                     </div>
 
@@ -618,13 +628,13 @@
         <div class="modal-wrapper">
             <div class="modal-content">
                 <div class="modal-header require2fa-header" aria-hidden="true" hidden>
-                    <h2>Please add an extra layer of security before you start linking</h2>
+                    <h2>You need to add an extra layer of security before you can start linking</h2>
                     <button class="modal-close" id="require2faClose" aria-label="Close modal">
                         <img src="assets/icon_modal_close.svg" width="24" height="24" alt="close" />
                     </button>
                 </div>
                 <div class="modal-body m-require">
-                    <div class="m-title">Please add an extra layer of security before you start linking</div>
+                    <div class="m-title">You need to add an extra layer of security before you can start linking</div>
 
                     <div class="m-steps-label">Follow these steps</div>
 
