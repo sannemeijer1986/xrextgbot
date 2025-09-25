@@ -204,31 +204,37 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 
   // Small prompt modal (Require 2FA) mobile layout
   .modal.modal-small {
+    min-width: 320px;
     .modal-content { height: 100%; padding: 56px 20px 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
     .require2fa-header { position: absolute; top: 0; left: 0; right: 0; height: 56px; display: flex; align-items: center; justify-content: flex-start; padding: 20px; margin: 0; border: none; }
     .require2fa-header[hidden] { display: none; }
     .require2fa-header h2 { display: none; }
-    .modal-body.m-require { padding: 0 20px; text-align: center; max-width: 560px; }
+    .modal-body.m-require { padding: 0; text-align: center; max-width: 560px; }
     .modal-body.m-require .m-title { display: block; }
-    .modal-footer { width: 100%; margin-top: 16px; padding: 12px 20px 20px; flex-direction: column; gap: 10px; }
+    .modal-footer { width: 100%; margin-top: 16px; padding: 0px; flex-direction: column; gap: 10px; }
     .modal-footer .btn { width: 100%; max-width: none; min-width: 0; height: $btn-md-height; font-size: $btn-md-font-size; border-radius: 8px; }
   }
 }
 
 // Mini timeline inside Require 2FA modal
 .modal.modal-small {
-  .m-steps-wrap { width: 100%; margin: 32px 0px 16px 0px; background: #F8F8F8; border-radius: 12px; padding: 16px 20px; max-width: 420px; }
-  .m-steps { margin: 8px 0 8px 0; }
-  .m-srow { display: grid; grid-template-columns: 46px 1fr; column-gap: 12px; align-items: start; }
-  .m-srow + .m-srow { margin-top: 8px; }
-  .m-rail { position: relative; display: flex; width: 46px; flex-direction: column; align-items: center; gap: 8px; }
-  .m-track { width: 1.5px; background: #BCBDBD; height: 24px; flex: 0 0 24px; display: block; }
-  .m-srow:last-child .m-track { display: none; }
-  .m-node-wrap { width: 46px; height: 46px; border-radius: 9999px; border: 1.5px solid #BCBDBD; display: grid; place-items: center; }
+  .m-steps-wrap { width: 100%; margin: 16px 0px 16px 0px; background: #F8F8F8; border-radius: 12px; padding: 16px 20px; max-width: 420px; }
+  .m-steps { margin: 0; }
+  .m-srow { display: grid; grid-template-columns: 46px 1fr; column-gap: 12px; align-items: center; min-height: 72px; }
+
+  .m-rail { position: relative; display: flex; width: 46px; height: 100%; align-items: center; justify-content: center; }
+  /* connector tracks above and below the node, with small gaps */
+  .m-track { width: 1.5px; background: #BCBDBD; flex: 1 1 auto; display: block; min-height: 12px; }
+  .m-rail { flex-direction: column; gap: 4px; }
+  .m-srow:first-child .m-rail .m-track:first-child { opacity: 0;}
+  .m-srow:last-child  .m-rail .m-track:last-child  { opacity: 0;}
+  .m-node-wrap { width: 46px; height: 46px; border-radius: 9999px; border: 1.5px solid #BCBDBD; display: grid; place-items: center; margin: 2px 0px; }
   .m-node-wrap img { width: 32px; height: 32px; }
   .m-node { width: 28px; height: 28px; border-radius: 9999px; background: #2250F7; display: block; background-image: url('../assets/icon_timeline_active.svg'); background-size: 20px 20px; background-position: center; background-repeat: no-repeat; }
-  .m-slabel { text-align: left; font-family: $font-manrope; font-weight: 600; font-size: 16px; color: #3C4248; margin-top: 10px; }
-  .m-srow.is-muted .m-slabel { color: #B4B4B4; font-weight: 500; }
+  .m-slabel { text-align: left; font-family: $font-manrope; font-weight: 800; font-size: 16px; color: #3C4248; }
+  .m-sublabel { font: 400 12px $font-manrope; color: #000000; margin-top: 2px; }
+  .m-srow.is-muted .m-slabel { color: #9B9C9C; font-weight: 600; }
+  .m-srow.is-muted .m-sublabel { color: #9B9C9C; font-weight: 400; }
   .m-srow.is-active .m-node-wrap { border-color: #BCBDBD; }
 }
 

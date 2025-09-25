@@ -423,6 +423,9 @@ body.modal-locked {
     display: grid;
     place-items: center;
   }
+  .modal.modal-small {
+    min-width: 320px;
+  }
   .modal.modal-small .modal-content {
     height: 100%;
     padding: 56px 20px 20px;
@@ -451,7 +454,7 @@ body.modal-locked {
     display: none;
   }
   .modal.modal-small .modal-body.m-require {
-    padding: 0 20px;
+    padding: 0;
     text-align: center;
     max-width: 560px;
   }
@@ -461,7 +464,7 @@ body.modal-locked {
   .modal.modal-small .modal-footer {
     width: 100%;
     margin-top: 16px;
-    padding: 12px 20px 20px;
+    padding: 0px;
     flex-direction: column;
     gap: 10px;
   }
@@ -476,41 +479,49 @@ body.modal-locked {
 }
 .modal.modal-small .m-steps-wrap {
   width: 100%;
-  margin: 32px 0px 16px 0px;
+  margin: 16px 0px 16px 0px;
   background: #F8F8F8;
   border-radius: 12px;
   padding: 16px 20px;
   max-width: 420px;
 }
 .modal.modal-small .m-steps {
-  margin: 8px 0 8px 0;
+  margin: 0;
 }
 .modal.modal-small .m-srow {
   display: grid;
   grid-template-columns: 46px 1fr;
   column-gap: 12px;
-  align-items: start;
-}
-.modal.modal-small .m-srow + .m-srow {
-  margin-top: 8px;
+  align-items: center;
+  min-height: 72px;
 }
 .modal.modal-small .m-rail {
   position: relative;
   display: flex;
   width: 46px;
-  flex-direction: column;
+  height: 100%;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+}
+.modal.modal-small {
+  /* connector tracks above and below the node, with small gaps */
 }
 .modal.modal-small .m-track {
   width: 1.5px;
   background: #BCBDBD;
-  height: 24px;
-  flex: 0 0 24px;
+  flex: 1 1 auto;
   display: block;
+  min-height: 12px;
 }
-.modal.modal-small .m-srow:last-child .m-track {
-  display: none;
+.modal.modal-small .m-rail {
+  flex-direction: column;
+  gap: 4px;
+}
+.modal.modal-small .m-srow:first-child .m-rail .m-track:first-child {
+  opacity: 0;
+}
+.modal.modal-small .m-srow:last-child .m-rail .m-track:last-child {
+  opacity: 0;
 }
 .modal.modal-small .m-node-wrap {
   width: 46px;
@@ -519,6 +530,7 @@ body.modal-locked {
   border: 1.5px solid #BCBDBD;
   display: grid;
   place-items: center;
+  margin: 2px 0px;
 }
 .modal.modal-small .m-node-wrap img {
   width: 32px;
@@ -538,14 +550,22 @@ body.modal-locked {
 .modal.modal-small .m-slabel {
   text-align: left;
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-weight: 600;
+  font-weight: 800;
   font-size: 16px;
   color: #3C4248;
-  margin-top: 10px;
+}
+.modal.modal-small .m-sublabel {
+  font: 400 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #000000;
+  margin-top: 2px;
 }
 .modal.modal-small .m-srow.is-muted .m-slabel {
-  color: #B4B4B4;
-  font-weight: 500;
+  color: #9B9C9C;
+  font-weight: 600;
+}
+.modal.modal-small .m-srow.is-muted .m-sublabel {
+  color: #9B9C9C;
+  font-weight: 400;
 }
 .modal.modal-small .m-srow.is-active .m-node-wrap {
   border-color: #BCBDBD;
