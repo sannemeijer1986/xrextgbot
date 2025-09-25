@@ -563,7 +563,7 @@ body.modal-locked {
     max-width: inherit;
   }
   .modal.modal-small .modal-wrapper {
-    max-width: 480px;
+    max-width: 520px;
   }
   .modal.modal-small .require2fa-header {
     display: flex;

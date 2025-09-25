@@ -242,7 +242,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 @media (min-width: 721px) {
   .modal.modal-small {
     .m-steps-wrap { max-width: inherit; }
-    .modal-wrapper { max-width: 480px; }
+    .modal-wrapper { max-width: 520px; }
     .require2fa-header { display: flex; align-items: center; justify-content: space-between; padding: 0; margin: 0 0 16px 0; border: none; }
     .require2fa-header h2 { margin: 0; font: 800 20px $font-sora; }
     .require2fa-header .modal-close { opacity: 0; pointer-events: none; }
