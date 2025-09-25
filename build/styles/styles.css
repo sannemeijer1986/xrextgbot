@@ -545,7 +545,7 @@ body.modal-locked {
 }
 .modal.modal-small .m-srow.is-muted .m-slabel {
   color: #B4B4B4;
-  font-weight: 600;
+  font-weight: 500;
 }
 .modal.modal-small .m-srow.is-active .m-node-wrap {
   border-color: #BCBDBD;
