@@ -360,6 +360,18 @@
       applyTimelineFromProgress();
       var val = document.getElementById('adminStateValue');
       if (val) val.textContent = String(getProgress().state);
+      // Toggle Intro info banner when state is 1
+      try {
+        var banner = document.getElementById('introInfoBanner');
+        var btn = document.getElementById('iibSetup2faBtn');
+        if (banner) {
+          var s = (getProgress().state|0);
+          var show = (s <= 1);
+          banner.hidden = !show;
+          banner.setAttribute('aria-hidden', show ? 'false' : 'true');
+          if (btn && !btn.__wired) { btn.__wired = true; btn.addEventListener('click', function(e){ e.preventDefault(); openRequire2faModal(); }); }
+        }
+      } catch(_) {}
       // Sync Account panel authenticator UI with state
       syncAuthenticatorUI();
       // Sync the Status row visual state

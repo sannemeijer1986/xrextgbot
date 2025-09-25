@@ -238,9 +238,18 @@
                     <div class="swiper-pagination"></div>
                 </div>
 
-                <div class="intro-content">
+                    <div class="intro-content">
+                    <div class="intro-info-banner" id="introInfoBanner" hidden>
+                        <div class="iib-left">
+                            <img src="assets/icon_info.svg" width="24" height="24" alt="info">
+                            <span class="iib-text">Two-factor authentication is required to use this feature</span>
+                        </div>
+                        <a href="#" class="iib-link" id="iibSetup2faBtn">Learn more</a>
+                    </div>
+
                     <h2 class="intro-title-part1">XREX Pay Telegram Bot simplifies trades and payments</h2>
                     <h3 class="intro-title-part2">By linking your XREX Pay ID to your Telegram ID, you can manage OTC trades and payments in Telegram</h3>
+
 
 
                     <div class="intro-section">
@@ -617,6 +626,31 @@
                 <div class="modal-body m-require">
                     <div class="m-title">Two-factor authentication is required</div>
                     <div class="m-paragraph">To be able to use this feature, you will need to secure your account with Two-factor authentication</div>
+
+                    <div class="m-steps-wrap">
+                        <div class="m-steps">
+                        <div class="m-srow is-active">
+                            <div class="m-rail">
+                                <span class="m-node-wrap is-active" aria-hidden="true"><span class="m-node"></span></span>
+                                <span class="m-track" aria-hidden="true"></span>
+                            </div>
+                            <div class="m-slabel">Set up Two-factor authentication (2FA)</div>
+                        </div>
+                        <div class="m-srow is-muted">
+                            <div class="m-rail">
+                                <span class="m-node-wrap" aria-hidden="true"><img src="assets/icon_support.svg" width="20" height="20" alt="" /></span>
+                                <span class="m-track" aria-hidden="true"></span>
+                            </div>
+                            <div class="m-slabel">Log back into XREX</div>
+                        </div>
+                        <div class="m-srow is-muted">
+                            <div class="m-rail">
+                                <span class="m-node-wrap" aria-hidden="true"><img src="assets/icon_tgbot_telegram.svg" width="20" height="20" alt="" /></span>
+                            </div>
+                            <div class="m-slabel">Start linking XREX Telegram bot</div>
+                        </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary btn-sm" id="require2faCancel">Not now</button>
