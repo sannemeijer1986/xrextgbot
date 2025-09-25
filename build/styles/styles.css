@@ -391,6 +391,19 @@ body.modal-locked {
     border-bottom: 1px solid #EEEEEE;
     min-height: 72px;
   }
+  .modal:not(.modal-small) .modal-header {
+    position: relative;
+    justify-content: center;
+  }
+  .modal:not(.modal-small) .modal-header h2 {
+    text-align: center;
+    margin: 0 auto;
+  }
+  .modal:not(.modal-small) .modal-header .modal-close {
+    position: absolute;
+    left: 20px;
+    right: auto;
+  }
   .modal-body {
     padding: 20px;
   }
@@ -479,7 +492,7 @@ body.modal-locked {
 }
 .modal.modal-small .m-steps-wrap {
   width: 100%;
-  margin: 16px 0px 16px 0px;
+  margin: 0px 0px 16px 0px;
   background: #F8F8F8;
   border-radius: 12px;
   padding: 16px 20px;
@@ -494,6 +507,13 @@ body.modal-locked {
   column-gap: 12px;
   align-items: center;
   min-height: 72px;
+}
+.modal.modal-small .m-steps-label {
+  margin: 8px 0px;
+  color: #6B7280;
+  font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  width: 100%;
 }
 .modal.modal-small .m-rail {
   position: relative;
