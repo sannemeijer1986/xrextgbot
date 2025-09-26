@@ -394,12 +394,12 @@
             try {
               var nameEl0 = linked.querySelector('.la-name');
               var userEl0 = linked.querySelector('.la-username');
-              var avatarImg0 = linked.querySelector('.la-avatar img');
-              var avatarPh0 = linked.querySelector('.la-avatar-ph');
+              var avatarImg0 = linked.querySelector('.la-avatar .la-avatar-img');
+              var avatarPhImg0 = linked.querySelector('.la-avatar .la-avatar-phimg');
               if (nameEl0) nameEl0.textContent = '--';
               if (userEl0) { userEl0.textContent = '--'; userEl0.hidden = false; }
-              if (avatarPh0) avatarPh0.hidden = false;
-              if (avatarImg0) { avatarImg0.setAttribute('src', ''); avatarImg0.hidden = true; }
+              if (avatarPhImg0) avatarPhImg0.hidden = false;
+              if (avatarImg0) { try { avatarImg0.removeAttribute('src'); } catch(_){} avatarImg0.hidden = true; }
             } catch(_) {}
           }
           linked.hidden = !show;
@@ -418,8 +418,8 @@
                     try {
                       var nameEl = linked.querySelector('.la-name');
                       var userEl = linked.querySelector('.la-username');
-                      var avatarImg = linked.querySelector('.la-avatar img');
-                      var avatarPh = linked.querySelector('.la-avatar-ph');
+                      var avatarImg = linked.querySelector('.la-avatar .la-avatar-img');
+                      var avatarPhImg = linked.querySelector('.la-avatar .la-avatar-phimg');
                       var tgIdEl = v;
                       var dname = (d && d.tg_display_name) ? String(d.tg_display_name) : '';
                       var uname = (d && d.tg_username) ? String(d.tg_username) : '';
@@ -433,10 +433,20 @@
                       if (tgIdEl) tgIdEl.textContent = tgId ? ('Telegram ID: ' + tgId) : 'Telegram ID: —';
                       if (avatarImg) {
                         if (photo) {
-                          if (avatarPh) avatarPh.hidden = true;
-                          avatarImg.src = photo; avatarImg.removeAttribute('hidden');
+                          avatarImg.hidden = true;
+                          try {
+                            avatarImg.onload = function() {
+                              try { if (avatarPhImg) avatarPhImg.hidden = true; } catch(_){ }
+                              avatarImg.hidden = false;
+                            };
+                            avatarImg.onerror = function(){
+                              try { if (avatarPhImg) avatarPhImg.hidden = false; } catch(_){ }
+                              avatarImg.hidden = true;
+                            };
+                          } catch(_){ }
+                          avatarImg.src = photo;
                         } else {
-                          if (avatarPh) avatarPh.hidden = false;
+                          if (avatarPhImg) avatarPhImg.hidden = false;
                           avatarImg.hidden = true;
                           // Retry a few times; avatar upload may complete slightly after we first render
                           var key = '__avatarRetry';

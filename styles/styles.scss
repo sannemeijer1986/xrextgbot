@@ -798,9 +798,11 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     .la-card { max-width: inherit; width: 100%; }
   }
   .la-top { display: flex; align-items: center; gap: 12px; padding: 0 16px; }
-  .la-avatar { width: 42px; height: 42px; border-radius: 40px; overflow: hidden; display: grid; place-items: center; background: #f3f4f6; position: relative; }
-  .la-avatar img { width: 40px; height: 40px; object-fit: cover; display: block; }
-  .la-avatar-ph { position: absolute; inset: 0; display: grid; place-items: center; width: 100%; height: 100%; background: #EEEEEE; border-radius: 999px; }
+  .la-avatar { width: 40px; height: 40px; border-radius: 40px; overflow: hidden; display: grid; place-items: center; background: #f3f4f6; position: relative; }
+  .la-avatar .la-avatar-phimg { width: 24px; height: 24px; display: block; z-index: 1; }
+  .la-avatar .la-avatar-img { position: absolute; inset: 0; width: 40px; height: 40px; object-fit: cover; display: block; z-index: 2; border-radius: 40px; }
+  .la-avatar .la-avatar-img[hidden] { display: none; }
+  .la-avatar .la-avatar-phimg[hidden] { display: none; }
   .la-id { display: flex; flex-direction: column; gap: 0px; align-items: flex-start; }
   .la-name { font: 700 16px $font-manrope; color: #000; margin-bottom: -3px; }
   .la-username { font: 500 14px $font-manrope; color: #58595A; margin-bottom: -3px; }
@@ -819,8 +821,9 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .status-subline {
     display: block;
     width: 100%;
-    margin-top: 1px;
+    margin-top: -5px;
     @media (min-width: $bp-md) {
+      margin-top: 1px;
       display: inline-flex;
       width: auto;
       margin-left: 0;
@@ -1225,9 +1228,16 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   }
   // explicit classes reserved for layout hooks
   .timeline-main { display: block; grid-area: main; }
-  .timeline-aside { display: block; grid-area: aside; }
+  .timeline-aside { 
+    display: none; 
+
+    @media (min-width: $bp-md) {
+      display: block;
+          grid-area: aside; 
+    }
+  }
   // On small screens during state 6, place aside above main content
-  .timeline.is-linked { grid-template-areas: "aside" "main"; }
+  .timeline.is-linked { grid-template-areas: "main aside"; }
   @media (min-width: $bp-md) {
     .timeline.is-linked { grid-template-areas: "main aside"; }
   }
@@ -1242,7 +1252,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 
   .timeline-steps {
     list-style: none;
-    padding: 0; margin: 0;
+    padding: 0; margin: 0 0 24px 0;
   }
   .timeline-steps .step {
     display: block;
