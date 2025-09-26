@@ -382,6 +382,13 @@
         if (linked) {
           var st = (getProgress().state|0);
           var show = (st === 6);
+          try {
+            var params = new URLSearchParams(window.location.search);
+            var pageParam = params.get('page') || '';
+            if (String(pageParam).toLowerCase() === 'account') {
+              show = false;
+            }
+          } catch(_) {}
           linked.hidden = !show;
           linked.setAttribute('aria-hidden', show ? 'false' : 'true');
           if (show) {
