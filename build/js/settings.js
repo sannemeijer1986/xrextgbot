@@ -389,6 +389,19 @@
               show = false;
             }
           } catch(_) {}
+          // When hidden, also clear any previous values to avoid stale UI on fast-forward
+          if (!show) {
+            try {
+              var nameEl0 = linked.querySelector('.la-name');
+              var userEl0 = linked.querySelector('.la-username');
+              var avatarImg0 = linked.querySelector('.la-avatar img');
+              var avatarPh0 = linked.querySelector('.la-avatar-ph');
+              if (nameEl0) nameEl0.textContent = '--';
+              if (userEl0) { userEl0.textContent = '--'; userEl0.hidden = false; }
+              if (avatarPh0) avatarPh0.hidden = false;
+              if (avatarImg0) avatarImg0.setAttribute('src', 'assets/logo_agp.svg');
+            } catch(_) {}
+          }
           linked.hidden = !show;
           linked.setAttribute('aria-hidden', show ? 'false' : 'true');
           if (show) {
@@ -412,10 +425,10 @@
                       var uname = (d && d.tg_username) ? String(d.tg_username) : '';
                       var photo = (d && d.tg_photo_url) ? String(d.tg_photo_url) : '';
                       var tgId = (d && d.actor_tg_user_id) ? String(d.actor_tg_user_id) : '';
-                      if (nameEl) nameEl.textContent = dname || (uname ? ('@' + uname) : 'Telegram user');
+                      if (nameEl) nameEl.textContent = dname || (uname ? ('@' + uname) : '--');
                       if (userEl) {
                         if (uname) { userEl.textContent = '@' + uname; userEl.hidden = false; }
-                        else { userEl.textContent = ''; userEl.hidden = true; }
+                        else { userEl.textContent = '--'; userEl.hidden = false; }
                       }
                       if (tgIdEl) tgIdEl.textContent = tgId ? ('Telegram ID: ' + tgId) : 'Telegram ID: —';
                       if (avatarImg) {

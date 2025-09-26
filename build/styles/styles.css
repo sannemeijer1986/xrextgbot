@@ -1266,7 +1266,7 @@ body.modal-locked {
 .content .la-top {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   padding: 0 16px;
 }
 .content .la-avatar {

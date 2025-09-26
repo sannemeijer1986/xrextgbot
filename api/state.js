@@ -168,6 +168,9 @@ module.exports = async (req, res) => {
           linking_code: null,
           last_actor_tg_id: null,
           last_actor_chat_id: null,
+          tg_username: null,
+          tg_display_name: null,
+          tg_photo_url: null,
           last_updated_at: nowIso
         };
         const up1 = await supabase.from('xrex_session').upsert(row, { onConflict: 'session_id' });
