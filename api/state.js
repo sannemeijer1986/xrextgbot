@@ -42,7 +42,7 @@ module.exports = async (req, res) => {
         if (tgStr) {
           const { data: latest, error: errLatest } = await supabase
             .from('xrex_session')
-            .select('session_id,current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_user_id,tg_chat_id,tg_username,tg_display_name,tg_photo_url,send_test_at')
+            .select('session_id,current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_user_id,tg_chat_id,tg_username,tg_display_name,tg_photo_url')
             .or(`tg_user_id.eq.${tgStr},last_actor_tg_id.eq.${tgStr}`)
             .order('last_updated_at', { ascending: false })
             .limit(1)
@@ -57,7 +57,7 @@ module.exports = async (req, res) => {
             return;
           }
           const ts2 = (latest.last_updated_at ? Math.floor(new Date(latest.last_updated_at).getTime() / 1000) : Math.floor(Date.now()/1000));
-          let sendTestAt = latest && latest.send_test_at ? latest.send_test_at : null;
+          let sendTestAt = null;
           try {
             if (!sendTestAt && kv && latest && latest.session_id) {
               sendTestAt = await kv.get(`send_test:${latest.session_id}`);
@@ -84,7 +84,7 @@ module.exports = async (req, res) => {
       // Default: lookup by session id
       const { data, error, status } = await supabase
         .from('xrex_session')
-        .select('current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_username,tg_display_name,tg_photo_url,send_test_at')
+        .select('current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_username,tg_display_name,tg_photo_url')
         .eq('session_id', sessionId)
         .single();
       if (error && status !== 406) {
@@ -109,7 +109,7 @@ module.exports = async (req, res) => {
           tg_username: data.tg_username || null,
           tg_display_name: data.tg_display_name || null,
           tg_photo_url: data.tg_photo_url || null,
-          send_test_at: data.send_test_at || null
+          send_test_at: null
         };
       }
       // Merge KV hint if available (preferred), does not override explicit DB value
