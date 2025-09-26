@@ -464,7 +464,29 @@
             } catch(_) {}
             // wire actions
             var send = document.getElementById('laSendTest');
-            if (send && !send.__wired) { send.__wired = true; send.addEventListener('click', function(){ try { window.open('https://t.me/SanneXREX_bot','_blank','noopener'); } catch(_) {} }); }
+            if (send && !send.__wired) { 
+              send.__wired = true; 
+              send.addEventListener('click', function(){ 
+                try { 
+                  var sid = (function(){ try { return localStorage.getItem('xrex.session.id.v1'); } catch(_) { return null; } })();
+                  var syncBase = (function(){ try { return (new URLSearchParams(window.location.search).get('sync')) || (typeof window !== 'undefined' && window.XREX_SYNC_URL) || '/api/state'; } catch(_) { return '/api/state'; } })();
+                  if (!sid) return;
+                  var url = syncBase + (syncBase.indexOf('?') === -1 ? '?session=' + encodeURIComponent(sid) : '&session=' + encodeURIComponent(sid));
+                  fetch(url, { method: 'GET' })
+                    .then(function(r){ return r.ok ? r.json() : {}; })
+                    .then(function(d){
+                      try {
+                        var tgUserId = (d && (d.actor_tg_user_id || d.tg_user_id)) ? String(d.actor_tg_user_id || d.tg_user_id) : '';
+                        var chatId = (d && (d.actor_chat_id || d.tg_chat_id)) ? String(d.actor_chat_id || d.tg_chat_id) : '';
+                        if (!tgUserId || !chatId) { try { showSnackbar && showSnackbar('Unable to send test message'); } catch(_) {} return; }
+                        var testUrl = (window.location.origin || '') + '/api/state?sendTest=1' + '&tg=' + encodeURIComponent(tgUserId) + '&chat=' + encodeURIComponent(chatId);
+                        fetch(testUrl, { method: 'POST' }).then(function(){ try { showSnackbar && showSnackbar('Test message sent'); } catch(_) {} });
+                      } catch(_) {}
+                    })
+                    .catch(function(){ try { showSnackbar && showSnackbar('Unable to send test message'); } catch(_) {} });
+                } catch(_) {}
+              }); 
+            }
             var unb = document.getElementById('laUnlinkBtn');
             if (unb && !unb.__wired) { unb.__wired = true; unb.addEventListener('click', function(e){ e.preventDefault(); if (window.__openUnlinkModal) window.__openUnlinkModal(); }); }
           }

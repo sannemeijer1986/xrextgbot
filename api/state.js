@@ -108,6 +108,45 @@ module.exports = async (req, res) => {
       return;
     }
 
+    // Lightweight test message trigger for the web UI
+    if (req.method === 'POST') {
+      try {
+        const isSendTest = String((req.query && req.query.sendTest) || '').trim() === '1';
+        if (!isSendTest) {
+          res.status(405).json({ error: 'Method not allowed' });
+          return;
+        }
+        const tgUserId = (req.query && req.query.tg) ? String(req.query.tg) : '';
+        const chatId = (req.query && req.query.chat) ? String(req.query.chat) : '';
+        if (!tgUserId || !chatId) {
+          res.status(400).json({ error: 'Missing tg or chat' });
+          return;
+        }
+        // Store intent in DB so the bot can pick it up (no direct TG send from Vercel)
+        const nowIso = new Date().toISOString();
+        const payload = {
+          session_id: sessionId,
+          last_actor_tg_id: Number(tgUserId),
+          last_actor_chat_id: Number(chatId),
+          last_updated_at: nowIso,
+          // hint flag
+          send_test_at: nowIso
+        };
+        // Ensure column exists; ignore if not present
+        try { await supabase.rpc('noop'); } catch(_) {}
+        const up = await supabase.from('xrex_session').upsert(payload, { onConflict: 'session_id' });
+        if (up.error) {
+          res.status(500).json({ error: 'DB write error', detail: up.error.message });
+          return;
+        }
+        res.status(200).json({ ok: true });
+        return;
+      } catch (e) {
+        res.status(500).json({ error: 'Server error', detail: (e && e.message) ? e.message : String(e) });
+        return;
+      }
+    }
+
     if (req.method === 'PUT') {
       // Parse body FIRST so auth logic can inspect stage
       let payload = {};
