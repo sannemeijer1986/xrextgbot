@@ -1248,7 +1248,7 @@ body.modal-locked {
 .content .la-header-sm {
   font: 700 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #797A7B;
-  margin: 0 0 12px 0;
+  margin: 0 0 8px 0;
 }
 .content .la-card {
   background: #ffffff;
@@ -1277,11 +1277,23 @@ body.modal-locked {
   display: grid;
   place-items: center;
   background: #f3f4f6;
+  position: relative;
 }
 .content .la-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+}
+.content .la-avatar-ph {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  background: #EEEEEE;
+  border-radius: 999px;
 }
 .content .la-id {
   display: flex;

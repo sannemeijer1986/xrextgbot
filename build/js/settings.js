@@ -406,6 +406,7 @@
                       var nameEl = linked.querySelector('.la-name');
                       var userEl = linked.querySelector('.la-username');
                       var avatarImg = linked.querySelector('.la-avatar img');
+                      var avatarPh = linked.querySelector('.la-avatar-ph');
                       var tgIdEl = v;
                       var dname = (d && d.tg_display_name) ? String(d.tg_display_name) : '';
                       var uname = (d && d.tg_username) ? String(d.tg_username) : '';
@@ -418,8 +419,11 @@
                       }
                       if (tgIdEl) tgIdEl.textContent = tgId ? ('Telegram ID: ' + tgId) : 'Telegram ID: —';
                       if (avatarImg) {
-                        if (photo) { avatarImg.src = photo; avatarImg.removeAttribute('hidden'); }
-                        else {
+                        if (photo) {
+                          if (avatarPh) avatarPh.hidden = true;
+                          avatarImg.src = photo; avatarImg.removeAttribute('hidden');
+                        } else {
+                          if (avatarPh) avatarPh.hidden = false;
                           // Retry a few times; avatar upload may complete slightly after we first render
                           var key = '__avatarRetry';
                           var tries = (linked[key] | 0);
