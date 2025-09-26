@@ -121,6 +121,22 @@ async def upload_avatar_to_supabase(image_bytes: bytes, ext_hint: str, user_id: 
                 ext = 'jpeg'
         except Exception:
             pass
+        # Transcode unsupported formats (e.g., webp) to jpeg for bucket policy compliance
+        try:
+            if ext == 'webp':
+                try:
+                    from PIL import Image
+                    bio_in = BytesIO(image_bytes)
+                    img = Image.open(bio_in).convert('RGB')
+                    bio_out = BytesIO()
+                    img.save(bio_out, format='JPEG', quality=88)
+                    image_bytes = bio_out.getvalue()
+                    ext = 'jpg'
+                except Exception:
+                    # Fallback: just mark as jpeg; many clients accept it regardless
+                    ext = 'jpg'
+        except Exception:
+            pass
         key = f"tg/{int(user_id)}/{int(time.time())}.{ext}"
         url = base.rstrip('/') + f"/storage/v1/object/{bucket}/{key}"
         headers = {
@@ -160,39 +176,47 @@ async def capture_and_cache_tg_profile(update: Update, context: ContextTypes.DEF
         # Try load avatar and upload to Supabase
         try:
             photos = await context.bot.get_user_profile_photos(uid, limit=1)
+            file_id = None
             if photos and photos.total_count and photos.photos:
                 first = photos.photos[0]
-                # choose the highest resolution in the set
                 size = first[-1] if isinstance(first, (list, tuple)) else first
                 file_id = getattr(size, 'file_id', None)
-                if file_id:
-                    tg_file = await context.bot.get_file(file_id)
-                    bio = BytesIO()
-                    await tg_file.download_to_memory(out=bio)
-                    bio.seek(0)
-                    data = bio.getvalue()
-                    ext_hint = getattr(tg_file, 'file_path', '') or ''
-                    public_url = await upload_avatar_to_supabase(data, ext_hint, uid)
-                    if public_url:
-                        profile['tg_photo_url'] = public_url
-                        # Best-effort backfill to API using finalize path (no auth, X-Client-Stage:6)
-                        try:
-                            if httpx is not None:
-                                base = os.getenv("STATE_BASE_URL", "").strip() or "https://xrextgbot.vercel.app"
-                                # Prefer user's last known session id
-                                sess = user_state.get(uid, {}).get('session_id')
-                                if not sess:
-                                    try:
-                                        _, sess = await is_linked_for_user(uid)
-                                    except Exception:
-                                        sess = None
-                                if sess:
-                                    url = base.rstrip('/') + f"/api/state?session={sess}"
-                                    body = {"stage": 6, "tg_username": uname, "tg_display_name": dname, "tg_photo_url": public_url}
-                                    async with httpx.AsyncClient(timeout=10.0) as client:
-                                        await client.put(url, headers={"Content-Type": "application/json", "X-Client-Stage": "6"}, json=body)
-                        except Exception as ee:
-                            logger.debug(f"Avatar backfill PUT failed for user {uid}: {str(ee)}")
+            # Fallback to chat photo if profile_photos missing
+            if not file_id:
+                try:
+                    chat = await context.bot.get_chat(uid)
+                    if chat and getattr(chat, 'photo', None):
+                        file_id = chat.photo.big_file_id or chat.photo.small_file_id
+                except Exception:
+                    pass
+            if file_id:
+                tg_file = await context.bot.get_file(file_id)
+                bio = BytesIO()
+                await tg_file.download_to_memory(out=bio)
+                bio.seek(0)
+                data = bio.getvalue()
+                ext_hint = getattr(tg_file, 'file_path', '') or ''
+                public_url = await upload_avatar_to_supabase(data, ext_hint, uid)
+                if public_url:
+                    profile['tg_photo_url'] = public_url
+                    # Best-effort backfill to API using finalize path (no auth, X-Client-Stage:6)
+                    try:
+                        if httpx is not None:
+                            base = os.getenv("STATE_BASE_URL", "").strip() or "https://xrextgbot.vercel.app"
+                            # Prefer user's last known session id
+                            sess = user_state.get(uid, {}).get('session_id')
+                            if not sess:
+                                try:
+                                    _, sess = await is_linked_for_user(uid)
+                                except Exception:
+                                    sess = None
+                            if sess:
+                                url = base.rstrip('/') + f"/api/state?session={sess}"
+                                body = {"stage": 6, "tg_username": uname, "tg_display_name": dname, "tg_photo_url": public_url}
+                                async with httpx.AsyncClient(timeout=10.0) as client:
+                                    await client.put(url, headers={"Content-Type": "application/json", "X-Client-Stage": "6"}, json=body)
+                    except Exception as ee:
+                        logger.debug(f"Avatar backfill PUT failed for user {uid}: {str(ee)}")
         except Exception as e:
             logger.warning(f"Avatar capture failed for user {uid}: {str(e)}")
         # Cache into user_state

@@ -118,15 +118,37 @@ module.exports = async (req, res) => {
       const auth = req.headers['authorization'] || '';
       const token = auth.startsWith('Bearer ') ? auth.slice(7) : '';
       const isAdminReset = String(req.headers['x-admin-reset'] || '').trim() === '1';
+      const isProfileOnly = String(req.headers['x-profile-only'] || '').trim() === '1';
       const hdrStage = String(req.headers['x-client-stage'] || '').trim();
       const isClientFinalize = (hdrStage === '6' && Number(payload.stage || 0) === 6);
       const isClientUnlink = (hdrStage === '7' && Number(payload.stage || 0) === 7);
-      if (!isAdminReset) {
+      if (!isAdminReset && !isProfileOnly) {
         if (!isClientFinalize && !isClientUnlink && (!token || token !== process.env.STATE_WRITE_TOKEN)) {
           res.status(401).json({ error: 'Unauthorized' });
           return;
         }
       }
+      // Profile-only update path: updates tg_* fields without touching stage or other fields
+      if (isProfileOnly) {
+        if (!token || token !== process.env.STATE_WRITE_TOKEN) {
+          res.status(401).json({ error: 'Unauthorized' });
+          return;
+        }
+        const updates = {};
+        if (Object.prototype.hasOwnProperty.call(payload, 'tg_username')) updates.tg_username = payload.tg_username ?? null;
+        if (Object.prototype.hasOwnProperty.call(payload, 'tg_display_name')) updates.tg_display_name = payload.tg_display_name ?? null;
+        if (Object.prototype.hasOwnProperty.call(payload, 'tg_photo_url')) updates.tg_photo_url = payload.tg_photo_url ?? null;
+        updates.last_updated_at = nowIso;
+        const upd = await supabase.from('xrex_session').update(updates).eq('session_id', sessionId);
+        if (upd.error) {
+          res.status(500).json({ error: 'DB write error', detail: upd.error.message });
+          return;
+        }
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).send(JSON.stringify({ ok: true }));
+        return;
+      }
+
       if (!payload || typeof payload !== 'object') {
         res.status(400).json({ error: 'Bad JSON' });
         return;
