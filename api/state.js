@@ -179,6 +179,18 @@ module.exports = async (req, res) => {
           last_actor_chat_id: fallbackChatId,
           last_updated_at: nowIso
         };
+        // Allow clients to backfill tg profile fields during finalize/unlink without auth
+        if (payload && typeof payload === 'object') {
+          if (Object.prototype.hasOwnProperty.call(payload, 'tg_username')) {
+            row.tg_username = payload.tg_username ?? null;
+          }
+          if (Object.prototype.hasOwnProperty.call(payload, 'tg_display_name')) {
+            row.tg_display_name = payload.tg_display_name ?? null;
+          }
+          if (Object.prototype.hasOwnProperty.call(payload, 'tg_photo_url')) {
+            row.tg_photo_url = payload.tg_photo_url ?? null;
+          }
+        }
       } else {
         row = {
           session_id: sessionId,
