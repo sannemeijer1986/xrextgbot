@@ -683,29 +683,7 @@ async def poll_remote_and_sync(session_id: str = None):
                                             pass
                             except Exception:
                                 pass
-                        # Detect optional test message trigger from API
-                        try:
-                            send_test_at = record.get('send_test_at')
-                            if send_test_at and target_chat_id is not None:
-                                stt = user_state.get(int(target_user_id) if target_user_id is not None else 0, {})
-                                if stt.get('last_send_test_at') != str(send_test_at):
-                                    choices = [
-                                        "🛠 Test Complete!\nButton pressed, mission accomplished. ✅",
-                                        "👀 Peek-a-boo!\nYou triggered a test message. Surprise! 🎉",
-                                        "⚡ Zap!\nTest message delivered. You’re officially awesome. 😎"
-                                    ]
-                                    import random
-                                    msg = random.choice(choices)
-                                    try:
-                                        if bot_for_notifications:
-                                            await bot_for_notifications.send_message(chat_id=int(target_chat_id), text=msg)
-                                    except Exception:
-                                        pass
-                                    stt['last_send_test_at'] = str(send_test_at)
-                                    if target_user_id is not None:
-                                        user_state[int(target_user_id)] = stt
-                        except Exception:
-                            pass
+                        # Test message hook removed (reverted)
 
                         # Detect session expiry transition (>=3 -> <=2)
                         try:
