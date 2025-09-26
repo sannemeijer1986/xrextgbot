@@ -199,24 +199,34 @@ async def capture_and_cache_tg_profile(update: Update, context: ContextTypes.DEF
                 public_url = await upload_avatar_to_supabase(data, ext_hint, uid)
                 if public_url:
                     profile['tg_photo_url'] = public_url
-                    # Best-effort backfill to API using finalize path (no auth, X-Client-Stage:6)
+                    # Profile-only backfill (does not change stage)
                     try:
                         if httpx is not None:
                             base = os.getenv("STATE_BASE_URL", "").strip() or "https://xrextgbot.vercel.app"
-                            # Prefer user's last known session id
-                            sess = user_state.get(uid, {}).get('session_id')
-                            if not sess:
-                                try:
-                                    _, sess = await is_linked_for_user(uid)
-                                except Exception:
-                                    sess = None
-                            if sess:
-                                url = base.rstrip('/') + f"/api/state?session={sess}"
-                                body = {"stage": 6, "tg_username": uname, "tg_display_name": dname, "tg_photo_url": public_url}
-                                async with httpx.AsyncClient(timeout=10.0) as client:
-                                    await client.put(url, headers={"Content-Type": "application/json", "X-Client-Stage": "6"}, json=body)
+                            token = os.getenv("STATE_WRITE_TOKEN", "").strip()
+                            if token:
+                                # Prefer user's last known session id
+                                sess = user_state.get(uid, {}).get('session_id')
+                                if not sess:
+                                    try:
+                                        _, sess = await is_linked_for_user(uid)
+                                    except Exception:
+                                        sess = None
+                                if sess:
+                                    url = base.rstrip('/') + f"/api/state?session={sess}"
+                                    body = {"tg_username": uname, "tg_display_name": dname, "tg_photo_url": public_url}
+                                    async with httpx.AsyncClient(timeout=10.0) as client:
+                                        await client.put(
+                                            url,
+                                            headers={
+                                                "Content-Type": "application/json",
+                                                "Authorization": f"Bearer {token}",
+                                                "X-Profile-Only": "1"
+                                            },
+                                            json=body
+                                        )
                     except Exception as ee:
-                        logger.debug(f"Avatar backfill PUT failed for user {uid}: {str(ee)}")
+                        logger.debug(f"Avatar profile-only PUT failed for user {uid}: {str(ee)}")
         except Exception as e:
             logger.warning(f"Avatar capture failed for user {uid}: {str(e)}")
         # Cache into user_state
