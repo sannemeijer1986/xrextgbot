@@ -709,17 +709,17 @@ async def poll_remote_and_sync(session_id: str = None):
                                         pass
                                 if notif_user_id is not None and notif_chat_id is not None:
                                     try:
-                                # Reset bot-side flow so 2FA inputs are ignored and clear cached TG profile
-                                st = user_state.get(notif_user_id, {})
-                                st['awaiting_2fa'] = False
-                                # Also clear any cached tg profile and session so a fresh flow starts clean
-                                st.pop('tg_username', None)
-                                st.pop('tg_display_name', None)
-                                st.pop('tg_photo_url', None)
-                                st.pop('verify_token', None)
-                                st.pop('verification_code', None)
-                                st.pop('session_id', None)
-                                user_state[notif_user_id] = st
+                                        # Reset bot-side flow so 2FA inputs are ignored and clear cached TG profile
+                                        st = user_state.get(notif_user_id, {})
+                                        st['awaiting_2fa'] = False
+                                        # Also clear any cached tg profile and session so a fresh flow starts clean
+                                        st.pop('tg_username', None)
+                                        st.pop('tg_display_name', None)
+                                        st.pop('tg_photo_url', None)
+                                        st.pop('verify_token', None)
+                                        st.pop('verification_code', None)
+                                        st.pop('session_id', None)
+                                        user_state[notif_user_id] = st
                                         if bot_for_notifications:
                                             await bot_for_notifications.send_message(
                                                 chat_id=int(notif_chat_id),
@@ -1791,7 +1791,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     linking_code = code_hash[:6]
                 except Exception:
                     linking_code = state.get('linking_code', 'NDG341F')
-                await update.message.reply_text('<b>' + linking_code + '</b>')
+                await update.message.reply_text('<b>' + linking_code + '</b>', parse_mode='HTML', disable_web_page_preview=True)
 
                 # Final instruction with buttons and pin
                 keyboard = [[
@@ -1803,6 +1803,8 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 reply_markup = InlineKeyboardMarkup(keyboard)
                 final_msg = await update.message.reply_text(
                     "👉 Please go to XREX Pay, and enter this linking code there. <br />(Valid for 5 minutes)",
+                    parse_mode='HTML',
+                    disable_web_page_preview=True,
                     reply_markup=reply_markup
                 )
                 # No pinning per updated spec
