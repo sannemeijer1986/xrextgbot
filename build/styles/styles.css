@@ -1230,7 +1230,6 @@ body.modal-locked {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  flex-wrap: wrap;
   margin-bottom: 8px;
 }
 @media (min-width: 1280px) {
@@ -1280,8 +1279,8 @@ body.modal-locked {
   position: relative;
 }
 .content .la-avatar img {
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   object-fit: cover;
   display: block;
 }

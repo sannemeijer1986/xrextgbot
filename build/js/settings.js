@@ -399,7 +399,7 @@
               if (nameEl0) nameEl0.textContent = '--';
               if (userEl0) { userEl0.textContent = '--'; userEl0.hidden = false; }
               if (avatarPh0) avatarPh0.hidden = false;
-              if (avatarImg0) avatarImg0.setAttribute('src', 'assets/logo_agp.svg');
+              if (avatarImg0) { avatarImg0.setAttribute('src', ''); avatarImg0.hidden = true; }
             } catch(_) {}
           }
           linked.hidden = !show;
@@ -437,6 +437,7 @@
                           avatarImg.src = photo; avatarImg.removeAttribute('hidden');
                         } else {
                           if (avatarPh) avatarPh.hidden = false;
+                          avatarImg.hidden = true;
                           // Retry a few times; avatar upload may complete slightly after we first render
                           var key = '__avatarRetry';
                           var tries = (linked[key] | 0);
