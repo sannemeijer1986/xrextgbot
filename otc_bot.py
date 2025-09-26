@@ -132,7 +132,7 @@ async def set_commands_linked(bot, chat_id: int):
         cmds = [
             BotCommand("start", "Intro to XREX Pay Bot"),
             BotCommand("check_wallet", "Check any wallet address"),
-            BotCommand("otc_quote", "Request a quote"),
+            # BotCommand("otc_quote", "Request a quote"),
             BotCommand("unlink_account", "Unlink from XREX Pay"),
             BotCommand("help", "We’re here to help!")
         ]
@@ -876,7 +876,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             try:
                 sent = await update.message.reply_text(
                     "️🔍 Valid unique verification link detected from XREX Pay account \"@AG***CH\"\n\n"
-                    "️Please enter your XREX Pay 2FA to proceed with linking your Telegram account to XREX Pay.",
+                    "️Please enter your XREX Pay 2FA here, to proceed with linking your Telegram account to XREX Pay.",
                     reply_markup=reply_markup
                 )
                 # No pinning per updated spec
@@ -1153,7 +1153,7 @@ async def unlink_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
             text=(
                 "Here’s how to use the XREX Pay Bot:\n\n"
                 "• /check_wallet <address> — See risk and balances for BTC/ETH/TRX addresses\n"
-                "• /otc_quote — Request a real-time OTC quote\n"
+                # "• /otc_quote — Request a real-time OTC quote\n"
                 "• /otc_orders — Track your OTC orders\n\n"
                 "Tip: You can also use the buttons in the web app to open the bot and follow guided flows."
             )
@@ -1770,11 +1770,10 @@ async def check_wallet_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         msg = (
             "🔎 Please provide wallet address hash: I will help you check the wallet.\n\n"
             "Supported blockchains:\n"
-            "Bitcoin (BTC)\n"
-            "Ethereum (ETH)\n"
-            "TRON (TRX)\n\n"
-            "👉 Did you know? You can also combine this command with the address, example:\n"
-            "/check_wallet bc1qm34lsc65zpw79lxes69zkqmk6ee3ewf0j77s3h"
+            "<b>Bitcoin</b> (BTC)\n"
+            "<b>Ethereum</b> (ETH)\n"
+            "<b>TRON</b> (TRX)\n\n"
+            "👉 👉 Did you know? You can check up to 10 addresses at once by entering one per line."
         )
         await update.message.reply_text(msg)
         # Set awaiting flag to capture next user message as address
@@ -1841,7 +1840,7 @@ async def main():
         application.add_handler(CommandHandler("link_account", link_account_cmd), group=1)
         application.add_handler(CommandHandler("help", help_cmd), group=1)
         application.add_handler(CommandHandler("check_wallet", check_wallet_cmd), group=1)
-        application.add_handler(CommandHandler("otc_quote", otc_quote_cmd), group=1)
+        # application.add_handler(CommandHandler("otc_quote", otc_quote_cmd), group=1)
         application.add_handler(CommandHandler("unlink_account", unlink_cmd), group=1)
         application.add_handler(CallbackQueryHandler(handle_callback), group=2)
         application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text), group=3)
