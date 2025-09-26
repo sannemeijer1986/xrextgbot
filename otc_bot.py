@@ -202,7 +202,7 @@ async def maybe_notify_link_success(user_id: int, chat_id: int):
                         await bot_for_notifications.send_message(
                             chat_id=chat_id,
                             text=("🎉 Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
-                                 "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more."),
+                                 "👉 Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more."),
                             reply_markup=reply_markup
                         )
                         try:
@@ -876,7 +876,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             try:
                 sent = await update.message.reply_text(
                     "️🔍 Valid unique verification link detected from XREX Pay account \"@AG***CH\"\n\n"
-                    "️Please enter your XREX Pay 2FA here, to proceed with linking your Telegram account to XREX Pay.",
+                    "️👉 Please enter your XREX Pay 2FA here, to proceed with linking your Telegram account to XREX Pay.",
                     reply_markup=reply_markup
                 )
                 # No pinning per updated spec
@@ -1626,7 +1626,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     linking_code = code_hash[:6]
                 except Exception:
                     linking_code = state.get('linking_code', 'NDG341F')
-                await update.message.reply_text(linking_code)
+                await update.message.reply_text('<b>' + linking_code + '</b>')
 
                 # Final instruction with buttons and pin
                 keyboard = [[
@@ -1637,7 +1637,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 ]]
                 reply_markup = InlineKeyboardMarkup(keyboard)
                 final_msg = await update.message.reply_text(
-                    "Please copy the linking code, go to XREX Pay, and enter it there. (Valid for 5 minutes)",
+                    "👉 Please go to XREX Pay, and enter this linking code there. <br />(Valid for 5 minutes)",
                     reply_markup=reply_markup
                 )
                 # No pinning per updated spec
