@@ -393,12 +393,11 @@
           linked.setAttribute('aria-hidden', show ? 'false' : 'true');
           if (show) {
             var v = linked.querySelector('#linkedTgValue');
-            // Fetch latest session state to fill profile fields when linked
+            // Fetch latest session state to fill profile fields when linked (no single-load cache; avatar may arrive later)
             try {
               var sid = (function(){ try { return localStorage.getItem('xrex.session.id.v1'); } catch(_) { return null; } })();
               var syncBase = (function(){ try { return (new URLSearchParams(window.location.search).get('sync')) || (typeof window !== 'undefined' && window.XREX_SYNC_URL) || '/api/state'; } catch(_) { return '/api/state'; } })();
-              var lastKey = '__last_sid_loaded';
-              if (sid && linked[lastKey] !== sid) {
+              if (sid) {
                 var url = syncBase + (syncBase.indexOf('?') === -1 ? '?session=' + encodeURIComponent(sid) : '&session=' + encodeURIComponent(sid));
                 fetch(url, { method: 'GET' })
                   .then(function(r){ return r.ok ? r.json() : {}; })
@@ -420,9 +419,16 @@
                       if (tgIdEl) tgIdEl.textContent = tgId ? ('Telegram ID: ' + tgId) : 'Telegram ID: —';
                       if (avatarImg) {
                         if (photo) { avatarImg.src = photo; avatarImg.removeAttribute('hidden'); }
-                        else { /* keep default avatar */ }
+                        else {
+                          // Retry a few times; avatar upload may complete slightly after we first render
+                          var key = '__avatarRetry';
+                          var tries = (linked[key] | 0);
+                          if (tries < 3) {
+                            linked[key] = tries + 1;
+                            setTimeout(function(){ try { /* trigger a refresh */ refreshStateUI(); } catch(_) {} }, 1200);
+                          }
+                        }
                       }
-                      linked[lastKey] = sid;
                     } catch(_) {}
                   })
                   .catch(function(){ /* ignore */ });
@@ -486,6 +492,8 @@
             try { updateStatusRowUI(); } catch(_) {}
             try { updateTopCta(); } catch(_) {}
             try { updateInlineIntroCta(); } catch(_) {}
+            // Make sure linked account section mounts immediately
+            try { refreshStateUI(); } catch(_) {}
             var val2 = document.getElementById('adminStateValue');
             if (val2) val2.textContent = String(getProgress().state);
             // Finalize server state to 6 so the bot can see success immediately
