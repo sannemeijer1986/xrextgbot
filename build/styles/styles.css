@@ -1248,12 +1248,12 @@ body.modal-locked {
 .content .la-header-sm {
   font: 700 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #797A7B;
-  margin: 0 0 8px 0;
+  margin: 0 0 12px 0;
 }
 .content .la-card {
   background: #ffffff;
   border-radius: 12px;
-  padding: 12px 0 14px;
+  padding: 14px 0 14px;
   width: 100%;
   max-width: 346px;
 }
@@ -1307,7 +1307,7 @@ body.modal-locked {
 .content .la-divider {
   height: 1px;
   background: #EEEEEE;
-  margin: 12px 0 12px 0;
+  margin: 15px 0 12px 0;
 }
 .content .la-actions {
   display: flex;

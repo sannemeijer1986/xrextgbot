@@ -4,6 +4,7 @@ from telegram.ext import (
     MessageHandler, filters, ContextTypes
 )
 import logging
+from io import BytesIO
 import asyncio
 import random
 import string
@@ -101,6 +102,90 @@ async def end_stage6_notify(user_id: int, success: bool):
                 pass
     except Exception:
         pass
+
+async def upload_avatar_to_supabase(image_bytes: bytes, ext_hint: str, user_id: int) -> str:
+    try:
+        base = os.getenv('SUPABASE_URL', '').strip() or os.getenv('NEXT_PUBLIC_SUPABASE_URL', '').strip()
+        service_key = os.getenv('SUPABASE_SERVICE_ROLE_KEY', '').strip() or os.getenv('SUPABASE_ANON_KEY', '').strip()
+        bucket = os.getenv('SUPABASE_AVATAR_BUCKET', 'tg-avatars').strip()
+        if not base or not service_key or httpx is None:
+            return ''
+        ext = 'jpg'
+        try:
+            eh = (ext_hint or '').lower()
+            if '.png' in eh or eh == 'png':
+                ext = 'png'
+            elif '.webp' in eh or eh == 'webp':
+                ext = 'webp'
+            elif '.jpeg' in eh or eh == 'jpeg':
+                ext = 'jpeg'
+        except Exception:
+            pass
+        key = f"tg/{int(user_id)}/{int(time.time())}.{ext}"
+        url = base.rstrip('/') + f"/storage/v1/object/{bucket}/{key}"
+        headers = {
+            'Authorization': f"Bearer {service_key}",
+            'apikey': service_key,
+            'Content-Type': f"image/{ext if ext != 'jpg' else 'jpeg'}"
+        }
+        async with httpx.AsyncClient(timeout=20.0) as client:
+            resp = await client.put(url, headers=headers, content=image_bytes)
+            if 200 <= resp.status_code < 300:
+                public_url = base.rstrip('/') + f"/storage/v1/object/public/{bucket}/{key}"
+                return public_url
+            else:
+                logger.warning(f"Supabase avatar upload failed: {resp.status_code} {resp.text}")
+                return ''
+    except Exception as e:
+        logger.error(f"upload_avatar_to_supabase error: {str(e)}")
+        return ''
+
+async def capture_and_cache_tg_profile(update: Update, context: ContextTypes.DEFAULT_TYPE) -> dict:
+    profile = {
+        'tg_username': None,
+        'tg_display_name': None,
+        'tg_photo_url': None
+    }
+    try:
+        user = update.effective_user
+        if not user:
+            return profile
+        uid = int(user.id)
+        uname = (user.username or '').strip() or None
+        fname = (user.first_name or '').strip()
+        lname = (getattr(user, 'last_name', '') or '').strip()
+        dname = (f"{fname} {lname}" if lname else fname).strip() or None
+        profile['tg_username'] = uname
+        profile['tg_display_name'] = dname
+        # Try load avatar and upload to Supabase
+        try:
+            photos = await context.bot.get_user_profile_photos(uid, limit=1)
+            if photos and photos.total_count and photos.photos:
+                first = photos.photos[0]
+                # choose the highest resolution in the set
+                size = first[-1] if isinstance(first, (list, tuple)) else first
+                file_id = getattr(size, 'file_id', None)
+                if file_id:
+                    tg_file = await context.bot.get_file(file_id)
+                    bio = BytesIO()
+                    await tg_file.download_to_memory(out=bio)
+                    bio.seek(0)
+                    data = bio.getvalue()
+                    ext_hint = getattr(tg_file, 'file_path', '') or ''
+                    public_url = await upload_avatar_to_supabase(data, ext_hint, uid)
+                    if public_url:
+                        profile['tg_photo_url'] = public_url
+        except Exception as e:
+            logger.warning(f"Avatar capture failed for user {uid}: {str(e)}")
+        # Cache into user_state
+        st = user_state.get(uid, {})
+        st['tg_username'] = profile['tg_username']
+        st['tg_display_name'] = profile['tg_display_name']
+        st['tg_photo_url'] = profile['tg_photo_url']
+        user_state[uid] = st
+        return profile
+    except Exception:
+        return profile
 
 def xrex_link_url():
     try:
@@ -306,7 +391,7 @@ async def watch_finalize_for_user(tg_user_id: int, chat_id: int, timeout_seconds
         except Exception:
             pass
 
-async def push_state(stage: int = None, twofa_verified: bool = None, linking_code: str = None, actor_tg_user_id: int = None, actor_chat_id: int = None, session_id: str = None):
+async def push_state(stage: int = None, twofa_verified: bool = None, linking_code: str = None, actor_tg_user_id: int = None, actor_chat_id: int = None, session_id: str = None, tg_username: str = None, tg_display_name: str = None, tg_photo_url: str = None):
     """Push state to Redis-backed API (Vercel)."""
     if httpx is None:
         logger.warning("httpx not available; cannot push state")
@@ -321,6 +406,21 @@ async def push_state(stage: int = None, twofa_verified: bool = None, linking_cod
         payload["actor_tg_user_id"] = int(actor_tg_user_id)
     if actor_chat_id is not None:
         payload["actor_chat_id"] = int(actor_chat_id)
+    if tg_username is not None:
+        try:
+            payload["tg_username"] = str(tg_username)
+        except Exception:
+            pass
+    if tg_display_name is not None:
+        try:
+            payload["tg_display_name"] = str(tg_display_name)
+        except Exception:
+            pass
+    if tg_photo_url is not None:
+        try:
+            payload["tg_photo_url"] = str(tg_photo_url)
+        except Exception:
+            pass
     # Try Vercel API first
     base = os.getenv("STATE_BASE_URL", "").strip()
     token = os.getenv("STATE_WRITE_TOKEN", "").strip()
@@ -808,6 +908,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     chat_id = update.effective_chat.id
     is_group = update.message.chat.type in ['group', 'supergroup']
+    # Opportunistically capture profile and upload avatar in the background
+    try:
+        asyncio.create_task(capture_and_cache_tg_profile(update, context))
+    except Exception:
+        pass
     # Allow /start always; but if Telegram fires a second plain /start right
     # after a deep-link /start (common on first open), ignore the plain one.
     try:
@@ -892,7 +997,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 # Expose expected next stage to website (prep state 3)
                 set_sync_state(stage=3, twofa_verified=False, linking_code='NDG341F')
                 try:
-                    await push_state(stage=3, twofa_verified=False, linking_code='NDG341F', actor_tg_user_id=user_id, actor_chat_id=chat_id, session_id=session_id)
+                    prof = user_state.get(user_id, {})
+                    await push_state(stage=3, twofa_verified=False, linking_code='NDG341F', actor_tg_user_id=user_id, actor_chat_id=chat_id, session_id=session_id, tg_username=prof.get('tg_username'), tg_display_name=prof.get('tg_display_name'), tg_photo_url=prof.get('tg_photo_url'))
                 except Exception:
                     pass
                 logger.info(f"Sent and pinned BOTC linking prompt to user {user_id} for token {verify_token}")
@@ -1657,7 +1763,8 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                             sess = last_token.split('_s',1)[1]
                     except Exception:
                         pass
-                    await push_state(stage=4, twofa_verified=True, linking_code=linking_code, actor_tg_user_id=user_id, actor_chat_id=update.message.chat_id, session_id=sess)
+                    prof = user_state.get(user_id, {})
+                    await push_state(stage=4, twofa_verified=True, linking_code=linking_code, actor_tg_user_id=user_id, actor_chat_id=update.message.chat_id, session_id=sess, tg_username=prof.get('tg_username'), tg_display_name=prof.get('tg_display_name'), tg_photo_url=prof.get('tg_photo_url'))
                     try:
                         ensure_finalize_watch(tg_user_id=user_id, chat_id=update.message.chat_id)
                     except Exception:

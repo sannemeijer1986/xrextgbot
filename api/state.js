@@ -40,7 +40,7 @@ module.exports = async (req, res) => {
         if (tgStr) {
           const { data: latest, error: errLatest } = await supabase
             .from('xrex_session')
-            .select('session_id,current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_user_id,tg_chat_id')
+            .select('session_id,current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_user_id,tg_chat_id,tg_username,tg_display_name,tg_photo_url')
             .or(`tg_user_id.eq.${tgStr},last_actor_tg_id.eq.${tgStr}`)
             .order('last_updated_at', { ascending: false })
             .limit(1)
@@ -63,7 +63,10 @@ module.exports = async (req, res) => {
             linking_code: latest.linking_code || null,
             updated_at: ts2,
             actor_tg_user_id: latest.last_actor_tg_id || latest.tg_user_id || null,
-            actor_chat_id: latest.last_actor_chat_id || latest.tg_chat_id || null
+            actor_chat_id: latest.last_actor_chat_id || latest.tg_chat_id || null,
+            tg_username: latest.tg_username || null,
+            tg_display_name: latest.tg_display_name || null,
+            tg_photo_url: latest.tg_photo_url || null
           }));
           return;
         }
@@ -72,7 +75,7 @@ module.exports = async (req, res) => {
       // Default: lookup by session id
       const { data, error, status } = await supabase
         .from('xrex_session')
-        .select('current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id')
+        .select('current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_username,tg_display_name,tg_photo_url')
         .eq('session_id', sessionId)
         .single();
       if (error && status !== 406) {
@@ -93,7 +96,10 @@ module.exports = async (req, res) => {
           linking_code: data.linking_code || null,
           updated_at: ts,
           actor_tg_user_id: data.last_actor_tg_id || null,
-          actor_chat_id: data.last_actor_chat_id || null
+          actor_chat_id: data.last_actor_chat_id || null,
+          tg_username: data.tg_username || null,
+          tg_display_name: data.tg_display_name || null,
+          tg_photo_url: data.tg_photo_url || null
         };
       }
       const body = JSON.stringify(bodyObj);
@@ -183,6 +189,9 @@ module.exports = async (req, res) => {
           tg_chat_id: payload.actor_chat_id ? Number(payload.actor_chat_id) : null,
           last_actor_tg_id: payload.actor_tg_user_id ? Number(payload.actor_tg_user_id) : null,
           last_actor_chat_id: payload.actor_chat_id ? Number(payload.actor_chat_id) : null,
+          tg_username: (payload.tg_username ?? null),
+          tg_display_name: (payload.tg_display_name ?? null),
+          tg_photo_url: (payload.tg_photo_url ?? null),
           last_updated_at: nowIso
         };
       }

@@ -386,7 +386,41 @@
           linked.setAttribute('aria-hidden', show ? 'false' : 'true');
           if (show) {
             var v = linked.querySelector('#linkedTgValue');
-            if (v) { v.textContent = 'Telegram ID: 123456789'; }
+            // Fetch latest session state to fill profile fields when linked
+            try {
+              var sid = (function(){ try { return localStorage.getItem('xrex.session.id.v1'); } catch(_) { return null; } })();
+              var syncBase = (function(){ try { return (new URLSearchParams(window.location.search).get('sync')) || (typeof window !== 'undefined' && window.XREX_SYNC_URL) || '/api/state'; } catch(_) { return '/api/state'; } })();
+              var lastKey = '__last_sid_loaded';
+              if (sid && linked[lastKey] !== sid) {
+                var url = syncBase + (syncBase.indexOf('?') === -1 ? '?session=' + encodeURIComponent(sid) : '&session=' + encodeURIComponent(sid));
+                fetch(url, { method: 'GET' })
+                  .then(function(r){ return r.ok ? r.json() : {}; })
+                  .then(function(d){
+                    try {
+                      var nameEl = linked.querySelector('.la-name');
+                      var userEl = linked.querySelector('.la-username');
+                      var avatarImg = linked.querySelector('.la-avatar img');
+                      var tgIdEl = v;
+                      var dname = (d && d.tg_display_name) ? String(d.tg_display_name) : '';
+                      var uname = (d && d.tg_username) ? String(d.tg_username) : '';
+                      var photo = (d && d.tg_photo_url) ? String(d.tg_photo_url) : '';
+                      var tgId = (d && d.actor_tg_user_id) ? String(d.actor_tg_user_id) : '';
+                      if (nameEl) nameEl.textContent = dname || (uname ? ('@' + uname) : 'Telegram user');
+                      if (userEl) {
+                        if (uname) { userEl.textContent = '@' + uname; userEl.hidden = false; }
+                        else { userEl.textContent = ''; userEl.hidden = true; }
+                      }
+                      if (tgIdEl) tgIdEl.textContent = tgId ? ('Telegram ID: ' + tgId) : 'Telegram ID: —';
+                      if (avatarImg) {
+                        if (photo) { avatarImg.src = photo; avatarImg.removeAttribute('hidden'); }
+                        else { /* keep default avatar */ }
+                      }
+                      linked[lastKey] = sid;
+                    } catch(_) {}
+                  })
+                  .catch(function(){ /* ignore */ });
+              }
+            } catch(_) {}
             // wire actions
             var send = document.getElementById('laSendTest');
             if (send && !send.__wired) { send.__wired = true; send.addEventListener('click', function(){ try { window.open('https://t.me/SanneXREX_bot','_blank','noopener'); } catch(_) {} }); }
@@ -566,7 +600,7 @@
           if (body) body.textContent = 'Your Telegram (ID 12***89) has been linked to XREX Pay';
         }
         if (meta) {
-          meta.textContent = 'Linkage authorized on ' + formatDate(p.updatedAt);
+          meta.textContent = 'Authorized on ' + formatDate(p.updatedAt);
         }
         // no inline unlink
       } else if (s === 7) {
