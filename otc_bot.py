@@ -1779,11 +1779,11 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 try:
                     sid = None
                     try:
-                        last_token = user_state.get(user_id, {}).get('verify_token') or verify_token
+                        last_token = user_state.get(user_id, {}).get('verify_token')
                         if last_token and '_s' in last_token:
                             sid = last_token.split('_s',1)[1]
                     except Exception:
-                        pass
+                        sid = None
                     # Simple deterministic code per session/user for demo
                     base = (sid or '') + ':' + str(user_id)
                     import hashlib
