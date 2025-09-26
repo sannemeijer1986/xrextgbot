@@ -786,7 +786,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   // Linked account card (state 6) — styled from Figma cursor_linkedaccountcard
   .linked-account { display: block; margin: 0 0 12px 0; }
   .linked-account[hidden] { display: none; }
-  .la-header-sm { font: 700 12px $font-manrope; color: #797A7B; margin: 0 0 8px 0; }
+  .la-header-sm { font: 700 12px $font-manrope; color: #797A7B; margin: 0 0 12px 0; }
   .la-card {
     background: #ffffff;
     border-radius: 12px;
@@ -800,7 +800,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   }
   .la-top { display: flex; align-items: center; gap: 8px; padding: 0 16px; }
   .la-avatar { width: 42px; height: 42px; border-radius: 40px; overflow: hidden; display: grid; place-items: center; background: #f3f4f6; position: relative; }
-  .la-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .la-avatar img { width: 24px; height: 24px; object-fit: cover; display: block; }
   .la-avatar-ph { position: absolute; inset: 0; display: grid; place-items: center; width: 100%; height: 100%; background: #EEEEEE; border-radius: 999px; }
   .la-id { display: flex; flex-direction: column; gap: 0px; align-items: flex-start; }
   .la-name { font: 700 16px $font-manrope; color: #000; margin-bottom: -3px; }
