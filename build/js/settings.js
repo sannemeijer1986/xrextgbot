@@ -376,6 +376,25 @@
       syncAuthenticatorUI();
       // Sync the Status row visual state
       try { updateStatusRowUI(); } catch(_) {}
+      // Toggle linked account section when state is 6
+      try {
+        var linked = document.getElementById('linkedAccountSection');
+        if (linked) {
+          var st = (getProgress().state|0);
+          var show = (st === 6);
+          linked.hidden = !show;
+          linked.setAttribute('aria-hidden', show ? 'false' : 'true');
+          if (show) {
+            var v = linked.querySelector('#linkedTgValue');
+            if (v) { v.textContent = 'Telegram ID: 123456789'; }
+            // wire actions
+            var send = document.getElementById('laSendTest');
+            if (send && !send.__wired) { send.__wired = true; send.addEventListener('click', function(){ try { window.open('https://t.me/SanneXREX_bot','_blank','noopener'); } catch(_) {} }); }
+            var unb = document.getElementById('laUnlinkBtn');
+            if (unb && !unb.__wired) { unb.__wired = true; unb.addEventListener('click', function(e){ e.preventDefault(); if (window.__openUnlinkModal) window.__openUnlinkModal(); }); }
+          }
+        }
+      } catch(_) {}
       // Sync Start/Go-to-bot CTA depending on state
       try { updateTopCta(); } catch(_) {}
       // Sync inline Introduction CTA label
@@ -501,16 +520,9 @@
         meta.className = 'status-meta';
         sub.appendChild(meta);
       }
-      // Ensure unlink action exists
+      // Remove legacy inline unlink; we'll use the card action instead
       var unlink = row.querySelector('.status-unlink');
-      if (!unlink) {
-        unlink = document.createElement('a');
-        unlink.href = '#';
-        unlink.className = 'status-unlink';
-        unlink.textContent = 'Unlink';
-        // No action for now; placeholder only
-        sub.appendChild(unlink);
-      }
+      if (unlink && unlink.parentElement) unlink.parentElement.removeChild(unlink);
       // Hide any legacy inline countdown badge; floating tool will be used instead
       var countdown = row.querySelector('.status-countdown');
       if (countdown) countdown.style.display = 'none';
@@ -556,7 +568,7 @@
         if (meta) {
           meta.textContent = 'Linkage authorized on ' + formatDate(p.updatedAt);
         }
-        if (unlink) unlink.style.display = '';
+        // no inline unlink
       } else if (s === 7) {
         // Stage 7: show Not linked visuals (like state 2) but with Unlinked date
         if (statusValue) {
@@ -571,7 +583,7 @@
           if (body3) body3.textContent = 'Link your Telegram to enjoy XREX features in Telegram';
         }
         if (meta) meta.textContent = 'Unlinked on ' + formatDate(p.updatedAt);
-        if (unlink) unlink.style.display = 'none';
+        // no inline unlink
       } else {
         // Default Not linked visual state
         if (statusValue) {
@@ -586,7 +598,7 @@
           if (body2) body2.textContent = 'Link your Telegram to enjoy XREX features in Telegram';
         }
         if (meta) meta.textContent = '';
-        if (unlink) unlink.style.display = 'none';
+        // no inline unlink
       }
     } catch(_) {}
   }

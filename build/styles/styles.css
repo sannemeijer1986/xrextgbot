@@ -1238,6 +1238,95 @@ body.modal-locked {
     margin-bottom: 24px;
   }
 }
+.content .linked-account {
+  display: block;
+  margin: 0 0 12px 0;
+}
+.content .linked-account[hidden] {
+  display: none;
+}
+.content .la-header-sm {
+  font: 700 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #797A7B;
+  margin: 0 0 8px 0;
+}
+.content .la-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 12px 0 14px;
+  width: 100%;
+  max-width: 346px;
+}
+@media (max-width: 500px) {
+  .content .la-card {
+    max-width: inherit;
+    width: 100%;
+  }
+}
+.content .la-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+}
+.content .la-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 40px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: #f3f4f6;
+}
+.content .la-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.content .la-id {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+}
+.content .la-name {
+  font: 700 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #000;
+  margin-bottom: -3px;
+}
+.content .la-username {
+  font: 500 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #58595A;
+  margin-bottom: -3px;
+}
+.content .la-tgid {
+  font: 400 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #BCBDBD;
+  margin-top: 4px;
+}
+.content .la-divider {
+  height: 1px;
+  background: #EEEEEE;
+  margin: 12px 0 12px 0;
+}
+.content .la-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  padding: 0 20px;
+}
+.content .la-action {
+  appearance: none;
+  background: none;
+  border: none;
+  color: #797A7B;
+  font: 600 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
 .content .status-line {
   color: #2d2f2f;
   display: flex;

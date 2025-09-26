@@ -782,6 +782,32 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       margin-bottom: 24px;
     }
   }
+
+  // Linked account card (state 6) — styled from Figma cursor_linkedaccountcard
+  .linked-account { display: block; margin: 0 0 12px 0; }
+  .linked-account[hidden] { display: none; }
+  .la-header-sm { font: 700 12px $font-manrope; color: #797A7B; margin: 0 0 8px 0; }
+  .la-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 12px 0 14px;
+    width: 100%;
+    max-width: 346px;
+  }
+  // Small phones: allow full-width card
+  @media (max-width: 500px) {
+    .la-card { max-width: inherit; width: 100%; }
+  }
+  .la-top { display: flex; align-items: center; gap: 8px; padding: 0 16px; }
+  .la-avatar { width: 42px; height: 42px; border-radius: 40px; overflow: hidden; display: grid; place-items: center; background: #f3f4f6; }
+  .la-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .la-id { display: flex; flex-direction: column; gap: 0px; align-items: flex-start; }
+  .la-name { font: 700 16px $font-manrope; color: #000; margin-bottom: -3px; }
+  .la-username { font: 500 14px $font-manrope; color: #58595A; margin-bottom: -3px; }
+  .la-tgid { font: 400 12px $font-manrope; color: #BCBDBD; margin-top: 4px; }
+  .la-divider { height: 1px; background: #EEEEEE; margin: 12px 0 12px 0; }
+  .la-actions { display: flex; gap: 16px; justify-content: flex-end; padding: 0 20px; }
+  .la-action { appearance: none; background: none; border: none; color: #797A7B; font: 600 12px $font-manrope; cursor: pointer; padding: 0; display: inline-flex; align-items: center; gap: 2px; }
   .status-line {
     color: $color-text-primary;
     display: flex;

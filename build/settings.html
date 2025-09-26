@@ -133,6 +133,31 @@
                 <button class="btn btn-primary btn-md mobile-btn-sm" id="startLinkBtn">Start linking</button>
             </div>
 
+            <div id="linkedAccountSection" class="linked-account" hidden>
+                <div class="la-header-sm">Linked account</div>
+                <div class="la-card">
+                    <div class="la-top">
+                        <div class="la-avatar"><img src="assets/logo_agp.svg" alt="avatar"></div>
+                        <div class="la-id">
+                            <div class="la-name">Sanne</div>
+                            <div class="la-username">@sannemeijer</div>
+                            <div class="la-tgid" id="linkedTgValue">Telegram ID: 736135332</div>
+                        </div>
+                    </div>
+                    <div class="la-divider" role="separator"></div>
+                    <div class="la-actions">
+                        <button class="la-action" type="button" id="laSendTest">
+                            <img src="assets/icon_linked_sendtestmessage.svg" alt="" width="16" height="16">
+                            <span>Send test message</span>
+                        </button>
+                        <button class="la-action" type="button" id="laUnlinkBtn">
+                            <img src="assets/icon_linked_unlink.svg" alt="" width="16" height="16">
+                            <span>Unlink</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div class="tabs" id="tabs" role="tablist" style="display:none;">
                 <button class="tab active" role="tab" aria-selected="true" id="tab-intro">Introduction</button>
                 <button class="tab" role="tab" aria-selected="false" id="tab-setup">Setup</button>
