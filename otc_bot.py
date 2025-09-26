@@ -1791,7 +1791,11 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     linking_code = code_hash[:6]
                 except Exception:
                     linking_code = state.get('linking_code', 'NDG341F')
-                await update.message.reply_text('<b>' + linking_code + '</b>', parse_mode='HTML', disable_web_page_preview=True)
+                try:
+                    await update.message.reply_text('<b>' + linking_code + '</b>', parse_mode='HTML', disable_web_page_preview=True)
+                except Exception as send_code_e:
+                    logger.error(f"Failed to send HTML linking code, falling back to plain text: {str(send_code_e)}")
+                    await update.message.reply_text('Linking code: ' + linking_code)
 
                 # Final instruction with buttons and pin
                 keyboard = [[
@@ -1801,16 +1805,25 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     InlineKeyboardButton("...  More", callback_data="more")
                 ]]
                 reply_markup = InlineKeyboardMarkup(keyboard)
-                final_msg = await update.message.reply_text(
-                    "👉 Please go to XREX Pay, and enter this linking code there. <br />(Valid for 5 minutes)",
-                    parse_mode='HTML',
-                    disable_web_page_preview=True,
-                    reply_markup=reply_markup
-                )
+                try:
+                    final_msg = await update.message.reply_text(
+                        "👉 Please go to XREX Pay, and enter this linking code there. <br>(Valid for 5 minutes)",
+                        parse_mode='HTML',
+                        disable_web_page_preview=True,
+                        reply_markup=reply_markup
+                    )
+                except Exception as send_instr_e:
+                    logger.error(f"Failed to send HTML instruction, falling back: {str(send_instr_e)}")
+                    final_msg = await update.message.reply_text(
+                        "👉 Please go to XREX Pay, and enter this linking code there. (Valid for 5 minutes)",
+                        disable_web_page_preview=True,
+                        reply_markup=reply_markup
+                    )
                 # No pinning per updated spec
 
                 # Update state to stop awaiting 2FA
                 state['awaiting_2fa'] = False
+                state['linking_code'] = linking_code
                 state['final_pinned_message_id'] = final_msg.message_id
                 user_state[user_id] = state
                 # Update local sync server and remote state so website can advance to state 4
