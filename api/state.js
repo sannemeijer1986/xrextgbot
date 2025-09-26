@@ -1,4 +1,6 @@
 const { createClient } = require('@supabase/supabase-js');
+let kv = null;
+try { kv = require('@vercel/kv'); kv = kv && kv.kv ? kv.kv : null; } catch(_) { kv = null; }
 
 function allowCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -40,7 +42,7 @@ module.exports = async (req, res) => {
         if (tgStr) {
           const { data: latest, error: errLatest } = await supabase
             .from('xrex_session')
-            .select('session_id,current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_user_id,tg_chat_id,tg_username,tg_display_name,tg_photo_url')
+            .select('session_id,current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_user_id,tg_chat_id,tg_username,tg_display_name,tg_photo_url,send_test_at')
             .or(`tg_user_id.eq.${tgStr},last_actor_tg_id.eq.${tgStr}`)
             .order('last_updated_at', { ascending: false })
             .limit(1)
@@ -55,6 +57,12 @@ module.exports = async (req, res) => {
             return;
           }
           const ts2 = (latest.last_updated_at ? Math.floor(new Date(latest.last_updated_at).getTime() / 1000) : Math.floor(Date.now()/1000));
+          let sendTestAt = latest && latest.send_test_at ? latest.send_test_at : null;
+          try {
+            if (!sendTestAt && kv && latest && latest.session_id) {
+              sendTestAt = await kv.get(`send_test:${latest.session_id}`);
+            }
+          } catch(_) {}
           res.setHeader('Content-Type', 'application/json');
           res.status(200).send(JSON.stringify({
             session_id: latest.session_id,
@@ -66,7 +74,8 @@ module.exports = async (req, res) => {
             actor_chat_id: latest.last_actor_chat_id || latest.tg_chat_id || null,
             tg_username: latest.tg_username || null,
             tg_display_name: latest.tg_display_name || null,
-            tg_photo_url: latest.tg_photo_url || null
+            tg_photo_url: latest.tg_photo_url || null,
+            send_test_at: sendTestAt || null
           }));
           return;
         }
@@ -75,7 +84,7 @@ module.exports = async (req, res) => {
       // Default: lookup by session id
       const { data, error, status } = await supabase
         .from('xrex_session')
-        .select('current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_username,tg_display_name,tg_photo_url')
+        .select('current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_username,tg_display_name,tg_photo_url,send_test_at')
         .eq('session_id', sessionId)
         .single();
       if (error && status !== 406) {
@@ -99,9 +108,17 @@ module.exports = async (req, res) => {
           actor_chat_id: data.last_actor_chat_id || null,
           tg_username: data.tg_username || null,
           tg_display_name: data.tg_display_name || null,
-          tg_photo_url: data.tg_photo_url || null
+          tg_photo_url: data.tg_photo_url || null,
+          send_test_at: data.send_test_at || null
         };
       }
+      // Merge KV hint if available (preferred), does not override explicit DB value
+      try {
+        if (kv) {
+          const kvVal = await kv.get(`send_test:${sessionId}`);
+          if (kvVal) bodyObj.send_test_at = kvVal;
+        }
+      } catch(_) {}
       const body = JSON.stringify(bodyObj);
       res.setHeader('Content-Type', 'application/json');
       res.status(200).send(body);
@@ -124,22 +141,18 @@ module.exports = async (req, res) => {
         }
         // Store intent in DB so the bot can pick it up (no direct TG send from Vercel)
         const nowIso = new Date().toISOString();
-        const payload = {
-          session_id: sessionId,
-          last_actor_tg_id: Number(tgUserId),
-          last_actor_chat_id: Number(chatId),
-          last_updated_at: nowIso,
-          // hint flag
-          send_test_at: nowIso
-        };
-        // Ensure column exists; ignore if not present
-        try { await supabase.rpc('noop'); } catch(_) {}
-        const up = await supabase.from('xrex_session').upsert(payload, { onConflict: 'session_id' });
-        if (up.error) {
-          res.status(500).json({ error: 'DB write error', detail: up.error.message });
-          return;
+        let ok = false;
+        // Prefer KV to avoid schema changes
+        try { if (kv) { await kv.set(`send_test:${sessionId}`, nowIso, { ex: 180 }); ok = true; } } catch(_) {}
+        if (!ok) {
+          // Fallback: try to upsert into DB if column exists; ignore errors
+          try {
+            const payload = { session_id: sessionId, last_actor_tg_id: Number(tgUserId), last_actor_chat_id: Number(chatId), last_updated_at: nowIso, send_test_at: nowIso };
+            await supabase.from('xrex_session').upsert(payload, { onConflict: 'session_id' });
+            ok = true;
+          } catch(_) { ok = false; }
         }
-        res.status(200).json({ ok: true });
+        res.status(200).json({ ok: !!ok });
         return;
       } catch (e) {
         res.status(500).json({ error: 'Server error', detail: (e && e.message) ? e.message : String(e) });

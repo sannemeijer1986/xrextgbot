@@ -785,7 +785,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   // Linked account card (state 6) — styled from Figma cursor_linkedaccountcard
   .linked-account { display: block; margin: 0 0 12px 0; }
   .linked-account[hidden] { display: none; }
-  .la-header-sm { font: 700 12px $font-manrope; color: #797A7B; margin: 0 0 12px 0; }
+  .la-header-sm { font: 600 12px $font-manrope; color: #797A7B; margin: 0 0 12px 0; }
   .la-card {
     background: #ffffff;
     border-radius: 12px;
