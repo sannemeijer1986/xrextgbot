@@ -719,7 +719,7 @@ async def poll_remote_and_sync(session_id: str = None):
                                     try:
                                         await bot_for_notifications.send_message(
                                             chat_id=target_chat,
-                                            text=("🧪 Test message from XREX Pay Bot\nYour bot is correctly linked and reachable.")
+                                            text=("🧪 Test message from XREX Pay Bot. This Bot is currently linked to the XREX Pay account @12*****78.")
                                         )
                                     except Exception:
                                         pass

@@ -477,12 +477,12 @@
                     .then(function(r){ if (!r.ok) throw new Error('bad status'); return r.json().catch(function(){ return {}; }); })
                     .then(function(body){
                       try {
-                        if (body && body.ok) { if (typeof showSnackbar === 'function') showSnackbar('Test message requested'); }
-                        else { if (typeof showSnackbar === 'function') showSnackbar('Failed to request test message'); }
+                        if (body && body.ok) { if (typeof showSnackbar === 'function') showSnackbar('Test message sent to linked account!'); }
+                        else { if (typeof showSnackbar === 'function') showSnackbar('Failed to send test message'); }
                       } catch(_) {}
                     })
-                    .catch(function(){ try { if (typeof showSnackbar === 'function') showSnackbar('Failed to request test message'); } catch(_) {} });
-                } catch(_) { try { if (typeof showSnackbar === 'function') showSnackbar('Failed to request test message'); } catch(__) {} }
+                    .catch(function(){ try { if (typeof showSnackbar === 'function') showSnackbar('Failed to send test message'); } catch(_) {} });
+                } catch(_) { try { if (typeof showSnackbar === 'function') showSnackbar('Failed to send test message'); } catch(__) {} }
               });
             }
             var unb = document.getElementById('laUnlinkBtn');
