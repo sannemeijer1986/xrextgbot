@@ -683,7 +683,55 @@ async def poll_remote_and_sync(session_id: str = None):
                                             pass
                             except Exception:
                                 pass
-                        # Test message hook removed (reverted)
+                        # Test message: if send_test_at is present, send and clear
+                        try:
+                            send_test_at = record.get('send_test_at')
+                            if send_test_at:
+                                # Determine target chat/user
+                                target_uid = None
+                                target_chat = None
+                                try:
+                                    if target_user_id is not None:
+                                        target_uid = int(target_user_id)
+                                except Exception:
+                                    target_uid = None
+                                try:
+                                    if target_chat_id is not None:
+                                        target_chat = int(target_chat_id)
+                                except Exception:
+                                    target_chat = None
+                                # Fallback by session mapping
+                                if target_uid is None or target_chat is None:
+                                    try:
+                                        for uid3, st3 in list(user_state.items()):
+                                            if st3.get('session_id') == session_id:
+                                                if target_uid is None:
+                                                    try: target_uid = int(uid3)
+                                                    except Exception: pass
+                                                if target_chat is None:
+                                                    try: target_chat = int(st3.get('chat_id')) if st3.get('chat_id') is not None else None
+                                                    except Exception: target_chat = None
+                                                if target_uid is not None and target_chat is not None:
+                                                    break
+                                    except Exception:
+                                        pass
+                                if bot_for_notifications and target_chat is not None:
+                                    try:
+                                        await bot_for_notifications.send_message(
+                                            chat_id=target_chat,
+                                            text=("🧪 Test message from XREX Pay Bot\nYour bot is correctly linked and reachable.")
+                                        )
+                                    except Exception:
+                                        pass
+                                # Clear the flag via API to avoid repeats
+                                try:
+                                    clear_url = url_latest
+                                    async with httpx.AsyncClient(timeout=10.0) as c2:
+                                        await c2.put(clear_url, headers={"Content-Type": "application/json", "Authorization": f"Bearer {os.getenv('STATE_WRITE_TOKEN','').strip()}"}, json={"send_test_at": None})
+                                except Exception:
+                                    pass
+                        except Exception:
+                            pass
 
                         # Detect session expiry transition (>=3 -> <=2)
                         try:

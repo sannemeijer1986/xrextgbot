@@ -32,7 +32,7 @@ module.exports = async (req, res) => {
     } catch(_) {}
     const sessionId = session || 'default';
 
-    if (req.method === 'GET') {
+      if (req.method === 'GET') {
       // Optional: lookup by Telegram user id for quick status checks
       try {
         const tgParam = (req.query && (req.query.tg || req.query.tg_user_id));
@@ -40,7 +40,7 @@ module.exports = async (req, res) => {
         if (tgStr) {
           const { data: latest, error: errLatest } = await supabase
             .from('xrex_session')
-            .select('session_id,current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_user_id,tg_chat_id,tg_username,tg_display_name,tg_photo_url')
+            .select('session_id,current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_user_id,tg_chat_id,tg_username,tg_display_name,tg_photo_url,send_test_at')
             .or(`tg_user_id.eq.${tgStr},last_actor_tg_id.eq.${tgStr}`)
             .order('last_updated_at', { ascending: false })
             .limit(1)
@@ -55,7 +55,7 @@ module.exports = async (req, res) => {
             return;
           }
           const ts2 = (latest.last_updated_at ? Math.floor(new Date(latest.last_updated_at).getTime() / 1000) : Math.floor(Date.now()/1000));
-          let sendTestAt = null;
+          let sendTestAt = latest && latest.send_test_at ? latest.send_test_at : null;
           res.setHeader('Content-Type', 'application/json');
           res.status(200).send(JSON.stringify({
             session_id: latest.session_id,
@@ -77,7 +77,7 @@ module.exports = async (req, res) => {
       // Default: lookup by session id
       const { data, error, status } = await supabase
         .from('xrex_session')
-        .select('current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_username,tg_display_name,tg_photo_url')
+        .select('current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_username,tg_display_name,tg_photo_url,send_test_at')
         .eq('session_id', sessionId)
         .single();
       if (error && status !== 406) {
@@ -102,7 +102,7 @@ module.exports = async (req, res) => {
           tg_username: data.tg_username || null,
           tg_display_name: data.tg_display_name || null,
           tg_photo_url: data.tg_photo_url || null,
-          send_test_at: null
+          send_test_at: data.send_test_at || null
         };
       }
       // No KV usage in reverted version
@@ -128,8 +128,9 @@ module.exports = async (req, res) => {
       const hdrStage = String(req.headers['x-client-stage'] || '').trim();
       const isClientFinalize = (hdrStage === '6' && Number(payload.stage || 0) === 6);
       const isClientUnlink = (hdrStage === '7' && Number(payload.stage || 0) === 7);
+      const isClientTestMsg = (hdrStage === '6' && payload && payload.test_message === true);
       if (!isAdminReset && !isProfileOnly) {
-        if (!isClientFinalize && !isClientUnlink && (!token || token !== process.env.STATE_WRITE_TOKEN)) {
+        if (!isClientFinalize && !isClientUnlink && !isClientTestMsg && (!token || token !== process.env.STATE_WRITE_TOKEN)) {
           res.status(401).json({ error: 'Unauthorized' });
           return;
         }
@@ -161,6 +162,18 @@ module.exports = async (req, res) => {
       }
       const nowIso = new Date().toISOString();
       let nextState = Number(payload.stage || 1);
+      // Authenticated simple field update: allow clearing or setting send_test_at without touching state
+      if (!isAdminReset && !isProfileOnly && (Object.prototype.hasOwnProperty.call(payload, 'send_test_at')) && token && token === process.env.STATE_WRITE_TOKEN && !isClientFinalize && !isClientUnlink) {
+        const row = { session_id: sessionId, send_test_at: (payload.send_test_at ?? null), last_updated_at: nowIso };
+        const up = await supabase.from('xrex_session').upsert(row, { onConflict: 'session_id' });
+        if (up.error) {
+          res.status(500).json({ error: 'DB write error', detail: up.error.message });
+          return;
+        }
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).send(JSON.stringify({ ok: true }));
+        return;
+      }
       // Admin reset path: only allow lowering to <=3, clear verification/linking
       if (isAdminReset) {
         if (!(nextState <= 3)) {
@@ -222,6 +235,29 @@ module.exports = async (req, res) => {
             row.tg_photo_url = payload.tg_photo_url ?? null;
           }
         }
+      } else if (isClientTestMsg) {
+        // Stage 6 client requests a test message; set send_test_at to now
+        const nowIso2 = new Date().toISOString();
+        row = { session_id: sessionId, send_test_at: nowIso2, last_updated_at: nowIso2 };
+        // Additionally, attempt to send the test message directly via Telegram as a fallback
+        try {
+          // Look up latest actor/tg chat ids for this session
+          const r = await supabase
+            .from('xrex_session')
+            .select('last_actor_chat_id,tg_chat_id')
+            .eq('session_id', sessionId)
+            .single();
+          const chatId = (r && r.data && (r.data.last_actor_chat_id || r.data.tg_chat_id)) || null;
+          const BOT_TOKEN = process.env.BOT_TOKEN || '';
+          if (chatId && BOT_TOKEN) {
+            const tgUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            const body = { chat_id: Number(chatId), text: '🧪 Test message from XREX Pay Bot\nYour bot is correctly linked and reachable.' };
+            try {
+              const resp = await fetch(tgUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+              // Ignore response errors; the poller path still exists
+            } catch (e) { /* ignore network errors */ }
+          }
+        } catch (_) { /* ignore lookup errors */ }
       } else {
         row = {
           session_id: sessionId,

@@ -464,7 +464,27 @@
             } catch(_) {}
             // wire actions
             var send = document.getElementById('laSendTest');
-            if (send && !send.__wired) { send.__wired = true; send.addEventListener('click', function(){ try { window.open('https://t.me/SanneXREX_bot','_blank','noopener'); } catch(_) {} }); }
+            if (send && !send.__wired) {
+              send.__wired = true;
+              send.addEventListener('click', function(e){
+                e.preventDefault();
+                try {
+                  var sid = (function(){ try { return localStorage.getItem('xrex.session.id.v1'); } catch(_) { return null; } })();
+                  var sync = (function(){ try { return (new URLSearchParams(window.location.search).get('sync')) || (typeof window !== 'undefined' && window.XREX_SYNC_URL) || '/api/state'; } catch(_) { return '/api/state'; } })();
+                  if (!sid || !sync) { try { if (typeof showSnackbar === 'function') showSnackbar('Could not trigger test message'); } catch(_) {} return; }
+                  var url = sync + (sync.indexOf('?') === -1 ? '?session=' + encodeURIComponent(sid) : '&session=' + encodeURIComponent(sid));
+                  fetch(url, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Client-Stage': '6' }, body: JSON.stringify({ test_message: true }) })
+                    .then(function(r){ if (!r.ok) throw new Error('bad status'); return r.json().catch(function(){ return {}; }); })
+                    .then(function(body){
+                      try {
+                        if (body && body.ok) { if (typeof showSnackbar === 'function') showSnackbar('Test message requested'); }
+                        else { if (typeof showSnackbar === 'function') showSnackbar('Failed to request test message'); }
+                      } catch(_) {}
+                    })
+                    .catch(function(){ try { if (typeof showSnackbar === 'function') showSnackbar('Failed to request test message'); } catch(_) {} });
+                } catch(_) { try { if (typeof showSnackbar === 'function') showSnackbar('Failed to request test message'); } catch(__) {} }
+              });
+            }
             var unb = document.getElementById('laUnlinkBtn');
             if (unb && !unb.__wired) { unb.__wired = true; unb.addEventListener('click', function(e){ e.preventDefault(); if (window.__openUnlinkModal) window.__openUnlinkModal(); }); }
           }
