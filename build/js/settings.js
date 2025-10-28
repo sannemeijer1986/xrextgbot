@@ -1304,14 +1304,15 @@
       }
       function syncEqualHeights(){
         try {
-          var isDesk = window.matchMedia('(min-width: 1280px)').matches;
+          var isDesk = window.matchMedia('(min-width: 721px)').matches;
           if (!qrPane || !linkPane) return;
-          if (!isDesk) { qrPane.style.minHeight = ''; linkPane.style.minHeight = ''; return; }
+          if (!isDesk) { if (qrPane) qrPane.style.minHeight = ''; if (linkPane) linkPane.style.minHeight = ''; if (controls) controls.style.minHeight = ''; return; }
           var h1 = __measure(qrPane);
           var h2 = __measure(linkPane);
           var h = Math.max(h1, h2);
-          qrPane.style.minHeight = h + 'px';
-          linkPane.style.minHeight = h + 'px';
+          if (qrPane) qrPane.style.minHeight = h + 'px';
+          if (linkPane) linkPane.style.minHeight = h + 'px';
+          if (controls) controls.style.minHeight = h + 'px';
         } catch(_) {}
       }
       if (controls) {
@@ -1319,7 +1320,7 @@
         if (seg) seg.addEventListener('click', function(e){ var b=e.target.closest('.ib-tab'); if (!b) return; activatePane(b.getAttribute('data-pane')); });
         controls.addEventListener('click', function(e){ var sw=e.target.closest('.ib-switch-to'); if (!sw) return; e.preventDefault(); var to=sw.getAttribute('data-pane'); if (to) activatePane(to); });
       }
-      function syncDefault(){ var isMobile = !window.matchMedia('(min-width: 1280px)').matches; activatePane(isMobile ? 'link' : 'qr'); }
+      function syncDefault(){ var isMobile = !window.matchMedia('(min-width: 721px)').matches; activatePane(isMobile ? 'link' : 'qr'); }
       function handleResize(){ try { syncDefault(); syncEqualHeights(); } catch(_) {} }
       syncDefault(); syncEqualHeights(); window.addEventListener('resize', handleResize);
       function open(){ try { modal.hidden=false; modal.setAttribute('aria-hidden','false'); var y=window.scrollY||window.pageYOffset||0; document.body.dataset.scrollY=String(y); document.body.style.top='-'+y+'px'; document.body.classList.add('modal-locked'); syncEqualHeights(); } catch(_) {} }

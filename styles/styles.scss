@@ -282,6 +282,33 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .m-field-with-qr .m-field { width: 100%; }
 }
 
+// Reuse Initiate Bot styles inside modals for Go To Bot modal
+.modal {
+  .step-actions.initiate-bot { padding-top: 0px; }
+  .initiate-bot { padding: 20px; display: flex; flex-direction: column; }
+  .initiate-bot .ib-group { display: none; }
+  .initiate-bot .ib-segment { display: inline-flex; gap: 2px; background: #fff; padding: 4px; border-radius: 999px; border: 1px solid $color-border; margin: 4px 0 10px 0; width: fit-content; align-self: flex-start; max-width: 100%; }
+  .initiate-bot .ib-tab { appearance: none; background: transparent; border: 1px solid transparent; color: #2B63F1; font: 700 14px $font-manrope; padding: 8px 16px 8px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+  .initiate-bot .ib-tab.is-active { background: rgba(43, 99, 241, 0.08); border-color: rgba(43, 99, 241, 0.22); }
+  .initiate-bot .ib-tab-icon { width: 18px; height: 18px; display: inline-block; }
+  .initiate-bot .ib-tab-qr { background: url('../assets/icon_link_qr.svg') center/contain no-repeat; }
+  .initiate-bot .ib-tab-link { background: url('../assets/icon_link_link.svg') center/contain no-repeat; }
+  .initiate-bot .ib-pane { display: none; }
+  .initiate-bot .ib-pane.is-active { display: block; }
+  .initiate-bot .ib-hint { color: $color-text-primary; font: 500 16px $font-manrope; margin: 10px 0 20px 0; }
+  .initiate-bot .ib-hint-sub { color: $color-text-secondary; font-size: 14px; display: inline-block; }
+  .initiate-bot .ib-hint .ib-switch-to { color: $color-text-secondary; text-decoration: none; font-weight: 700; font-size: 14px; }
+  .initiate-bot .ib-hint .ib-switch-to:hover { text-decoration: none; }
+  .initiate-bot .ib-qr-section { margin: 16px 0 0 0; }
+  .initiate-bot .ib-qr { width: 116px; height: 116px; display: grid; place-items: center; background: #fff; border-radius: 8px; border: 1px solid $color-border; }
+  .initiate-bot .ib-qr svg { width: 96px; height: 96px; display: block; }
+  .initiate-bot .ib-open-row { display: flex; gap: 12px; align-items: center; margin-top: 8px; }
+  .initiate-bot .ib-pill { display: inline-flex; align-items: center; gap: 10px; background: #2B63F1; color: #fff; text-decoration: none; padding: 0 12px; border-radius: 999px; font: 700 14px $font-manrope; height: $btn-height; min-width: 140px; width: 100%; max-width: 200px; }
+  .initiate-bot .ib-pill-text { max-width: 160px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; }
+  .initiate-bot .ib-pill-icon { width: 16px; height: 16px; display: inline-block; }
+  .initiate-bot .ib-copy { display: inline-flex; width: auto; min-width: inherit; align-items: center; gap: 8px; height: $btn-height; }
+}
+
 // Auth panel actions on login: reverse order and tighten spacing on small screens
 @media (max-width: 720px) {
   .auth-actions-row { gap: 8px; }
@@ -727,6 +754,29 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       @media (min-width: $bp-md) {
         font-size: 32px;
       }
+    }
+
+    // Title with avatar + handle
+    .title-with-avatar {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      .title-texts { display: flex; flex-direction: column; }
+      .title-avatar {
+        width: 40px; height: 40px; border-radius: 9999px; object-fit: cover;
+        @media (min-width: $bp-md) { width: 64px; height: 64px; }
+      }
+    }
+    .bot-handle {
+      color: $color-primary-hover; // #336AFF
+      font-family: $font-manrope;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 1.2;
+      margin-top: 2px;
+      text-decoration: none;
+      cursor: pointer;
+      @media (min-width: $bp-md) { font-size: 18px; }
     }
 
     // Share button exception: hide text on < md
