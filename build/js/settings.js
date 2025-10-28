@@ -882,6 +882,9 @@
       if (botLink) {
         var url = 'https://t.me/SanneXREX_bot';
         botLink.href = url;
+        try {
+          botLink.addEventListener('click', function(e){ e.preventDefault(); openGoToBotModal(); });
+        } catch(_) {}
       }
       // Enable/disable submit based on input presence
       if (input && submit) {
@@ -1242,6 +1245,96 @@
     try { var m = document.getElementById('require2faModal'); if (m && m.__open) m.__open(); else openTwoFaModal(); } catch(_) { openTwoFaModal(); }
   }
 
+  // Go To Bot modal wiring
+  (function initGoToBotModal(){
+    try {
+      var modal = document.getElementById('goToBotModal');
+      if (!modal) return;
+      var btnClose = document.getElementById('gtbClose');
+      var btnDone = document.getElementById('gtbDone');
+      var linkEl = document.getElementById('gtbLink');
+      var copyBtn = document.getElementById('gtbCopyBtn');
+      var controls = document.getElementById('gtbControls');
+      // Build dynamic link (reuse token logic)
+      var sid = getSessionId();
+      var baseToken = 'BOTC1583';
+      try { var code = (getProgress().code||'').trim(); if (code) baseToken = 'BOTC158'; } catch(_) {}
+      var token = baseToken + '_s' + sid;
+      var url = 'https://t.me/SanneXREX_bot?start=' + token;
+      // hydrate link pill
+      try {
+        if (linkEl) {
+          linkEl.href = url;
+          var ts = linkEl.querySelector('.ib-pill-text'); if (ts) ts.textContent = url;
+          linkEl.setAttribute('aria-label','Open Telegram link ' + url);
+        }
+      } catch(_) {}
+      // QR generation
+      try {
+        var qrEl = document.getElementById('gtbQr');
+        if (qrEl && typeof window.qrcode === 'function') {
+          var qr = window.qrcode(0, 'L'); qr.addData(url); qr.make();
+          var svg = qr.createSvgTag(4, 0);
+          var wrap = qrEl.parentElement; if (wrap) { wrap.innerHTML = svg; var svgEl = wrap.querySelector('svg'); if (svgEl) { svgEl.setAttribute('width','180'); svgEl.setAttribute('height','180'); svgEl.setAttribute('aria-label','QR to open ' + url); } }
+        }
+      } catch(_) {}
+      function copyLink(){ try { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url); if (typeof showSnackbar==='function') showSnackbar('Link copied to clipboard'); } catch(_) {} }
+      if (copyBtn) copyBtn.addEventListener('click', function(e){ e.preventDefault(); copyLink(); });
+      // segmented switch
+      function activatePane(which){
+        try {
+          controls.querySelectorAll('.ib-tab').forEach(function(t){ var on=t.getAttribute('data-pane')===which; t.classList.toggle('is-active',on); t.setAttribute('aria-selected', String(on)); });
+          controls.querySelectorAll('.ib-pane').forEach(function(p){ var on2=p.classList.contains('ib-pane-'+which); p.classList.toggle('is-active', on2); });
+          // Keep the two panes at equal height on desktop for stable layout
+          try { syncEqualHeights(); } catch(_) {}
+        } catch(_) {}
+      }
+      // Equalize pane heights on desktop only
+      var qrPane = controls ? controls.querySelector('.ib-pane-qr') : null;
+      var linkPane = controls ? controls.querySelector('.ib-pane-link') : null;
+      function __measure(el){
+        if (!el) return 0;
+        var prev = { display: el.style.display, visibility: el.style.visibility, position: el.style.position, left: el.style.left };
+        var restore = function(){ el.style.display = prev.display || ''; el.style.visibility = prev.visibility || ''; el.style.position = prev.position || ''; el.style.left = prev.left || ''; };
+        var needShow = (getComputedStyle(el).display === 'none');
+        if (needShow) { el.style.display = 'block'; el.style.visibility = 'hidden'; el.style.position = 'absolute'; el.style.left = '-9999px'; }
+        var h = el.offsetHeight;
+        if (needShow) restore();
+        return h;
+      }
+      function syncEqualHeights(){
+        try {
+          var isDesk = window.matchMedia('(min-width: 1280px)').matches;
+          if (!qrPane || !linkPane) return;
+          if (!isDesk) { qrPane.style.minHeight = ''; linkPane.style.minHeight = ''; return; }
+          var h1 = __measure(qrPane);
+          var h2 = __measure(linkPane);
+          var h = Math.max(h1, h2);
+          qrPane.style.minHeight = h + 'px';
+          linkPane.style.minHeight = h + 'px';
+        } catch(_) {}
+      }
+      if (controls) {
+        var seg = controls.querySelector('.ib-segment');
+        if (seg) seg.addEventListener('click', function(e){ var b=e.target.closest('.ib-tab'); if (!b) return; activatePane(b.getAttribute('data-pane')); });
+        controls.addEventListener('click', function(e){ var sw=e.target.closest('.ib-switch-to'); if (!sw) return; e.preventDefault(); var to=sw.getAttribute('data-pane'); if (to) activatePane(to); });
+      }
+      function syncDefault(){ var isMobile = !window.matchMedia('(min-width: 1280px)').matches; activatePane(isMobile ? 'link' : 'qr'); }
+      function handleResize(){ try { syncDefault(); syncEqualHeights(); } catch(_) {} }
+      syncDefault(); syncEqualHeights(); window.addEventListener('resize', handleResize);
+      function open(){ try { modal.hidden=false; modal.setAttribute('aria-hidden','false'); var y=window.scrollY||window.pageYOffset||0; document.body.dataset.scrollY=String(y); document.body.style.top='-'+y+'px'; document.body.classList.add('modal-locked'); syncEqualHeights(); } catch(_) {} }
+      function close(){ try { modal.setAttribute('aria-hidden','true'); modal.hidden=true; unlockModalScrollIfNoOpen(); } catch(_) {} }
+      modal.__open=open; modal.__close=close;
+      if (btnClose) btnClose.addEventListener('click', function(e){ e.preventDefault(); close(); });
+      if (btnDone) btnDone.addEventListener('click', function(e){ e.preventDefault(); close(); });
+      modal.addEventListener('click', function(e){ if (e.target === modal) close(); });
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !modal.hidden) close(); });
+    } catch(_) {}
+  })();
+
+  function openGoToBotModal(){ try { var m = document.getElementById('goToBotModal'); if (m && m.__open) m.__open(); } catch(_) {} }
+
+
   // Unlink modal wiring
   (function initUnlinkModal(){
     try {
@@ -1363,6 +1456,14 @@
     } catch(_) {}
   });
 
+  // Header bot handle opens Go To Bot modal
+  (function wireBotHandle(){
+    try {
+      var h = document.getElementById('botHandleLink');
+      if (h && !h.__wired) { h.__wired = true; h.addEventListener('click', function(e){ e.preventDefault(); openGoToBotModal(); }); }
+    } catch(_) {}
+  })();
+
   var shareBtn = document.getElementById('shareBtn');
   function showSnackbar(message) {
     try {
@@ -1424,8 +1525,8 @@
   if (startLinkBtn) startLinkBtn.addEventListener('click', function (e) {
     try {
       var s0 = (getProgress().state|0);
-      // If already linked (state 6), open the bot directly
-      if (s0 === 6) { e && e.preventDefault && e.preventDefault(); window.open('https://t.me/SanneXREX_bot','_blank','noopener'); return; }
+      // If already linked (state 6), open Go To Bot modal
+      if (s0 === 6) { e && e.preventDefault && e.preventDefault(); openGoToBotModal(); return; }
       if (s0 <= 1) { e && e.preventDefault && e.preventDefault(); openRequire2faModal(); return; }
       var u = new URL(window.location.href);
       u.searchParams.set('view','content');
@@ -1439,8 +1540,8 @@
     btn.addEventListener('click', function(e){ 
       try {
         var s1 = (getProgress().state|0);
-        // If already linked (state 6), open the bot directly
-        if (s1 === 6) { e && e.preventDefault && e.preventDefault(); window.open('https://t.me/SanneXREX_bot','_blank','noopener'); return; }
+        // If already linked (state 6), open Go To Bot modal
+        if (s1 === 6) { e && e.preventDefault && e.preventDefault(); openGoToBotModal(); return; }
         if (s1 <= 1) { e && e.preventDefault && e.preventDefault(); openRequire2faModal(); return; }
         var u2 = new URL(window.location.href);
         u2.searchParams.set('view','content');
@@ -1504,7 +1605,7 @@
         });
       } catch(_){}
       function showTelegram(){
-        if (pageTitle) pageTitle.textContent = 'XREX Pay · Telegram bot';
+        if (pageTitle) pageTitle.textContent = 'Telegram Bot';
         if (statusRow) statusRow.style.display = '';
         if (tabs) tabs.style.display = '';
         if (panelAccount) panelAccount.style.display = 'none';

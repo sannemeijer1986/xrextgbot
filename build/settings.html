@@ -111,7 +111,13 @@
                 </a>
             </div>
             <div class="content-header">
-                <h1 id="pageTitle">XREX Pay · Telegram bot</h1>
+                <div class="title-with-avatar">
+                    <img class="title-avatar" src="assets/bot_avatar.png" alt="Bot avatar" width="40" height="40">
+                    <div class="title-texts">
+                        <h1 id="pageTitle">Telegram Bot</h1>
+                        <a class="bot-handle" id="botHandleLink" href="#" role="button">@SanneXREX_bot</a>
+                    </div>
+                </div>
                 <button class="btn btn-secondary btn-sm" id="shareBtn">
                     <img src="assets/icon_share.svg" alt="share" width="14" height="14">
                     <span>Share</span>
@@ -617,6 +623,63 @@
                 <div class="modal-footer">
                     <button class="btn btn-secondary btn-md" id="unlinkCancel">Cancel</button>
                     <button class="btn btn-primary btn-md" id="unlinkConfirm">Unlink</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Go To Bot Modal -->
+    <div id="goToBotModal" class="modal modal-small" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+        <div class="modal-wrapper">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Go to bot</h2>
+                    <button class="modal-close" id="gtbClose" aria-label="Close modal">
+                        <img src="assets/icon_modal_close.svg" width="24" height="24" alt="close" />
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="m-title">Choose how you wish to open the XREX Pay Telegram bot</div>
+                    <div class="step-actions initiate-bot" id="gtbControls" role="group" aria-label="Open via">
+                        <div class="ib-segment" role="tablist">
+                            <button type="button" class="ib-tab" data-pane="qr" role="tab" aria-selected="false">
+                                <span class="ib-tab-icon ib-tab-qr" aria-hidden="true"></span>
+                                <span>Scan QR</span>
+                            </button>
+                            <button type="button" class="ib-tab" data-pane="link" role="tab" aria-selected="false">
+                                <span class="ib-tab-icon ib-tab-link" aria-hidden="true"></span>
+                                <span>Use link</span>
+                            </button>
+                        </div>
+                        <div class="ib-pane ib-pane-qr">
+                            <div class="ib-hint">
+                                Scan the QR with a Phone or Tablet to open Telegram<br />
+                                <span class="ib-hint-sub">To open Telegram on this device,</span> <a href="#" class="ib-switch-to" data-pane="link">use link</a>
+                            </div>
+                            <div class="ib-qr-section">
+                                <div class="ib-qr"><img id="gtbQr" src="assets/icon_link_tgqr.png" width="180" height="180" alt="QR" /></div>
+                            </div>
+                        </div>
+                        <div class="ib-pane ib-pane-link">
+                            <div class="ib-hint">
+                                Use the link to open Telegram here<br />
+                                <span class="ib-hint-sub">To use another device,</span> <a href="#" class="ib-switch-to" data-pane="qr">scan QR</a>
+                            </div>
+                            <div class="ib-open-row">
+                                <a id="gtbLink" class="ib-pill" href="#" target="_blank" rel="noopener">
+                                    <span class="ib-pill-text">https://t.me/SanneXREX_bot</span>
+                                    <img class="ib-pill-icon" src="assets/icon_link_openlink.svg" width="16" height="16" alt="" />
+                                </a>
+                                <button type="button" class="btn btn-secondary btn-sm ib-copy" id="gtbCopyBtn">
+                                    <img src="assets/icon_link_copy.svg" width="16" height="16" alt="" />
+                                    <span>Copy</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary btn-sm" id="gtbDone">Done</button>
                 </div>
             </div>
         </div>
