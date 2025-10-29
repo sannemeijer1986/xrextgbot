@@ -27,11 +27,18 @@
 #helpModal .help-cards {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
+  gap: 0px;
+}
+#helpModal .help-card:first-child {
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+}
+#helpModal .help-card:last-child {
+  border-radius: 0 0 12px 12px;
 }
 #helpModal .help-card {
   display: grid;
-  grid-template-columns: 44px 1fr 16px;
+  grid-template-columns: 56px 1fr 16px;
   align-items: center;
   gap: 12px;
   background: #fff;
@@ -45,58 +52,85 @@
   text-decoration: none;
 }
 #helpModal .help-card .hc-icon {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border-radius: 9999px;
   background: rgba(43, 99, 241, 0.08);
   display: grid;
   place-items: center;
 }
+#helpModal .help-card .hc-icon img {
+  width: 48px;
+  height: 48px;
+}
 #helpModal .help-card .hc-texts {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  align-items: flex-start;
 }
 #helpModal .help-card .hc-title {
-  font: 700 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font: 600 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #2d2f2f;
 }
 #helpModal .help-card .hc-desc {
-  font: 400 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font: 600 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #797a7b;
 }
 #helpModal .help-card .hc-sub {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font: 400 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  gap: 2px;
+  font: 700 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #4D88FF;
   margin-top: 4px;
 }
+#helpModal .help-card .hc-sub img {
+  width: 20px;
+  height: 20px;
+}
 #helpModal .help-card .hc-chevron {
-  width: 16px;
-  height: 16px;
-  background: url("../assets/icon_chevron_right.svg") center/16px 16px no-repeat;
+  width: 20px;
+  height: 20px;
+  background: url("../assets/icon_chevron_right.svg") center/20px 20px no-repeat;
   opacity: 0.6;
 }
 @media (min-width: 721px) {
+  #helpModal .help-card:first-child {
+    border-bottom: 1px solid #eeeeee;
+    border-radius: 12px;
+  }
+  #helpModal .help-card:last-child {
+    border-radius: 12px;
+  }
   #helpModal .help-cards {
     grid-template-columns: 1fr 1fr;
     gap: 16px;
   }
   #helpModal .help-card {
-    grid-template-columns: 1fr;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
     padding: 20px;
+    text-align: center;
   }
   #helpModal .help-card .hc-icon {
-    margin: 0 auto 8px auto;
+    width: 64px;
+    height: 64px;
+  }
+  #helpModal .help-card .hc-icon img {
+    width: 64px;
+    height: 64px;
   }
   #helpModal .help-card .hc-chevron {
     display: none;
   }
-  #helpModal .help-card .hc-desc {
-    font-size: 13px;
+  #helpModal .help-card .hc-texts {
+    align-items: center;
+  }
+  #helpModal .help-card .hc-title {
+    font: 700 20px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
 }
 
