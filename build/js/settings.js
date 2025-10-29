@@ -1701,7 +1701,15 @@
         slidesOffsetAfter: 24,
         grabCursor: true,
         simulateTouch: true,
-        mousewheel: { forceToAxis: true, sensitivity: 1, releaseOnEdges: true },
+        speed: 450,
+        mousewheel: {
+          forceToAxis: true,
+          releaseOnEdges: true,
+          // Make one-slide-per-gesture on desktop mice/trackpads
+          sensitivity: 0.2,
+          thresholdDelta: 70,
+          thresholdTime: 220
+        },
         pagination: { el: container.querySelector('.swiper-pagination'), clickable: true },
         navigation: { nextEl: container.querySelector('.swiper-button-next'), prevEl: container.querySelector('.swiper-button-prev') },
         breakpoints: {
@@ -1727,6 +1735,13 @@
         if (pag) {
           pag.style.display = isDesk ? 'none' : '';
         }
+        // On mobile/tablet, disable mousewheel to avoid accidental multi-step scrolls
+        try { if (swiper && swiper.params && swiper.mousewheel) {
+          swiper.params.mousewheel.enabled = isDesk; // enable on desktop, disable below
+          if (swiper.mousewheel && swiper.mousewheel.enabled !== isDesk) {
+            if (isDesk) swiper.mousewheel.enable(); else swiper.mousewheel.disable();
+          }
+        } } catch(_) {}
       }
     } catch(_) {}
   })();
