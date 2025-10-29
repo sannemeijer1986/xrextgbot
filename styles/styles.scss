@@ -235,7 +235,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .modal:not(.modal-small) .modal-header { position: relative; justify-content: center; }
   .modal:not(.modal-small) .modal-header h2 { text-align: center; margin: 0 auto; }
   .modal:not(.modal-small) .modal-header .modal-close { position: absolute; left: 20px; right: auto; }
-  .modal-body { padding: 20px; }
+  .modal-body { padding: 32px 20px 20px 20px; }
   .modal-footer { margin-top: auto; padding: 12px 20px 20px; flex-direction: column; gap: 10px; }
   .modal-footer .btn { width: 100%; max-width: none; min-width: 0; }
   // Override for Require 2FA modal: side-by-side large buttons on <=720px
@@ -379,6 +379,8 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .initiate-bot .ib-pill-text { max-width: 160px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; }
   .initiate-bot .ib-pill-icon { width: 16px; height: 16px; display: inline-block; }
   .initiate-bot .ib-copy { display: inline-flex; width: auto; min-width: inherit; align-items: center; gap: 8px; height: $btn-height; }
+  // Match content behavior: reverse tab order on sub-desktop so "Use link" appears first
+  @media (max-width: $bp-md) { .initiate-bot .ib-segment { flex-direction: row-reverse; } }
 }
 
 // Auth panel actions on login: reverse order and tighten spacing on small screens
@@ -1653,6 +1655,8 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     .initiate-bot .ib-copy img { width: 16px; height: 16px; }
     // Flip tab order visually on mobile
     .initiate-bot .ib-segment { flex-direction: row-reverse; }
+    // Ensure Go To Bot modal honors DOM order on sub-desktop
+    #goToBotModal .initiate-bot .ib-segment { flex-direction: row !important; }
   }
   .initiate-bot .ib-divider { border: none; height: 1px; background: $color-border; margin: 28px 0 4px 0; }
   .initiate-bot .ib-links { display: flex; gap: 24px; margin-top: 20px; }

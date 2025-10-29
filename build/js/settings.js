@@ -798,7 +798,8 @@
         if (code) baseToken = 'BOTC158';
       } catch(_) {}
       var token = baseToken + '_s' + sid;
-      var url = 'https://t.me/SanneXREX_bot?start=' + token;
+      var url = 'https://t.me/SanneXREX_bot?start=' + token; // used for QR only
+      var baseUrl = 'https://t.me/SanneXREX_bot'; // plain bot link for the link button
       try {
         var code2 = (getProgress().code || '').trim();
         // keep same token logic; code presence already captured
@@ -1270,24 +1271,39 @@
       try { var code = (getProgress().code||'').trim(); if (code) baseToken = 'BOTC158'; } catch(_) {}
       var token = baseToken + '_s' + sid;
       var url = 'https://t.me/SanneXREX_bot?start=' + token;
+      var baseUrl = 'https://t.me/SanneXREX_bot';
       // hydrate link pill
-      try {
-        if (linkEl) {
-          linkEl.href = url;
-          var ts = linkEl.querySelector('.ib-pill-text'); if (ts) ts.textContent = url;
-          linkEl.setAttribute('aria-label','Open Telegram link ' + url);
-        }
-      } catch(_) {}
+      function primeLink(){
+        try {
+          if (!linkEl) return;
+          linkEl.setAttribute('href', baseUrl);
+          var ts = linkEl.querySelector('.ib-pill-text'); if (ts) ts.textContent = baseUrl;
+          linkEl.setAttribute('aria-label','Open Telegram link ' + baseUrl);
+        } catch(_) {}
+      }
+      try { primeLink(); } catch(_) {}
       // QR generation
       try {
         var qrEl = document.getElementById('gtbQr');
         if (qrEl && typeof window.qrcode === 'function') {
-          var qr = window.qrcode(0, 'L'); qr.addData(url); qr.make();
+          var qr = window.qrcode(0, 'L'); qr.addData(baseUrl); qr.make();
           var svg = qr.createSvgTag(4, 0);
-          var wrap = qrEl.parentElement; if (wrap) { wrap.innerHTML = svg; var svgEl = wrap.querySelector('svg'); if (svgEl) { svgEl.setAttribute('width','180'); svgEl.setAttribute('height','180'); svgEl.setAttribute('aria-label','QR to open ' + url); } }
+          var wrap = qrEl.parentElement; if (wrap) { wrap.innerHTML = svg; var svgEl = wrap.querySelector('svg'); if (svgEl) { svgEl.setAttribute('width','180'); svgEl.setAttribute('height','180'); svgEl.setAttribute('aria-label','QR to open ' + baseUrl); } }
         }
       } catch(_) {}
-      function copyLink(){ try { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url); if (typeof showSnackbar==='function') showSnackbar('Link copied to clipboard'); } catch(_) {} }
+      function copyLink(){
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(baseUrl);
+          } else {
+            // Fallback: temporary input element
+            var tmp = document.createElement('input');
+            tmp.value = baseUrl; document.body.appendChild(tmp); tmp.select(); try { document.execCommand('copy'); } catch(_) {}
+            document.body.removeChild(tmp);
+          }
+          if (typeof showSnackbar==='function') showSnackbar('Link copied to clipboard');
+        } catch(_) {}
+      }
       if (copyBtn) copyBtn.addEventListener('click', function(e){ e.preventDefault(); copyLink(); });
       // segmented switch
       function activatePane(which){
@@ -1324,15 +1340,16 @@
           if (controls) controls.style.minHeight = h + 'px';
         } catch(_) {}
       }
-      if (controls) {
-        var seg = controls.querySelector('.ib-segment');
-        if (seg) seg.addEventListener('click', function(e){ var b=e.target.closest('.ib-tab'); if (!b) return; activatePane(b.getAttribute('data-pane')); });
+      var seg = controls ? controls.querySelector('.ib-segment') : null;
+      if (controls && seg) {
+        seg.addEventListener('click', function(e){ var b=e.target.closest('.ib-tab'); if (!b) return; activatePane(b.getAttribute('data-pane')); });
         controls.addEventListener('click', function(e){ var sw=e.target.closest('.ib-switch-to'); if (!sw) return; e.preventDefault(); var to=sw.getAttribute('data-pane'); if (to) activatePane(to); });
       }
-      function syncDefault(){ var isMobile = !window.matchMedia('(min-width: 721px)').matches; activatePane(isMobile ? 'link' : 'qr'); }
+      // Follow Initiate Bot: rely on CSS flex-direction to change order; only set active pane
+      function syncDefault(){ var isMobile = !window.matchMedia('(min-width: 1280px)').matches; activatePane(isMobile ? 'link' : 'qr'); }
       function handleResize(){ try { syncDefault(); syncEqualHeights(); } catch(_) {} }
       syncDefault(); syncEqualHeights(); window.addEventListener('resize', handleResize);
-      function open(){ try { modal.hidden=false; modal.setAttribute('aria-hidden','false'); var y=window.scrollY||window.pageYOffset||0; document.body.dataset.scrollY=String(y); document.body.style.top='-'+y+'px'; document.body.classList.add('modal-locked'); syncEqualHeights(); } catch(_) {} }
+      function open(){ try { modal.hidden=false; modal.setAttribute('aria-hidden','false'); var y=window.scrollY||window.pageYOffset||0; document.body.dataset.scrollY=String(y); document.body.style.top='-'+y+'px'; document.body.classList.add('modal-locked'); primeLink(); syncDefault(); syncEqualHeights(); setTimeout(function(){ try { primeLink(); syncDefault(); syncEqualHeights(); } catch(_) {} }, 0); } catch(_) {} }
       function close(){ try { modal.setAttribute('aria-hidden','true'); modal.hidden=true; unlockModalScrollIfNoOpen(); } catch(_) {} }
       modal.__open=open; modal.__close=close;
       if (btnClose) btnClose.addEventListener('click', function(e){ e.preventDefault(); close(); });

@@ -521,7 +521,7 @@ body.modal-locked {
     right: auto;
   }
   .modal-body {
-    padding: 20px;
+    padding: 32px 20px 20px 20px;
   }
   .modal-footer {
     margin-top: auto;
@@ -1024,6 +1024,11 @@ body.modal-locked {
   align-items: center;
   gap: 8px;
   height: 32px;
+}
+@media (max-width: 1280px) {
+  .modal .initiate-bot .ib-segment {
+    flex-direction: row-reverse;
+  }
 }
 
 @media (max-width: 720px) {
@@ -2749,6 +2754,9 @@ body.modal-locked {
   }
   .content .initiate-bot .ib-segment {
     flex-direction: row-reverse;
+  }
+  .content #goToBotModal .initiate-bot .ib-segment {
+    flex-direction: row !important;
   }
 }
 .content .initiate-bot .ib-divider {
