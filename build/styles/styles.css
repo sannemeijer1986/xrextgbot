@@ -1333,7 +1333,7 @@ body.modal-locked {
 .content .content-header .bot-handle {
   color: #336AFF;
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 14px;
   line-height: 1.2;
   margin-top: 2px;
@@ -1345,33 +1345,36 @@ body.modal-locked {
     font-size: 18px;
   }
 }
-.content .content-header #shareBtn {
+.content .content-header #shareBtn, .content .content-header #helpBtn {
   width: 32px;
   height: 32px;
   min-width: 32px;
   padding: 0;
 }
-.content .content-header #shareBtn span {
+.content .content-header #shareBtn span, .content .content-header #helpBtn span {
   display: none;
 }
-.content .content-header #shareBtn img {
+.content .content-header #shareBtn img, .content .content-header #helpBtn img {
   width: 20px;
   height: 20px;
 }
 @media (min-width: 1280px) {
-  .content .content-header #shareBtn {
+  .content .content-header #shareBtn, .content .content-header #helpBtn {
     width: auto;
     height: 32px;
     min-width: 100px;
     padding: 0 14px;
   }
-  .content .content-header #shareBtn span {
+  .content .content-header #shareBtn span, .content .content-header #helpBtn span {
     display: inline;
   }
-  .content .content-header #shareBtn img {
+  .content .content-header #shareBtn img, .content .content-header #helpBtn img {
     width: 16px;
     height: 16px;
   }
+}
+.content .content-header #shareBtn {
+  margin-left: auto;
 }
 .content .mobile-back {
   display: block;

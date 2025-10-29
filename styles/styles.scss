@@ -770,7 +770,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     .bot-handle {
       color: $color-primary-hover; // #336AFF
       font-family: $font-manrope;
-      font-weight: 700;
+      font-weight: 600;
       font-size: 14px;
       line-height: 1.2;
       margin-top: 2px;
@@ -779,8 +779,8 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       @media (min-width: $bp-md) { font-size: 18px; }
     }
 
-    // Share button exception: hide text on < md
-    #shareBtn {
+    // Share/Help buttons: hide text on < md
+    #shareBtn, #helpBtn {
       width: $btn-height;
       height: $btn-height;
       min-width: $btn-height;
@@ -799,6 +799,8 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
         img { width: 16px; height: 16px; }
       }
     }
+    // Push the buttons block to the right by letting the first button take auto margin-left
+    #shareBtn { margin-left: auto; }
     // buttons are global (.btn, .btn-primary, .btn-secondary)
   }
 

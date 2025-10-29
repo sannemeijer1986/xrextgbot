@@ -1475,6 +1475,7 @@
   })();
 
   var shareBtn = document.getElementById('shareBtn');
+  var helpBtn = document.getElementById('helpBtn');
   function showSnackbar(message) {
     try {
       var bar = document.getElementById('snackbar');
@@ -1509,6 +1510,39 @@
       // noop
     }
   });
+
+  // Help modal wiring
+  (function initHelpModal(){
+    try {
+      var modal = document.getElementById('helpModal');
+      if (!modal) return;
+      var btnClose = document.getElementById('helpClose');
+      var btnDismiss = document.getElementById('helpDismiss');
+      function open(){
+        try {
+          modal.hidden = false; modal.setAttribute('aria-hidden','false');
+          var y = window.scrollY || window.pageYOffset || 0; document.body.dataset.scrollY = String(y); document.body.style.top = '-' + y + 'px'; document.body.classList.add('modal-locked');
+        } catch(_) {}
+      }
+      function close(){
+        try {
+          modal.setAttribute('aria-hidden','true'); modal.hidden = true; unlockModalScrollIfNoOpen();
+        } catch(_) {}
+      }
+      modal.__open = open; modal.__close = close;
+      if (btnClose) btnClose.addEventListener('click', function(e){ e.preventDefault(); close(); });
+      if (btnDismiss) btnDismiss.addEventListener('click', function(e){ e.preventDefault(); close(); });
+      modal.addEventListener('click', function(e){ if (e.target === modal) close(); });
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !modal.hidden) close(); });
+      // Header Help button
+      if (helpBtn && !helpBtn.__wired) { helpBtn.__wired = true; helpBtn.addEventListener('click', function(e){ e.preventDefault(); open(); }); }
+      // Setup page help links
+      document.querySelectorAll('a.help-link').forEach(function(a){
+        if (a.__wired) return; a.__wired = true;
+        a.addEventListener('click', function(e){ e.preventDefault(); open(); });
+      });
+    } catch(_) {}
+  })();
 
   // Copy command text spans and show snackbar
   document.querySelectorAll('.cmd').forEach(function(cmd){
@@ -1620,6 +1654,13 @@
         if (tabs) tabs.style.display = '';
         if (panelAccount) panelAccount.style.display = 'none';
         if (shareBtn) shareBtn.style.display = '';
+        try {
+          var titleAvatar = document.querySelector('.title-avatar');
+          var botHandle = document.querySelector('.bot-handle');
+          if (titleAvatar) titleAvatar.style.display = '';
+          if (botHandle) botHandle.style.display = '';
+          if (helpBtn) helpBtn.style.display = '';
+        } catch(_) {}
         initInitiateBotUI();
       }
       function showAccount(){
@@ -1630,6 +1671,13 @@
         if (panelIntro) panelIntro.style.display = 'none';
         if (panelSetup) panelSetup.style.display = 'none';
         if (shareBtn) shareBtn.style.display = 'none';
+        try {
+          var titleAvatar2 = document.querySelector('.title-avatar');
+          var botHandle2 = document.querySelector('.bot-handle');
+          if (titleAvatar2) titleAvatar2.style.display = 'none';
+          if (botHandle2) botHandle2.style.display = 'none';
+          if (helpBtn) helpBtn.style.display = 'none';
+        } catch(_) {}
         // Ensure authenticator reflects current state on initial render
         syncAuthenticatorUI();
       }

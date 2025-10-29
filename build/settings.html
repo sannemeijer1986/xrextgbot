@@ -122,6 +122,10 @@
                     <img src="assets/icon_share.svg" alt="share" width="14" height="14">
                     <span>Share</span>
                 </button>
+                <button class="btn btn-secondary btn-sm" id="helpBtn">
+                    <img src="assets/icon_help.svg" alt="help" width="14" height="14">
+                    <span>Help</span>
+                </button>
             </div>
 
             <div class="status-row" id="statusRow" style="display:none;">
@@ -441,7 +445,7 @@
                                             </div>
                                             <hr class="ib-divider" />
                                             <div class="ib-links">
-                                                <a href="https://intercom.help/xrex-sg/en/" target="_blank" rel="noopener noreferrer" class="ib-link">Help</a>
+                                                <a href="#" class="ib-link help-link">Help</a>
                                             </div>
                                         </div>
                                     </div>
@@ -490,7 +494,7 @@
                                             <hr class="ib-divider" />
                                             <div class="vc-links">
                                                 <a id="vcBotLink" href="#" target="_blank" rel="noopener" class="ib-link">Go to bot</a>
-                                                <a href="https://intercom.help/xrex-sg/en/" target="_blank" rel="noopener noreferrer" class="ib-link">Help</a>
+                                                <a href="#" class="ib-link help-link">Help</a>
                                             </div>
                                         </div>
                                     </div>
@@ -632,6 +636,29 @@
                 <div class="modal-footer">
                     <button class="btn btn-secondary btn-md" id="unlinkCancel">Cancel</button>
                     <button class="btn btn-primary btn-md" id="unlinkConfirm">Unlink</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="modal modal-small" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+        <div class="modal-wrapper">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Help</h2>
+                    <button class="modal-close" id="helpClose" aria-label="Close modal">
+                        <img src="assets/icon_modal_close.svg" width="24" height="24" alt="close" />
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="m-step">
+                        <div class="m-step-title">Support information</div>
+                        <div class="m-desc">Content coming soon.</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary btn-sm" id="helpDismiss">Dismiss</button>
                 </div>
             </div>
         </div>
