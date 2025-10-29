@@ -240,7 +240,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .m-srow:first-child .m-rail .m-track:first-child { opacity: 0;}
   .m-srow:last-child  .m-rail .m-track:last-child  { opacity: 0;}
   .m-node-wrap { width: 46px; height: 46px; border-radius: 9999px; border: 1.5px solid #BCBDBD; display: grid; place-items: center; margin: 2px 0px; }
-  .m-node-wrap img { width: 32px; height: 32px; }
+  .m-node-wrap img { width: 26px; height: 26px; }
   .m-node { width: 28px; height: 28px; border-radius: 9999px; background: #2250F7; display: block; background-image: url('../assets/icon_timeline_active.svg'); background-size: 20px 20px; background-position: center; background-repeat: no-repeat; }
   .m-slabel { text-align: left; font-family: $font-manrope; font-weight: 800; font-size: 16px; color: #3C4248; }
   .m-sublabel { font: 400 12px $font-manrope; color: #000000; margin-top: 2px; }
