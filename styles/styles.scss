@@ -198,6 +198,12 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .modal-body { padding: 20px; }
   .modal-footer { margin-top: auto; padding: 12px 20px 20px; flex-direction: column; gap: 10px; }
   .modal-footer .btn { width: 100%; max-width: none; min-width: 0; }
+  // Override for Require 2FA modal: side-by-side large buttons on <=720px
+  #require2faModal .modal-footer { flex-direction: row; gap: 10px; }
+  #require2faModal .modal-footer .btn { width: 100%; height: 52px; font-size: 16px; border-radius: 8px; }
+  // Apply same footer behavior to Help and Go To Bot modals
+  #helpModal .modal-footer, #goToBotModal .modal-footer { flex-direction: row; gap: 10px; }
+  #helpModal .modal-footer .btn, #goToBotModal .modal-footer .btn { width: 100%; height: 52px; font-size: 16px; border-radius: 8px; }
   // 2FA modal: put Confirm above Cancel on mobile
   .modal-footer #modalConfirm { order: 0; }
   .modal-footer #modalCancel { order: 1; }
@@ -222,7 +228,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 
 // Mini timeline inside Require 2FA modal
 .modal.modal-small {
-  .m-steps-wrap { width: 100%; margin: 0px 0px 16px 0px; background: #F8F8F8; border-radius: 12px; padding: 16px 20px; max-width: 420px; }
+  .m-steps-wrap { width: 100%; margin: 0px 0px 16px 0px; background: #F8F8F8; border-radius: 12px; padding: 16px 20px; }
   .m-steps { margin: 0; }
   .m-srow { display: grid; grid-template-columns: 46px 1fr; column-gap: 12px; align-items: center; min-height: 72px; }
   .m-steps-label {  
@@ -249,12 +255,38 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .m-srow.is-active .m-node-wrap { border-color: #BCBDBD; }
 }
 
+// Require 2FA modal now uses the regular modal; reuse the mini-timeline styles scoped by id
+#require2faModal {
+  .m-steps-wrap { width: 100%; margin: 0px 0px 16px 0px; background: #F8F8F8; border-radius: 12px; padding: 16px 20px; }
+  .m-steps { margin: 0; }
+  .m-srow { display: grid; grid-template-columns: 46px 1fr; column-gap: 12px; align-items: center; min-height: 72px; }
+  .m-steps-label {  margin: 16px 0px; color: #6B7280; font: 600 14px $font-manrope; line-height: 1.5; width: 100%; }
+  .m-rail { position: relative; display: flex; width: 46px; height: 100%; align-items: center; justify-content: center; }
+  .m-track { width: 1.5px; background: #BCBDBD; flex: 1 1 auto; display: block; min-height: 12px; }
+  .m-rail { flex-direction: column; gap: 4px; }
+  .m-srow:first-child .m-rail .m-track:first-child { opacity: 0;}
+  .m-srow:last-child  .m-rail .m-track:last-child  { opacity: 0;}
+  .m-node-wrap { width: 46px; height: 46px; border-radius: 9999px; border: 1.5px solid #BCBDBD; display: grid; place-items: center; margin: 2px 0px; }
+  .m-node-wrap img { width: 28px; height: 28px; }
+  .m-node { width: 28px; height: 28px; border-radius: 9999px; background: #2250F7; display: block; background-image: url('../assets/icon_timeline_active.svg'); background-size: 20px 20px; background-position: center; background-repeat: no-repeat; }
+  .m-slabel { text-align: left; font-family: $font-manrope; font-weight: 800; font-size: 16px; color: #3C4248; }
+  .m-sublabel { font: 400 12px $font-manrope; color: #000000; margin-top: 2px; }
+  .m-srow.is-muted .m-slabel { color: #9B9C9C; font-weight: 600; }
+  .m-srow.is-muted .m-sublabel { color: #9B9C9C; font-weight: 400; }
+  .m-srow.is-active .m-node-wrap { border-color: #BCBDBD; }
+}
+
 .modal-body.m-require {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
+.modal-body.m-require.flex-start {
+  align-items: flex-start;
+}
+
 // Desktop/tablet tweaks for small modal header
 @media (min-width: 721px) {
   .modal.modal-small {

@@ -642,7 +642,7 @@
     </div>
 
     <!-- Help Modal -->
-    <div id="helpModal" class="modal modal-small" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+    <div id="helpModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" hidden>
         <div class="modal-wrapper">
             <div class="modal-content">
                 <div class="modal-header">
@@ -665,7 +665,7 @@
     </div>
 
     <!-- Go To Bot Modal -->
-    <div id="goToBotModal" class="modal modal-small" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+    <div id="goToBotModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" hidden>
         <div class="modal-wrapper">
             <div class="modal-content">
                 <div class="modal-header">
@@ -675,7 +675,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="m-title">Choose how you wish to open the XREX Pay Telegram bot</div>
+                    <div class="m-step-title">Choose how you wish to open the XREX Pay Telegram bot</div>
                     <div class="step-actions initiate-bot" id="gtbControls" role="group" aria-label="Open via">
                         <div class="ib-segment" role="tablist">
                             <button type="button" class="ib-tab" data-pane="qr" role="tab" aria-selected="false">
@@ -741,17 +741,17 @@
         </div>
 
     <!-- Small Prompt Modal: Require 2FA before accessing Setup at state 1 -->
-    <div id="require2faModal" class="modal modal-small" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+    <div id="require2faModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" hidden>
         <div class="modal-wrapper">
             <div class="modal-content">
-                <div class="modal-header require2fa-header" aria-hidden="true" hidden>
-                    <h2>Before you can start linking, you need to add an extra layer of security </h2>
+                <div class="modal-header require2fa-header">
+                    <h2>Two-factor authentication</h2>
                     <button class="modal-close" id="require2faClose" aria-label="Close modal">
                         <img src="assets/icon_modal_close.svg" width="24" height="24" alt="close" />
                     </button>
                 </div>
-                <div class="modal-body m-require">
-                    <div class="m-title">Before you can start linking, you need to add an extra layer of securitys</div>
+                <div class="modal-body m-require flex-start">
+                    <div class="m-step-title">Before you can start linking, you need to add an extra layer of security</div>
 
                     <div class="m-steps-label">Follow these steps</div>
 
@@ -779,7 +779,7 @@
                                 <span class="m-node-wrap" aria-hidden="true"><img src="assets/icon_2farequired_link.svg" width="20" height="20" alt="" /></span>
                                 <span class="m-track" aria-hidden="true"></span>
                             </div>
-                            <div class="m-slabel">Start linking<div class="m-sublabel">Navigate back to this page and press "Start linking"</div></div>
+                            <div class="m-slabel">Start linking Telegram<div class="m-sublabel">Navigate back to this page and press "Start linking"</div></div>
                         </div>
                         </div>
                     </div>

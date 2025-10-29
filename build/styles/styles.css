@@ -418,6 +418,26 @@ body.modal-locked {
     max-width: none;
     min-width: 0;
   }
+  #require2faModal .modal-footer {
+    flex-direction: row;
+    gap: 10px;
+  }
+  #require2faModal .modal-footer .btn {
+    width: 100%;
+    height: 52px;
+    font-size: 16px;
+    border-radius: 8px;
+  }
+  #helpModal .modal-footer, #goToBotModal .modal-footer {
+    flex-direction: row;
+    gap: 10px;
+  }
+  #helpModal .modal-footer .btn, #goToBotModal .modal-footer .btn {
+    width: 100%;
+    height: 52px;
+    font-size: 16px;
+    border-radius: 8px;
+  }
   .modal-footer #modalConfirm {
     order: 0;
   }
@@ -496,7 +516,6 @@ body.modal-locked {
   background: #F8F8F8;
   border-radius: 12px;
   padding: 16px 20px;
-  max-width: 420px;
 }
 .modal.modal-small .m-steps {
   margin: 0;
@@ -591,11 +610,112 @@ body.modal-locked {
   border-color: #BCBDBD;
 }
 
+#require2faModal .m-steps-wrap {
+  width: 100%;
+  margin: 0px 0px 16px 0px;
+  background: #F8F8F8;
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+#require2faModal .m-steps {
+  margin: 0;
+}
+#require2faModal .m-srow {
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  column-gap: 12px;
+  align-items: center;
+  min-height: 72px;
+}
+#require2faModal .m-steps-label {
+  margin: 16px 0px;
+  color: #6B7280;
+  font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  width: 100%;
+}
+#require2faModal .m-rail {
+  position: relative;
+  display: flex;
+  width: 46px;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+#require2faModal .m-track {
+  width: 1.5px;
+  background: #BCBDBD;
+  flex: 1 1 auto;
+  display: block;
+  min-height: 12px;
+}
+#require2faModal .m-rail {
+  flex-direction: column;
+  gap: 4px;
+}
+#require2faModal .m-srow:first-child .m-rail .m-track:first-child {
+  opacity: 0;
+}
+#require2faModal .m-srow:last-child .m-rail .m-track:last-child {
+  opacity: 0;
+}
+#require2faModal .m-node-wrap {
+  width: 46px;
+  height: 46px;
+  border-radius: 9999px;
+  border: 1.5px solid #BCBDBD;
+  display: grid;
+  place-items: center;
+  margin: 2px 0px;
+}
+#require2faModal .m-node-wrap img {
+  width: 28px;
+  height: 28px;
+}
+#require2faModal .m-node {
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  background: #2250F7;
+  display: block;
+  background-image: url("../assets/icon_timeline_active.svg");
+  background-size: 20px 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+#require2faModal .m-slabel {
+  text-align: left;
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  color: #3C4248;
+}
+#require2faModal .m-sublabel {
+  font: 400 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #000000;
+  margin-top: 2px;
+}
+#require2faModal .m-srow.is-muted .m-slabel {
+  color: #9B9C9C;
+  font-weight: 600;
+}
+#require2faModal .m-srow.is-muted .m-sublabel {
+  color: #9B9C9C;
+  font-weight: 400;
+}
+#require2faModal .m-srow.is-active .m-node-wrap {
+  border-color: #BCBDBD;
+}
+
 .modal-body.m-require {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.modal-body.m-require.flex-start {
+  align-items: flex-start;
 }
 
 @media (min-width: 721px) {
