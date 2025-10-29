@@ -1622,7 +1622,7 @@
         return;
       }
       // Otherwise: show Start linking only on the Introduction tab
-      btn.textContent = 'Start linking';
+      btn.textContent = 'Link now';
       btn.onclick = null;
       var isIntroActive = tabIntro && tabIntro.classList.contains('active');
       var hidden = !isIntroActive;
@@ -1637,7 +1637,7 @@
     try {
       var p = getProgress();
       var s = (p.state|0);
-      var label = (s === 6) ? 'Go to bot' : 'Start linking';
+      var label = (s === 6) ? 'Go to bot' : 'Link now';
       document.querySelectorAll('.js-start-link').forEach(function(btn){
         try { if (btn) btn.textContent = label; } catch(_) {}
       });
