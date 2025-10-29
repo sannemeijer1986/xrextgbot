@@ -184,7 +184,7 @@
   grid-template-columns: 1fr 32px;
   align-items: center;
   gap: 8px;
-  border: 1px solid #eaeaea;
+  border: 1px solid #eeeeee;
   border-radius: 10px;
   padding: 10px 12px;
 }
@@ -259,7 +259,7 @@
 .m-divider {
   border: none;
   height: 1px;
-  background: #eaeaea;
+  background: #eeeeee;
   margin: 32px 0;
 }
 
@@ -307,7 +307,7 @@
   height: 140px;
   display: grid;
   place-items: center;
-  border: 1px solid #eaeaea;
+  border: 1px solid #eeeeee;
   border-radius: 9999px;
   background: #fff;
   position: relative;
@@ -788,7 +788,7 @@ body.modal-locked {
   background: #fff;
   padding: 4px;
   border-radius: 999px;
-  border: 1px solid #eaeaea;
+  border: 1px solid #eeeeee;
   margin: 4px 0 10px 0;
   width: fit-content;
   align-self: flex-start;
@@ -857,7 +857,7 @@ body.modal-locked {
   place-items: center;
   background: #fff;
   border-radius: 8px;
-  border: 1px solid #eaeaea;
+  border: 1px solid #eeeeee;
 }
 .modal .initiate-bot .ib-qr svg {
   width: 96px;
@@ -1005,7 +1005,7 @@ body.modal-locked {
   top: 0;
   z-index: 10;
   background: #fafafa;
-  border-bottom: 1px solid #eaeaea;
+  border-bottom: 1px solid #eeeeee;
   height: 64px;
   display: flex;
   align-items: center;
@@ -1185,7 +1185,7 @@ body.modal-locked {
     right: 20px;
     bottom: 0;
     height: 1px;
-    background: #eaeaea;
+    background: #eeeeee;
   }
   body.state-menu .sidebar .menu-item:last-child::after {
     display: none;
@@ -1802,7 +1802,7 @@ body.modal-locked {
 .content .tabs {
   display: flex;
   gap: 4px;
-  border-bottom: 1px solid #eaeaea;
+  border-bottom: 1px solid #eeeeee;
 }
 .content .tabs .tab {
   appearance: none;
@@ -1858,7 +1858,7 @@ body.modal-locked {
 }
 .content .feature-wrapper {
   background: #fff;
-  border: 1px solid #eaeaea;
+  border: 1px solid #eeeeee;
   border-radius: 12px;
   padding: 16px;
 }
@@ -1870,10 +1870,8 @@ body.modal-locked {
 .content #panel-intro.feature-wrapper {
   padding: 0;
   overflow: hidden;
-  border: 0px solid;
 }
 .content #panel-setup.feature-wrapper {
-  border: 0px solid;
   padding: 8px;
 }
 @media (min-width: 1280px) {
@@ -1992,7 +1990,7 @@ body.modal-locked {
   .content .intro-slider .swiper-pagination-bullet {
     width: 6px;
     height: 6px;
-    background: #eaeaea;
+    background: #eeeeee;
     opacity: 1;
     margin: 0 3px !important;
   }
@@ -2163,7 +2161,7 @@ body.modal-locked {
 }
 .content .intro-content .intro-divider {
   height: 1px;
-  background: #eaeaea;
+  background: #eeeeee;
   margin: 24px 0 40px 0;
 }
 .content .intro-content .intro-cta {
@@ -2458,7 +2456,7 @@ body.modal-locked {
   background: #fff;
   padding: 4px;
   border-radius: 999px;
-  border: 1px solid #eaeaea;
+  border: 1px solid #eeeeee;
   margin: 4px 0 10px 0;
   width: fit-content;
   align-self: flex-start;
@@ -2551,7 +2549,7 @@ body.modal-locked {
   place-items: center;
   background: #fff;
   border-radius: 8px;
-  border: 1px solid #eaeaea;
+  border: 1px solid #eeeeee;
 }
 .content .initiate-bot .ib-qr svg {
   width: 96px;
@@ -2637,7 +2635,7 @@ body.modal-locked {
 .content .initiate-bot .ib-divider {
   border: none;
   height: 1px;
-  background: #eaeaea;
+  background: #eeeeee;
   margin: 28px 0 4px 0;
 }
 .content .initiate-bot .ib-links {
@@ -2706,14 +2704,14 @@ body.modal-locked {
 .content .verify-code .ib-divider {
   border: none;
   height: 1px;
-  background: #eaeaea;
+  background: #eeeeee;
   margin: 28px 0 4px 0;
 }
 .content .verify-code .vc-input-group {
   display: flex;
   align-items: center;
   background: #fff;
-  border: 1px solid #eaeaea;
+  border: 1px solid #eeeeee;
   border-radius: 9999px;
   padding: 6px 6px 6px 16px;
   gap: 8px;
@@ -2798,7 +2796,7 @@ body.modal-locked {
 }
 .content .feature-card {
   background: #ffffff;
-  border: 1px solid #eaeaea;
+  border: 1px solid #eeeeee;
   border-radius: 12px;
   padding: 16px;
   color: #2d2f2f;
@@ -2895,7 +2893,7 @@ body.modal-locked {
   display: flex;
   align-items: center;
   gap: 12px;
-  border: 1px solid #eaeaea;
+  border: 1px solid #eeeeee;
   border-radius: 12px;
   padding: 16px;
   background: #fff;
@@ -3001,7 +2999,7 @@ body.modal-locked {
   display: flex;
   align-items: center;
   gap: 12px;
-  border: 1px solid #eaeaea;
+  border: 1px solid #eeeeee;
   border-radius: 12px;
   padding: 14px 16px;
   background: #fff;
@@ -3042,7 +3040,7 @@ body.modal-locked {
 }
 .account-panel .divider {
   height: 1px;
-  background: #eaeaea;
+  background: #eeeeee;
   margin: 24px 0;
 }
 .account-panel .logout-row {

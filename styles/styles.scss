@@ -8,7 +8,7 @@
 // Design tokens
 $color-bg: #fafafa;
 $color-text-primary: #2d2f2f;
-$color-border: #eaeaea;
+$color-border: #eeeeee;
 $color-text-secondary: #797a7b;
 $color-text-placeholder: #BCBDBD;
 $color-link: #2563eb;
@@ -1104,12 +1104,11 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   #panel-intro.feature-wrapper {
     padding: 0; // flush to the card edges per request
     overflow: hidden; // keep peeking slides clipped to rounded corners
-    border: 0px solid;
+    // border: 0px solid;
   }
 
   #panel-setup.feature-wrapper {
-    border: 0px solid;
-
+    // border: 0px solid;
     padding: 8px;
 
     @media (min-width: $bp-md) { // reuse existing mobile hiding behavior for assets title via selector below
