@@ -1109,7 +1109,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       margin: 0;
     }
     .intro-slide-img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; display: block; }
-    .swiper-pagination { margin-top: 8px; position: static; }
+    .swiper-pagination { margin-top: 8px; position: static; display: none; }
     .swiper-button-prev,
     .swiper-button-next { color: #1f2937; }
 
@@ -1164,7 +1164,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       color: $color-text-primary;
     }
     .intro-title-part1 {
-      margin: 8px 0 16px 0;
+      margin: 16px 0 16px 0;
       font-weight: 700;
       font-size: 24px;
       font-family: $font-sora;
@@ -1172,43 +1172,51 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       @media (min-width: $bp-md) { font-size: 28px; margin: 16px 0 16px 0; }
     }
     .intro-title-part2 {
-      margin: 0 0 40px 0;
+      margin: 0 0 20px 0;
       font-weight: 600;
       font-family: $font-manrope;
       font-size: 18px;
       line-height: 1.4;
-      @media (min-width: $bp-md) { font-size: 22px; }
+      @media (min-width: $bp-md) { font-size: 22px; margin: 0 0 24px 0; }
     }
     // Info banner when state is 1
     .intro-info-banner {
-      display: grid;
-      grid-template-columns: 16px 1fr;
-      grid-auto-rows: auto;
-      align-items: start;
-      column-gap: 10px;
-      row-gap: 2px;
-      background:  rgba(77, 136, 255, 0.15);
+      display: block;
+      background: rgba(77, 136, 255, 0.15);
       border-radius: 8px;
-      padding: 8px 8px 8px 8px;
+      padding: 8px; // mobile default
       color: #4D88FF;
-      margin: 4px 0 24px 0;
-      &[hidden] { display: none; }
-      .iib-left { display: contents; }
-      .iib-left img { grid-column: 1; align-self: center; width: 24px; height: 24px; }
-      .iib-text { grid-column: 2; color: #4D88FF; font-size: 14px; line-height: 20px; margin-top: 2px; }
-      .iib-link { grid-column: 2; color: #2250F7; font: 700 14px $font-manrope; text-decoration: none; }
+      margin: 4px 0 32px 0;
+      .iib-left { display: flex; flex-direction: column; gap: 4px; }
+      .iib-title-line { display: inline-flex; align-items: center; gap: 8px; }
+      .iib-icon, .iib-icon img { width: 14px; height: 14px; display: inline-block; }
+      .iib-title { color: #4D88FF; font: 600 14px $font-manrope; }
+      .iib-desc { color: #4D88FF; font: 400 14px $font-manrope; line-height: 20px; }
+      .iib-req { display: block; margin-top: 10px; color: inherit; }
+      .iib-link { color: inherit; font-weight: 700; text-decoration: none; }
       .iib-link:hover { text-decoration: none; }
-      // Desktop: use a simple row layout so text and link hug naturally
+      // tablet breakpoint
+      @media (min-width: $bp-sm) and (max-width: ($bp-md - 1)) {
+        margin: 4px 0 36px 0;
+        padding: 12px;
+        .iib-icon, .iib-icon img { width: 16px; height: 16px; }
+      }
+      // desktop breakpoint
       @media (min-width: $bp-md) {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        .iib-left { display: contents; }
-        .iib-text { margin-right: 4px; }
-        .iib-link { margin-left: 0; }
+        padding: 16px 20px;
+        margin: 4px 0 40px 0;
+        .iib-icon, .iib-icon img { width: 18px; height: 18px; }
+        .iib-title { font: 600 16px $font-manrope; }
+        .iib-desc { font: 400 14px $font-manrope; padding-left: 28px; padding-right: 0px; margin-top: 4px; }
+        .iib-req { margin-top: 12px; }
       }
     }
-    .intro-section { margin-top: 20px; }
+    .intro-section { margin-top: 20px; 
+    @media (min-width: $bp-md) {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    }
     .intro-item { 
       padding: 8px 0; 
       display: grid; 
@@ -1248,13 +1256,17 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     }
     .intro-divider { height: 1px; background: $color-border; margin: 24px 0 40px 0; }
     .intro-cta {
+      padding-left: 0px !important;
       .intro-cta-buttons { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
     }
     .intro-footnote {
-      color: $color-text-placeholder;
+      color: #797A7B;
       font: 300 12px $font-manrope;
       margin-top: 32px;
     }
+
+    .intro-footnote-link { color: $color-link; font-weight: 600; cursor: pointer; text-decoration: none;}
+
     .cmd { color: $color-link; font-weight: 400; cursor: pointer; }
 
     @media (min-width: $bp-md) {

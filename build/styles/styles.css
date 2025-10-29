@@ -1800,6 +1800,7 @@ body.modal-locked {
 .content .intro-slider .swiper-pagination {
   margin-top: 8px;
   position: static;
+  display: none;
 }
 .content .intro-slider .swiper-button-prev,
 .content .intro-slider .swiper-button-next {
@@ -1883,7 +1884,7 @@ body.modal-locked {
   color: #2d2f2f;
 }
 .content .intro-content .intro-title-part1 {
-  margin: 8px 0 16px 0;
+  margin: 16px 0 16px 0;
   font-weight: 700;
   font-size: 24px;
   font-family: "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -1896,7 +1897,7 @@ body.modal-locked {
   }
 }
 .content .intro-content .intro-title-part2 {
-  margin: 0 0 40px 0;
+  margin: 0 0 20px 0;
   font-weight: 600;
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 18px;
@@ -1905,67 +1906,94 @@ body.modal-locked {
 @media (min-width: 1280px) {
   .content .intro-content .intro-title-part2 {
     font-size: 22px;
+    margin: 0 0 24px 0;
   }
 }
 .content .intro-content .intro-info-banner {
-  display: grid;
-  grid-template-columns: 16px 1fr;
-  grid-auto-rows: auto;
-  align-items: start;
-  column-gap: 10px;
-  row-gap: 2px;
+  display: block;
   background: rgba(77, 136, 255, 0.15);
   border-radius: 8px;
-  padding: 8px 8px 8px 8px;
+  padding: 8px;
   color: #4D88FF;
-  margin: 4px 0 24px 0;
-}
-.content .intro-content .intro-info-banner[hidden] {
-  display: none;
+  margin: 4px 0 32px 0;
 }
 .content .intro-content .intro-info-banner .iib-left {
-  display: contents;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
-.content .intro-content .intro-info-banner .iib-left img {
-  grid-column: 1;
-  align-self: center;
-  width: 24px;
-  height: 24px;
+.content .intro-content .intro-info-banner .iib-title-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
-.content .intro-content .intro-info-banner .iib-text {
-  grid-column: 2;
+.content .intro-content .intro-info-banner .iib-icon, .content .intro-content .intro-info-banner .iib-icon img {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+}
+.content .intro-content .intro-info-banner .iib-title {
   color: #4D88FF;
-  font-size: 14px;
+  font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.content .intro-content .intro-info-banner .iib-desc {
+  color: #4D88FF;
+  font: 400 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   line-height: 20px;
-  margin-top: 2px;
+}
+.content .intro-content .intro-info-banner .iib-req {
+  display: block;
+  margin-top: 10px;
+  color: inherit;
 }
 .content .intro-content .intro-info-banner .iib-link {
-  grid-column: 2;
-  color: #2250F7;
-  font: 700 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: inherit;
+  font-weight: 700;
   text-decoration: none;
 }
 .content .intro-content .intro-info-banner .iib-link:hover {
   text-decoration: none;
 }
+@media (min-width: 900px) and (max-width: 1279px) {
+  .content .intro-content .intro-info-banner {
+    margin: 4px 0 36px 0;
+    padding: 12px;
+  }
+  .content .intro-content .intro-info-banner .iib-icon, .content .intro-content .intro-info-banner .iib-icon img {
+    width: 16px;
+    height: 16px;
+  }
+}
 @media (min-width: 1280px) {
   .content .intro-content .intro-info-banner {
-    display: flex;
-    align-items: center;
-    gap: 4px;
+    padding: 16px 20px;
+    margin: 4px 0 40px 0;
   }
-  .content .intro-content .intro-info-banner .iib-left {
-    display: contents;
+  .content .intro-content .intro-info-banner .iib-icon, .content .intro-content .intro-info-banner .iib-icon img {
+    width: 18px;
+    height: 18px;
   }
-  .content .intro-content .intro-info-banner .iib-text {
-    margin-right: 4px;
+  .content .intro-content .intro-info-banner .iib-title {
+    font: 600 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
-  .content .intro-content .intro-info-banner .iib-link {
-    margin-left: 0;
+  .content .intro-content .intro-info-banner .iib-desc {
+    font: 400 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding-left: 28px;
+    padding-right: 0px;
+    margin-top: 4px;
+  }
+  .content .intro-content .intro-info-banner .iib-req {
+    margin-top: 12px;
   }
 }
 .content .intro-content .intro-section {
   margin-top: 20px;
+}
+@media (min-width: 1280px) {
+  .content .intro-content .intro-section {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 .content .intro-content .intro-item {
   padding: 8px 0;
@@ -2015,6 +2043,9 @@ body.modal-locked {
   background: #eaeaea;
   margin: 24px 0 40px 0;
 }
+.content .intro-content .intro-cta {
+  padding-left: 0px !important;
+}
 .content .intro-content .intro-cta .intro-cta-buttons {
   display: flex;
   gap: 16px;
@@ -2022,9 +2053,15 @@ body.modal-locked {
   flex-wrap: wrap;
 }
 .content .intro-content .intro-footnote {
-  color: #BCBDBD;
+  color: #797A7B;
   font: 300 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   margin-top: 32px;
+}
+.content .intro-content .intro-footnote-link {
+  color: #2563eb;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
 }
 .content .intro-content .cmd {
   color: #2563eb;

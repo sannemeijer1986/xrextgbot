@@ -360,15 +360,20 @@
       applyTimelineFromProgress();
       var val = document.getElementById('adminStateValue');
       if (val) val.textContent = String(getProgress().state);
-      // Toggle Intro info banner when state is 1
+      // Intro info banner: always visible; hide 2FA requirement note only at state 2
       try {
         var banner = document.getElementById('introInfoBanner');
         var btn = document.getElementById('iibSetup2faBtn');
+        var req = document.getElementById('iibReq');
         if (banner) {
           var s = (getProgress().state|0);
-          var show = (s <= 1);
-          banner.hidden = !show;
-          banner.setAttribute('aria-hidden', show ? 'false' : 'true');
+          banner.hidden = false;
+          banner.setAttribute('aria-hidden','false');
+          if (req) {
+            // only remove requirement line in state 2 per spec
+            var hideReq = (s === 2);
+            req.style.display = hideReq ? 'none' : '';
+          }
           if (btn && !btn.__wired) { btn.__wired = true; btn.addEventListener('click', function(e){ e.preventDefault(); openRequire2faModal(); }); }
         }
       } catch(_) {}
