@@ -356,7 +356,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 
 // Reuse Initiate Bot styles inside modals for Go To Bot modal
 .modal {
-  .step-actions.initiate-bot { padding-top: 0px; }
+  .step-actions.initiate-bot { margin-top: 24px; background-color: #FCFCFC; border: 1px solid $color-border; border-radius: 12px; }
   .initiate-bot { padding: 20px; display: flex; flex-direction: column; }
   .initiate-bot .ib-group { display: none; }
   .initiate-bot .ib-segment { display: inline-flex; gap: 2px; background: #fff; padding: 4px; border-radius: 999px; border: 1px solid $color-border; margin: 4px 0 10px 0; width: fit-content; align-self: flex-start; max-width: 100%; }

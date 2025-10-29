@@ -888,7 +888,10 @@ body.modal-locked {
   }
 }
 .modal .step-actions.initiate-bot {
-  padding-top: 0px;
+  margin-top: 24px;
+  background-color: #FCFCFC;
+  border: 1px solid #eeeeee;
+  border-radius: 12px;
 }
 .modal .initiate-bot {
   padding: 20px;
