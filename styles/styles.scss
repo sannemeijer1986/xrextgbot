@@ -867,6 +867,12 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     gap: 6px;
     flex-wrap: wrap;
   }
+  // Simple status info icon (replaces tooltip button)
+  .status-info-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+  }
   // Subline (date + unlink) sits below main line on mobile, inline on desktop
   .status-subline {
     display: block;
@@ -890,7 +896,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     font-family: $font-manrope;
     font-weight: 600;
     font-size: 16px;
-    color: #73A2F5;
+    color: #BCBDBD;
     @media (min-width: $bp-md) { font-size: 22px; }
   }
 
@@ -898,10 +904,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .status-value.linked {
     color: #2F9752;
   }
-  .status-info-btn.linked {
-    color: #2F9752;
-    border-color: #2F9752;
-  }
+  
   .status-meta { 
     margin-left: 0px; color: #9CA3AF; font-weight: 300; font-size: 12px; 
     @media (min-width: $bp-md) {
@@ -923,20 +926,26 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     justify-content: center;
     width: 17px;
     height: 17px;
-    font-size: 12px;
-    font-family: $font-manrope;
-    font-weight: 600;
-    color: #73A2F5;
+    border:0px solid;
     background: transparent;
-    border: 1.5px solid #8FB8FF;
-    border-radius: 9999px;
-    margin-left: 0px;
     cursor: pointer;
+    margin-left: -2px;
+    margin-top: 1px;
+
+    img {
+      width: 17px;
+      height: 17px; 
+    }
     @media (min-width: $bp-md) {
-      width: 19px;
-      height: 19px;
-      margin-left: 1px;
       margin-top: 2px;
+      margin-left: 0px;
+      width: 21px;
+      height: 21px;
+
+      img {
+        width: 21px;
+        height: 21px;
+      }
     }
   }
   .status-tooltip {
@@ -1105,7 +1114,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     .swiper-button-next { color: #1f2937; }
 
     // Tablet breakpoint: size between mobile and desktop
-    @media (min-width: $bp-sm - 160) and (max-width: ($bp-md - 1)) {
+    @media (min-width: 740px) and (max-width: ($bp-md - 1)) {
       .intro-slide-media { width: 320px; height: 284px !important; }
       .swiper-slide { width: 320px; height: auto !important; }
     }

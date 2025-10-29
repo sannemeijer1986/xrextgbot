@@ -651,6 +651,142 @@ body.modal-locked {
     width: 100%;
   }
 }
+.modal .step-actions.initiate-bot {
+  padding-top: 0px;
+}
+.modal .initiate-bot {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.modal .initiate-bot .ib-group {
+  display: none;
+}
+.modal .initiate-bot .ib-segment {
+  display: inline-flex;
+  gap: 2px;
+  background: #fff;
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid #eaeaea;
+  margin: 4px 0 10px 0;
+  width: fit-content;
+  align-self: flex-start;
+  max-width: 100%;
+}
+.modal .initiate-bot .ib-tab {
+  appearance: none;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #2B63F1;
+  font: 700 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  padding: 8px 16px 8px 12px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.modal .initiate-bot .ib-tab.is-active {
+  background: rgba(43, 99, 241, 0.08);
+  border-color: rgba(43, 99, 241, 0.22);
+}
+.modal .initiate-bot .ib-tab-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+}
+.modal .initiate-bot .ib-tab-qr {
+  background: url("../assets/icon_link_qr.svg") center/contain no-repeat;
+}
+.modal .initiate-bot .ib-tab-link {
+  background: url("../assets/icon_link_link.svg") center/contain no-repeat;
+}
+.modal .initiate-bot .ib-pane {
+  display: none;
+}
+.modal .initiate-bot .ib-pane.is-active {
+  display: block;
+}
+.modal .initiate-bot .ib-hint {
+  color: #2d2f2f;
+  font: 500 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin: 10px 0 20px 0;
+}
+.modal .initiate-bot .ib-hint-sub {
+  color: #797a7b;
+  font-size: 14px;
+  display: inline-block;
+}
+.modal .initiate-bot .ib-hint .ib-switch-to {
+  color: #797a7b;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+}
+.modal .initiate-bot .ib-hint .ib-switch-to:hover {
+  text-decoration: none;
+}
+.modal .initiate-bot .ib-qr-section {
+  margin: 16px 0 0 0;
+}
+.modal .initiate-bot .ib-qr {
+  width: 116px;
+  height: 116px;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #eaeaea;
+}
+.modal .initiate-bot .ib-qr svg {
+  width: 96px;
+  height: 96px;
+  display: block;
+}
+.modal .initiate-bot .ib-open-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 8px;
+}
+.modal .initiate-bot .ib-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #2B63F1;
+  color: #fff;
+  text-decoration: none;
+  padding: 0 12px;
+  border-radius: 999px;
+  font: 700 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  height: 32px;
+  min-width: 140px;
+  width: 100%;
+  max-width: 200px;
+}
+.modal .initiate-bot .ib-pill-text {
+  max-width: 160px;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+.modal .initiate-bot .ib-pill-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+.modal .initiate-bot .ib-copy {
+  display: inline-flex;
+  width: auto;
+  min-width: inherit;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+}
+
 @media (max-width: 720px) {
   .auth-actions-row {
     gap: 8px;
@@ -1161,6 +1297,18 @@ body.modal-locked {
   gap: 12px;
   flex-wrap: wrap;
 }
+.content .content-header h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #2D2F2F;
+  font-family: "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+@media (min-width: 1280px) {
+  .content .content-header h1 {
+    font-size: 32px;
+  }
+}
 .content .content-header .title-with-avatar {
   display: inline-flex;
   align-items: center;
@@ -1176,6 +1324,12 @@ body.modal-locked {
   border-radius: 9999px;
   object-fit: cover;
 }
+@media (min-width: 1280px) {
+  .content .content-header .title-with-avatar .title-avatar {
+    width: 64px;
+    height: 64px;
+  }
+}
 .content .content-header .bot-handle {
   color: #336AFF;
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -1186,83 +1340,11 @@ body.modal-locked {
   text-decoration: none;
   cursor: pointer;
 }
-.content .content-header h1 {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 700;
-  color: #2D2F2F;
-  font-family: "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
 @media (min-width: 1280px) {
-  .content .content-header h1 {
-    font-size: 32px;
-  }
-  .content .content-header .title-with-avatar {
-    gap: 14px;
-  }
-  .content .content-header .title-with-avatar .title-avatar {
-    width: 64px;
-    height: 64px;
-  }
   .content .content-header .bot-handle {
     font-size: 18px;
   }
 }
-
-/* Apply initiate-bot styles inside modals as well */
-.modal .step-actions.initiate-bot { padding-top: 0px; }
-.modal .initiate-bot {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-}
-.modal .initiate-bot .ib-group { display: none; }
-.modal .initiate-bot .ib-segment {
-  display: inline-flex;
-  gap: 2px;
-  background: #fff;
-  padding: 4px;
-  border-radius: 999px;
-  border: 1px solid #eaeaea;
-  margin: 4px 0 10px 0;
-  width: fit-content;
-  align-self: flex-start;
-  max-width: 100%;
-}
-.modal .initiate-bot .ib-tab {
-  appearance: none;
-  background: transparent;
-  border: 1px solid transparent;
-  color: #2B63F1;
-  font: 700 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  padding: 8px 16px 8px 12px;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-}
-.modal .initiate-bot .ib-tab.is-active {
-  background: rgba(43, 99, 241, 0.08);
-  border-color: rgba(43, 99, 241, 0.22);
-}
-.modal .initiate-bot .ib-tab-icon { width: 18px; height: 18px; display: inline-block; }
-.modal .initiate-bot .ib-tab-qr { background: url("../assets/icon_link_qr.svg") center/contain no-repeat; }
-.modal .initiate-bot .ib-tab-link { background: url("../assets/icon_link_link.svg") center/contain no-repeat; }
-.modal .initiate-bot .ib-pane { display: none; }
-.modal .initiate-bot .ib-pane.is-active { display: block; }
-.modal .initiate-bot .ib-hint { color: #2d2f2f; font: 500 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 10px 0 20px 0; }
-.modal .initiate-bot .ib-hint-sub { color: #797a7b; font-size: 14px; display: inline-block; }
-.modal .initiate-bot .ib-hint .ib-switch-to { color: #797a7b; text-decoration: none; font-weight: 700; font-size: 14px; }
-.modal .initiate-bot .ib-hint .ib-switch-to:hover { text-decoration: none; }
-.modal .initiate-bot .ib-qr-section { margin: 16px 0 0 0; }
-.modal .initiate-bot .ib-qr { width: 116px; height: 116px; display: grid; place-items: center; background: #fff; border-radius: 8px; border: 1px solid #eaeaea; }
-.modal .initiate-bot .ib-qr svg { width: 96px; height: 96px; display: block; }
-.modal .initiate-bot .ib-open-row { display: flex; gap: 12px; align-items: center; margin-top: 8px; }
-.modal .initiate-bot .ib-pill { display: inline-flex; align-items: center; gap: 10px; background: #2B63F1; color: #fff; text-decoration: none; padding: 0 12px; border-radius: 999px; font: 700 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; height: 32px; min-width: 140px; width: 100%; max-width: 200px; }
-.modal .initiate-bot .ib-pill-text { max-width: 160px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; }
-.modal .initiate-bot .ib-pill-icon { width: 16px; height: 16px; display: inline-block; }
-.modal .initiate-bot .ib-copy { display: inline-flex; width: auto; min-width: inherit; align-items: center; gap: 8px; height: 32px; }
 .content .content-header #shareBtn {
   width: 32px;
   height: 32px;
@@ -1441,6 +1523,11 @@ body.modal-locked {
   gap: 6px;
   flex-wrap: wrap;
 }
+.content .status-info-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
 .content .status-subline {
   display: block;
   width: 100%;
@@ -1469,7 +1556,7 @@ body.modal-locked {
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 600;
   font-size: 16px;
-  color: #73A2F5;
+  color: #BCBDBD;
 }
 @media (min-width: 1280px) {
   .content .status-value {
@@ -1478,10 +1565,6 @@ body.modal-locked {
 }
 .content .status-value.linked {
   color: #2F9752;
-}
-.content .status-info-btn.linked {
-  color: #2F9752;
-  border-color: #2F9752;
 }
 .content .status-meta {
   margin-left: 0px;
@@ -1515,22 +1598,26 @@ body.modal-locked {
   justify-content: center;
   width: 17px;
   height: 17px;
-  font-size: 12px;
-  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-weight: 600;
-  color: #73A2F5;
+  border: 0px solid;
   background: transparent;
-  border: 1.5px solid #8FB8FF;
-  border-radius: 9999px;
-  margin-left: 0px;
   cursor: pointer;
+  margin-left: -2px;
+  margin-top: 1px;
+}
+.content .status-info-btn img {
+  width: 17px;
+  height: 17px;
 }
 @media (min-width: 1280px) {
   .content .status-info-btn {
-    width: 19px;
-    height: 19px;
-    margin-left: 1px;
     margin-top: 2px;
+    margin-left: 0px;
+    width: 21px;
+    height: 21px;
+  }
+  .content .status-info-btn img {
+    width: 21px;
+    height: 21px;
   }
 }
 .content .status-tooltip {

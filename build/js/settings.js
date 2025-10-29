@@ -595,6 +595,7 @@
       var p = getProgress();
       var s = (p.state|0);
       var statusValue = row.querySelector('.status-value');
+      var statusIcon = row.querySelector('#statusInfoIcon');
       var infoBtn = row.querySelector('#statusInfoBtn');
       var tip = row.querySelector('#statusTip');
       // Ensure a subline wrapper exists for meta + unlink (breaks to next line on mobile)
@@ -662,6 +663,7 @@
           if (title) title.textContent = 'Linked';
           if (body) body.textContent = 'Your Telegram (ID 12***89) has been linked to XREX Pay';
         }
+        if (statusIcon) statusIcon.src = 'assets/icon_info_linked.svg';
         if (meta) {
           meta.textContent = 'Authorized on ' + formatDate(p.updatedAt);
         }
@@ -679,6 +681,7 @@
           if (title3) title3.textContent = 'Not linked';
           if (body3) body3.textContent = 'Link your Telegram to enjoy XREX features in Telegram';
         }
+        if (statusIcon) statusIcon.src = 'assets/icon_info_unlinked.svg';
         if (meta) meta.textContent = 'Unlinked on ' + formatDate(p.updatedAt);
         // no inline unlink
       } else {
@@ -694,6 +697,7 @@
           if (title2) title2.textContent = 'Not linked';
           if (body2) body2.textContent = 'Link your Telegram to enjoy XREX features in Telegram';
         }
+        if (statusIcon) statusIcon.src = 'assets/icon_info_unlinked.svg';
         if (meta) meta.textContent = '';
         // no inline unlink
       }
