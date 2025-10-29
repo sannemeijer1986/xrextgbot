@@ -70,8 +70,8 @@ $bp-md: 1280px;     // main responsive breakpoint
   .help-card .hc-icon img { width: 48px; height: 48px; }
   .help-card .hc-texts { display: flex; flex-direction: column; gap: 2px; align-items: flex-start; }
   .help-card .hc-title { font: 600 16px $font-manrope; color: $color-text-primary; }
-  .help-card .hc-desc { font: 600 12px $font-manrope; color: $color-text-secondary; }
-  .help-card .hc-sub { display: inline-flex; align-items: center; gap: 2px; font: 700 12px $font-manrope; color: #4D88FF; margin-top: 4px; }
+  .help-card .hc-desc { font: 500 12px $font-manrope; color: $color-text-secondary; }
+  .help-card .hc-sub { display: inline-flex; align-items: center; gap: 2px; font: 700 12px $font-manrope; color: #73A2F5; margin-top: 4px; }
   .help-card .hc-sub img { width: 20px; height: 20px; }
   .help-card .hc-chevron { width: 20px; height: 20px; background: url('../assets/icon_chevron_right.svg') center/20px 20px no-repeat; opacity: 0.6; }
   @media (min-width: 721px) {
@@ -85,6 +85,7 @@ $bp-md: 1280px;     // main responsive breakpoint
     .help-cards { grid-template-columns: 1fr 1fr; gap: 16px; }
     .help-card { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 20px; text-align: center; }
     .help-card .hc-icon { width: 64px; height: 64px; }
+    .help-card .hc-desc { font-size: 14px; }
     .help-card .hc-icon img { width: 64px; height: 64px; }
     .help-card .hc-chevron { display: none; }
     .help-card .hc-texts { align-items: center; }

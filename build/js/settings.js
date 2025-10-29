@@ -1541,6 +1541,14 @@
         if (a.__wired) return; a.__wired = true;
         a.addEventListener('click', function(e){ e.preventDefault(); open(); });
       });
+      // Live support card shows a snackbar in this prototype
+      try {
+        var live = document.getElementById('liveSupportCard');
+        if (live && !live.__wired) {
+          live.__wired = true;
+          live.addEventListener('click', function(e){ e.preventDefault(); try { if (typeof showSnackbar === 'function') showSnackbar('Intercom is not supported in this prototype'); } catch(_) {} });
+        }
+      } catch(_) {}
     } catch(_) {}
   })();
 
