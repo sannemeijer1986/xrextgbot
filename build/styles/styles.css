@@ -487,6 +487,24 @@ body.modal-locked {
   width: 100%;
 }
 
+.modal-wrapper--small .modal-content .modal-header {
+  display: none;
+}
+.modal-wrapper--small .modal-content .m-step-title {
+  font: 800 20px "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.modal-wrapper--small .modal-content .m-desc {
+  font: 400 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+@media (min-width: 721px) {
+  .modal-wrapper--small .modal-footer .btn {
+    height: 32px;
+    min-width: 100px;
+    font-size: 12px;
+    border-radius: 9999px;
+  }
+}
 @media (max-width: 720px) {
   .modal-wrapper {
     width: 100%;
@@ -566,11 +584,56 @@ body.modal-locked {
   #unlinkModal .modal-footer #unlinkCancel {
     order: 1;
   }
+  #abortModal .modal-footer #abortConfirm {
+    order: 0;
+  }
+  #abortModal .modal-footer #abortCancel {
+    order: 1;
+  }
   .modal-loading .modal-content {
     height: 100%;
     padding: 0;
     display: grid;
     place-items: center;
+  }
+  .modal-wrapper--small .modal-content {
+    height: 100%;
+    padding: 56px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-wrapper--small .modal-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    margin: 0;
+    border: none;
+    border-bottom: 1px solid #EEEEEE;
+  }
+  .modal-wrapper--small .modal-body {
+    padding: 0;
+    text-align: center;
+    max-width: 560px;
+  }
+  .modal-wrapper--small .modal-footer {
+    width: 100%;
+    margin-top: 16px;
+    padding: 0;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .modal-wrapper--small .modal-footer .btn {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
   }
   .modal.modal-small {
     min-width: 320px;
@@ -956,10 +1019,10 @@ body.modal-locked {
 }
 .modal .initiate-bot .ib-hint {
   color: #2d2f2f;
-  font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font: 600 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   margin: 10px 0 20px 0;
 }
-@media (min-width: 1280px) {
+@media (min-width: 721px) {
   .modal .initiate-bot .ib-hint {
     font-size: 16px;
     font-weight: 600;
@@ -1129,6 +1192,15 @@ body.modal-locked {
 .btn-secondary {
   background: #EBF2FF;
   color: #2563eb;
+}
+
+.btn-negative {
+  background: #EB5347;
+  color: #fff;
+}
+
+.btn-negative:hover {
+  background: #d94a3f;
 }
 
 .btn:disabled, .btn[disabled] {

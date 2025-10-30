@@ -226,6 +226,29 @@ html.modal-open, body.modal-open { overflow: hidden !important; }
 // Alternative lock: fixed body to prevent layout shift and keep sticky elements stable
 body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 
+.modal-wrapper--small .modal-content {
+  .modal-header {
+    display: none;
+  }
+
+  .m-step-title {
+    font: 800 20px $font-sora;
+  }
+
+  .m-desc {
+    font: 400 16px $font-manrope;
+  }
+}
+
+// Desktop/tablet: use small buttons inside small-wrapper modals
+@media (min-width: 721px) {
+  .modal-wrapper--small {
+    .modal-footer {
+      .btn { height: $btn-height; min-width: $btn-min-width; font-size: 12px; border-radius: $btn-radius; }
+    }
+  }
+}
+
 // Responsive modals: tablet and below fill viewport
 @media (max-width: 720px) {
   .modal-wrapper { width: 100%; height: 100%; max-width: none; border-radius: 0; }
@@ -250,7 +273,20 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   // Unlink modal: place primary above cancel on mobile
   #unlinkModal .modal-footer #unlinkConfirm { order: 0; }
   #unlinkModal .modal-footer #unlinkCancel { order: 1; }
+  // Abort modal: keep stacked buttons; show destructive on top
+  #abortModal .modal-footer #abortConfirm { order: 0; }
+  #abortModal .modal-footer #abortCancel { order: 1; }
+
   .modal-loading .modal-content { height: 100%; padding: 0; display: grid; place-items: center; }
+
+  // Center body + footer for small-wrapper modals on mobile/tablet
+  .modal-wrapper--small {
+    .modal-content { height: 100%; padding: 56px 20px 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .modal-header { position: absolute; top: 0; left: 0; right: 0; height: 56px; display: flex; align-items: center; justify-content: flex-start; padding: 20px; margin: 0; border: none; border-bottom: 1px solid #EEEEEE; }
+    .modal-body { padding: 0; text-align: center; max-width: 560px; }
+    .modal-footer { width: 100%; margin-top: 16px; padding: 0; flex-direction: column; gap: 10px; }
+    .modal-footer .btn { width: 100%; max-width: none; min-width: 0; }
+  }
 
   // Small prompt modal (Require 2FA) mobile layout
   .modal.modal-small {
@@ -371,8 +407,8 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .initiate-bot .ib-tab.is-active .ib-tab-icon.ib-tab-link { background-image: url('../assets/icon_switch_link_active.svg'); }
   .initiate-bot .ib-pane { display: none; }
   .initiate-bot .ib-pane.is-active { display: block; }
-  .initiate-bot .ib-hint { color: $color-text-primary; font: 600 14px $font-manrope; margin: 10px 0 20px 0; }
-  @media (min-width: 1280px) { .initiate-bot .ib-hint { font-size: 16px; font-weight: 600; } }
+  .initiate-bot .ib-hint { color: $color-text-primary; font: 600 16px $font-manrope; margin: 10px 0 20px 0; }
+  @media (min-width: 721px) { .initiate-bot .ib-hint { font-size: 16px; font-weight: 600; } }
   .initiate-bot .ib-hint-sub { color: $color-text-secondary; font-size: 14px; display: inline-block; font-weight: 400;}
   .initiate-bot .ib-hint-sub-margintop { margin-top: 8px; }
   .initiate-bot .ib-hint .ib-switch-to { color: $color-text-secondary; text-decoration: none; font-weight: 700; font-size: 14px; }
@@ -452,6 +488,9 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 }
 .btn-primary:hover { background: $color-primary-hover; }
 .btn-secondary { background: $color-secondary-bg; color: $color-secondary-text; }
+// Negative (destructive) button
+.btn-negative { background: #EB5347; color: #fff; }
+.btn-negative:hover { background: #d94a3f; }
 // Disabled state for buttons (global)
 .btn:disabled, .btn[disabled] { opacity: .5; cursor: not-allowed; pointer-events: none; }
 .btn-secondary:hover { background: #EFF5FF; }

@@ -733,6 +733,55 @@ async def poll_remote_and_sync(session_id: str = None):
                         except Exception:
                             pass
 
+                        # Abort message: if send_abort_at is present, send and clear
+                        try:
+                            send_abort_at = record.get('send_abort_at')
+                            if send_abort_at:
+                                # Determine target chat/user (reuse logic from test message)
+                                target_uid2 = None
+                                target_chat2 = None
+                                try:
+                                    if target_user_id is not None:
+                                        target_uid2 = int(target_user_id)
+                                except Exception:
+                                    target_uid2 = None
+                                try:
+                                    if target_chat_id is not None:
+                                        target_chat2 = int(target_chat_id)
+                                except Exception:
+                                    target_chat2 = None
+                                if target_uid2 is None or target_chat2 is None:
+                                    try:
+                                        for uid4, st4 in list(user_state.items()):
+                                            if st4.get('session_id') == session_id:
+                                                if target_uid2 is None:
+                                                    try: target_uid2 = int(uid4)
+                                                    except Exception: pass
+                                                if target_chat2 is None:
+                                                    try: target_chat2 = int(st4.get('chat_id')) if st4.get('chat_id') is not None else None
+                                                    except Exception: target_chat2 = None
+                                                if target_uid2 is not None and target_chat2 is not None:
+                                                    break
+                                    except Exception:
+                                        pass
+                                if bot_for_notifications and target_chat2 is not None:
+                                    try:
+                                        await bot_for_notifications.send_message(
+                                            chat_id=target_chat2,
+                                            text=("🚫 You’ve aborted the linking process.\n\n👉 If you wish to continue later, simply start the linking process again in the XREX Pay web app.\n\n🔒 Your account remains secure.")
+                                        )
+                                    except Exception:
+                                        pass
+                                # Clear the flag via API to avoid repeats
+                                try:
+                                    clear_url2 = url_latest
+                                    async with httpx.AsyncClient(timeout=10.0) as c3:
+                                        await c3.put(clear_url2, headers={"Content-Type": "application/json", "Authorization": f"Bearer {os.getenv('STATE_WRITE_TOKEN','').strip()}"}, json={"send_abort_at": None})
+                                except Exception:
+                                    pass
+                        except Exception:
+                            pass
+
                         # Detect session expiry transition (>=3 -> <=2)
                         try:
                             if prev_stage is not None and prev_stage >= 3 and stage <= 2:

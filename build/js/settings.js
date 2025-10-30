@@ -1569,6 +1569,65 @@
     } catch(_) {}
   })();
 
+  // Abort modal wiring
+  (function initAbortModal(){
+    try {
+      var modal = document.getElementById('abortModal');
+      if (!modal) return;
+      var btnClose = document.getElementById('abortClose');
+      var btnCancel = document.getElementById('abortCancel');
+      var btnConfirm = document.getElementById('abortConfirm');
+      function open(){
+        try {
+          modal.hidden = false; modal.setAttribute('aria-hidden','false');
+          var y = window.scrollY || window.pageYOffset || 0; document.body.dataset.scrollY = String(y); document.body.style.top = '-' + y + 'px'; document.body.classList.add('modal-locked');
+        } catch(_) {}
+      }
+      function close(){
+        try {
+          modal.setAttribute('aria-hidden','true'); modal.hidden = true; unlockModalScrollIfNoOpen();
+        } catch(_) {}
+      }
+      modal.__open = open; modal.__close = close;
+      if (btnClose) btnClose.addEventListener('click', function(e){ e.preventDefault(); close(); });
+      if (btnCancel) btnCancel.addEventListener('click', function(e){ e.preventDefault(); close(); });
+      if (btnConfirm) btnConfirm.addEventListener('click', function(e){
+        e.preventDefault();
+        // Dismiss modal
+        close();
+        // Brief loading indicator
+        try {
+          var lm = document.getElementById('loadingModal');
+          if (lm) { lm.hidden = false; lm.setAttribute('aria-hidden','false'); }
+          setTimeout(function(){
+            if (lm) { lm.setAttribute('aria-hidden','true'); lm.hidden = true; }
+            // Reset local progress to state 2 (returns to Step 1 visually)
+            try { setState(2); } catch(_) { }
+            try { refreshStateUI(); } catch(_) {}
+            // Notify server to reset session state so bot can send "aborted" message
+            try {
+              var sid = (function(){ try { return localStorage.getItem('xrex.session.id.v1'); } catch(_) { return null; } })();
+              var syncBase = (function(){ try { return (new URLSearchParams(window.location.search).get('sync')) || (typeof window !== 'undefined' && window.XREX_SYNC_URL) || '/api/state'; } catch(_) { return '/api/state'; } })();
+              if (sid && syncBase) {
+                var url = syncBase + (syncBase.indexOf('?') === -1 ? '?session=' + encodeURIComponent(sid) : '&session=' + encodeURIComponent(sid));
+                fetch(url, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Admin-Reset': '1', 'X-Client-Aborted': '1' }, body: JSON.stringify({ stage: 2 }) }).catch(function(){});
+              }
+            } catch(_) {}
+            // Snackbar feedback
+            try { if (typeof showSnackbar === 'function') showSnackbar('You\u2019ve aborted the linking process'); } catch(_) {}
+          }, 1000);
+        } catch(_) {
+          try { setState(2); refreshStateUI(); } catch(__) {}
+          try { if (typeof showSnackbar === 'function') showSnackbar('You\u2019ve aborted the linking process'); } catch(__) {}
+        }
+      });
+      modal.addEventListener('click', function(e){ if (e.target === modal) close(); });
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !modal.hidden) close(); });
+      // Wire any Abort links to open this modal
+      document.querySelectorAll('a.abort-link').forEach(function(a){ if (a.__wired) return; a.__wired = true; a.addEventListener('click', function(e){ e.preventDefault(); open(); }); });
+    } catch(_) {}
+  })();
+
   // Copy command text spans and show snackbar
   document.querySelectorAll('.cmd').forEach(function(cmd){
     cmd.addEventListener('click', function(){
@@ -1962,7 +2021,7 @@
           var exp = Number(pNow.expiresAtMs||0);
           if (!exp || now > exp) {
             // optional UX: show expired hint once
-            try { if (typeof showSnackbar === 'function') showSnackbar('Verification window expired. Generate a new link.'); } catch(_){ }
+            try { if (typeof showSnackbar === 'function') showSnackbar('Session expired, please generate a new link'); } catch(_){ }
             try { setState(2); refreshStateUI(); } catch(_){ }
             return;
           }
@@ -1991,7 +2050,7 @@
                       if (input) { input.value = ''; input.focus(); if (input.select) input.select(); }
                       if (btn) btn.disabled = true;
                     } catch(_){ }
-                    try { if (typeof showSnackbar === 'function') showSnackbar('2FA verified on Telegram. Enter the linking code to continue.'); } catch(_) {}
+                    try { if (typeof showSnackbar === 'function') showSnackbar('2FA verified via Telegram'); } catch(_) {}
                   }
                 } catch(_){ }
               })

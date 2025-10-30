@@ -3,7 +3,7 @@ const { createClient } = require('@supabase/supabase-js');
 function allowCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Client-Stage, X-Admin-Reset');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Client-Stage, X-Admin-Reset, X-Client-Aborted');
 }
 
 module.exports = async (req, res) => {
@@ -40,7 +40,7 @@ module.exports = async (req, res) => {
         if (tgStr) {
           const { data: latest, error: errLatest } = await supabase
             .from('xrex_session')
-            .select('session_id,current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_user_id,tg_chat_id,tg_username,tg_display_name,tg_photo_url,send_test_at')
+            .select('session_id,current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_user_id,tg_chat_id,tg_username,tg_display_name,tg_photo_url,send_test_at,send_abort_at')
             .or(`tg_user_id.eq.${tgStr},last_actor_tg_id.eq.${tgStr}`)
             .order('last_updated_at', { ascending: false })
             .limit(1)
@@ -68,7 +68,8 @@ module.exports = async (req, res) => {
             tg_username: latest.tg_username || null,
             tg_display_name: latest.tg_display_name || null,
             tg_photo_url: latest.tg_photo_url || null,
-            send_test_at: sendTestAt || null
+            send_test_at: sendTestAt || null,
+            send_abort_at: latest && latest.send_abort_at ? latest.send_abort_at : null
           }));
           return;
         }
@@ -77,7 +78,7 @@ module.exports = async (req, res) => {
       // Default: lookup by session id
       const { data, error, status } = await supabase
         .from('xrex_session')
-        .select('current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_username,tg_display_name,tg_photo_url,send_test_at')
+        .select('current_state,twofa_verified,linking_code,last_updated_at,last_actor_tg_id,last_actor_chat_id,tg_username,tg_display_name,tg_photo_url,send_test_at,send_abort_at')
         .eq('session_id', sessionId)
         .single();
       if (error && status !== 406) {
@@ -102,7 +103,8 @@ module.exports = async (req, res) => {
           tg_username: data.tg_username || null,
           tg_display_name: data.tg_display_name || null,
           tg_photo_url: data.tg_photo_url || null,
-          send_test_at: data.send_test_at || null
+          send_test_at: data.send_test_at || null,
+          send_abort_at: data.send_abort_at || null
         };
       }
       // No KV usage in reverted version
@@ -162,9 +164,11 @@ module.exports = async (req, res) => {
       }
       const nowIso = new Date().toISOString();
       let nextState = Number(payload.stage || 1);
-      // Authenticated simple field update: allow clearing or setting send_test_at without touching state
-      if (!isAdminReset && !isProfileOnly && (Object.prototype.hasOwnProperty.call(payload, 'send_test_at')) && token && token === process.env.STATE_WRITE_TOKEN && !isClientFinalize && !isClientUnlink) {
-        const row = { session_id: sessionId, send_test_at: (payload.send_test_at ?? null), last_updated_at: nowIso };
+      // Authenticated simple field update: allow clearing or setting send_test_at/send_abort_at without touching state
+      if (!isAdminReset && !isProfileOnly && (Object.prototype.hasOwnProperty.call(payload, 'send_test_at') || Object.prototype.hasOwnProperty.call(payload, 'send_abort_at')) && token && token === process.env.STATE_WRITE_TOKEN && !isClientFinalize && !isClientUnlink) {
+        const row = { session_id: sessionId, last_updated_at: nowIso };
+        if (Object.prototype.hasOwnProperty.call(payload, 'send_test_at')) row.send_test_at = (payload.send_test_at ?? null);
+        if (Object.prototype.hasOwnProperty.call(payload, 'send_abort_at')) row.send_abort_at = (payload.send_abort_at ?? null);
         const up = await supabase.from('xrex_session').upsert(row, { onConflict: 'session_id' });
         if (up.error) {
           res.status(500).json({ error: 'DB write error', detail: up.error.message });
@@ -180,6 +184,19 @@ module.exports = async (req, res) => {
           res.status(400).json({ error: 'Admin reset only allows stage <= 3' });
           return;
         }
+        // If this reset is user-initiated abort, capture chat id BEFORE clearing fields
+        const isAbortedHeader = String(req.headers['x-client-aborted'] || '').trim() === '1';
+        let abortChatId = null;
+        if (isAbortedHeader) {
+          try {
+            const r0 = await supabase
+              .from('xrex_session')
+              .select('last_actor_chat_id,tg_chat_id')
+              .eq('session_id', sessionId)
+              .single();
+            abortChatId = (r0 && r0.data && (r0.data.last_actor_chat_id || r0.data.tg_chat_id)) || null;
+          } catch(_) { abortChatId = null; }
+        }
         const row = {
           session_id: sessionId,
           current_state: nextState,
@@ -190,13 +207,27 @@ module.exports = async (req, res) => {
           tg_username: null,
           tg_display_name: null,
           tg_photo_url: null,
-          last_updated_at: nowIso
+          last_updated_at: nowIso,
+          send_abort_at: isAbortedHeader ? nowIso : null
         };
         const up1 = await supabase.from('xrex_session').upsert(row, { onConflict: 'session_id' });
         if (up1.error) {
           res.status(500).json({ error: 'DB write error', detail: up1.error.message });
           return;
         }
+        // Optional: if client marks this reset as an explicit user abort, proactively send TG message
+        try {
+          if (isAbortedHeader) {
+            const BOT_TOKEN = process.env.BOT_TOKEN || '';
+            if (abortChatId && BOT_TOKEN) {
+              const tgUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+              const text = '🚫 You\'ve aborted the linking process.\n\n👉 If you wish to continue later, simply start the linking process again in the XREX Pay web app.\n\n🔒 Your account remains secure.';
+              try {
+                await fetch(tgUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: Number(abortChatId), text }) });
+              } catch(e) { /* ignore network errors */ }
+            }
+          }
+        } catch(_) { /* ignore */ }
         res.setHeader('Content-Type', 'application/json');
         res.status(200).send(JSON.stringify({ ok: true }));
         return;
