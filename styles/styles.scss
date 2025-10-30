@@ -1722,6 +1722,19 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   
 
 
+  // Footnote text inserted between step description and action button (first setup step)
+  .timeline-steps .step .step-footnote {
+    margin-top: 16px;
+    font: 400 12px $font-manrope;
+    color: #797A7B;
+  }
+  .timeline-steps .step .step-footnote .step-footnote-link {
+    color: #2563eb;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .timeline-steps .step .step-footnote .step-footnote-link:hover { text-decoration: none; }
+
   .step-card {
     background: #F4F7FF;
     border: none;
