@@ -785,6 +785,22 @@ async def poll_remote_and_sync(session_id: str = None):
                         # Detect session expiry transition (>=3 -> <=2)
                         try:
                             if prev_stage is not None and prev_stage >= 3 and stage <= 2:
+                                # If this downgrade was triggered by an explicit abort (send_abort_at set),
+                                # suppress the generic "Session expired" message to avoid double notifications.
+                                try:
+                                    aborted_flag = record.get('send_abort_at')
+                                except Exception:
+                                    aborted_flag = None
+                                if aborted_flag:
+                                    try:
+                                        if session_id:
+                                            info0 = session_subscriptions.get(session_id, {})
+                                            info0['expiry_notified'] = True
+                                            session_subscriptions[session_id] = info0
+                                    except Exception:
+                                        pass
+                                    # Skip sending the expiry message
+                                    raise Exception("skip_expiry_due_to_abort")
                                 # Target actor from session_subscriptions first
                                 notif_user_id = None
                                 notif_chat_id = None
