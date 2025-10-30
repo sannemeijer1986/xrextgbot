@@ -360,11 +360,15 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .initiate-bot { padding: 20px; display: flex; flex-direction: column; }
   .initiate-bot .ib-group { display: none; }
   .initiate-bot .ib-segment { display: inline-flex; gap: 2px; background: #fff; padding: 4px; border-radius: 999px; border: 1px solid $color-border; margin: 4px 0 10px 0; width: fit-content; align-self: flex-start; max-width: 100%; }
-  .initiate-bot .ib-tab { appearance: none; background: transparent; border: 1px solid transparent; color: #2B63F1; font: 700 14px $font-manrope; padding: 8px 16px 8px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
-  .initiate-bot .ib-tab.is-active { background: rgba(43, 99, 241, 0.08); border-color: rgba(43, 99, 241, 0.22); }
+  .initiate-bot .ib-tab { appearance: none; background: transparent; border: 1px solid transparent; color: #797A7B; font: 600 14px $font-manrope; padding: 8px 16px 8px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+  .initiate-bot .ib-tab.is-active { background: rgba(43, 99, 241, 0.08); border-color: rgba(43, 99, 241, 0.22); color: #2B63F1; }
   .initiate-bot .ib-tab-icon { width: 18px; height: 18px; display: inline-block; }
-  .initiate-bot .ib-tab-qr { background: url('../assets/icon_link_qr.svg') center/contain no-repeat; }
-  .initiate-bot .ib-tab-link { background: url('../assets/icon_link_link.svg') center/contain no-repeat; }
+  // Inactive icons by default
+  .initiate-bot .ib-tab-qr { background: url('../assets/icon_switch_qr_inactive.svg') center/contain no-repeat; }
+  .initiate-bot .ib-tab-link { background: url('../assets/icon_switch_link_inactive.svg') center/contain no-repeat; }
+  // Active state icons
+  .initiate-bot .ib-tab.is-active .ib-tab-icon.ib-tab-qr { background-image: url('../assets/icon_switch_qr_active.svg'); }
+  .initiate-bot .ib-tab.is-active .ib-tab-icon.ib-tab-link { background-image: url('../assets/icon_switch_link_active.svg'); }
   .initiate-bot .ib-pane { display: none; }
   .initiate-bot .ib-pane.is-active { display: block; }
   .initiate-bot .ib-hint { color: $color-text-primary; font: 500 16px $font-manrope; margin: 10px 0 20px 0; }
@@ -1600,11 +1604,15 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .initiate-bot { padding: 20px; display: flex; flex-direction: column; }
   .initiate-bot .ib-group { display: none; }
   .initiate-bot .ib-segment { display: inline-flex; gap: 2px; background: #fff; padding: 4px; border-radius: 999px; border: 1px solid $color-border; margin: 4px 0 10px 0; width: fit-content; align-self: flex-start; max-width: 100%; }
-  .initiate-bot .ib-tab { appearance: none; background: transparent; border: 1px solid transparent; color: #2B63F1; font: 700 14px $font-manrope; padding: 8px 16px 8px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
-  .initiate-bot .ib-tab.is-active { background: rgba(43, 99, 241, 0.08); border-color: rgba(43, 99, 241, 0.22); }
+  .initiate-bot .ib-tab { appearance: none; background: transparent; border: 1px solid transparent; color: #797A7B; font: 600 14px $font-manrope; padding: 8px 16px 8px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+  .initiate-bot .ib-tab.is-active { background: rgba(43, 99, 241, 0.08); border-color: rgba(43, 99, 241, 0.22); color: #2B63F1; }
   .initiate-bot .ib-tab-icon { width: 18px; height: 18px; display: inline-block; }
-  .initiate-bot .ib-tab-qr { background: url('../assets/icon_link_qr.svg') center/contain no-repeat; }
-  .initiate-bot .ib-tab-link { background: url('../assets/icon_link_link.svg') center/contain no-repeat; }
+  // Inactive icons by default
+  .initiate-bot .ib-tab-qr { background: url('../assets/icon_switch_qr_inactive.svg') center/contain no-repeat; }
+  .initiate-bot .ib-tab-link { background: url('../assets/icon_switch_link_inactive.svg') center/contain no-repeat; }
+  // Active state icons
+  .initiate-bot .ib-tab.is-active .ib-tab-icon.ib-tab-qr { background-image: url('../assets/icon_switch_qr_active.svg'); }
+  .initiate-bot .ib-tab.is-active .ib-tab-icon.ib-tab-link { background-image: url('../assets/icon_switch_link_active.svg'); }
   .initiate-bot .ib-pane { display: none; }
   .initiate-bot .ib-pane.is-active { display: block; }
   .initiate-bot .ib-hint { color: $color-text-primary; font: 500 16px $font-manrope; margin: 10px 0 20px 0; }
