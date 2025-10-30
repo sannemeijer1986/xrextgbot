@@ -956,13 +956,23 @@ body.modal-locked {
 }
 .modal .initiate-bot .ib-hint {
   color: #2d2f2f;
-  font: 500 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   margin: 10px 0 20px 0;
+}
+@media (min-width: 1280px) {
+  .modal .initiate-bot .ib-hint {
+    font-size: 16px;
+    font-weight: 600;
+  }
 }
 .modal .initiate-bot .ib-hint-sub {
   color: #797a7b;
   font-size: 14px;
   display: inline-block;
+  font-weight: 400;
+}
+.modal .initiate-bot .ib-hint-sub-margintop {
+  margin-top: 8px;
 }
 .modal .initiate-bot .ib-hint .ib-switch-to {
   color: #797a7b;
@@ -2507,6 +2517,9 @@ body.modal-locked {
 .content .timeline-steps .step.is-muted .label, .content .timeline-steps .step.is-muted .title {
   color: #BCBDBD;
 }
+.content .timeline-steps .step.is-muted .label {
+  font-weight: 400;
+}
 .content .timeline-steps .step.is-completed .label,
 .content .timeline-steps .step.is-completed .title {
   color: #2F9752;
@@ -2523,8 +2536,14 @@ body.modal-locked {
 }
 .content .timeline-steps .step-desc {
   margin-top: -5px;
-  font: 500 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #2d2f2f;
+}
+@media (min-width: 1280px) {
+  .content .timeline-steps .step-desc {
+    font-size: 16px;
+    font-weight: 600;
+  }
 }
 .content .timeline-steps .step.is-completed .step-actions {
   display: none;
@@ -2636,13 +2655,20 @@ body.modal-locked {
 }
 .content .initiate-bot .ib-hint {
   color: #2d2f2f;
-  font: 500 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   margin: 10px 0 20px 0;
+}
+@media (min-width: 1280px) {
+  .content .initiate-bot .ib-hint {
+    font-size: 16px;
+    font-weight: 600;
+  }
 }
 .content .initiate-bot .ib-hint-sub {
   color: #797a7b;
   font-size: 14px;
   display: inline-block;
+  font-weight: 400;
 }
 .content .initiate-bot .ib-hint-sub-margintop {
   margin-top: 8px;
@@ -2933,6 +2959,9 @@ body.modal-locked {
   margin-top: 16px;
   font: 400 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #797A7B;
+}
+.content .timeline-steps .step:not(.is-active) .step-footnote {
+  display: none;
 }
 .content .timeline-steps .step .step-footnote .step-footnote-link {
   color: #2563eb;
