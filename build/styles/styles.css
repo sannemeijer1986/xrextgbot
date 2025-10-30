@@ -2582,6 +2582,7 @@ body.modal-locked {
 }
 .content .timeline.is-compact {
   grid-template-columns: 1fr;
+  gap: 0px;
 }
 .content .timeline.is-compact .timeline-aside {
   display: none;
@@ -3031,6 +3032,11 @@ body.modal-locked {
   margin-top: 16px;
   font: 400 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #797A7B;
+}
+@media (min-width: 721px) {
+  .content .timeline-steps .step .step-footnote {
+    font: 400 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
 }
 .content .timeline-steps .step:not(.is-active) .step-footnote {
   display: none;

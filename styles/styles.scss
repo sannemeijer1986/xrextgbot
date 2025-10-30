@@ -1568,7 +1568,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   }
 
   // Compact mode: hide aside, use full width
-  .timeline.is-compact { grid-template-columns: 1fr; }
+  .timeline.is-compact { grid-template-columns: 1fr; gap: 0px; }
   .timeline.is-compact .timeline-aside { display: none; }
 
   .timeline-steps .step.is-muted .label, .timeline-steps .step.is-muted .title {
@@ -1774,6 +1774,10 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     margin-top: 16px;
     font: 400 12px $font-manrope;
     color: #797A7B;
+
+    @media (min-width: 721px) {
+      font: 400 14px $font-manrope;    
+    }
   }
   // Hide footnote when step is not active
   .timeline-steps .step:not(.is-active) .step-footnote { display: none; }
