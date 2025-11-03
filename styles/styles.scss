@@ -1741,6 +1741,9 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   // Input pill with embedded submit button
 .verify-code .vc-input-group { display: flex; align-items: center; background: #fff; border: 1px solid $color-border; border-radius: 9999px; padding: 6px 6px 6px 16px; gap: 8px; width: 520px; max-width: 100%; box-shadow: 0 1px 0 rgba(0,0,0,0.02) inset; }
 .verify-code .vc-input-group:focus-within { border-color: #336AFF; box-shadow: inset 0 0 0 .5px #336AFF; }
+// Error state for input group
+.verify-code .vc-input-group.is-error { border-color: #DD483C; box-shadow: inset 0 0 0 .5px #DD483C; }
+.verify-code .vc-input-group.is-error:focus-within { border-color: #DD483C; box-shadow: inset 0 0 0 .5px #DD483C; }
   .verify-code .vc-input { flex: 1 1 auto; min-width: 0; border: none; outline: none; background: transparent; font: 600 16px $font-manrope; color: $color-text-primary; }
   .verify-code .vc-input::placeholder { color: $color-text-placeholder; font-weight: 300; }
   .verify-code .vc-input::-webkit-input-placeholder { color: $color-text-placeholder; font-weight: 300; }

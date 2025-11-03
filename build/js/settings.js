@@ -916,6 +916,7 @@
       var input = document.getElementById('vcCodeInput');
       var submit = document.getElementById('vcSubmitBtn');
       var clearBtn = document.getElementById('vcClearBtn');
+      var group = (function(){ try { return document.querySelector('#step-verify-code .vc-input-group'); } catch(_) { return null; } })();
       var errorEl = document.getElementById('vcError');
       var botLink = document.getElementById('vcBotLink');
       if (botLink) {
@@ -932,6 +933,9 @@
             var v = (input.value||'').trim();
             submit.disabled = (v.length < 1);
             if (clearBtn) { clearBtn.classList.toggle('is-visible', v.length > 0); }
+            // Clear error styling and message when user edits
+            try { if (group) group.classList.remove('is-error'); } catch(_) {}
+            try { var err = document.getElementById('vcError'); if (err) err.hidden = true; } catch(_) {}
           } catch(_) {}
         };
         input.addEventListener('input', syncVcBtn);
@@ -957,6 +961,7 @@
             setState(5); refreshStateUI();
           } else {
             if (errorEl) errorEl.hidden = false;
+            try { if (group) group.classList.add('is-error'); } catch(_) {}
           }
         } catch(_) {}
       }
