@@ -2980,6 +2980,30 @@ body.modal-locked {
   color: #BCBDBD;
   font-weight: 300;
 }
+.content .verify-code .vc-clear {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #EBF2FF;
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.content .verify-code .vc-clear.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.content .verify-code .vc-clear img {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
 .content .verify-code .vc-submit {
   appearance: none;
   border: none;
@@ -3026,7 +3050,7 @@ body.modal-locked {
 }
 .content .verify-code .vc-links {
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 24px;
 }
 .content .timeline-steps .step .step-footnote {
   margin-top: 16px;

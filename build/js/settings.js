@@ -915,6 +915,7 @@
       if (!wrap) return;
       var input = document.getElementById('vcCodeInput');
       var submit = document.getElementById('vcSubmitBtn');
+      var clearBtn = document.getElementById('vcClearBtn');
       var errorEl = document.getElementById('vcError');
       var botLink = document.getElementById('vcBotLink');
       if (botLink) {
@@ -930,10 +931,21 @@
           try {
             var v = (input.value||'').trim();
             submit.disabled = (v.length < 1);
+            if (clearBtn) { clearBtn.classList.toggle('is-visible', v.length > 0); }
           } catch(_) {}
         };
         input.addEventListener('input', syncVcBtn);
         syncVcBtn();
+      }
+      if (clearBtn && input) {
+        clearBtn.addEventListener('click', function(e){
+          e.preventDefault();
+          try {
+            input.value = '';
+            input.focus();
+          } catch(_) {}
+          try { if (typeof Event === 'function') input.dispatchEvent(new Event('input', { bubbles: true })); } catch(_) {}
+        });
       }
 
       function handle(){
