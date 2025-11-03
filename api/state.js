@@ -186,16 +186,16 @@ module.exports = async (req, res) => {
         }
         // If this reset is user-initiated abort, capture chat id BEFORE clearing fields
         const isAbortedHeader = String(req.headers['x-client-aborted'] || '').trim() === '1';
-        let abortChatId = null;
-        if (isAbortedHeader) {
+        let targetChatIdForNotice = null;
+        {
           try {
             const r0 = await supabase
               .from('xrex_session')
               .select('last_actor_chat_id,tg_chat_id')
               .eq('session_id', sessionId)
               .single();
-            abortChatId = (r0 && r0.data && (r0.data.last_actor_chat_id || r0.data.tg_chat_id)) || null;
-          } catch(_) { abortChatId = null; }
+            targetChatIdForNotice = (r0 && r0.data && (r0.data.last_actor_chat_id || r0.data.tg_chat_id)) || null;
+          } catch(_) { targetChatIdForNotice = null; }
         }
         const row = {
           session_id: sessionId,
@@ -208,6 +208,7 @@ module.exports = async (req, res) => {
           tg_display_name: null,
           tg_photo_url: null,
           last_updated_at: nowIso,
+          send_test_at: null,
           send_abort_at: isAbortedHeader ? nowIso : null
         };
         const up1 = await supabase.from('xrex_session').upsert(row, { onConflict: 'session_id' });
@@ -215,16 +216,17 @@ module.exports = async (req, res) => {
           res.status(500).json({ error: 'DB write error', detail: up1.error.message });
           return;
         }
-        // Optional: if client marks this reset as an explicit user abort, proactively send TG message
+        // Send appropriate Telegram notice for abort vs timeout
         try {
-          if (isAbortedHeader) {
-            const BOT_TOKEN = process.env.BOT_TOKEN || '';
-            if (abortChatId && BOT_TOKEN) {
-              const tgUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-              const text = '🚫 You\'ve aborted the linking process.\n\n👉 If you wish to continue later, simply start the linking process again in the XREX Pay web app.\n\n🔒 Your account remains secure.';
-              try {
-                await fetch(tgUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: Number(abortChatId), text }) });
-              } catch(e) { /* ignore network errors */ }
+          const BOT_TOKEN = process.env.BOT_TOKEN || '';
+          if (targetChatIdForNotice && BOT_TOKEN) {
+            const tgUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            if (isAbortedHeader) {
+              const textAbort = '🚫 You\'ve aborted the linking process.\n\n👉 If you wish to continue later, simply start the linking process again in the XREX Pay web app.\n\n🔒 Your account remains secure.';
+              try { await fetch(tgUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: Number(targetChatIdForNotice), text: textAbort }) }); } catch(e) {}
+            } else if (nextState <= 2) {
+              const textExpired = '⏰ Session expired. Please reopen XREX Pay and start a new linking session from the app to continue.';
+              try { await fetch(tgUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: Number(targetChatIdForNotice), text: textExpired }) }); } catch(e) {}
             }
           }
         } catch(_) { /* ignore */ }

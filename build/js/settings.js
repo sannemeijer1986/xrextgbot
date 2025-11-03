@@ -1038,6 +1038,15 @@
                 } catch(_) { setState(3); }
                 refreshStateUI();
                 try { if (typeof showSnackbar === 'function') showSnackbar('Unique QR code and link generated successfully'); } catch(_) {}
+                // Reset server-side state for a fresh session (clear flags, actors, codes)
+                try {
+                  var sidG = (function(){ try { return localStorage.getItem('xrex.session.id.v1'); } catch(_) { return null; } })();
+                  var syncG = (function(){ try { return (new URLSearchParams(window.location.search).get('sync')) || (typeof window !== 'undefined' && window.XREX_SYNC_URL) || '/api/state'; } catch(_) { return '/api/state'; } })();
+                  if (sidG) {
+                    var urlG = syncG + (syncG.indexOf('?') === -1 ? '?session=' + encodeURIComponent(sidG) : '&session=' + encodeURIComponent(sidG));
+                    fetch(urlG, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Admin-Reset': '1' }, body: JSON.stringify({ stage: 3 }) }).catch(function(){});
+                  }
+                } catch(_) {}
               }, 1000);
             } catch(_) { setState(3); refreshStateUI(); }
             return;
@@ -1165,6 +1174,15 @@
             p.expiresAtMs = Date.now() + (5 * 60 * 1000);
             saveProgress({ state: 3, expiresAtMs: p.expiresAtMs, code: p.code || null });
           } catch(_) { setState(next); }
+          // Also reset server-side state cleanly when jumping to 3 via admin tool
+          try {
+            var sidA = (function(){ try { return localStorage.getItem('xrex.session.id.v1'); } catch(_) { return null; } })();
+            var syncA = (function(){ try { return (new URLSearchParams(window.location.search).get('sync')) || (typeof window !== 'undefined' && window.XREX_SYNC_URL) || '/api/state'; } catch(_) { return '/api/state'; } })();
+            if (sidA) {
+              var urlA = syncA + (syncA.indexOf('?') === -1 ? '?session=' + encodeURIComponent(sidA) : '&session=' + encodeURIComponent(sidA));
+              fetch(urlA, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Admin-Reset': '1' }, body: JSON.stringify({ stage: 3 }) }).catch(function(){});
+            }
+          } catch(_) {}
           update();
           return;
         }
