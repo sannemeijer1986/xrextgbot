@@ -370,8 +370,8 @@
           banner.hidden = false;
           banner.setAttribute('aria-hidden','false');
           if (req) {
-            // only remove requirement line in state 2 per spec
-            var hideReq = (s === 2);
+            // Show requirement only in state 1; hide for >=2 (including 6 and 7)
+            var hideReq = (s >= 2);
             req.style.display = hideReq ? 'none' : '';
           }
           if (btn && !btn.__wired) { btn.__wired = true; btn.addEventListener('click', function(e){ e.preventDefault(); openRequire2faModal(); }); }
