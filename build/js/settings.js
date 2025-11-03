@@ -1437,19 +1437,29 @@
       var btnConfirm = document.getElementById('unlinkConfirm');
       var input = document.getElementById('unlinkCodeInput');
       var err = document.getElementById('unlinkCodeError');
+      var clearBtn = document.getElementById('unlinkClearBtn');
       function syncConfirmState(){
         try {
           var v = (input && input.value || '').trim();
           if (btnConfirm) btnConfirm.disabled = (v.length < 1);
+          if (clearBtn) clearBtn.classList.toggle('is-visible', v.length > 0);
         } catch(_) {}
       }
       if (input) input.addEventListener('input', syncConfirmState);
+      if (clearBtn && input) {
+        clearBtn.addEventListener('click', function(e){
+          e.preventDefault();
+          try { input.value = ''; input.focus(); } catch(_) {}
+          try { if (typeof Event === 'function') input.dispatchEvent(new Event('input', { bubbles: true })); } catch(_) {}
+        });
+      }
       function open(){
         try {
           modal.hidden = false; modal.setAttribute('aria-hidden','false');
           var y = window.scrollY || window.pageYOffset || 0; document.body.dataset.scrollY = String(y); document.body.style.top = '-' + y + 'px'; document.body.classList.add('modal-locked');
           if (input) { input.value = ''; input.focus(); if (input.select) input.select(); }
           if (err) err.hidden = true;
+          if (clearBtn) clearBtn.classList.remove('is-visible');
           syncConfirmState();
         } catch(_) {}
       }

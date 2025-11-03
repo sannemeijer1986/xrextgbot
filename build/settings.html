@@ -631,8 +631,11 @@
                         <div class="m-field">
                             <div class="m-field-group">
                                 <label class="m-label" for="unlinkCodeInput">Authentication code</label>
-                                <div class="m-input-row m-input-row--plain">
+                                <div class="m-input-row">
                                     <input id="unlinkCodeInput" class="m-input" type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="Enter the authentication code" maxlength="6" />
+                                    <button id="unlinkClearBtn" class="m-clear" type="button" aria-label="Clear input">
+                                        <img src="assets/icon_close.svg" width="14" height="14" alt="" />
+                                    </button>
                                 </div>
                             </div>
                             <div id="unlinkCodeError" class="m-error" aria-live="polite" hidden>Incorrect authentication code</div>
