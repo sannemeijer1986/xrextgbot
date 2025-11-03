@@ -589,6 +589,20 @@
       } catch(_) {}
       // Update/mount countdown after status/timeline updates
       try { mountSessionCountdown(); } catch(_) {}
+
+      // When entering state 3 (Initiate Bot), reset the switch to default once per entry
+      try {
+        var sNow = (getProgress().state|0);
+        var cont = document.getElementById('step-initiate-bot');
+        if (cont) {
+          if (sNow === 3) {
+            var mark = cont.getAttribute('data-reset-for');
+            if (mark !== '3') { resetInitiateBotDefault(); cont.setAttribute('data-reset-for','3'); }
+          } else {
+            if (cont.hasAttribute('data-reset-for')) cont.removeAttribute('data-reset-for');
+          }
+        }
+      } catch(_) {}
     } catch(_) {}
   }
 
@@ -877,6 +891,20 @@
       }
       syncDefaultPane();
       window.addEventListener('resize', syncDefaultPane);
+    } catch(_) {}
+  }
+
+  // Reset Initiate Bot switch to breakpoint-specific default
+  function resetInitiateBotDefault(){
+    try {
+      var container = document.getElementById('step-initiate-bot');
+      if (!container) return;
+      var isMobile = !window.matchMedia('(min-width: 1280px)').matches;
+      var target = isMobile ? 'link' : 'qr';
+      container.querySelectorAll('.ib-tab').forEach(function(t){ var on=t.getAttribute('data-pane')===target; t.classList.toggle('is-active', on); t.setAttribute('aria-selected', String(on)); });
+      container.querySelectorAll('.ib-pane').forEach(function(p){ var on=p.classList.contains('ib-pane-'+target); p.classList.toggle('is-active', on); });
+      // Also refresh illustration for the active step
+      try { var activeStep = document.querySelector('.timeline-steps .step.is-active'); if (activeStep) updateActiveIllustrationVisibility(activeStep); } catch(_) {}
     } catch(_) {}
   }
 
