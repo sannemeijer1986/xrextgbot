@@ -1782,6 +1782,17 @@
       document.querySelectorAll('.js-start-link').forEach(function(btn){
         try { if (btn) btn.textContent = label; } catch(_) {}
       });
+      // Update the intro CTA section title based on state
+      try {
+        var titleEl = document.querySelector('.intro-section.intro-cta .intro-section-title');
+        if (titleEl) {
+          if (s === 6) {
+            titleEl.textContent = 'You\u2019re linked to the XREX Pay Telegram Bot';
+          } else {
+            titleEl.textContent = 'Ready to get started with the XREX Pay Telegram Bot?';
+          }
+        }
+      } catch(_) {}
     } catch(_) {}
   }
 
