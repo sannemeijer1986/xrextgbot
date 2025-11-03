@@ -1445,6 +1445,18 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     font: 600 16px $font-manrope;
   }
 
+// Success illustration variant: no grey background, just center image
+.aside-box--success {
+  background: transparent;
+  color: inherit;
+}
+.aside-box--success img {
+  display: block;
+  width: 260px;
+  max-width: 100%;
+  height: auto;
+}
+
   .timeline-steps {
     list-style: none;
     padding: 0; margin: 0 0 24px 0;

@@ -2461,6 +2461,16 @@ body.modal-locked {
   color: #797a7b;
   font: 600 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
+.content .aside-box--success {
+  background: transparent;
+  color: inherit;
+}
+.content .aside-box--success img {
+  display: block;
+  width: 260px;
+  max-width: 100%;
+  height: auto;
+}
 .content .timeline-steps {
   list-style: none;
   padding: 0;

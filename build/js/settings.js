@@ -680,7 +680,7 @@
           var title = tip.querySelector('.tip-title');
           var body = tip.querySelector('.tip-body');
           if (title) title.textContent = 'Linked';
-          if (body) body.textContent = 'Your Telegram (ID 12***89) has been linked to XREX Pay';
+          if (body) body.textContent = 'Your XREX Pay account is linked to your Telegram account';
         }
         if (statusIcon) statusIcon.src = 'assets/icon_info_linked.svg';
         if (meta) {
