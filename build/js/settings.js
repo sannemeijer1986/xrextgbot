@@ -2051,6 +2051,11 @@
             // optional UX: show expired hint once
             try { if (typeof showSnackbar === 'function') showSnackbar('Session expired, please generate a new link'); } catch(_){ }
             try { setState(2); refreshStateUI(); } catch(_){ }
+            // Notify server so the bot can send the expiry message
+            try {
+              var putOpts = { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Admin-Reset': '1' }, body: JSON.stringify({ stage: 2 }) };
+              fetch(SYNC_URL, putOpts).catch(function(){});
+            } catch(_) {}
             return;
           }
           // Only poll the server while in state 3 (waiting for 2FA verification)
