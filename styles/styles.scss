@@ -267,6 +267,16 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   // Apply same footer behavior to Help and Go To Bot modals
   #helpModal .modal-footer, #goToBotModal .modal-footer { flex-direction: row; gap: 10px; }
   #helpModal .modal-footer .btn, #goToBotModal .modal-footer .btn { width: 100%; height: 52px; font-size: 16px; border-radius: 8px; }
+  // Ensure primary CTA appears on the right (second in order) on mobile rows
+  #require2faModal .modal-footer #require2faCancel { order: 0; }
+  #require2faModal .modal-footer #require2faConfirm { order: 1; }
+  #modal .modal-footer #modalCancel { order: 0 !important; }
+  #modal .modal-footer #modalConfirm { order: 1 !important; }
+  #unlinkModal .modal-footer #unlinkCancel { order: 0 !important; }
+  #unlinkModal .modal-footer #unlinkConfirm { order: 1 !important; }
+  // Apply same behavior to the main 2FA modal (id="modal") and Unlink modal
+  #modal .modal-footer, #unlinkModal .modal-footer { flex-direction: row; gap: 10px; }
+  #modal .modal-footer .btn, #unlinkModal .modal-footer .btn { width: 100%; height: 52px; font-size: 16px; border-radius: 8px; }
   // 2FA modal: put Confirm above Cancel on mobile
   .modal-footer #modalConfirm { order: 0; }
   .modal-footer #modalCancel { order: 1; }

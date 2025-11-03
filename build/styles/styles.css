@@ -572,6 +572,34 @@ body.modal-locked {
     font-size: 16px;
     border-radius: 8px;
   }
+  #require2faModal .modal-footer #require2faCancel {
+    order: 0;
+  }
+  #require2faModal .modal-footer #require2faConfirm {
+    order: 1;
+  }
+  #modal .modal-footer #modalCancel {
+    order: 0 !important;
+  }
+  #modal .modal-footer #modalConfirm {
+    order: 1 !important;
+  }
+  #unlinkModal .modal-footer #unlinkCancel {
+    order: 0 !important;
+  }
+  #unlinkModal .modal-footer #unlinkConfirm {
+    order: 1 !important;
+  }
+  #modal .modal-footer, #unlinkModal .modal-footer {
+    flex-direction: row;
+    gap: 10px;
+  }
+  #modal .modal-footer .btn, #unlinkModal .modal-footer .btn {
+    width: 100%;
+    height: 52px;
+    font-size: 16px;
+    border-radius: 8px;
+  }
   .modal-footer #modalConfirm {
     order: 0;
   }
