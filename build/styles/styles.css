@@ -306,7 +306,7 @@
 }
 
 .m-input-row:focus-within {
-  border-color: #000000;
+  border-color: #336AFF;
   box-shadow: inset 0 0 0 0.5px #000000;
 }
 
@@ -2960,8 +2960,8 @@ body.modal-locked {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02) inset;
 }
 .content .verify-code .vc-input-group:focus-within {
-  border-color: #000000;
-  box-shadow: inset 0 0 0 0.5px #000000;
+  border-color: #336AFF;
+  box-shadow: inset 0 0 0 0.5px #336AFF;
 }
 .content .verify-code .vc-input {
   flex: 1 1 auto;

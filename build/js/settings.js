@@ -1166,6 +1166,8 @@
         var s = getProgress().state;
         var next = Math.max(1, s-1);
         setState(next); update();
+        // Show local snackbar when dropping an active session (>=3) to 2 or lower
+        try { if ((s|0) >= 3 && next <= 2 && typeof showSnackbar === 'function') showSnackbar('Session expired, please generate a new link'); } catch(_) {}
         // If lowering to <=3, send admin reset to server to clear verification
         try {
           var sid = (function(){ try { return localStorage.getItem('xrex.session.id.v1'); } catch(_) { return null; } })();
