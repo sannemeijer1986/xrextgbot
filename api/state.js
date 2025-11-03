@@ -269,7 +269,25 @@ module.exports = async (req, res) => {
           }
         }
       } else if (isClientTestMsg) {
-        // Stage 6 client requests a test message; set send_test_at to now
+        // Only allow test message trigger when the session is currently in stage 6
+        try {
+          const cur = await supabase
+            .from('xrex_session')
+            .select('current_state')
+            .eq('session_id', sessionId)
+            .single();
+          const currentStage = cur && cur.data ? Number(cur.data.current_state || 1) : 1;
+          if (currentStage !== 6) {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(200).send(JSON.stringify({ ok: false, reason: 'not_stage_6' }));
+            return;
+          }
+        } catch (_) {
+          res.setHeader('Content-Type', 'application/json');
+          res.status(200).send(JSON.stringify({ ok: false, reason: 'stage_check_failed' }));
+          return;
+        }
+        // Stage is 6: set send_test_at to now
         const nowIso2 = new Date().toISOString();
         row = { session_id: sessionId, send_test_at: nowIso2, last_updated_at: nowIso2 };
         // Additionally, attempt to send the test message directly via Telegram as a fallback
