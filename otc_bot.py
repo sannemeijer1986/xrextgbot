@@ -36,6 +36,12 @@ BOT_TOKEN = (os.getenv("BOT_TOKEN", "").strip() or "8052956286:AAHDCvxEzQej-xvR0
 
 user_state = {}
 
+# Safety warning shown at the top of /start responses
+SAFETY_WARNING_TEXT = (
+    "🚨 For your safety, make sure this bot’s @handle matches the one shown in the "
+    "XREX Pay web app and has the blue checkmark."
+)
+
 # Lightweight local sync state server (prototype)
 sync_state = {
     'stage': 1,                 # 1..6 matching website states
@@ -1153,10 +1159,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             ]]
             reply_markup = InlineKeyboardMarkup(keyboard)
             try:
+                body_text = (
+                    "🔍 Verified link from XREX Pay account @AG*CH detected.\n\n"
+                    "👉 Please enter your XREX Pay 2FA code below to start linking."
+                )
                 sent = await update.message.reply_text(
-                    "️🔍 Verified link from XREX Pay account \"@AG*CH\" detected.\n\n"
-                    "️👉 Please enter your XREX Pay 2FA code below to start linking.",
-                    reply_markup=reply_markup
+                    f"{SAFETY_WARNING_TEXT}\n\n{body_text}",
+                    reply_markup=reply_markup,
+                    reply_to_message_id=update.message.message_id
                 )
                 # No pinning per updated spec
                 # Store 2FA awaiting state and the pinned message id
@@ -1195,14 +1205,18 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup = InlineKeyboardMarkup(keyboard)
         
         try:
-            await update.message.reply_text(
-                f"🔐 **Verification Required**\n\n"
+            body_text = (
+                "🔐 **Verification Required**\n\n"
                 f"Hi {user_name}! You've accessed this bot via a verification link.\n\n"
                 f"**Your verification code is:** `{verification_code}`\n\n"
-                f"Please copy this code and paste it into the app that sent you here.\n\n"
-                f"Token: `{verify_token}`",
+                "Please copy this code and paste it into the app that sent you here.\n\n"
+                f"Token: `{verify_token}`"
+            )
+            await update.message.reply_text(
+                f"{SAFETY_WARNING_TEXT}\n\n{body_text}",
                 parse_mode='Markdown',
-                reply_markup=reply_markup
+                reply_markup=reply_markup,
+                reply_to_message_id=update.message.message_id
             )
             logger.info(f"Sent verification code {verification_code} to user {user_id}")
         except Exception as e:
@@ -1248,9 +1262,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ]]
         reply_markup = InlineKeyboardMarkup(keyboard)
         try:
+            body_text = (
+                "You're linked with XREX Pay: Tap the ‘How to use’ button to see how the "
+                "XREX Pay Bot simplifies payments and more."
+            )
             await update.message.reply_text(
-                "You're linked with XREX Pay: Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more.",
-                reply_markup=reply_markup
+                f"{SAFETY_WARNING_TEXT}\n\n{body_text}",
+                reply_markup=reply_markup,
+                reply_to_message_id=update.message.message_id
             )
         except Exception:
             pass
@@ -1263,9 +1282,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [[InlineKeyboardButton("↗️ Go to XREX Pay", url=xrex_link_url())]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     try:
+        body_text = (
+            "👋 Welcome to the XREX Pay Bot, you haven’t linked your XREX Pay account yet, "
+            "please visit the XREX Pay web app first."
+        )
         await update.message.reply_text(
-            "👋 Welcome to the XREX Pay Bot, you haven’t linked your XREX Pay account yet, please visit the XREX Pay Webapp first",
-            reply_markup=reply_markup
+            f"{SAFETY_WARNING_TEXT}\n\n{body_text}",
+            reply_markup=reply_markup,
+            reply_to_message_id=update.message.message_id
         )
         logger.info(f"Sent unlinked welcome message for user {user_id}")
     except Exception as e:
