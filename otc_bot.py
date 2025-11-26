@@ -1376,7 +1376,7 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if data == "how_to_use":
         await context.bot.send_message(
-            chat_id=query.message_chat_id,
+            chat_id=query.message.chat_id,
             text=(
                 "🔎 **Check Wallets**\n\n"
                 "Use /check_wallet and paste up to 10 BTC, ETH, or TRX addresses (separate with commas). We'll show:\n\n"
