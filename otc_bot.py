@@ -1364,6 +1364,20 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         return
 
+    if data == "help_center":
+        await context.bot.send_message(
+            chat_id=query.message.chat_id,
+            text="Not in prototype"
+        )
+        return
+
+    if data == "customer_support":
+        await context.bot.send_message(
+            chat_id=query.message.chat_id,
+            text="Not in prototype"
+        )
+        return
+
     if data == "more":
         await context.bot.send_message(
             chat_id=query.message.chat_id,
