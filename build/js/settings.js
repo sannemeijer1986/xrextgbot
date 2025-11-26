@@ -1495,7 +1495,7 @@
             if (lm) { lm.setAttribute('aria-hidden','true'); lm.hidden = true; }
             // After the loader hides, unlock page scroll if no other modal is open
             unlockModalScrollIfNoOpen();
-            try { if (typeof showSnackbar === 'function') showSnackbar('XREX Telegram Bot successfully unlinked from your XREX Pay account'); } catch(_) {}
+            try { if (typeof showSnackbar === 'function') showSnackbar('Telegram Bot successfully unlinked from your XREX Pay account'); } catch(_) {}
           }, 1200);
           // Remote: PUT stage=7 with X-Client-Stage header so API allows it
           var sid = (function(){ try { return localStorage.getItem('xrex.session.id.v1'); } catch(_) { return null; } })();
