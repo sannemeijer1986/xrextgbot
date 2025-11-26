@@ -1815,11 +1815,21 @@
     try {
       var params = new URLSearchParams(window.location.search);
       var page = params.get('page') || 'account';
-      // Toggle active class on sidebar items
+      // Toggle active class on sidebar items and swap active/inactive icons
       try {
         document.querySelectorAll('.menu .menu-item[data-page]').forEach(function(mi){
           var isActive = mi.getAttribute('data-page') === page;
           mi.classList.toggle('active', isActive);
+          var icon = mi.querySelector('.menu-item-icon img');
+          if (icon) {
+            var activeSrc = icon.getAttribute('data-icon-active');
+            var inactiveSrc = icon.getAttribute('data-icon-inactive') || icon.getAttribute('src');
+            if (isActive && activeSrc) {
+              icon.setAttribute('src', activeSrc);
+            } else if (inactiveSrc) {
+              icon.setAttribute('src', inactiveSrc);
+            }
+          }
         });
       } catch(_){}
       function showTelegram(){

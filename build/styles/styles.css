@@ -1609,7 +1609,7 @@ body.modal-locked {
     width: 40px;
     height: 40px;
     border-radius: 9999px;
-    background: #f3f4f6;
+    background: #EEEEEE;
     display: flex;
     align-items: center;
     justify-content: center;
