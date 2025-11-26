@@ -1413,6 +1413,10 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       text-align: left;
       font: 500 16px $font-manrope;
     }
+    .intro-subtitle .muted {
+      font-weight: 300;
+    }
+
     .intro-paragraph {
       color: $color-text-secondary;
       font: 300 14px $font-manrope;
