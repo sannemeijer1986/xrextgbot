@@ -15,21 +15,18 @@
 </head>
 
 <body>
-  <header class="site-header">
-    <div class="container header__content">
+  <header class="app-header">
+    <div class="header-inner">
       <a class="brand" href="index.html">
-        <img class="brand__img" src="assets/logo_xrexpay.svg" alt="XREX Pay">
+        <img src="assets/logo_xrexpay.svg" alt="XREX Pay">
       </a>
-      <div class="header__spacer"></div>
-      <div class="header__actions">
+      <div class="header-actions">
         <a class="circle-icon" href="https://intercom.help/xrex-sg/en/" target="_blank" rel="noopener noreferrer" title="Support">
-          <img src="assets/icon_support.svg" alt="support" width="20" height="20">
+          <img src="assets/icon_support.svg" alt="support" width="18" height="18">
         </a>
         <a class="account-chip" id="accountChipLink" href="settings.html?view=content&page=account" aria-label="Account settings">
-          <span class="chip-avatar">
-            <img src="assets/logo_agp.svg" alt="AGP">
-          </span>
-          <span class="chip-name">AGP Technology</span>
+          <div class="chip-avatar"><img src="assets/logo_agp.svg" alt="AGP"></div>
+          <div class="chip-name">AGP Technology</div>
           <img class="chevron" src="assets/icon_chevron_right.svg" alt="more" width="20" height="20">
         </a>
       </div>
@@ -214,15 +211,58 @@
   <nav class="tabbar" aria-label="Bottom">
     <div class="tabbar__inner">
       <button id="tab-home" class="tabbar__btn is-active" aria-label="Home">
-        <img class="tabbar__icon" src="assets/icon_tgbot_checkwallet.svg" alt="" width="22" height="22">
+        <img
+          class="tabbar__icon"
+          src="assets/icon_tabbar_assets_active.svg"
+          data-icon-active="assets/icon_tabbar_assets_active.svg"
+          data-icon-inactive="assets/icon_tabbar_assets_inactive.svg"
+          alt=""
+          width="22"
+          height="22">
         <span>Assets</span>
       </button>
+      <button id="tab-convert" class="tabbar__btn" aria-label="Convert">
+        <img
+          class="tabbar__icon"
+          src="assets/icon_tabbar_convert_inactive.svg"
+          data-icon-active="assets/icon_tabbar_convert_active.svg"
+          data-icon-inactive="assets/icon_tabbar_convert_inactive.svg"
+          alt=""
+          width="22"
+          height="22">
+        <span>Convert</span>
+      </button>
+      <button id="tab-otc" class="tabbar__btn" aria-label="OTC">
+        <img
+          class="tabbar__icon"
+          src="assets/icon_tabbar_otc_inactive.svg"
+          data-icon-active="assets/icon_tabbar_otc_active.svg"
+          data-icon-inactive="assets/icon_tabbar_otc_inactive.svg"
+          alt=""
+          width="22"
+          height="22">
+        <span>OTC</span>
+      </button>
       <button id="tab-transactions" class="tabbar__btn" aria-label="Transactions">
-        <img class="tabbar__icon" src="assets/icon_tgbot_notifications.svg" alt="" width="22" height="22">
+        <img
+          class="tabbar__icon"
+          src="assets/icon_tabbar_transaction_inactive.svg"
+          data-icon-active="assets/icon_tabbar_transaction_active.svg"
+          data-icon-inactive="assets/icon_tabbar_transaction_inactive.svg"
+          alt=""
+          width="22"
+          height="22">
         <span>Transactions</span>
       </button>
       <button id="tab-menu" class="tabbar__btn" aria-label="Quick menu">
-        <img class="tabbar__icon" src="assets/icon_tgbot_linkaccount.svg" alt="" width="22" height="22">
+        <img
+          class="tabbar__icon"
+          src="assets/icon_tabbar_quickmenu_inactive.svg"
+          data-icon-active="assets/icon_tabbar_quickmenu_active.svg"
+          data-icon-inactive="assets/icon_tabbar_quickmenu_inactive.svg"
+          alt=""
+          width="22"
+          height="22">
         <span>Quick</span>
       </button>
     </div>
@@ -290,7 +330,10 @@
     <section class="transactions">
       <div class="transactions__tabs" role="tablist">
         <button type="button" class="transactions__tab is-active" data-tab="deposit">Deposit</button>
-        <button type="button" class="transactions__tab" data-tab="payment">Payment</button>
+        <button type="button" class="transactions__tab" data-disabled>Withdrawal</button>
+        <button type="button" class="transactions__tab" data-tab="payment" data-disabled>Payment</button>
+        <button type="button" class="transactions__tab" data-disabled>BitCheck</button>
+        <button type="button" class="transactions__tab" data-disabled>Convert</button>
       </div>
 
       <div class="transactions__filters">
@@ -409,6 +452,8 @@
       function initHomePage() {
         var tabHome = document.getElementById('tab-home');
         var tabMenu = document.getElementById('tab-menu');
+        var tabConvert = document.getElementById('tab-convert');
+        var tabOTC = document.getElementById('tab-otc');
         var tabTrans = document.getElementById('tab-transactions');
         var homeView = document.getElementById('homeView');
         var quickView = document.getElementById('quickView');
@@ -419,10 +464,15 @@
         function setActiveTab(btn) {
           var buttons = document.querySelectorAll('.tabbar__btn');
           buttons.forEach(function (b) {
+            var icon = b.querySelector('.tabbar__icon');
+            var activeSrc = icon && icon.getAttribute('data-icon-active');
+            var inactiveSrc = icon && icon.getAttribute('data-icon-inactive');
             if (b === btn) {
               b.classList.add('is-active');
+              if (icon && activeSrc) icon.setAttribute('src', activeSrc);
             } else {
               b.classList.remove('is-active');
+              if (icon && inactiveSrc) icon.setAttribute('src', inactiveSrc);
             }
           });
         }
@@ -484,7 +534,9 @@
 
           tabs.forEach(function (btn) {
             var tabName = btn.getAttribute('data-tab');
+            var isDisabled = btn.hasAttribute('data-disabled');
             btn.addEventListener('click', function () {
+              if (isDisabled) return;
               if (tabName) activateTab(tabName);
             });
           });
@@ -526,6 +578,10 @@
         if (tabHome) tabHome.addEventListener('click', function () { showHome(); setActiveTab(tabHome); });
         if (tabMenu) tabMenu.addEventListener('click', function () { showQuick(); setActiveTab(tabMenu); });
         if (tabTrans) tabTrans.addEventListener('click', function () { showTransactions(); setActiveTab(tabTrans); });
+
+        // Convert / OTC tabs are prototype-only on this page: keep them non-interactive
+        if (tabConvert) tabConvert.addEventListener('click', function (e) { e.preventDefault(); });
+        if (tabOTC) tabOTC.addEventListener('click', function (e) { e.preventDefault(); });
 
         // Initialize icons based on default active tab
         setActiveTab(document.querySelector('.tabbar__btn.is-active') || tabHome);

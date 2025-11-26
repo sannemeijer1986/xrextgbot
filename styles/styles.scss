@@ -5,23 +5,24 @@
 .btn-secondary:hover {
   background: #f5f9ff;
 }
-// Design tokens
-$color-bg: #fafafa;
-$color-text-primary: #2d2f2f;
-$color-border: #eeeeee;
-$color-text-secondary: #797a7b;
-$color-text-placeholder: #BCBDBD;
-$color-link: #2563eb;
-$color-footer-link: #797a7b;
-$color-footer-copy: #2d2f2f;
-$color-chip-bg: #dbeafe;
+// Design tokens (aligned with temp_xrexb2b variables)
+// Base grays and primary blues follow _variables.scss in temp_xrexb2b
+$color-bg: #F8F8F8;                 // page background = $bg-page
+$color-text-primary: #0f172a;       // $text-primary (gray-900)
+$color-text-secondary: #797A7B;     // $text-secondary (gray-500)
+$color-text-placeholder: #94a3b8;   // $text-placeholder (gray-400)
+$color-border: #eeeeee;             // $border-color
+$color-link: #2563eb;               // primary-600
+$color-footer-link: #797A7B;
+$color-footer-copy: #0f172a;
+$color-chip-bg: #dbeafe;            // primary-100
 
-// Button tokens
-$color-primary: #2F5BFF;
-$color-primary-hover: #336AFF;
-$color-secondary-bg: #EBF2FF;
-$color-secondary-hover: #F5F9FF;
-$color-secondary-text: #2563eb;
+// Button tokens (primary = primary-600/700, secondary = primary-50/100)
+$color-primary: #2563eb;            // primary-600
+$color-primary-hover: #1d4ed8;      // primary-700
+$color-secondary-bg: #eff6ff;       // primary-50
+$color-secondary-hover: #dbeafe;    // primary-100
+$color-secondary-text: #2563eb;     // primary-600
 $btn-height: 32px;
 $btn-padding-x: 14px;
 $btn-radius: 9999px;
@@ -2536,7 +2537,11 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 main.page {
   flex: 1 0 auto;
   padding: 0;
-  margin-top: 64px; // header height
+  margin-top: 8px; // header height
+
+  @media (min-width: $bp-md) {
+    margin-top: 16px; // header height
+  }
 }
 
 // Layout container override for home page (do not reuse settings layout flex)
@@ -2553,6 +2558,8 @@ main.page {
     padding: 64px 40px 40px;
   }
 }
+
+//
 
 // Generic page header for home (reuses Sora styles from other pages)
 .page {
@@ -2581,6 +2588,11 @@ main.page {
       }
     }
   }
+}
+
+// Ensure home page body text uses Manrope like temp_xrexb2b
+.page--home {
+  font-family: $font-manrope;
 }
 
 // Two-column grid used on home (assets + quick actions)
@@ -2700,7 +2712,7 @@ main.page {
   width: 100%;
   max-width: 768px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   align-items: center;
 }
 
@@ -3243,13 +3255,14 @@ main.page {
     background: none;
     font-size: 14px;
     font-weight: 600;
-    color: #336AFF;
+    font-family: $font-manrope;
+    color: $color-link;
     cursor: pointer;
     text-decoration: none;
     white-space: nowrap;
 
     &--secondary {
-      color: #336AFF;
+      color: $color-link;
     }
   }
 }
