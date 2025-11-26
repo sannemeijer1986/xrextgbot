@@ -1359,10 +1359,7 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await context.bot.send_message(
             chat_id=query.message.chat_id,
             text=(
-                "2FA (Two-Factor Authentication) is a one-time code from your authenticator app "
-                "(e.g., Google Authenticator, Authy).\n\n"
-                "Open your authenticator app and enter the 6-digit code to continue.\n\n"
-                "(Not in prototype.)"
+                "Not in prototype"
             )
         )
         return
@@ -1944,15 +1941,14 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
                 # Final instruction with buttons and pin
                 keyboard = [[
-                    InlineKeyboardButton("↗️ Go to XREX Pay", url="https://xrextgbot.vercel.app/"),
-                    InlineKeyboardButton("📋 Copy code", callback_data="copy_code")
+                    InlineKeyboardButton("↗️ Go to XREX Pay", url="https://xrextgbot.vercel.app/")
                 ], [
                     InlineKeyboardButton("...  More", callback_data="more")
                 ]]
                 reply_markup = InlineKeyboardMarkup(keyboard)
                 try:
                     final_msg = await update.message.reply_text(
-                        "👉 Please go to XREX Pay, and enter this linking code there. <br>(Valid for 5 minutes)",
+                        "👉 Please return to XREX Pay and enter this code. <br>Linking code is valid for 5 minutes.",
                         parse_mode='HTML',
                         disable_web_page_preview=True,
                         reply_markup=reply_markup
@@ -1960,7 +1956,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 except Exception as send_instr_e:
                     logger.error(f"Failed to send HTML instruction, falling back: {str(send_instr_e)}")
                     final_msg = await update.message.reply_text(
-                        "👉 Please go to XREX Pay, and enter this linking code there. (Valid for 5 minutes)",
+                         "👉 Please return to XREX Pay and enter this code. <br>Linking code is valid for 5 minutes.",
                         disable_web_page_preview=True,
                         reply_markup=reply_markup
                     )
