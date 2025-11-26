@@ -42,6 +42,22 @@ SAFETY_WARNING_TEXT = (
     "XREX Pay web app."
 )
 
+
+def build_linked_keyboard():
+    """Inline keyboard for 'linked' success and post-linkage /start flows."""
+    return InlineKeyboardMarkup([
+        [
+            InlineKeyboardButton("📚 How to use", callback_data="how_to_use"),
+            InlineKeyboardButton("↗️ Help center", callback_data="help_center"),
+        ],
+        [
+            InlineKeyboardButton("↗️ Go to XREX Pay", url=xrex_link_url()),
+        ],
+        [
+            InlineKeyboardButton("🔔 Customer Support", callback_data="customer_support"),
+        ],
+    ])
+
 # Lightweight local sync state server (prototype)
 sync_state = {
     'stage': 1,                 # 1..6 matching website states
@@ -337,15 +353,11 @@ async def maybe_notify_link_success(user_id: int, chat_id: int):
                 if bot_for_notifications and await begin_stage6_notify(user_id):
                     ok = False
                     try:
-                        keyboard = [[
-                            InlineKeyboardButton("📚 How to use", callback_data="how_to_use"),
-                            InlineKeyboardButton("...  More", callback_data="more")
-                        ]]
-                        reply_markup = InlineKeyboardMarkup(keyboard)
+                        reply_markup = build_linked_keyboard()
                         await bot_for_notifications.send_message(
                             chat_id=chat_id,
-                            text=("🎉 Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
-                                 "👉 Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more."),
+                            text=("🎉️ XREX Pay Bot successfully linked to XREX Pay account @AG*CH.\n\n"
+                                 "👉 Tap the ‘How to use’ button to explore XREX Pay Bot features."),
                             reply_markup=reply_markup
                         )
                         try:
@@ -414,16 +426,12 @@ async def watch_finalize_for_user(tg_user_id: int, chat_id: int, timeout_seconds
                             if bot_for_notifications and await begin_stage6_notify(tg_user_id):
                                 ok = False
                                 try:
-                                    keyboard = [[
-                                        InlineKeyboardButton("📚 How to use", callback_data="how_to_use"),
-                                        InlineKeyboardButton("...  More", callback_data="more")
-                                    ]]
-                                    reply_markup = InlineKeyboardMarkup(keyboard)
+                                    reply_markup = build_linked_keyboard()
                                     try:
                                         await bot_for_notifications.send_message(
                                             chat_id=int(chat_id),
-                                            text=("🎉 Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
-                                                 "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more."),
+                                            text=("🎉️ XREX Pay Bot successfully linked to XREX Pay account @AG*CH.\n\n"
+                                                 "👉 Tap the ‘How to use’ button to explore XREX Pay Bot features."),
                                             reply_markup=reply_markup
                                         )
                                         try:
@@ -883,19 +891,15 @@ async def poll_remote_and_sync(session_id: str = None):
                                     # Unpin any pinned messages we created
                                     # No unpinning per updated spec
                                     # Send the final success message with buttons
-                                    keyboard = [[
-                                        InlineKeyboardButton("📚 How to use", callback_data="how_to_use"),
-                                        InlineKeyboardButton("...  More", callback_data="more")
-                                    ]]
-                                    reply_markup = InlineKeyboardMarkup(keyboard)
+                                    reply_markup = build_linked_keyboard()
                                     try:
                                         if bot_for_notifications and await begin_stage6_notify(uid):
                                             ok = False
                                             try:
                                                 await bot_for_notifications.send_message(
                                                     chat_id=chat_id,
-                                                    text=("🎉 Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
-                                                         "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more."),
+                                                    text=("🎉️ XREX Pay Bot successfully linked to XREX Pay account @AG*CH.\n\n"
+                                                         "👉 Tap the ‘How to use’ button to explore XREX Pay Bot features."),
                                                     reply_markup=reply_markup
                                                 )
                                                 try:
@@ -1263,15 +1267,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await maybe_notify_link_success(user_id=user_id, chat_id=chat_id)
         except Exception:
             pass
-        keyboard = [[
-            InlineKeyboardButton("📚 How to use", url=xrex_link_url()),
-            InlineKeyboardButton("...  More", url=xrex_link_url())
-        ]]
-        reply_markup = InlineKeyboardMarkup(keyboard)
+        reply_markup = build_linked_keyboard()
         try:
             body_text = (
-                "You're linked with XREX Pay: Tap the ‘How to use’ button to see how the "
-                "XREX Pay Bot simplifies payments and more."
+                "👋 Welcome back to XREX Pay Bot! You’re already linked to your XREX Pay account @AG*CH. "
+                "Tap ‘How to use’ to explore available features."
             )
             await update.message.reply_text(
                 body_text,
