@@ -1,6 +1,6 @@
 .btn-secondary {
   background: #EBF2FF;
-  color: #2563eb;
+  color: #3F78FF;
 }
 .btn-secondary:hover {
   background: #f5f9ff;
@@ -12,7 +12,7 @@ $color-text-primary: #0f172a;       // $text-primary (gray-900)
 $color-text-secondary: #797A7B;     // $text-secondary (gray-500)
 $color-text-placeholder: #94a3b8;   // $text-placeholder (gray-400)
 $color-border: #eeeeee;             // $border-color
-$color-link: #2563eb;               // primary-600
+$color-link: #3F78FF;               // primary-600
 $color-footer-link: #797A7B;
 $color-footer-copy: #0f172a;
 $color-chip-bg: #dbeafe;            // primary-100
@@ -20,10 +20,10 @@ $color-chip-bg: #dbeafe;            // primary-100
 // Button tokens (match temp_xrexb2b button colors more closely)
 // Primary ≈ #3F78FF, Secondary light blue ≈ #EBF2FF
 $color-primary: #3F78FF;
-$color-primary-hover: #2F5BFF;
+$color-primary-hover: #3F78FF;
 $color-secondary-bg: #EBF2FF;
 $color-secondary-hover: #dbeafe;
-$color-secondary-text: #2563eb;
+$color-secondary-text: #3F78FF;
 $btn-height: 32px;
 $btn-padding-x: 14px;
 $btn-radius: 9999px;
@@ -419,7 +419,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .initiate-bot .ib-group { display: none; }
   .initiate-bot .ib-segment { display: inline-flex; gap: 2px; background: #fff; padding: 4px; border-radius: 999px; border: 1px solid $color-border; margin: 4px 0 10px 0; width: fit-content; align-self: flex-start; max-width: 100%; }
   .initiate-bot .ib-tab { appearance: none; background: transparent; border: 1px solid transparent; color: #797A7B; font: 600 14px $font-manrope; padding: 8px 16px 8px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
-  .initiate-bot .ib-tab.is-active { background: rgba(43, 99, 241, 0.08); border-color: rgba(43, 99, 241, 0.22); color: #2B63F1; }
+  .initiate-bot .ib-tab.is-active { background: rgba(43, 99, 241, 0.08); border-color: rgba(43, 99, 241, 0.22); color: #3F78FF; }
   .initiate-bot .ib-tab-icon { width: 18px; height: 18px; display: inline-block; }
   // Inactive icons by default
   .initiate-bot .ib-tab-qr { background: url('../assets/icon_switch_qr_inactive.svg') center/contain no-repeat; }
@@ -439,7 +439,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .initiate-bot .ib-qr { width: 116px; height: 116px; display: grid; place-items: center; background: #fff; border-radius: 8px; border: 1px solid $color-border; }
   .initiate-bot .ib-qr svg { width: 96px; height: 96px; display: block; }
   .initiate-bot .ib-open-row { display: flex; gap: 12px; align-items: center; margin-top: 8px; }
-  .initiate-bot .ib-pill { display: inline-flex; align-items: center; gap: 10px; background: #2B63F1; color: #fff; text-decoration: none; padding: 0 12px; border-radius: 999px; font: 700 14px $font-manrope; height: $btn-height; min-width: 140px; width: 100%; max-width: 200px; }
+  .initiate-bot .ib-pill { display: inline-flex; align-items: center; gap: 10px; background: #3F78FF; color: #fff; text-decoration: none; padding: 0 12px; border-radius: 999px; font: 700 14px $font-manrope; height: $btn-height; min-width: 140px; width: 100%; max-width: 200px; }
   .initiate-bot .ib-pill-text { max-width: 160px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; }
   .initiate-bot .ib-pill-icon { width: 16px; height: 16px; display: inline-block; }
   .initiate-bot .ib-copy { display: inline-flex; width: auto; min-width: inherit; align-items: center; gap: 8px; height: $btn-height; }
@@ -725,7 +725,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     &:hover { background: transparent; }
 
     &.active {
-      color: #194AF9;
+      color: #336AFF;
       .menu-item-icon { background: #EBF2FF; }
     }
 
@@ -805,7 +805,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       }
 
       &.active {
-        color: #194AF9;
+        color: #336AFF;
         .menu-item-icon { background: #EBF2FF; }
       }
 
@@ -1713,7 +1713,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .initiate-bot .ib-group { display: none; }
   .initiate-bot .ib-segment { display: inline-flex; gap: 2px; background: #fff; padding: 4px; border-radius: 999px; border: 1px solid $color-border; margin: 4px 0 10px 0; width: fit-content; align-self: flex-start; max-width: 100%; }
   .initiate-bot .ib-tab { appearance: none; background: transparent; border: 1px solid transparent; color: #797A7B; font: 600 14px $font-manrope; padding: 8px 16px 8px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
-  .initiate-bot .ib-tab.is-active { background: rgba(43, 99, 241, 0.08); border-color: rgba(43, 99, 241, 0.22); color: #2B63F1; }
+  .initiate-bot .ib-tab.is-active { background: rgba(43, 99, 241, 0.08); border-color: rgba(43, 99, 241, 0.22); color: #3F78FF; }
   .initiate-bot .ib-tab-icon { width: 18px; height: 18px; display: inline-block; }
   // Inactive icons by default
   .initiate-bot .ib-tab-qr { background: url('../assets/icon_switch_qr_inactive.svg') center/contain no-repeat; }
@@ -1743,7 +1743,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     display: inline-flex; 
     align-items: center; 
     gap: 10px; 
-    background: #2B63F1; 
+    background: #3F78FF; 
     color: #fff; 
     text-decoration: none; 
     padding: 0 12px; 
@@ -1777,7 +1777,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   }
   .initiate-bot .ib-divider { border: none; height: 1px; background: $color-border; margin: 28px 0 4px 0; }
   .initiate-bot .ib-links { display: flex; gap: 24px; margin-top: 20px; }
-  .initiate-bot .ib-link { color: #2B63F1; font: 700 14px $font-manrope; text-decoration: none; }
+  .initiate-bot .ib-link { color: #336AFF; font: 700 12px $font-manrope; text-decoration: none; }
   .initiate-bot .ib-link:hover { text-decoration: none; }
 
   // Only show Initiate Bot content when that step is active
@@ -1796,7 +1796,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .verify-code .m-input-row { width: 320px; }
   .verify-code .vc-error { color: #dd483c; font: 600 14px $font-manrope; margin-top: 8px; }
   .verify-code .vc-links { display: flex; gap: 24px; margin-top: 20px; }
-  .verify-code .vc-links .ib-link { color: #2B63F1; font: 700 14px $font-manrope; text-decoration: none; }
+  .verify-code .vc-links .ib-link { color: #336AFF; font: 700 12px $font-manrope; text-decoration: none; }
   .verify-code .vc-links .ib-link:hover { text-decoration: none; }
   // Match divider spacing like step 3
   .verify-code .ib-divider { border: none; height: 1px; background: $color-border; margin: 28px 0 4px 0; }
@@ -1812,7 +1812,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .verify-code .vc-clear { appearance: none; border: none; cursor: pointer; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; background: #EBF2FF; padding: 0; opacity: 0; pointer-events: none; }
   .verify-code .vc-clear.is-visible { opacity: 1; pointer-events: auto; }
   .verify-code .vc-clear img { width: 14px; height: 14px; display: block; }
-  .verify-code .vc-submit { appearance: none; border: none; background: #2B63F1; color: #fff; font: 700 14px $font-manrope; height: 40px; padding: 0 18px; border-radius: 9999px; cursor: pointer; }
+  .verify-code .vc-submit { appearance: none; border: none; background: #3F78FF; color: #fff; font: 700 14px $font-manrope; height: 40px; padding: 0 18px; border-radius: 9999px; cursor: pointer; }
 
   // Disabled visual state for step-4 submit
   .verify-code .vc-submit:disabled,

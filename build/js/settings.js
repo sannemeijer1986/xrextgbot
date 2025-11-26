@@ -1693,11 +1693,11 @@
               }
             } catch(_) {}
             // Snackbar feedback
-            try { if (typeof showSnackbar === 'function') showSnackbar('You\u2019ve aborted the linking process'); } catch(_) {}
+            try { if (typeof showSnackbar === 'function') showSnackbar('You\u2019ve canceled the linking process'); } catch(_) {}
           }, 1000);
         } catch(_) {
           try { setState(2); refreshStateUI(); } catch(__) {}
-          try { if (typeof showSnackbar === 'function') showSnackbar('You\u2019ve aborted the linking process'); } catch(__) {}
+          try { if (typeof showSnackbar === 'function') showSnackbar('You\u2019ve canceled the linking process'); } catch(__) {}
         }
       });
       modal.addEventListener('click', function(e){ if (e.target === modal) close(); });
