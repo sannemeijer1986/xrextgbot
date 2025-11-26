@@ -1914,7 +1914,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 pinned_id = state.get('pinned_instruction_message_id')
                 # No unpinning per updated spec
 
-                await update.message.reply_text("🔐 2FA verified! \n\nGenerating linking code... ")
+                await update.message.reply_text("🔐 2FA verified! \nGenerating linking code... ")
                 await asyncio.sleep(1)
 
                 # Generate a dynamic linking code per session/user
@@ -1948,7 +1948,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 reply_markup = InlineKeyboardMarkup(keyboard)
                 try:
                     final_msg = await update.message.reply_text(
-                        "👉 Please return to XREX Pay and enter this code. <br>Linking code is valid for 5 minutes.",
+                        "👉 Please return to XREX Pay and enter this code. \nLinking code is valid for 5 minutes.",
                         parse_mode='HTML',
                         disable_web_page_preview=True,
                         reply_markup=reply_markup
@@ -1956,7 +1956,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 except Exception as send_instr_e:
                     logger.error(f"Failed to send HTML instruction, falling back: {str(send_instr_e)}")
                     final_msg = await update.message.reply_text(
-                         "👉 Please return to XREX Pay and enter this code. <br>Linking code is valid for 5 minutes.",
+                         "👉 Please return to XREX Pay and enter this code. \nLinking code is valid for 5 minutes.",
                         disable_web_page_preview=True,
                         reply_markup=reply_markup
                     )
