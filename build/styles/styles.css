@@ -1235,17 +1235,17 @@ body.modal-locked {
 }
 
 .btn-primary {
-  background: #2563eb;
+  background: #3F78FF;
   color: #fff;
   white-space: nowrap;
 }
 
 .btn-primary:hover {
-  background: #1d4ed8;
+  background: #2F5BFF;
 }
 
 .btn-secondary {
-  background: #eff6ff;
+  background: #EBF2FF;
   color: #2563eb;
 }
 
@@ -1719,7 +1719,7 @@ body.modal-locked {
   }
 }
 .content .content-header .bot-handle {
-  color: #1d4ed8;
+  color: #2F5BFF;
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 600;
   font-size: 14px;
@@ -3652,7 +3652,7 @@ body.modal-locked {
 .app-footer {
   background: #ffffff;
   border-top: none;
-  padding: 16px 16px;
+  padding: 16px 16px 72px 16px;
   height: auto;
   display: flex;
   align-items: center;
@@ -4100,7 +4100,7 @@ main.page {
 @media (min-width: 1280px) {
   .page .page__header {
     gap: 16px;
-    margin-bottom: 24px;
+    margin-bottom: 48px;
   }
 }
 .page .page__header .page__title {
@@ -4258,7 +4258,7 @@ main.page {
   cursor: pointer;
 }
 .tabbar__btn.is-active {
-  color: #2563eb;
+  color: #3F78FF;
 }
 
 .grid__col--primary {
@@ -4279,6 +4279,8 @@ main.page {
   padding: 24px;
   height: auto;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 @media (min-width: 1280px) {
   .assets.card {
@@ -4307,7 +4309,7 @@ main.page {
 .assets .assets__total-value {
   color: #0f172a;
   font-size: 26px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.01em;
 }
 @media (min-width: 1280px) {
@@ -4322,13 +4324,6 @@ main.page {
 }
 .assets .assets__ctas-top {
   display: none;
-  margin-top: 8px;
-  gap: 16px;
-}
-@media (min-width: 1280px) {
-  .assets .assets__ctas-top {
-    display: flex;
-  }
 }
 
 .assets__header {
@@ -4341,6 +4336,7 @@ main.page {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
+  margin-top: 24px;
 }
 
 .asset {
@@ -4415,6 +4411,7 @@ main.page {
 .assets__ctas {
   display: flex;
   gap: 12px;
+  margin-top: 24px;
 }
 @media (min-width: 1280px) {
   .assets__ctas {
@@ -4468,7 +4465,7 @@ main.page {
   width: 40px;
   height: 40px;
   border-radius: 999px;
-  background: rgba(43, 99, 241, 0.08);
+  background: #eff6ff;
   display: grid;
   place-items: center;
 }
@@ -4478,11 +4475,11 @@ main.page {
 }
 
 .qa__content {
-  font-weight: 600;
+  font-weight: 500;
 }
 .qa__content strong {
   display: block;
-  font-weight: 600;
+  font-weight: 500;
 }
 .qa__content small {
   display: block;
@@ -5066,6 +5063,11 @@ main.page {
   margin-top: 2px;
 }
 
+@media (min-width: 1280px) {
+  .transactions__item-meta .transactions__item-status {
+    display: none;
+  }
+}
 @media (max-width: 1279px) {
   .transactions {
     border-radius: 0;

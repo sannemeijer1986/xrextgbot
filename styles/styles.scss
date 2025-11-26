@@ -17,12 +17,13 @@ $color-footer-link: #797A7B;
 $color-footer-copy: #0f172a;
 $color-chip-bg: #dbeafe;            // primary-100
 
-// Button tokens (primary = primary-600/700, secondary = primary-50/100)
-$color-primary: #2563eb;            // primary-600
-$color-primary-hover: #1d4ed8;      // primary-700
-$color-secondary-bg: #eff6ff;       // primary-50
-$color-secondary-hover: #dbeafe;    // primary-100
-$color-secondary-text: #2563eb;     // primary-600
+// Button tokens (match temp_xrexb2b button colors more closely)
+// Primary ≈ #3F78FF, Secondary light blue ≈ #EBF2FF
+$color-primary: #3F78FF;
+$color-primary-hover: #2F5BFF;
+$color-secondary-bg: #EBF2FF;
+$color-secondary-hover: #dbeafe;
+$color-secondary-text: #2563eb;
 $btn-height: 32px;
 $btn-padding-x: 14px;
 $btn-radius: 9999px;
@@ -2189,8 +2190,8 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 .app-footer {
   background: #ffffff;
   border-top: none;
-  // mobile base
-  padding: 16px 16px;
+  // mobile base – extra bottom padding so tabbar doesn't cover footer
+  padding: 16px 16px 72px 16px;
   height: auto;
   display: flex;
   align-items: center;
@@ -2572,7 +2573,7 @@ main.page {
 
     @media (min-width: $bp-md) {
       gap: 16px;
-      margin-bottom: 24px;
+      margin-bottom: 48px; // more space between greeting and Assets on desktop
     }
 
     .page__title {
@@ -2757,6 +2758,8 @@ main.page {
     padding: 24px;
     height: auto;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 
     @media (min-width: $bp-md) {
       padding: 32px;
@@ -2788,7 +2791,7 @@ main.page {
   .assets__total-value {
     color: $color-text-primary;
     font-size: 26px;
-    font-weight: 700;
+    font-weight: 600; // slightly lighter, closer to b2b
     letter-spacing: -0.01em;
 
     @media (min-width: $bp-md) {
@@ -2803,13 +2806,7 @@ main.page {
   }
 
   .assets__ctas-top {
-    display: none;
-    margin-top: 8px;
-    gap: 16px;
-
-    @media (min-width: $bp-md) {
-      display: flex;
-    }
+    display: none; // hidden on all breakpoints for this prototype
   }
 }
 
@@ -2823,6 +2820,7 @@ main.page {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
+  margin-top: 24px; // breathing room below "Locked" line
 }
 
 .asset {
@@ -2892,6 +2890,7 @@ main.page {
 .assets__ctas {
   display: flex;
   gap: 12px;
+  margin-top: 24px; // space between asset cards and CTAs
 
   @media (min-width: $bp-md) {
     display: none;
@@ -2946,7 +2945,7 @@ main.page {
   width: 40px;
   height: 40px;
   border-radius: 999px;
-  background: rgba(43, 99, 241, 0.08);
+  background: #eff6ff; // match primary-50 from temp_xrexb2b
   display: grid;
   place-items: center;
 
@@ -2957,11 +2956,11 @@ main.page {
 }
 
 .qa__content {
-  font-weight: 600;
+  font-weight: 500; // slightly lighter than before
 
   strong {
     display: block;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   small {
@@ -3583,6 +3582,13 @@ main.page {
   font-size: 12px;
   color: $color-text-secondary;
   margin-top: 2px;
+}
+
+// On desktop, hide inline status inside meta; use the separate Status column instead
+@media (min-width: $bp-md) {
+  .transactions__item-meta .transactions__item-status {
+    display: none;
+  }
 }
 
 @media (max-width: ($bp-md - 1)) {
