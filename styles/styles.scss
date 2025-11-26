@@ -1321,6 +1321,8 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       line-height: 1.4;
       @media (min-width: $bp-md) { font-size: 22px; margin: 0 0 24px 0; }
     }
+
+
     // Info banner when state is 1
     .intro-info-banner {
       display: block;
@@ -1333,10 +1335,33 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       .iib-title-line { display: inline-flex; align-items: center; gap: 8px; }
       .iib-icon, .iib-icon img { width: 14px; height: 14px; display: inline-block; }
       .iib-title { color: #4D88FF; font: 600 14px $font-manrope; }
-      .iib-desc { color: #4D88FF; font: 400 14px $font-manrope; line-height: 20px; }
-      .iib-req { display: block; margin-top: 10px; color: inherit; }
-      .iib-link { color: inherit; font-weight: 700; text-decoration: none; }
-      .iib-link:hover { text-decoration: none; }
+      .iib-req { display: block; color: inherit; }
+      .iib-link { color: inherit; font-weight: 600; text-decoration: underline; }
+      .iib-link:hover { text-decoration: underline; }
+
+
+      .iib-desc {
+        display: flex;
+        flex-direction: column;
+        color: #4D88FF; font: 400 14px $font-manrope; line-height: 20px;
+        padding-left: 4px;
+
+        @media (min-width: $bp-md) {
+           font: 400 14px $font-manrope; padding-left: 8px; padding-right: 0px; margin-top: 4px; 
+
+        }
+      }
+
+
+      .iib-line-marginbottom {
+        margin-bottom: 1px;
+
+        @media (min-width: $bp-md) {
+            margin-bottom: 4px;
+
+       }
+      }
+
       // tablet breakpoint
       @media (min-width: $bp-sm) and (max-width: ($bp-md - 1)) {
         margin: 4px 0 36px 0;
@@ -1349,8 +1374,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
         margin: 4px 0 40px 0;
         .iib-icon, .iib-icon img { width: 18px; height: 18px; }
         .iib-title { font: 600 16px $font-manrope; }
-        .iib-desc { font: 400 14px $font-manrope; padding-left: 28px; padding-right: 0px; margin-top: 4px; }
-        .iib-req { margin-top: 12px; }
+        // .iib-req { margin-top: 12px; }
       }
     }
     .intro-section { margin-top: 20px; 
