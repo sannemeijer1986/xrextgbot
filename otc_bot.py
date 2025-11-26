@@ -48,7 +48,7 @@ def build_linked_keyboard():
     return InlineKeyboardMarkup([
         [
             InlineKeyboardButton("📚 How to use", callback_data="how_to_use"),
-            InlineKeyboardButton("↗️ Help center", callback_data="help_center"),
+            InlineKeyboardButton("↗️ Help center", url="https://intercom.help/xrex-sg/en/"),
         ],
         [
             InlineKeyboardButton("↗️ Go to XREX Pay", url=xrex_link_url()),
@@ -965,9 +965,14 @@ async def poll_remote_and_sync(session_id: str = None):
                                         continue
                                     try:
                                         if bot_for_notifications:
+                                            reply_markup = InlineKeyboardMarkup([
+                                                [InlineKeyboardButton("↗️ Go to XREX Pay", url=xrex_link_url())]
+                                            ])
                                             await bot_for_notifications.send_message(
                                                 chat_id=chat_id,
-                                                text=("🔌️ Telegram Bot successfully unlinked from XREX Pay account @AG***CH")
+                                                text=("🔌️ XREX Telegram Bot successfully unlinked from XREX Pay account @AG***CH.\n\n"
+                                                     "👉 To relink your account, simply start the linking process again in the XREX Pay web app."),
+                                                reply_markup=reply_markup
                                             )
                                             try:
                                                 await set_commands_unlinked(bot_for_notifications, chat_id)
@@ -983,9 +988,14 @@ async def poll_remote_and_sync(session_id: str = None):
                                         uid_key = int(target_user_id)
                                         st = user_state.get(uid_key, {})
                                         if not st.get('stage7_notified') and bot_for_notifications:
+                                            reply_markup = InlineKeyboardMarkup([
+                                                [InlineKeyboardButton("↗️ Go to XREX Pay", url=xrex_link_url())]
+                                            ])
                                             await bot_for_notifications.send_message(
                                                 chat_id=int(target_chat_id),
-                                                text=("✅️ Telegram Bot successfully unlinked from XREX Pay account @AG***CH")
+                                                text=("🔌️ XREX Telegram Bot successfully unlinked from XREX Pay account @AG***CH.\n\n"
+                                                     "👉 To relink your account, simply start the linking process again in the XREX Pay web app."),
+                                                reply_markup=reply_markup
                                             )
                                             try:
                                                 await set_commands_unlinked(bot_for_notifications, int(target_chat_id))
@@ -1364,7 +1374,7 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         return
 
-    if data == "help_center":
+    if data == "how_to_use":
         await context.bot.send_message(
             chat_id=query.message.chat_id,
             text="Not in prototype"
@@ -1467,19 +1477,6 @@ async def unlink_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
             chat_id=query.message.chat_id,
             text=f"Linking code: `{code}`\n\nTap and hold to copy.",
             parse_mode='Markdown'
-        )
-        return
-
-    if data == "how_to_use":
-        await context.bot.send_message(
-            chat_id=query.message.chat_id,
-            text=(
-                "Here’s how to use the XREX Pay Bot:\n\n"
-                "• /check_wallet <address> — See risk and balances for BTC/ETH/TRX addresses\n"
-                # "• /otc_quote — Request a real-time OTC quote\n"
-                "• /otc_orders — Track your OTC orders\n\n"
-                "Tip: You can also use the buttons in the web app to open the bot and follow guided flows."
-            )
         )
         return
 
@@ -2079,7 +2076,7 @@ async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     except Exception:
         pass
     keyboard = [
-        [InlineKeyboardButton("↗️ Help center", callback_data="help_center")],
+        [InlineKeyboardButton("↗️ Help center", url="https://intercom.help/xrex-sg/en/")],
         [InlineKeyboardButton("🔔 Customer Support", callback_data="customer_support")],
     ]
     await update.message.reply_text(
@@ -2110,14 +2107,19 @@ async def check_wallet_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     addr = (args[0].strip() if args and isinstance(args[0], str) else '')
     if not addr:
         msg = (
-            "🔎 Please provide wallet address hash: I will help you check the wallet.\n\n"
-            "Supported blockchains:\n"
-            "<b>Bitcoin</b> (BTC)\n"
-            "<b>Ethereum</b> (ETH)\n"
-            "<b>TRON</b> (TRX)\n\n"
-            "👉 👉 Did you know? You can check up to 10 addresses at once by entering one per line."
+            "🔎 Please provide wallet address.\n\n"
+            "Supported blockchains:\n\n"
+            "Bitcoin (BTC)\n\n"
+            "Ethereum (ETH)\n\n"
+            "TRON (TRX)\n\n"
+            "👉 Check up to 10 addresses at once by separating them with commas.\n\n"
+            "⚖️ Disclaimer: This information is provided for reference only and may be subject to data limitations. "
+            "It does not constitute financial, legal, or compliance advice. Please use your own judgment when assessing the results."
         )
-        await update.message.reply_text(msg)
+        await update.message.reply_text(
+            msg,
+            reply_to_message_id=update.message.message_id
+        )
         # Set awaiting flag to capture next user message as address
         st = user_state.get(update.effective_user.id, {})
         st['awaiting_wallet_address'] = True
