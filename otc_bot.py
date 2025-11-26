@@ -1432,8 +1432,9 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def link_account_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [[InlineKeyboardButton("↗️ Go to XREX Pay", url=xrex_link_url())]]
     await update.message.reply_text(
-        "To link this Telegram bot with XREX Pay, please visit the XREX Pay Webapp first",
-        reply_markup=InlineKeyboardMarkup(keyboard)
+        "🔗 To link this Telegram bot with XREX Pay, please visit the XREX Pay web app first.",
+        reply_markup=InlineKeyboardMarkup(keyboard),
+        reply_to_message_id=update.message.message_id
     )
 
 async def unlink_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -1454,8 +1455,9 @@ async def unlink_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         pass
     keyboard = [[InlineKeyboardButton("↗️ Go to XREX Pay", url=xrex_link_url())]]
     await update.message.reply_text(
-        "To Unlink this Telegram bot from XREX Pay, please visit the XREX Pay Webapp",
-        reply_markup=InlineKeyboardMarkup(keyboard)
+        "🔌 Please go to XREX Pay to unlink the Bot.",
+        reply_markup=InlineKeyboardMarkup(keyboard),
+        reply_to_message_id=update.message.message_id
     )
 
     if data == "copy_code":
@@ -2076,13 +2078,14 @@ async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
             return
     except Exception:
         pass
-    keyboard = [[
-        InlineKeyboardButton("↗️ Help center", url="https://intercom.help/xrex-sg/en/"),
-        InlineKeyboardButton("🔔 Account manager", callback_data="notify_am")
-    ]]
+    keyboard = [
+        [InlineKeyboardButton("↗️ Help center", callback_data="help_center")],
+        [InlineKeyboardButton("🔔 Customer Support", callback_data="customer_support")],
+    ]
     await update.message.reply_text(
-        "We're here to help, visit our Help center or request help from an Account manager",
-        reply_markup=InlineKeyboardMarkup(keyboard)
+        "🛟 We're here to help, visit our Help Center or contact our Customer Support Team.",
+        reply_markup=InlineKeyboardMarkup(keyboard),
+        reply_to_message_id=update.message.message_id
     )
 
 # Deprecated alias kept temporarily if referenced elsewhere
