@@ -264,7 +264,7 @@ async def guard_midflow_and_remind(update: Update, context: ContextTypes.DEFAULT
             )
             return True
         if st.get('awaiting_2fa'):
-            await update.message.reply_text("🔐 Linking in progress. Please enter your 2FA code to continue.")
+            await update.message.reply_text("🔐 Linking in progress, please follow the steps provided earlier by the Bot to continue.")
             return True
     except Exception:
         pass
@@ -1434,7 +1434,7 @@ async def unlink_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
             )
             return
         if st.get('awaiting_2fa'):
-            await update.message.reply_text("🔐 Linking in progress. Please enter your 2FA code to continue.")
+            await update.message.reply_text("🔐 Linking in progress, please follow the steps provided earlier by the Bot to continue.")
             return
     except Exception:
         pass
@@ -1914,7 +1914,10 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 pinned_id = state.get('pinned_instruction_message_id')
                 # No unpinning per updated spec
 
-                await update.message.reply_text("🔐 2FA verified! \nGenerating linking code... ")
+                await update.message.reply_text(
+                    "🔐 2FA verified! \nGenerating linking code...",
+                    reply_to_message_id=update.message.message_id
+                )
                 await asyncio.sleep(1)
 
                 # Generate a dynamic linking code per session/user
@@ -2117,7 +2120,7 @@ async def otc_quote_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
             )
             return
         if st.get('awaiting_2fa'):
-            await update.message.reply_text("🔐 Linking in progress. Please enter your 2FA code to continue.")
+            await update.message.reply_text("🔐 Linking in progress, please follow the steps provided earlier by the Bot to continue.")
             return
     except Exception:
         pass
