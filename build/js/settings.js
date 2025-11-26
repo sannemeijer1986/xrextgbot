@@ -1174,7 +1174,7 @@
         var next = Math.max(1, s-1);
         setState(next); update();
         // Show local snackbar when dropping an active session (>=3) to 2 or lower
-        try { if ((s|0) >= 3 && next <= 2 && typeof showSnackbar === 'function') showSnackbar('Session expired, please generate a new link'); } catch(_) {}
+        try { if ((s|0) >= 3 && next <= 2 && typeof showSnackbar === 'function') showSnackbar('Session expired'); } catch(_) {}
         // If lowering to <=3, send admin reset to server to clear verification
         try {
           var sid = (function(){ try { return localStorage.getItem('xrex.session.id.v1'); } catch(_) { return null; } })();
@@ -2121,7 +2121,7 @@
           var exp = Number(pNow.expiresAtMs||0);
           if (!exp || now > exp) {
             // optional UX: show expired hint once
-            try { if (typeof showSnackbar === 'function') showSnackbar('Session expired, please generate a new link'); } catch(_){ }
+            try { if (typeof showSnackbar === 'function') showSnackbar('Session expired'); } catch(_){ }
             try { setState(2); refreshStateUI(); } catch(_){ }
             // Notify server so the bot can send the expiry message
             try {

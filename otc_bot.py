@@ -38,8 +38,8 @@ user_state = {}
 
 # Safety warning shown at the top of /start responses
 SAFETY_WARNING_TEXT = (
-    "🚨 For your safety, make sure this bot’s @handle matches the one shown in the "
-    "XREX Pay web app and has the blue checkmark."
+    "🚨 For your safety, make sure this bot’s @ handle matches the one shown in the "
+    "XREX Pay web app."
 )
 
 # Lightweight local sync state server (prototype)
