@@ -1110,6 +1110,15 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         user_state[user_id] = current_state
     except Exception:
         pass
+
+    # Send safety warning as a separate message for all accepted /start flows
+    try:
+        await update.message.reply_text(
+            SAFETY_WARNING_TEXT,
+            reply_to_message_id=update.message.message_id
+        )
+    except Exception:
+        pass
     
     # Check if this is a deeplink with verification token
     if context.args and len(context.args) > 0:
@@ -1164,9 +1173,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     "👉 Please enter your XREX Pay 2FA code below to start linking."
                 )
                 sent = await update.message.reply_text(
-                    f"{SAFETY_WARNING_TEXT}\n\n{body_text}",
-                    reply_markup=reply_markup,
-                    reply_to_message_id=update.message.message_id
+                    body_text,
+                    reply_markup=reply_markup
                 )
                 # No pinning per updated spec
                 # Store 2FA awaiting state and the pinned message id
@@ -1213,10 +1221,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 f"Token: `{verify_token}`"
             )
             await update.message.reply_text(
-                f"{SAFETY_WARNING_TEXT}\n\n{body_text}",
+                body_text,
                 parse_mode='Markdown',
-                reply_markup=reply_markup,
-                reply_to_message_id=update.message.message_id
+                reply_markup=reply_markup
             )
             logger.info(f"Sent verification code {verification_code} to user {user_id}")
         except Exception as e:
@@ -1267,9 +1274,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 "XREX Pay Bot simplifies payments and more."
             )
             await update.message.reply_text(
-                f"{SAFETY_WARNING_TEXT}\n\n{body_text}",
-                reply_markup=reply_markup,
-                reply_to_message_id=update.message.message_id
+                body_text,
+                reply_markup=reply_markup
             )
         except Exception:
             pass
@@ -1287,9 +1293,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "please visit the XREX Pay web app first."
         )
         await update.message.reply_text(
-            f"{SAFETY_WARNING_TEXT}\n\n{body_text}",
-            reply_markup=reply_markup,
-            reply_to_message_id=update.message.message_id
+            body_text,
+            reply_markup=reply_markup
         )
         logger.info(f"Sent unlinked welcome message for user {user_id}")
     except Exception as e:
@@ -1356,7 +1361,8 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
             text=(
                 "2FA (Two-Factor Authentication) is a one-time code from your authenticator app "
                 "(e.g., Google Authenticator, Authy).\n\n"
-                "Open your authenticator app and enter the 6-digit code to continue."
+                "Open your authenticator app and enter the 6-digit code to continue.\n\n"
+                "(Not in prototype.)"
             )
         )
         return
