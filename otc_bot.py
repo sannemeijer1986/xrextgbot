@@ -2119,10 +2119,10 @@ async def check_wallet_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not addr:
         msg = (
             "🔎 Please provide wallet address.\n\n"
-            "Supported blockchains:\n\n"
-            "Bitcoin (BTC)\n\n"
-            "Ethereum (ETH)\n\n"
-            "TRON (TRX)\n\n"
+            "Supported blockchains:\n"
+            "Bitcoin (BTC)\n"
+            "Ethereum (ETH)\n"
+            "TRON (TRX)\n"
             "👉 Check up to 10 addresses at once by separating them with commas.\n\n"
             "⚖️ Disclaimer: This information is provided for reference only and may be subject to data limitations. "
             "It does not constitute financial, legal, or compliance advice. Please use your own judgment when assessing the results."
