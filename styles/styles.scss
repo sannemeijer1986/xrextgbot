@@ -1798,6 +1798,11 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .verify-code .vc-links { display: flex; gap: 24px; margin-top: 20px; }
   .verify-code .vc-links .ib-link { color: #336AFF; font: 700 12px $font-manrope; text-decoration: none; }
   .verify-code .vc-links .ib-link:hover { text-decoration: none; }
+
+  @media (min-width: $bp-md) {
+    .ib-link { font: 700 14px $font-manrope !important;}
+  }
+
   // Match divider spacing like step 3
   .verify-code .ib-divider { border: none; height: 1px; background: $color-border; margin: 28px 0 4px 0; }
   // Input pill with embedded submit button
