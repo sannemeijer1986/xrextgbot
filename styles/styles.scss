@@ -2933,6 +2933,15 @@ main.page {
   }
 }
 
+// Quick menu item shown only on sub-desktop (e.g. "Request OTC quote")
+.qa__item.mobile_only {
+  display: none;
+
+  @media (max-width: ($bp-md - 1)) {
+    display: grid;
+  }
+}
+
 .qa__icon {
   width: 40px;
   height: 40px;
