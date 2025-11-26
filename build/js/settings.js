@@ -2157,7 +2157,7 @@
                       if (input) { input.value = ''; input.focus(); if (input.select) input.select(); }
                       if (btn) btn.disabled = true;
                     } catch(_){ }
-                    try { if (typeof showSnackbar === 'function') showSnackbar('2FA verified via Telegram'); } catch(_) {}
+                    try { if (typeof showSnackbar === 'function') showSnackbar('2FA authenticated via Telegram Bot'); } catch(_) {}
                   }
                 } catch(_){ }
               })
