@@ -1570,14 +1570,25 @@
     } catch(_) {}
   })();
 
-  var shareBtn = document.getElementById('shareBtn');
-  var helpBtn = document.getElementById('helpBtn');
   function showSnackbar(message) {
     try {
       var bar = document.getElementById('snackbar');
       if (!bar) return;
       var textNode = bar.querySelector('.snackbar-text');
       if (textNode && typeof message === 'string') textNode.textContent = message;
+      // Switch icon based on message type – use error icon for session expiry
+      try {
+        var iconEl = bar.querySelector('.snackbar-icon');
+        if (iconEl) {
+          if (typeof message === 'string' && message === 'Session expired') {
+            iconEl.src = 'assets/icon_snackbar_error.svg';
+            iconEl.alt = 'error';
+          } else {
+            iconEl.src = 'assets/icon_snackbar_success.svg';
+            iconEl.alt = 'success';
+          }
+        }
+      } catch(_) {}
       bar.hidden = false;
       bar.setAttribute('aria-hidden','false');
       // reflow
