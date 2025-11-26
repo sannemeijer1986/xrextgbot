@@ -1377,7 +1377,17 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if data == "how_to_use":
         await context.bot.send_message(
             chat_id=query.message.chat_id,
-            text="Not in prototype"
+            text=(
+                "🔎 **Check Wallets**\n\n"
+                "Use /check_wallet and paste up to 10 BTC, ETH, or TRX addresses (separate with commas).\n\n"
+                "We'll show:\n\n"
+                "• Exchange affiliation\n"
+                "• On-chain balances\n"
+                "• Risk level\n\n"
+                "🚧 **OTC tracking** — coming soon  \n"
+                "📰 **News feed** — coming soon\n"
+            ),
+            parse_mode="Markdown"
         )
         return
 
