@@ -1798,7 +1798,7 @@ body.modal-locked {
   margin: 0 0 16px 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0;
 }
 .content .bot-card {
   margin: 0;
@@ -1874,6 +1874,11 @@ body.modal-locked {
 .content .linked-account {
   display: block;
   margin: 0 0 12px 0;
+  border: 1px solid #EEEEEE;
+  background: #ffffff;
+  border-radius: 16px;
+  width: 348px;
+  padding: 4px 4px;
 }
 .content .linked-account[hidden] {
   display: none;
@@ -1881,13 +1886,6 @@ body.modal-locked {
 .content .la-header-sm {
   font: 600 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #797A7B;
-}
-.content .la-card {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 14px 16px;
-  width: 100%;
-  max-width: 348px;
 }
 .content .la-header-row {
   display: flex;
@@ -1936,13 +1934,28 @@ body.modal-locked {
     justify-self: end;
     align-self: end;
   }
+  .content .bot-row-connector {
+    display: none;
+  }
 }
 @media (min-width: 1280px) {
   .content .bot-row {
+    display: flex;
     flex-direction: row;
     align-items: stretch;
-    gap: 24px;
+    gap: 0;
     width: 100%;
+  }
+  .content .bot-row-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 16px;
+    min-width: 16px;
+  }
+  .content .bot-row .bot-card {
+    flex: 1 1 auto;
+    min-width: 0;
   }
   .content .bot-card-avatar {
     width: 60px;
@@ -1956,13 +1969,17 @@ body.modal-locked {
   }
   .content .linked-account {
     align-self: stretch;
+    flex: 0 0 348px;
+    width: 348px;
+    height: 156px;
   }
   .content .la-card {
-    max-width: 348px;
-    height: 156px;
+    width: 100%;
     display: flex;
+    padding: 16px 28px 8px 28px;
     flex-direction: column;
     justify-content: space-between;
+    height: auto;
   }
 }
 @media (max-width: 500px) {
@@ -2038,6 +2055,10 @@ body.modal-locked {
   display: flex;
   gap: 16px;
   justify-content: flex-end;
+  height: 36px;
+  background-color: #FCFCFC;
+  padding: 0px 24px;
+  border-radius: 0 0 12px 12px;
 }
 .content .la-action {
   appearance: none;

@@ -130,7 +130,7 @@
                 </div>
             </div>
 
-            <!-- Telegram bot main row: bot card + linked account card (desktop) -->
+            <!-- Telegram bot main row: bot card + connector + linked account card (desktop) -->
             <div class="bot-row">
                 <div class="bot-card" id="botCard">
                     <div class="bot-card-main">
@@ -165,11 +165,14 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="bot-row-connector" aria-hidden="true">
+                    <img src="assets/line_connect.svg" alt="" width="16" height="156">
+                </div>
+                <div class="la-divider" role="separator"></div>
                 <div id="linkedAccountSection" class="linked-account" hidden>
                     <div class="la-card">
                         <div class="la-header-row">
-                            <div class="la-header-sm">Telegram account linked to bot</div>
+                            <div class="la-header-sm">Telegram account linked</div>
                             <div class="la-header-date" id="linkedDateLabel">--</div>
                         </div>
                         <div class="la-top">
@@ -183,17 +186,16 @@
                                 <div class="la-tgid" id="linkedTgValue">Telegram ID: 736135332</div>
                             </div>
                         </div>
-                        <div class="la-divider" role="separator"></div>
-                        <div class="la-actions">
-                            <button class="la-action" type="button" id="laSendTest">
-                                <img src="assets/icon_linked_sendtestmessage.svg" alt="" width="16" height="16">
-                                <span>Test message</span>
-                            </button>
-                            <button class="la-action" type="button" id="laUnlinkBtn">
-                                <img src="assets/icon_linked_unlink.svg" alt="" width="16" height="16">
-                                <span>Unlink</span>
-                            </button>
-                        </div>
+                    </div>
+                    <div class="la-actions">
+                        <button class="la-action" type="button" id="laSendTest">
+                            <img src="assets/icon_linked_sendtestmessage.svg" alt="" width="16" height="16">
+                            <span>Test message</span>
+                        </button>
+                        <button class="la-action" type="button" id="laUnlinkBtn">
+                            <img src="assets/icon_linked_unlink.svg" alt="" width="16" height="16">
+                            <span>Unlink</span>
+                        </button>
                     </div>
                 </div>
             </div>
