@@ -699,7 +699,7 @@
           var title3 = tip.querySelector('.tip-title');
           var body3 = tip.querySelector('.tip-body');
           if (title3) title3.textContent = 'Not linked';
-          if (body3) body3.textContent = 'Link your Telegram to enjoy XREX features in Telegram';
+          if (body3) body3.textContent = 'Link your Telegram account to enjoy XREX features in Telegram';
         }
         if (statusIcon) statusIcon.src = 'assets/icon_info_unlinked.svg';
         if (meta) meta.textContent = 'Unlinked on ' + formatDate(p.updatedAt);
@@ -715,13 +715,23 @@
           var title2 = tip.querySelector('.tip-title');
           var body2 = tip.querySelector('.tip-body');
           if (title2) title2.textContent = 'Not linked';
-          if (body2) body2.textContent = 'Link your Telegram to enjoy XREX features in Telegram';
+          if (body2) body2.textContent = 'Link your Telegram account to enjoy XREX features in Telegram';
         }
         if (statusIcon) statusIcon.src = 'assets/icon_info_unlinked.svg';
         if (meta) meta.textContent = '';
         // no inline unlink
       }
-      // botCardStatus now just wraps the inline status; row updates above are enough
+      // Hide bot-card status wrapper once linked (state 6), show otherwise
+      try {
+        var botStatusWrap = document.getElementById('botCardStatus');
+        if (botStatusWrap) {
+          if (s >= 6 && s !== 7) {
+            botStatusWrap.style.display = 'none';
+          } else {
+            botStatusWrap.style.display = '';
+          }
+        }
+      } catch(_) {}
     } catch(_) {}
   }
 
