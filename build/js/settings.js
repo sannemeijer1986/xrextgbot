@@ -72,6 +72,7 @@
   var pageTitle = document.getElementById('pageTitle');
   var statusRow = document.getElementById('statusRow');
   var tabs = document.getElementById('tabs');
+  var botCard = document.getElementById('botCard');
 
   // Progress storage (prototype): localStorage only
   var PROGRESS_KEY = 'xrex.progress.v1';
@@ -720,6 +721,7 @@
         if (meta) meta.textContent = '';
         // no inline unlink
       }
+      // botCardStatus now just wraps the inline status; row updates above are enough
     } catch(_) {}
   }
 
@@ -1805,7 +1807,18 @@
       var s = (p.state|0);
       var label = (s === 6) ? 'Go to bot' : 'Link now';
       document.querySelectorAll('.js-start-link').forEach(function(btn){
-        try { if (btn) btn.textContent = label; } catch(_) {}
+        try {
+          if (!btn) return;
+          btn.textContent = label;
+          // Primary style when unlinked, secondary when linked
+          if (s === 6) {
+            btn.classList.remove('btn-primary');
+            btn.classList.add('btn-secondary');
+          } else {
+            btn.classList.remove('btn-secondary');
+            btn.classList.add('btn-primary');
+          }
+        } catch(_) {}
       });
       // Update the intro CTA section title based on state
       try {
@@ -1848,6 +1861,7 @@
         if (statusRow) statusRow.style.display = '';
         if (tabs) tabs.style.display = '';
         if (panelAccount) panelAccount.style.display = 'none';
+        if (botCard) botCard.style.display = '';
         if (shareBtn) shareBtn.style.display = '';
         try {
           var titleAvatar = document.querySelector('.title-avatar');
@@ -1863,6 +1877,7 @@
         if (statusRow) statusRow.style.display = 'none';
         if (tabs) tabs.style.display = 'none';
         if (panelAccount) panelAccount.style.display = '';
+        if (botCard) botCard.style.display = 'none';
         if (panelIntro) panelIntro.style.display = 'none';
         if (panelSetup) panelSetup.style.display = 'none';
         if (shareBtn) shareBtn.style.display = 'none';

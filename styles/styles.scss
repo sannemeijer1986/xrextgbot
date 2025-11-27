@@ -975,6 +975,73 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     }
   }
 
+  // Telegram Bot main card (unlinked/linked state)
+  .bot-card {
+    margin: 0 0 16px 0;
+  }
+  .bot-card-main {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .bot-card-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .bot-card-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    overflow: hidden;
+    background: #f3f4f6;
+    display: grid;
+    place-items: center;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 9999px;
+      display: block;
+    }
+  }
+  .bot-card-texts {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .bot-card-title {
+    font: 700 16px $font-manrope;
+    color: $color-text-primary;
+  }
+  .bot-card-handle {
+    font: 600 14px $font-manrope;
+    color: $color-primary;
+  }
+  .bot-card-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .bot-card-status {
+    font: 600 12px $font-manrope;
+    color: $color-text-secondary;
+  }
+  @media (max-width: ($bp-md - 1)) {
+    .bot-card-main {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .bot-card-right {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+
   // Linked account card (state 6) — styled from Figma cursor_linkedaccountcard
   .linked-account { display: block; margin: 0 0 12px 0; }
   .linked-account[hidden] { display: none; }

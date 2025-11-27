@@ -117,38 +117,53 @@
                 </a>
             </div>
             <div class="content-header">
-                <div class="title-with-avatar">
-                    <img class="title-avatar" src="assets/bot_avatar.png" alt="Bot avatar" width="40" height="40">
-                    <div class="title-texts">
-                        <h1 id="pageTitle">Telegram Bot</h1>
-                        <a class="bot-handle" id="botHandleLink" href="#" role="button">@SanneXREX_bot</a>
-                    </div>
+                <h1 id="pageTitle">Telegram Bot</h1>
+                <div class="content-header-actions">
+                    <button class="btn btn-secondary btn-sm" id="shareBtn">
+                        <img src="assets/icon_share.svg" alt="share" width="14" height="14">
+                        <span>Share</span>
+                    </button>
+                    <button class="btn btn-secondary btn-sm" id="helpBtn">
+                        <img src="assets/icon_help.svg" alt="help" width="14" height="14">
+                        <span>Help</span>
+                    </button>
                 </div>
-                <button class="btn btn-secondary btn-sm" id="shareBtn">
-                    <img src="assets/icon_share.svg" alt="share" width="14" height="14">
-                    <span>Share</span>
-                </button>
-                <button class="btn btn-secondary btn-sm" id="helpBtn">
-                    <img src="assets/icon_help.svg" alt="help" width="14" height="14">
-                    <span>Help</span>
-                </button>
             </div>
 
-            <div class="status-row" id="statusRow" style="display:none;">
-                <div class="status-line">
-                    <span class="status-label">Status :</span>
-                    <span class="status-value">Not linked</span>
-                    <span class="status-tip-wrap">
-                        <button class="status-info-btn" id="statusInfoBtn" aria-expanded="false" aria-controls="statusTip" type="button">
-                            <img id="statusInfoIcon" src="assets/icon_info_unlinked.svg" width="16" height="16" alt="info">
-                        </button>
-                        <div class="status-tooltip below" id="statusTip" role="tooltip" hidden>
-                            <div class="tip-title">Not linked</div>
-                            <div class="tip-body">Link your Telegram to enjoy XREX features in Telegram</div>
+            <!-- Telegram bot main card -->
+            <div class="bot-card" id="botCard">
+                <div class="bot-card-main">
+                    <div class="bot-card-left">
+                        <div class="bot-card-avatar">
+                            <img src="assets/bot_avatar.png" alt="XREX Pay Bot avatar" width="40" height="40">
                         </div>
-                    </span>
+                        <div class="bot-card-texts">
+                            <div class="bot-card-title">XREX Pay Bot</div>
+                            <div class="bot-card-handle">@xrex_pay_bot</div>
+                        </div>
+                    </div>
+                    <div class="bot-card-right">
+                        <div class="bot-card-status" id="botCardStatus">
+                            <div class="status-row" id="statusRow" style="display:none;">
+                                <div class="status-line">
+                                    <span class="status-label">Status :</span>
+                                    <span class="status-value">Not linked</span>
+                                    <span class="status-tip-wrap">
+                                        <button class="status-info-btn" id="statusInfoBtn" aria-expanded="false" aria-controls="statusTip" type="button">
+                                            <img id="statusInfoIcon" src="assets/icon_info_unlinked.svg" width="16" height="16" alt="info">
+                                        </button>
+                                        <div class="status-tooltip below" id="statusTip" role="tooltip" hidden>
+                                            <div class="tip-title">Not linked</div>
+                                            <div class="tip-body">Link your Telegram to enjoy XREX features in Telegram</div>
+                                        </div>
+                                    </span>
+                                    <span class="status-subline"><span class="status-meta"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-md mobile-btn-sm js-start-link" id="botCardCta">Link now</button>
+                    </div>
                 </div>
-                <button class="btn btn-primary btn-md mobile-btn-sm" id="startLinkBtn">Link now</button>
             </div>
 
             <div id="linkedAccountSection" class="linked-account" hidden>
