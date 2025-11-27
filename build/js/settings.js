@@ -711,8 +711,8 @@
         if (tip) {
           var title3 = tip.querySelector('.tip-title');
           var body3 = tip.querySelector('.tip-body');
-          if (title3) title3.textContent = 'Not linked';
-          if (body3) body3.textContent = 'Link your Telegram account to enjoy XREX features in Telegram';
+          if (title3) title3.textContent = 'Not linked to bot';
+          if (body3) body3.textContent = 'Link your Telegram account to the bot and access XREX features directly in Telegram';
         }
         if (statusIcon) statusIcon.src = 'assets/icon_info_unlinked.svg';
         if (meta) meta.textContent = 'Unlinked on ' + formatDate(p.updatedAt);
@@ -727,8 +727,8 @@
         if (tip) {
           var title2 = tip.querySelector('.tip-title');
           var body2 = tip.querySelector('.tip-body');
-          if (title2) title2.textContent = 'Not linked';
-          if (body2) body2.textContent = 'Link your Telegram account to enjoy XREX features in Telegram';
+          if (title2) title2.textContent = 'Not linked to bot';
+          if (body2) body2.textContent = 'Link your Telegram account to the bot and access XREX features directly in Telegram';
         }
         if (statusIcon) statusIcon.src = 'assets/icon_info_unlinked.svg';
         if (meta) meta.textContent = '';
@@ -2068,7 +2068,52 @@
   var statusTip = document.getElementById('statusTip');
   if (statusBtn && statusTip) {
     function isDesktop() { return window.matchMedia('(min-width: 1280px)').matches; }
-    function showTip() { statusTip.hidden = false; statusBtn.setAttribute('aria-expanded','true'); }
+    function positionTipForViewport(){
+      try {
+        statusTip.classList.remove('align-left','align-right','has-custom-arrow');
+        statusTip.style.removeProperty('--arrow-left');
+
+        var btnRect = statusBtn.getBoundingClientRect();
+        var rect = statusTip.getBoundingClientRect();
+        var padding = 8;
+        var vw = window.innerWidth || document.documentElement.clientWidth || 0;
+        // Edge correction on mobile / tablet
+        var needsEdgeAlign = false;
+        if (!isDesktop()) {
+          if (rect.left < padding) {
+            statusTip.classList.add('align-left');
+            needsEdgeAlign = true;
+          } else if (rect.right > vw - padding) {
+            statusTip.classList.add('align-right');
+            needsEdgeAlign = true;
+          }
+        }
+
+        // If we snapped to an edge, explicitly align arrow with icon center
+        if (needsEdgeAlign) {
+          // Recompute rect after alignment changes
+          rect = statusTip.getBoundingClientRect();
+          var arrowX = btnRect.left + (btnRect.width / 2) - rect.left;
+          var minX = 10;
+          var maxX = Math.max(minX, rect.width - 10);
+          // Nudge slightly inward for edge-aligned cases so the arrow
+          // doesn't visually overshoot the bubble border.
+          if (statusTip.classList.contains('align-right')) {
+            arrowX -= 4;
+          } else if (statusTip.classList.contains('align-left')) {
+            arrowX += 4;
+          }
+          arrowX = Math.min(maxX, Math.max(minX, arrowX));
+          statusTip.classList.add('has-custom-arrow');
+          statusTip.style.setProperty('--arrow-left', arrowX + 'px');
+        }
+      } catch(_) {}
+    }
+    function showTip() {
+      statusTip.hidden = false;
+      statusBtn.setAttribute('aria-expanded','true');
+      positionTipForViewport();
+    }
     function hideTip() { statusTip.hidden = true; statusBtn.setAttribute('aria-expanded','false'); }
 
     // Hover for desktop
@@ -2090,6 +2135,11 @@
       if (statusTip.hidden) return;
       var wrap = statusBtn.parentElement;
       if (!wrap.contains(e.target)) hideTip();
+    });
+
+    // Reposition on resize/orientation change when visible
+    window.addEventListener('resize', function(){
+      if (!statusTip.hidden) positionTipForViewport();
     });
   }
 

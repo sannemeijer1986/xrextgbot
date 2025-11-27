@@ -1251,19 +1251,22 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    padding: 12px 14px;
-    background: #2b303b; // match snackbar
-    color: #ffffff;
+    padding: 12px;
+    background: #EEEEEE;
+    color: #2d2f2f;
     border: none;
-    border-radius: 10px;
-    font-family: $font-system;
+    border-radius: 8px;
+    font-family: $font-manrope;
     font-size: 12px;
-    min-width: 320px;
-    max-width: 520px;
-    box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+    min-width: 220px;
+    max-width: 280px;
+    box-shadow: 4px 4px 12px rgba(15, 23, 42, 0.15);
     z-index: 20;
-    &.below { top: calc(100% + 10px); }
-    &.above { bottom: calc(100% + 10px); }
+    text-align: left;
+
+    &.below { top: calc(100% + 8px); }
+    &.above { bottom: calc(100% + 8px); }
+
     &::after {
       content: "";
       position: absolute;
@@ -1276,14 +1279,43 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     }
     &.below::after {
       top: -6px;
-      border-bottom: 6px solid #2b303b;
+      border-bottom: 6px solid #EEEEEE;
     }
     &.above::after {
       bottom: -6px;
-      border-top: 6px solid #2b303b;
+      border-top: 6px solid #EEEEEE;
     }
-    .tip-title { font-weight: 700; font-family: $font-manrope; font-size: 13px; margin-bottom: 4px; }
-    .tip-body { font-weight: 400; font-family: $font-system; line-height: 1.5; opacity: .95; }
+
+    .tip-title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 3px;
+    }
+    .tip-body {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.4;
+      color: #797A7B;
+    }
+
+    // Edge-aligned variants for small viewports
+    &.align-left {
+      left: 0;
+      right: auto;
+      transform: none;
+      border-top-left-radius: 0;
+    }
+    &.align-right {
+      right: 0;
+      left: auto;
+      transform: none;
+      border-top-right-radius: 0;
+    }
+    // When JS provides an explicit arrow position, override centering transform
+    &.has-custom-arrow::after {
+      transform: none;
+      left: var(--arrow-left);
+    }
   }
   .status-tip-wrap { position: relative; display: inline-flex; }
 
