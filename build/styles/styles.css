@@ -1846,6 +1846,7 @@ body.modal-locked {
 .content .bot-card-handle {
   font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #336AFF;
+  text-decoration: none;
 }
 .content .bot-card-right {
   margin-left: auto;
