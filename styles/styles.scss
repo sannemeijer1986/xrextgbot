@@ -1075,6 +1075,36 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 
   // Responsive layout for bot + linked account
   @media (max-width: ($bp-md - 1)) {
+    // On mobile, the outer bot-row becomes the single card shell.
+    .bot-row {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid #EEEEEE;
+      padding: 16px 16px 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    // Remove card affordance from inner bot-card and linked-account wrappers
+    .bot-card-main {
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
+    .linked-account {
+      border: none;
+      background: transparent;
+      border-radius: 0;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+    .la-card {
+      padding: 0;
+      width: 100%;
+    }
+
     // Bot card becomes a 2x2 grid:
     // row 1: avatar (left), status (right)
     // row 2: title+handle (left), CTA button (right)
@@ -1175,15 +1205,15 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   @media (max-width: 500px) {
     .la-card { max-width: inherit; width: 100%; }
   }
-  .la-top { display: flex; align-items: flex-start; gap: 12px; }
-  .la-avatar { width: 32px; margin-top: 2px; height: 32px; border-radius: 999px; overflow: hidden; display: grid; place-items: center; background: #f3f4f6; position: relative; }
+  .la-top { display: flex; align-items: flex-start; gap: 10px; }
+  .la-avatar { width: 32px; margin-top: 3px; height: 32px; border-radius: 999px; overflow: hidden; display: grid; place-items: center; background: #f3f4f6; position: relative; }
   .la-avatar .la-avatar-phimg { width: 24px; height: 24px; display: block; z-index: 1; }
   .la-avatar .la-avatar-img { position: absolute; inset: 0; width: 40px; height: 40px; object-fit: cover; display: block; z-index: 2; border-radius: 40px; }
   .la-avatar .la-avatar-img[hidden] { display: none; }
   .la-avatar .la-avatar-phimg[hidden] { display: none; }
   .la-id { display: flex; flex-direction: column; gap: 0px; align-items: flex-start; }
-  .la-name { font: 700 16px $font-manrope; color: #000; margin-bottom: -3px; }
-  .la-username { font: 500 14px $font-manrope; color: #58595A; margin-bottom: -3px; }
+  .la-name { font: 700 16px $font-manrope; color: $color-text-primary; margin-bottom: -3px; }
+  .la-username { font: 600 12px $font-manrope; color: $color-text-primary; margin-bottom: -3px; }
   .la-tgid { font: 400 12px $font-manrope; color: #BCBDBD; margin-top: 4px; }
   .la-divider { height: 1px; background: #EEEEEE; margin: 15px 0 12px 0; }
   .la-actions { 

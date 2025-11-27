@@ -678,11 +678,11 @@
           var pad = function(n){ return String(n).padStart(2,'0'); };
           var hh = pad(d.getHours());
           var mm = pad(d.getMinutes());
-          var ss = pad(d.getSeconds());
           var mo = pad(d.getMonth() + 1);
           var da = pad(d.getDate());
           var yr = d.getFullYear();
-          return hh + ':' + mm + ':' + ss + ', ' + mo + '/' + da + '/' + yr;
+          // Format without seconds: HH:MM, MM/DD/YYYY
+          return hh + ':' + mm + ', ' + mo + '/' + da + '/' + yr;
         } catch(_) { return ''; }
       }
 
