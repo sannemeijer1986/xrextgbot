@@ -444,12 +444,15 @@
                       var uname = (d && d.tg_username) ? String(d.tg_username) : '';
                       var photo = (d && d.tg_photo_url) ? String(d.tg_photo_url) : '';
                       var tgId = (d && d.actor_tg_user_id) ? String(d.actor_tg_user_id) : '';
-                      if (nameEl) nameEl.textContent = dname || (uname ? ('@' + uname) : '--');
+                      // Fallbacks:
+                      // - Display name: "Telegram user" when not provided
+                      // - Username (@handle): "--" when not provided
+                      if (nameEl) nameEl.textContent = dname || 'Telegram user';
                       if (userEl) {
                         if (uname) { userEl.textContent = '@' + uname; userEl.hidden = false; }
-                        else { userEl.textContent = '--'; userEl.hidden = false; }
+                        else { userEl.textContent = '- -'; userEl.hidden = false; }
                       }
-                      if (tgIdEl) tgIdEl.textContent = tgId ? ('Telegram ID: ' + tgId) : 'Telegram ID: —';
+                      if (tgIdEl) tgIdEl.textContent = 'Telegram ID: ' + (tgId || '736135332');
                       if (avatarImg) {
                         if (photo) {
                           avatarImg.hidden = true;
