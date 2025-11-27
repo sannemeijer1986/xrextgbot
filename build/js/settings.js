@@ -375,6 +375,19 @@
             var hideReq = (s >= 2);
             req.style.display = hideReq ? 'none' : '';
           }
+          // Adjust bullet for the bot handle line based on state
+          try {
+            var line = banner.querySelector('.iib-line');
+            if (line) {
+              var strong = line.querySelector('strong');
+              var strongHtml = strong ? strong.outerHTML : '';
+              if (s >= 2) {
+                line.innerHTML = 'Always make sure you’re interacting with our verified Telegram bot ' + strongHtml;
+              } else {
+                line.innerHTML = '• Always make sure you’re interacting with our verified Telegram bot ' + strongHtml;
+              }
+            }
+          } catch(_) {}
           if (btn && !btn.__wired) { btn.__wired = true; btn.addEventListener('click', function(e){ e.preventDefault(); openRequire2faModal(); }); }
         }
       } catch(_) {}

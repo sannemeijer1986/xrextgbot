@@ -2434,7 +2434,7 @@ body.modal-locked {
   display: block;
   background: rgba(77, 136, 255, 0.15);
   border-radius: 8px;
-  padding: 8px;
+  padding: 8px 10px;
   color: #4D88FF;
   margin: 4px 0 32px 0;
 }
@@ -2475,23 +2475,9 @@ body.modal-locked {
   color: #4D88FF;
   font: 400 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   line-height: 20px;
-  padding-left: 4px;
-}
-@media (min-width: 1280px) {
-  .content .intro-content .intro-info-banner .iib-desc {
-    font: 400 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    padding-left: 8px;
-    padding-right: 0px;
-    margin-top: 4px;
-  }
 }
 .content .intro-content .intro-info-banner .iib-line-marginbottom {
   margin-bottom: 1px;
-}
-@media (min-width: 1280px) {
-  .content .intro-content .intro-info-banner .iib-line-marginbottom {
-    margin-bottom: 4px;
-  }
 }
 @media (min-width: 900px) and (max-width: 1279px) {
   .content .intro-content .intro-info-banner {
@@ -2501,19 +2487,6 @@ body.modal-locked {
   .content .intro-content .intro-info-banner .iib-icon, .content .intro-content .intro-info-banner .iib-icon img {
     width: 16px;
     height: 16px;
-  }
-}
-@media (min-width: 1280px) {
-  .content .intro-content .intro-info-banner {
-    padding: 16px 20px;
-    margin: 4px 0 40px 0;
-  }
-  .content .intro-content .intro-info-banner .iib-icon, .content .intro-content .intro-info-banner .iib-icon img {
-    width: 18px;
-    height: 18px;
-  }
-  .content .intro-content .intro-info-banner .iib-title {
-    font: 600 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
 }
 .content .intro-content .intro-section {
