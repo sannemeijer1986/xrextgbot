@@ -968,16 +968,20 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    margin-bottom: 8px;
-
-    @media (min-width: $bp-md) {
-      margin-bottom: 24px;
-    }
   }
 
   // Telegram Bot main card (unlinked/linked state)
-  .bot-card {
+  // Telegram bot + linked account row
+  .bot-row {
     margin: 0 0 16px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .bot-card {
+    margin: 0;
+    width: 100%;
   }
   .bot-card-main {
     background: #ffffff;
@@ -986,6 +990,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     display: flex;
     align-items: center;
     gap: 16px;
+    width: 100%;
   }
   .bot-card-left {
     display: flex;
@@ -1019,7 +1024,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   }
   .bot-card-handle {
     font: 600 14px $font-manrope;
-    color: $color-primary;
+    color: #336AFF;
   }
   .bot-card-right {
     margin-left: auto;
@@ -1030,16 +1035,10 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .bot-card-status {
     font: 600 12px $font-manrope;
     color: $color-text-secondary;
-  }
-  @media (max-width: ($bp-md - 1)) {
-    .bot-card-main {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .bot-card-right {
-      width: 100%;
-      justify-content: space-between;
-    }
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    vertical-align: middle;
   }
 
   // Linked account card (state 6) — styled from Figma cursor_linkedaccountcard
@@ -1052,6 +1051,52 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     padding: 14px 0 14px;
     width: 100%;
     max-width: 346px;
+  }
+
+  // Responsive layout for bot + linked account
+  @media (max-width: ($bp-md - 1)) {
+    .bot-card-main {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .bot-card-right {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+
+  @media (min-width: $bp-md) {
+    .bot-row {
+      flex-direction: row;
+      align-items: stretch;
+      gap: 24px;
+      width: 100%;
+    }
+    .bot-card-main {
+      padding: 32px 32px 32px 24px;
+      height: 156px;
+      width: 100%;
+    }
+    .bot-card-avatar {
+      width: 60px;
+      height: 60px;
+    }
+    .bot-card-title {
+      font: 700 20px $font-manrope;
+    }
+    .bot-card-handle {
+      font: 600 16px $font-manrope;
+    }
+    .linked-account {
+      align-self: stretch;
+    }
+    .la-card {
+      max-width: 360px;
+      height: 156px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
   }
   // Small phones: allow full-width card
   @media (max-width: 500px) {
@@ -1100,14 +1145,14 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     font-weight: 600;
     font-size: 16px;
     color: #2D2F2F;
-    @media (min-width: $bp-md) { font-size: 22px; }
+
   }
   .status-value {
     font-family: $font-manrope;
     font-weight: 600;
     font-size: 16px;
     color: #BCBDBD;
-    @media (min-width: $bp-md) { font-size: 22px; }
+
   }
 
   // Linked state styling
@@ -1134,8 +1179,8 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 17px;
-    height: 17px;
+    width: 16px;
+    height: 16px;
     border:0px solid;
     background: transparent;
     cursor: pointer;
@@ -1143,8 +1188,8 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     margin-top: 1px;
 
     img {
-      width: 17px;
-      height: 17px; 
+      width: 16px;
+      height: 16px; 
     }
     @media (min-width: $bp-md) {
       margin-top: 2px;
@@ -1998,18 +2043,12 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     font-weight: 600;
     font-size: 16px;
     color: $color-text-primary;
-    @media (min-width: $bp-md) {
-      font-size: 22px;
-    }
   }
   .acct-status-value {
     font-family: $font-manrope;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 14px;
     color: #2F9752;
-    @media (min-width: $bp-md) {
-      font-size: 22px;
-    }
   }
 
   .section-heading {

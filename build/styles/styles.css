@@ -1793,15 +1793,16 @@ body.modal-locked {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 8px;
 }
-@media (min-width: 1280px) {
-  .content .status-row {
-    margin-bottom: 24px;
-  }
+.content .bot-row {
+  margin: 0 0 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 .content .bot-card {
-  margin: 0 0 16px 0;
+  margin: 0;
+  width: 100%;
 }
 .content .bot-card-main {
   background: #ffffff;
@@ -1810,6 +1811,7 @@ body.modal-locked {
   display: flex;
   align-items: center;
   gap: 16px;
+  width: 100%;
 }
 .content .bot-card-left {
   display: flex;
@@ -1843,7 +1845,7 @@ body.modal-locked {
 }
 .content .bot-card-handle {
   font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: #3F78FF;
+  color: #336AFF;
 }
 .content .bot-card-right {
   margin-left: auto;
@@ -1854,16 +1856,10 @@ body.modal-locked {
 .content .bot-card-status {
   font: 600 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #797A7B;
-}
-@media (max-width: 1279px) {
-  .content .bot-card-main {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .content .bot-card-right {
-    width: 100%;
-    justify-content: space-between;
-  }
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  vertical-align: middle;
 }
 .content .linked-account {
   display: block;
@@ -1883,6 +1879,49 @@ body.modal-locked {
   padding: 14px 0 14px;
   width: 100%;
   max-width: 346px;
+}
+@media (max-width: 1279px) {
+  .content .bot-card-main {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .content .bot-card-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+@media (min-width: 1280px) {
+  .content .bot-row {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 24px;
+    width: 100%;
+  }
+  .content .bot-card-main {
+    padding: 32px 32px 32px 24px;
+    height: 156px;
+    width: 100%;
+  }
+  .content .bot-card-avatar {
+    width: 60px;
+    height: 60px;
+  }
+  .content .bot-card-title {
+    font: 700 20px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  .content .bot-card-handle {
+    font: 600 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  .content .linked-account {
+    align-self: stretch;
+  }
+  .content .la-card {
+    max-width: 360px;
+    height: 156px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 }
 @media (max-width: 500px) {
   .content .la-card {
@@ -2003,21 +2042,11 @@ body.modal-locked {
   font-size: 16px;
   color: #2D2F2F;
 }
-@media (min-width: 1280px) {
-  .content .status-label {
-    font-size: 22px;
-  }
-}
 .content .status-value {
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 600;
   font-size: 16px;
   color: #BCBDBD;
-}
-@media (min-width: 1280px) {
-  .content .status-value {
-    font-size: 22px;
-  }
 }
 .content .status-value.linked {
   color: #2F9752;
@@ -2052,8 +2081,8 @@ body.modal-locked {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 17px;
-  height: 17px;
+  width: 16px;
+  height: 16px;
   border: 0px solid;
   background: transparent;
   cursor: pointer;
@@ -2061,8 +2090,8 @@ body.modal-locked {
   margin-top: 1px;
 }
 .content .status-info-btn img {
-  width: 17px;
-  height: 17px;
+  width: 16px;
+  height: 16px;
 }
 @media (min-width: 1280px) {
   .content .status-info-btn {
@@ -3301,21 +3330,11 @@ body.modal-locked {
   font-size: 16px;
   color: #0f172a;
 }
-@media (min-width: 1280px) {
-  .account-panel .acct-status-label {
-    font-size: 22px;
-  }
-}
 .account-panel .acct-status-value {
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   color: #2F9752;
-}
-@media (min-width: 1280px) {
-  .account-panel .acct-status-value {
-    font-size: 22px;
-  }
 }
 .account-panel .section-heading {
   margin: 40px 0 12px 0;
