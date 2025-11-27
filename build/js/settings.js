@@ -700,6 +700,11 @@
         if (meta) {
           meta.textContent = 'Authorized on ' + formatDate(p.updatedAt);
         }
+        // Update linked account card datestamp (state 6)
+        try {
+          var dateEl = document.getElementById('linkedDateLabel');
+          if (dateEl) dateEl.textContent = formatDate(p.updatedAt);
+        } catch(_) {}
         // no inline unlink
       } else if (s === 7) {
         // Stage 7: show Not linked visuals (like state 2) but with Unlinked date
@@ -716,6 +721,10 @@
         }
         if (statusIcon) statusIcon.src = 'assets/icon_info_unlinked.svg';
         if (meta) meta.textContent = 'Unlinked on ' + formatDate(p.updatedAt);
+        try {
+          var dateEl2 = document.getElementById('linkedDateLabel');
+          if (dateEl2) dateEl2.textContent = formatDate(p.updatedAt);
+        } catch(_) {}
         // no inline unlink
       } else {
         // Default Not linked visual state

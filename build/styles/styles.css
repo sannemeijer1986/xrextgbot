@@ -1881,14 +1881,23 @@ body.modal-locked {
 .content .la-header-sm {
   font: 600 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #797A7B;
-  margin: 0 0 12px 0;
 }
 .content .la-card {
   background: #ffffff;
   border-radius: 12px;
-  padding: 14px 0 14px;
+  padding: 14px 16px;
   width: 100%;
-  max-width: 346px;
+  max-width: 348px;
+}
+.content .la-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.content .la-header-date {
+  font: 500 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #BCBDBD;
 }
 @media (max-width: 1279px) {
   .content .bot-card-main {
@@ -1949,7 +1958,7 @@ body.modal-locked {
     align-self: stretch;
   }
   .content .la-card {
-    max-width: 360px;
+    max-width: 348px;
     height: 156px;
     display: flex;
     flex-direction: column;
@@ -1966,7 +1975,6 @@ body.modal-locked {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 0 16px;
 }
 .content .la-avatar {
   width: 40px;
@@ -2030,7 +2038,6 @@ body.modal-locked {
   display: flex;
   gap: 16px;
   justify-content: flex-end;
-  padding: 0 20px;
 }
 .content .la-action {
   appearance: none;

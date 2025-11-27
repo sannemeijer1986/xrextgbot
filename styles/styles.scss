@@ -1053,13 +1053,23 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   // Linked account card (state 6) — styled from Figma cursor_linkedaccountcard
   .linked-account { display: block; margin: 0 0 12px 0; }
   .linked-account[hidden] { display: none; }
-  .la-header-sm { font: 600 12px $font-manrope; color: #797A7B; margin: 0 0 12px 0; }
+  .la-header-sm { font: 600 12px $font-manrope; color: #797A7B; }
   .la-card {
     background: #ffffff;
     border-radius: 12px;
-    padding: 14px 0 14px;
+    padding: 14px 16px;
     width: 100%;
-    max-width: 346px;
+    max-width: 348px;
+  }
+  .la-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .la-header-date {
+    font: 500 12px $font-manrope;
+    color: #BCBDBD;
   }
 
   // Responsive layout for bot + linked account
@@ -1132,7 +1142,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       align-self: stretch;
     }
     .la-card {
-      max-width: 360px;
+      max-width: 348px;
       height: 156px;
       display: flex;
       flex-direction: column;
@@ -1143,7 +1153,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   @media (max-width: 500px) {
     .la-card { max-width: inherit; width: 100%; }
   }
-  .la-top { display: flex; align-items: center; gap: 12px; padding: 0 16px; }
+  .la-top { display: flex; align-items: center; gap: 12px; }
   .la-avatar { width: 40px; height: 40px; border-radius: 40px; overflow: hidden; display: grid; place-items: center; background: #f3f4f6; position: relative; }
   .la-avatar .la-avatar-phimg { width: 24px; height: 24px; display: block; z-index: 1; }
   .la-avatar .la-avatar-img { position: absolute; inset: 0; width: 40px; height: 40px; object-fit: cover; display: block; z-index: 2; border-radius: 40px; }
@@ -1154,7 +1164,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .la-username { font: 500 14px $font-manrope; color: #58595A; margin-bottom: -3px; }
   .la-tgid { font: 400 12px $font-manrope; color: #BCBDBD; margin-top: 4px; }
   .la-divider { height: 1px; background: #EEEEEE; margin: 15px 0 12px 0; }
-  .la-actions { display: flex; gap: 16px; justify-content: flex-end; padding: 0 20px; }
+  .la-actions { display: flex; gap: 16px; justify-content: flex-end; }
   .la-action { appearance: none; background: none; border: none; color: #797A7B; font: 600 12px $font-manrope; cursor: pointer; padding: 0; display: inline-flex; align-items: center; gap: 2px; }
   .status-line {
     color: $color-text-primary;
