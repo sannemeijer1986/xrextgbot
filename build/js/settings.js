@@ -395,9 +395,10 @@
       syncAuthenticatorUI();
       // Sync the Status row visual state
       try { updateStatusRowUI(); } catch(_) {}
-      // Toggle linked account section when state is 6
+      // Toggle linked account section (and connector) when state is 6
       try {
         var linked = document.getElementById('linkedAccountSection');
+        var connector = document.querySelector('.bot-row-connector');
         if (linked) {
           var st = (getProgress().state|0);
           var show = (st === 6);
@@ -423,6 +424,9 @@
           }
           linked.hidden = !show;
           linked.setAttribute('aria-hidden', show ? 'false' : 'true');
+          if (connector) {
+            connector.style.display = show ? '' : 'none';
+          }
           if (show) {
             var v = linked.querySelector('#linkedTgValue');
             // Fetch latest session state to fill profile fields when linked (no single-load cache; avatar may arrive later)
