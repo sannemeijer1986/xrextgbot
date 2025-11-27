@@ -166,7 +166,12 @@
                     </div>
                 </div>
                 <div class="bot-row-connector" aria-hidden="true">
-                    <img src="assets/line_connect.svg" alt="" width="16" height="156">
+                    <picture>
+                        <!-- Mobile / below desktop: vertical connector -->
+                        <source srcset="assets/line_connect_vertical.svg" media="(max-width: 1279px)">
+                        <!-- Desktop: horizontal connector -->
+                        <img src="assets/line_connect.svg" alt="" width="16" height="156">
+                    </picture>
                 </div>
                 <div class="la-divider" role="separator"></div>
                 <div id="linkedAccountSection" class="linked-account" hidden>
