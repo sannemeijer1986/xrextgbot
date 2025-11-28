@@ -1334,7 +1334,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     display: flex; flex-direction: column; gap: 2px; align-items: flex-start;
 
     @media (min-width: $bp-md) {
-      display: flex; flex-direction: column; gap: 4px; align-items: flex-start;
+      display: flex; flex-direction: column; gap: 2px; align-items: flex-start;
     }
    }
   .la-name { font: 700 14px $font-manrope; color: $color-text-primary; margin-bottom: -3px; }

@@ -853,8 +853,7 @@ async def poll_remote_and_sync(session_id: str = None):
                                             await bot_for_notifications.send_message(
                                                 chat_id=int(notif_chat_id),
                                                 text=(
-                                                    "⏰ Session expired. Please reopen XREX Pay and start a new linking session "
-                                                    "from the app to continue."
+                                                    "⏰ Session expired. Return to XREX Pay to restart the linking process."
                                                 )
                                             )
                                         if session_id:
@@ -1453,7 +1452,7 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def link_account_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [[InlineKeyboardButton("↗️ Go to XREX Pay", url=xrex_link_url())]]
     await update.message.reply_text(
-        "🔗 To link this Telegram bot with XREX Pay, please visit the XREX Pay web app first.",
+        "🔗 To begin linking, please go to XREX Pay first.",
         reply_markup=InlineKeyboardMarkup(keyboard),
         reply_to_message_id=update.message.message_id
     )
