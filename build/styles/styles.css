@@ -1801,7 +1801,7 @@ body.modal-locked {
 }
 .content .bot-row {
   position: relative; /* allow absolute positioning of desktop CTA */
-  margin: 0 0 16px 0;
+  margin: 0 0 24px 0;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -1820,9 +1820,20 @@ body.modal-locked {
   display: flex;
   flex-direction: column;
 }
+@media (min-width: 1280px) {
+  .content .bot-row-main {
+    min-height: 120px;
+  }
+}
 .content .bot-card {
   margin: 0;
   width: 100%;
+}
+@media (min-width: 1280px) {
+  .content .bot-card {
+    align-items: center;
+    justify-content: center;
+  }
 }
 .content .bot-card-main {
   background: transparent;
@@ -1838,8 +1849,7 @@ body.modal-locked {
   .content .bot-card-main {
     position: relative;
     border-radius: 0;
-    padding: 32px 24px 32px 24px;
-    height: 156px;
+    padding: 0px 24px 0px 24px;
     width: 100%;
   }
 }
@@ -1926,12 +1936,12 @@ body.modal-locked {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 @media (min-width: 1280px) {
   .content .la-header-row {
     justify-content: flex-start;
-    gap: 8px;
+    gap: 6px;
   }
 }
 .content .la-header-date {
@@ -1997,13 +2007,16 @@ body.modal-locked {
   .content .bot-row-main {
     display: flex;
     flex-direction: row;
-    align-items: stretch;
+    align-items: center;
     width: 100%;
   }
   .content .bot-row-divider {
     width: 1px;
     background: #EEEEEE;
-    margin: 0 24px;
+    margin: 0 32px;
+    /* Ensure the vertical divider spans the full height between cards,
+       even though .bot-row-main uses align-items: center */
+    align-self: stretch;
   }
   .content .bot-row .bot-card {
     flex: 1 1 auto;
@@ -2020,10 +2033,9 @@ body.modal-locked {
     font: 600 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
   .content .linked-account {
-    align-self: stretch;
+    align-self: center;
     flex: 0 0 348px;
     width: 348px;
-    height: 156px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -2031,7 +2043,7 @@ body.modal-locked {
   .content .la-card {
     width: 100%;
     display: flex;
-    padding: 16px 20px 8px 20px;
+    padding: 16px 20px 16px 20px;
     flex-direction: column;
     max-width: inherit;
     width: 100%;
@@ -2049,7 +2061,7 @@ body.modal-locked {
   }
   .content .bot-row.bot-row--linked .bot-row-divider {
     flex: 0 0 auto;
-    margin: 40px 16px;
+    margin: 32px 16px;
   }
   .content .bot-row.bot-row--linked .linked-account {
     flex: 1 1 0%;
