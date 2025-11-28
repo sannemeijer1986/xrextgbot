@@ -545,7 +545,7 @@
                     .then(function(r){ if (!r.ok) throw new Error('bad status'); return r.json().catch(function(){ return {}; }); })
                     .then(function(body){
                       try {
-                        if (body && body.ok) { if (typeof showSnackbar === 'function') showSnackbar('Test message sent to linked account!'); }
+                        if (body && body.ok) { if (typeof showSnackbar === 'function') showSnackbar('Test message sent to linked Telegram account!'); }
                         else { if (typeof showSnackbar === 'function') showSnackbar('Failed to send test message'); }
                       } catch(_) {}
                     })
@@ -601,7 +601,7 @@
           window.__loading_timer = setTimeout(function(){
             if (lm) { lm.setAttribute('aria-hidden','true'); lm.hidden = true; }
             // Show success message as part of state 5 completion
-            try { if (typeof showSnackbar === 'function') showSnackbar('Telegram Bot successfully linked to your XREX Pay account'); } catch(_) {}
+            try { if (typeof showSnackbar === 'function') showSnackbar('Telegram successfully linked to XREX Pay. You can now use the XREX Pay Bot'); } catch(_) {}
             window.__loading_timer = null;
             setState(6);
             applyTimelineFromProgress();
@@ -1595,7 +1595,7 @@
             if (lm) { lm.setAttribute('aria-hidden','true'); lm.hidden = true; }
             // After the loader hides, unlock page scroll if no other modal is open
             unlockModalScrollIfNoOpen();
-            try { if (typeof showSnackbar === 'function') showSnackbar('Telegram Bot successfully unlinked from your XREX Pay account'); } catch(_) {}
+            try { if (typeof showSnackbar === 'function') showSnackbar('Telegram successfully unlinked from XREX Pay'); } catch(_) {}
           }, 1200);
           // Remote: PUT stage=7 with X-Client-Stage header so API allows it
           var sid = (function(){ try { return localStorage.getItem('xrex.session.id.v1'); } catch(_) { return null; } })();
@@ -1943,7 +1943,7 @@
         var titleEl = document.querySelector('.intro-section.intro-cta .intro-section-title');
         if (titleEl) {
           if (s === 6) {
-            titleEl.textContent = 'You\u2019re linked to the XREX Pay Telegram Bot';
+            titleEl.textContent = 'You\u2019re linked and ready to use the XREX Pay Telegram Bot';
           } else {
             titleEl.textContent = 'Ready to get started with the XREX Pay Telegram Bot?';
           }

@@ -356,7 +356,7 @@ async def maybe_notify_link_success(user_id: int, chat_id: int):
                         reply_markup = build_linked_keyboard()
                         await bot_for_notifications.send_message(
                             chat_id=chat_id,
-                            text=("🎉️ XREX Pay Bot successfully linked to XREX Pay account @AG*CH.\n\n"
+                            text=("🎉️ Successfully linked to XREX Pay account @AG*CH.\n\n"
                                  "👉 Tap the ‘How to use’ button to explore XREX Pay Bot features."),
                             reply_markup=reply_markup
                         )
@@ -430,7 +430,7 @@ async def watch_finalize_for_user(tg_user_id: int, chat_id: int, timeout_seconds
                                     try:
                                         await bot_for_notifications.send_message(
                                             chat_id=int(chat_id),
-                                            text=("🎉️ XREX Pay Bot successfully linked to XREX Pay account @AG*CH.\n\n"
+                                            text=("🎉️ Successfully linked to XREX Pay account @AG*CH.\n\n"
                                                  "👉 Tap the ‘How to use’ button to explore XREX Pay Bot features."),
                                             reply_markup=reply_markup
                                         )
@@ -733,7 +733,7 @@ async def poll_remote_and_sync(session_id: str = None):
                                     try:
                                         await bot_for_notifications.send_message(
                                             chat_id=target_chat,
-                                            text=("🧪 Test message from XREX Pay Bot. This Bot is currently linked to the XREX Pay account @12*****78.")
+                                            text=("🧪 Test message sent from XREX Pay. Linked to XREX Pay account @AG*CH.")
                                         )
                                     except Exception:
                                         pass
@@ -898,7 +898,7 @@ async def poll_remote_and_sync(session_id: str = None):
                                             try:
                                                 await bot_for_notifications.send_message(
                                                     chat_id=chat_id,
-                                                    text=("🎉️ XREX Pay Bot successfully linked to XREX Pay account @AG*CH.\n\n"
+                                                    text=("🎉️ Successfully linked to XREX Pay account @AG*CH.\n\n"
                                                          "👉 Tap the ‘How to use’ button to explore XREX Pay Bot features."),
                                                     reply_markup=reply_markup
                                                 )
@@ -923,8 +923,8 @@ async def poll_remote_and_sync(session_id: str = None):
                                             try:
                                                 await bot_for_notifications.send_message(
                                                     chat_id=int(target_chat_id),
-                                                    text=("✅️ Telegram Bot successfully linked to XREX Pay account @AG***CH\n\n"
-                                                         "Tap the ‘How to use’ button to see how the XREX Pay Bot simplifies payments and more.")
+                                                    text=("🎉️ Successfully linked to XREX Pay account @AG*CH.\n\n"
+                                                         "👉 Tap the ‘How to use’ button to explore XREX Pay Bot features.")
                                                 )
                                                 try:
                                                     await set_commands_linked(bot_for_notifications, int(target_chat_id))
@@ -970,8 +970,8 @@ async def poll_remote_and_sync(session_id: str = None):
                                             ])
                                             await bot_for_notifications.send_message(
                                                 chat_id=chat_id,
-                                                text=("🔌️ XREX Telegram Bot successfully unlinked from XREX Pay account @AG***CH.\n\n"
-                                                     "👉 To relink your account, simply start the linking process again in the XREX Pay web app."),
+                                                text=("🔌️ Successfully unlinked from XREX Pay account @AG*CH.\n\n"
+                                                     "👉 To relink, simply start the linking process again in the XREX Pay web app."),
                                                 reply_markup=reply_markup
                                             )
                                             try:
@@ -993,8 +993,8 @@ async def poll_remote_and_sync(session_id: str = None):
                                             ])
                                             await bot_for_notifications.send_message(
                                                 chat_id=int(target_chat_id),
-                                                text=("🔌️ XREX Telegram Bot successfully unlinked from XREX Pay account @AG***CH.\n\n"
-                                                     "👉 To relink your account, simply start the linking process again in the XREX Pay web app."),
+                                                text=("🔌️ Successfully unlinked from XREX Pay account @AG***CH.\n\n"
+                                                     "👉 To relink, simply start the linking process again in the XREX Pay web app."),
                                                 reply_markup=reply_markup
                                             )
                                             try:
@@ -1476,7 +1476,7 @@ async def unlink_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         pass
     keyboard = [[InlineKeyboardButton("↗️ Go to XREX Pay", url=xrex_link_url())]]
     await update.message.reply_text(
-        "🔌 Please go to XREX Pay to unlink the Bot.",
+        "🔌 Please go to XREX Pay to unlink.",
         reply_markup=InlineKeyboardMarkup(keyboard),
         reply_to_message_id=update.message.message_id
     )
