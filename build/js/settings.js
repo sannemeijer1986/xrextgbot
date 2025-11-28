@@ -440,15 +440,19 @@
             var btnTest = document.getElementById('laSendTest');
             var btnGo = document.getElementById('laGoToBot');
             var btnGoDesktop = document.getElementById('laGoToBotDesktop');
-            if (st === 6) {
+            if (st === 6 && !hideBotRowForAccount) {
+              // Only show la-actions bar itself in state 6
+              actions.style.display = 'flex';
               if (btnUnlink) btnUnlink.style.display = 'inline-flex';
               if (btnTest) btnTest.style.display = 'inline-flex';
               if (btnGo) btnGo.style.display = 'none';
               if (btnGoDesktop) btnGoDesktop.style.display = 'inline-flex';
             } else {
+              // Hide the entire la-actions bar for any state other than 6
+              actions.style.display = 'none';
               if (btnUnlink) btnUnlink.style.display = 'none';
               if (btnTest) btnTest.style.display = 'none';
-              if (btnGo) btnGo.style.display = 'inline-flex';
+              if (btnGo) btnGo.style.display = 'none';
               if (btnGoDesktop) btnGoDesktop.style.display = 'none';
             }
           }
