@@ -996,9 +996,13 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   gap: 0;
   background: #ffffff;
   border: 1px solid #EEEEEE;
-  border-radius: 16px;
+  border-radius: 8px;
   /* allow inner elements like the status tooltip to overflow outside the card */
   overflow: visible;
+
+  @media (min-width: $bp-md) {
+    border-radius: 16px;
+  }
 }
 
   .bot-row-main {
@@ -1061,7 +1065,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     gap: 2px;
   }
   .bot-card-title {
-    font: 700 16px $font-manrope;
+    font: 700 18px $font-manrope;
     color: $color-text-primary;
   }
   .bot-card-handle {
@@ -1185,7 +1189,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     .bot-row-divider {
       height: 1px;
       background: #EEEEEE;
-      margin: 2px 16px 2px 16px; // inset 16px from card edge without overflowing
+      margin: 1px 16px 1px 16px; // inset 16px from card edge without overflowing
     }
   }
 
@@ -1278,9 +1282,9 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .la-top { display: flex; align-items: flex-start; gap: 10px; }
   // Linked account avatar - mobile first
   .la-avatar { 
-    width: 24px; 
+    width: 28px; 
     margin-top: 5px; 
-    height: 24px; 
+    height: 28px; 
     border-radius: 999px; 
     overflow: hidden; 
     display: grid; 
@@ -1299,8 +1303,8 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   }
 
   .la-avatar .la-avatar-phimg { 
-    width: 18px; 
-    height: 18px; 
+    width: 19px; 
+    height: 19px; 
     display: block; 
     z-index: 1; 
   }
@@ -1316,7 +1320,13 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   }
   .la-avatar .la-avatar-img[hidden] { display: none; }
   .la-avatar .la-avatar-phimg[hidden] { display: none; }
-  .la-id { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+  .la-id { 
+    display: flex; flex-direction: column; gap: 2px; align-items: flex-start;
+
+    @media (min-width: $bp-md) {
+      display: flex; flex-direction: column; gap: 4px; align-items: flex-start;
+    }
+   }
   .la-name { font: 700 14px $font-manrope; color: $color-text-primary; margin-bottom: -3px; }
 
   @media (min-width: $bp-md) {
@@ -1374,6 +1384,10 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     background-color: #FCFCFC;
     padding: 0px 24px;
     border-radius: 0 0 16px 16px;
+
+    @media (min-width: $bp-md) {
+      height: 48px;
+    }
   }
   .la-action { appearance: none; background: none; border: none; color: #797A7B; font: 600 12px $font-manrope; cursor: pointer; padding: 0; display: inline-flex; align-items: center; gap: 6px; }
   .status-line {
@@ -1631,11 +1645,12 @@ color: #BCBDBD; font-weight: 300; font-size: 12px;
   .feature-wrapper {
     background: #fff;
     border: 1px solid $color-border;
-    border-radius: 12px;
+    border-radius: 8px;
     padding: 16px;
 
     @media (min-width: $bp-md) { // reuse existing mobile hiding behavior for assets title via selector below
       padding: 32px;
+      border-radius: 16px;
     }
   }
 
