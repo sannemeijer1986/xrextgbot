@@ -1822,7 +1822,7 @@ body.modal-locked {
 .content .bot-card-main {
   background: transparent;
   border-radius: 0;
-  padding: 18px 16px 18px 16px;
+  padding: 20px 16px 20px 16px;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -1984,9 +1984,8 @@ body.modal-locked {
   }
   .content .bot-row-divider {
     height: 1px;
-    width: 100%;
     background: #EEEEEE;
-    margin: 8px 16px 4px 16px;
+    margin: 2px 16px 2px 16px;
   }
 }
 @media (min-width: 1280px) {
@@ -2045,7 +2044,7 @@ body.modal-locked {
   }
   .content .bot-row.bot-row--linked .bot-row-divider {
     flex: 0 0 auto;
-    margin: 24px 0;
+    margin: 40px 16px;
   }
   .content .bot-row.bot-row--linked .linked-account {
     flex: 1 1 0%;
@@ -2061,7 +2060,7 @@ body.modal-locked {
 }
 @media (max-width: 1279px) {
   .content .la-card {
-    padding: 14px 12px 12px 12px;
+    padding: 20px 16px;
   }
 }
 .content .la-top {
@@ -2070,9 +2069,9 @@ body.modal-locked {
   gap: 10px;
 }
 .content .la-avatar {
-  width: 32px;
-  margin-top: 3px;
-  height: 32px;
+  width: 24px;
+  margin-top: 5px;
+  height: 24px;
   border-radius: 999px;
   overflow: hidden;
   display: grid;
@@ -2080,21 +2079,28 @@ body.modal-locked {
   background: #f3f4f6;
   position: relative;
 }
+@media (min-width: 1280px) {
+  .content .la-avatar {
+    width: 36px;
+    height: 36px;
+    margin-top: 4px;
+  }
+}
 .content .la-avatar .la-avatar-phimg {
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   display: block;
   z-index: 1;
 }
 .content .la-avatar .la-avatar-img {
   position: absolute;
   inset: 0;
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
   z-index: 2;
-  border-radius: 40px;
+  border-radius: 999px;
 }
 .content .la-avatar .la-avatar-img[hidden] {
   display: none;
@@ -2105,18 +2111,35 @@ body.modal-locked {
 .content .la-id {
   display: flex;
   flex-direction: column;
-  gap: 0px;
+  gap: 4px;
   align-items: flex-start;
 }
 .content .la-name {
-  font: 700 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font: 700 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #0f172a;
   margin-bottom: -3px;
+}
+@media (min-width: 1280px) {
+  .content .la-name {
+    font: 700 16px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+}
+.content .la-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  align-items: flex-start;
 }
 .content .la-username {
   font: 600 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #0f172a;
   margin-bottom: -3px;
+}
+@media (min-width: 1280px) {
+  .content .la-username {
+    margin-bottom: 0;
+    font: 600 14px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
 }
 .content .la-tgid {
   font: 400 12px "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -2138,10 +2161,22 @@ body.modal-locked {
     display: flex;
     align-items: center;
   }
+  .content .la-avatar .la-avatar-phimg {
+    width: 24px;
+    height: 24px;
+  }
+  .content .la-meta {
+    flex-direction: row;
+    align-items: center;
+  }
+  .content .la-tgid {
+    margin-top: 0;
+    margin-left: 6px;
+  }
 }
 .content .la-actions {
   display: flex;
-  gap: 16px;
+  gap: 20px;
   justify-content: flex-end;
   height: 48px;
   background-color: #FCFCFC;
@@ -2158,7 +2193,7 @@ body.modal-locked {
   padding: 0;
   display: inline-flex;
   align-items: center;
-  gap: 3px;
+  gap: 6px;
 }
 .content .status-line {
   color: #0f172a;

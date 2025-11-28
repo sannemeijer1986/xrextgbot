@@ -1013,7 +1013,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .bot-card-main {
     background: transparent;
     border-radius: 0;
-    padding: 18px 16px 18px 16px;
+    padding: 20px 16px 20px 16px;
     display: flex;
     align-items: center;
     gap: 16px;
@@ -1184,9 +1184,8 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 
     .bot-row-divider {
       height: 1px;
-      width: 100%;
       background: #EEEEEE;
-      margin: 8px 16px 4px 16px;
+      margin: 2px 16px 2px 16px; // inset 16px from card edge without overflowing
     }
   }
 
@@ -1254,7 +1253,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     }
     .bot-row.bot-row--linked .bot-row-divider {
       flex: 0 0 auto;
-      margin: 24px 0;
+      margin: 40px 16px;
     }
     .bot-row.bot-row--linked .linked-account {
       flex: 1 1 0%;   // div 3: fill remaining
@@ -1271,20 +1270,69 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 
   @media (max-width: ($bp-md - 1)) {
     .la-card {
-      padding: 14px 12px 12px 12px;
+      padding: 20px 16px;
     }
   }
 
   // Small phones: allow full-width card
   .la-top { display: flex; align-items: flex-start; gap: 10px; }
-  .la-avatar { width: 32px; margin-top: 3px; height: 32px; border-radius: 999px; overflow: hidden; display: grid; place-items: center; background: #f3f4f6; position: relative; }
-  .la-avatar .la-avatar-phimg { width: 24px; height: 24px; display: block; z-index: 1; }
-  .la-avatar .la-avatar-img { position: absolute; inset: 0; width: 40px; height: 40px; object-fit: cover; display: block; z-index: 2; border-radius: 40px; }
+  // Linked account avatar - mobile first
+  .la-avatar { 
+    width: 24px; 
+    margin-top: 5px; 
+    height: 24px; 
+    border-radius: 999px; 
+    overflow: hidden; 
+    display: grid; 
+    place-items: center; 
+    background: #f3f4f6; 
+    position: relative; 
+  }
+
+  @media (min-width: $bp-md) {
+    // Desktop overrides for linked account avatar sizing and layout
+    .la-avatar {
+      width: 36px;
+      height: 36px;
+      margin-top: 4px;
+    }
+  }
+
+  .la-avatar .la-avatar-phimg { 
+    width: 18px; 
+    height: 18px; 
+    display: block; 
+    z-index: 1; 
+  }
+  .la-avatar .la-avatar-img { 
+    position: absolute; 
+    inset: 0; 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    display: block; 
+    z-index: 2; 
+    border-radius: 999px; 
+  }
   .la-avatar .la-avatar-img[hidden] { display: none; }
   .la-avatar .la-avatar-phimg[hidden] { display: none; }
-  .la-id { display: flex; flex-direction: column; gap: 0px; align-items: flex-start; }
-  .la-name { font: 700 16px $font-manrope; color: $color-text-primary; margin-bottom: -3px; }
+  .la-id { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+  .la-name { font: 700 14px $font-manrope; color: $color-text-primary; margin-bottom: -3px; }
+
+  @media (min-width: $bp-md) {
+    .la-name {
+      font: 700 16px $font-manrope;
+    }
+  }
+  .la-meta { display: flex; flex-direction: column; gap: 0; align-items: flex-start; }
   .la-username { font: 600 12px $font-manrope; color: $color-text-primary; margin-bottom: -3px; }
+
+  @media (min-width: $bp-md) {
+    .la-username {
+      margin-bottom: 0;
+      font: 600 14px $font-manrope;
+    }
+  }
   .la-tgid { font: 400 12px $font-manrope; color: #BCBDBD; margin-top: 4px; }
   .la-divider { display: none; }
 
@@ -1303,17 +1351,31 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       display: flex;
       align-items: center;
     }
+    .la-avatar .la-avatar-phimg {
+      width: 24px;
+      height: 24px;
+    }
+    // On desktop, keep name on first line, and place handle + ID on one line beneath
+    .la-meta {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .la-tgid {
+      margin-top: 0;
+      margin-left: 6px;
+    }
   }
   .la-actions { 
     display: flex; 
-    gap: 16px; 
+    gap: 20px; 
     justify-content: flex-end; 
     height: 48px;
     background-color: #FCFCFC;
     padding: 0px 24px;
     border-radius: 0 0 16px 16px;
   }
-  .la-action { appearance: none; background: none; border: none; color: #797A7B; font: 600 12px $font-manrope; cursor: pointer; padding: 0; display: inline-flex; align-items: center; gap: 3px; }
+  .la-action { appearance: none; background: none; border: none; color: #797A7B; font: 600 12px $font-manrope; cursor: pointer; padding: 0; display: inline-flex; align-items: center; gap: 6px; }
   .status-line {
     color: $color-text-primary;
     display: flex;
