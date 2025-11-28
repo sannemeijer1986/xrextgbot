@@ -2206,7 +2206,7 @@ body.modal-locked {
     margin-top: 0;
   }
 }
-.content .status-row--unlinked .status-line {
+.content .status-line {
   justify-content: flex-end;
   width: 100%;
 }

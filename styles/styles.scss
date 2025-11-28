@@ -1360,7 +1360,7 @@ color: #BCBDBD; font-weight: 300; font-size: 12px;
 }
 
 // In state 7 also right-align the main status line (value + info icon)
-.status-row--unlinked .status-line {
+.status-line {
   justify-content: flex-end;
   width: 100%;
 }
