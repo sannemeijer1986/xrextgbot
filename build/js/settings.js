@@ -1888,15 +1888,18 @@
     try {
       var btn = document.getElementById('botCardCta');
       if (!btn) return;
+      var wrapper = btn.parentElement; // .bot-card-cta
       var p = getProgress();
       var s = (p.state|0);
       // Always visible when linked; label is handled via updateInlineIntroCta
       if (s === 6) {
+        if (wrapper) wrapper.style.display = 'flex';
         btn.style.display = 'inline-flex';
         return;
       }
       var isSetupActive = tabSetup && tabSetup.classList.contains('active');
       var hide = !!isSetupActive;
+      if (wrapper) wrapper.style.display = hide ? 'none' : 'flex';
       btn.style.display = hide ? 'none' : 'inline-flex';
     } catch(_) {}
   }

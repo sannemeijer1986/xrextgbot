@@ -1091,6 +1091,11 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
+
+    @media (min-width: $bp-md) {
+      justify-content: flex-start;
+      gap: 8px;
+    }
   }
   .la-header-date {
     font: 400 12px $font-manrope;
@@ -1232,6 +1237,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     }
     .bot-row.bot-row--linked .bot-row-divider {
       flex: 0 0 auto;
+      margin: 24px 0;
     }
     .bot-row.bot-row--linked .linked-account {
       flex: 1 1 0%;   // div 3: fill remaining
@@ -1242,7 +1248,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       display: flex;
       align-items: center;
       flex: 0 0 auto;
-      margin-left: 24px;
+      margin-right: 24px;
     }
   }
 
@@ -1285,7 +1291,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     justify-content: flex-end; 
     height: 48px;
     background-color: #FCFCFC;
-    padding: 0px 20px;
+    padding: 0px 24px;
     border-radius: 0 0 16px 16px;
   }
   .la-action { appearance: none; background: none; border: none; color: #797A7B; font: 600 12px $font-manrope; cursor: pointer; padding: 0; display: inline-flex; align-items: center; gap: 3px; }
@@ -1308,9 +1314,10 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     display: block;
     width: 100%;
     margin-top: -5px;
+    display: none;
     @media (min-width: $bp-md) {
       margin-top: 1px;
-      display: inline-flex;
+      display: none;
       width: auto;
       margin-left: 0;
     }
