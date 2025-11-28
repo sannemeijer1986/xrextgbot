@@ -1293,7 +1293,8 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     color: $color-text-primary;
     display: flex;
     align-items: center;
-    gap: 6px;
+    row-gap: 2px;      /* vertical spacing */
+    column-gap: 6px;
     flex-wrap: wrap;
   }
   // Simple status info icon (replaces tooltip button)
@@ -1338,9 +1339,10 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   }
   
   .status-meta { 
-    margin-left: 0px; color: #9CA3AF; font-weight: 300; font-size: 12px; 
+color: #BCBDBD; font-weight: 300; font-size: 12px; 
+    margin-right: 4px;
     @media (min-width: $bp-md) {
-      margin-left: 8px;
+
     }
   }
 
@@ -1349,10 +1351,11 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 // - align that line to the right on both desktop and mobile
 .status-row--unlinked .status-subline {
   text-align: right;
+  margin-top: 0; // reduce vertical gap between "Not linked (i)" and "Unlinked on ..."
   @media (min-width: $bp-md) {
     display: block;
     width: 100%;
-    margin-top: 2px;
+    margin-top: 0;
   }
 }
 

@@ -2147,7 +2147,8 @@ body.modal-locked {
   color: #0f172a;
   display: flex;
   align-items: center;
-  gap: 6px;
+  row-gap: 2px; /* vertical spacing */
+  column-gap: 6px;
   flex-wrap: wrap;
 }
 .content .status-info-icon {
@@ -2189,24 +2190,20 @@ body.modal-locked {
   color: #2F9752;
 }
 .content .status-meta {
-  margin-left: 0px;
-  color: #9CA3AF;
+  color: #BCBDBD;
   font-weight: 300;
   font-size: 12px;
-}
-@media (min-width: 1280px) {
-  .content .status-meta {
-    margin-left: 8px;
-  }
+  margin-right: 4px;
 }
 .content .status-row--unlinked .status-subline {
   text-align: right;
+  margin-top: 0;
 }
 @media (min-width: 1280px) {
   .content .status-row--unlinked .status-subline {
     display: block;
     width: 100%;
-    margin-top: 2px;
+    margin-top: 0;
   }
 }
 .content .status-row--unlinked .status-line {
