@@ -3452,61 +3452,88 @@ body.modal-locked {
   background: transparent;
   border: none;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
-.account-panel .acct-status-wrap {
-  margin: 20px 0 16px 0;
+@media (min-width: 1280px) {
+  .account-panel {
+    gap: 48px;
+  }
 }
 .account-panel .acct-status-line {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   align-items: center;
+  margin: 0;
 }
 .account-panel .acct-status-label {
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: 700;
+  font-size: 18px;
   color: #0f172a;
+}
+@media (min-width: 1280px) {
+  .account-panel .acct-status-label {
+    font-size: 26px;
+  }
 }
 .account-panel .acct-status-value {
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  color: #2F9752;
+  font-weight: 700;
+  font-size: 18px;
+  color: #3fae64;
+}
+@media (min-width: 1280px) {
+  .account-panel .acct-status-value {
+    font-size: 26px;
+  }
 }
 .account-panel .section-heading {
-  margin: 40px 0 12px 0;
+  margin: 0;
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: 700;
+  font-size: 18px;
   color: #797A7B;
 }
 @media (min-width: 1280px) {
   .account-panel .section-heading {
-    font-size: 18px;
+    font-size: 20px;
   }
+}
+.account-panel .mb-32 {
+  margin-bottom: 0;
 }
 .account-panel .card {
   display: flex;
   align-items: center;
   gap: 12px;
   border: 1px solid #eeeeee;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 16px;
   background: #fff;
+}
+@media (min-width: 1280px) {
+  .account-panel .card {
+    gap: 24px;
+    padding: 24px;
+  }
 }
 .account-panel .editable .icon-btn {
   margin-left: auto;
   background: transparent;
   border: none;
   cursor: pointer;
+  padding: 0;
 }
 .account-panel .avatar {
-  width: 48px;
-  height: 48px;
+  width: 32px;
+  height: 32px;
   border-radius: 9999px;
   background: #dbeafe;
   display: grid;
   place-items: center;
+  flex-shrink: 0;
 }
 @media (min-width: 1280px) {
   .account-panel .avatar {
@@ -3514,14 +3541,9 @@ body.modal-locked {
     height: 60px;
   }
 }
-.account-panel .avatar .avatar-initial {
-  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-weight: 700;
-  color: #2d4b9f;
-}
 .account-panel .avatar img {
-  width: 48px;
-  height: 48px;
+  width: 32px;
+  height: 32px;
 }
 @media (min-width: 1280px) {
   .account-panel .avatar img {
@@ -3532,23 +3554,24 @@ body.modal-locked {
 .account-panel .name-block {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
 }
 .account-panel .name {
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 16px;
   color: #0f172a;
 }
 @media (min-width: 1280px) {
   .account-panel .name {
+    font-weight: 700;
     font-size: 22px;
   }
 }
 .account-panel .caption {
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-weight: 400;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 12px;
   color: #797A7B;
 }
 @media (min-width: 1280px) {
@@ -3559,20 +3582,19 @@ body.modal-locked {
 .account-panel .grid-2 {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 32px;
-  margin-bottom: 40px;
+  gap: 16px;
+  margin: 0;
 }
 @media (min-width: 1280px) {
   .account-panel .grid-2 {
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 48px;
+    gap: 48px;
   }
 }
 .account-panel .field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
 }
 .account-panel .field-disabled .input-card {
   background-color: #F8F8F8;
@@ -3582,24 +3604,29 @@ body.modal-locked {
 }
 .account-panel .field-label {
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-weight: 500;
-  font-size: 13px;
+  font-weight: 600;
+  font-size: 12px;
   color: #797A7B;
 }
 @media (min-width: 1280px) {
   .account-panel .field-label {
-    font-size: 15px;
+    font-size: 14px;
   }
 }
 .account-panel .input-card {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   border: 1px solid #eeeeee;
-  border-radius: 12px;
-  padding: 14px 16px;
+  border-radius: 8px;
+  padding: 16px;
   background: #fff;
   min-height: 60px;
+}
+@media (min-width: 1280px) {
+  .account-panel .input-card {
+    min-height: 74px;
+  }
 }
 .account-panel .input-card:focus-within {
   border-color: #2563eb;
@@ -3610,12 +3637,12 @@ body.modal-locked {
 }
 .account-panel .value {
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
   color: #0f172a;
 }
 .account-panel .name-card {
-  margin-bottom: 32px;
+  margin: 0;
 }
 .account-panel .auth-row {
   display: flex;
@@ -3623,24 +3650,32 @@ body.modal-locked {
   gap: 8px;
 }
 .account-panel .auth-state.enabled {
-  color: #2F9752;
+  color: #3fae64;
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 16px;
 }
 .account-panel .auth-state.disabled {
   color: #dd483c;
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 16px;
 }
 .account-panel .divider {
   height: 1px;
   background: #eeeeee;
-  margin: 24px 0;
+  margin: 0;
+  width: 100%;
 }
 .account-panel .logout-row {
-  margin: 56px 0 24px 0;
+  margin: 0;
+  max-width: none;
+  width: 100%;
+}
+@media (min-width: 1280px) {
+  .account-panel .logout-row {
+    max-width: 250px;
+  }
 }
 .account-panel .btn-block {
   width: 100%;
@@ -3649,6 +3684,9 @@ body.modal-locked {
 .account-panel .btn-secondary.btn-lg {
   max-width: 100%;
   width: 100%;
+  height: 52px;
+  font-size: 16px;
+  font-weight: 700;
 }
 @media (min-width: 1280px) {
   .account-panel .btn-secondary.btn-lg {

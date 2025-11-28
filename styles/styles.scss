@@ -2243,37 +2243,58 @@ color: #BCBDBD; font-weight: 300; font-size: 12px;
     }
   }
 }
-// Account panel (no white card wrapper)
+// Account panel (aligned to temp_xrexb2b settings)
 .account-panel {
   background: transparent;
   border: none;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 
-  .acct-status-wrap { margin: 20px 0 16px 0; }
-  .acct-status-line { display: flex; gap: 6px; align-items: center; }
+  @media (min-width: $bp-md) {
+    gap: 48px;
+  }
+
+  .acct-status-line { 
+    display: flex; 
+    gap: 4px; 
+    align-items: center; 
+    margin: 0;
+  }
   .acct-status-label {
     font-family: $font-manrope;
-    font-weight: 600;
-    font-size: 16px;
+    font-weight: 700;
+    font-size: 18px;
     color: $color-text-primary;
+    @media (min-width: $bp-md) {
+      font-size: 26px;
+    }
   }
   .acct-status-value {
     font-family: $font-manrope;
-    font-weight: 600;
-    font-size: 14px;
-    color: #2F9752;
+    font-weight: 700;
+    font-size: 18px;
+    color: #3fae64;
+    @media (min-width: $bp-md) {
+      font-size: 26px;
+    }
   }
 
   .section-heading {
-    margin: 40px 0 12px 0;
+    margin: 0;
     font-family: $font-manrope;
-    font-weight: 600;
-    font-size: 16px;
-    color: $color-footer-link;
+    font-weight: 700;
+    font-size: 18px;
+    color: $color-text-secondary;
 
     @media (min-width: $bp-md) {
-      font-size: 18px;
+      font-size: 20px;
     }  
+  }
+
+  .mb-32 {
+    margin-bottom: 0;
   }
 
   .card {
@@ -2281,83 +2302,153 @@ color: #BCBDBD; font-weight: 300; font-size: 12px;
     align-items: center;
     gap: 12px;
     border: 1px solid $color-border;
-    border-radius: 12px;
+    border-radius: 8px;
     padding: 16px;
     background: #fff;
+
+    @media (min-width: $bp-md) {
+      gap: 24px;
+      padding: 24px;
+    }
   }
-  .editable .icon-btn { margin-left: auto; background: transparent; border: none; cursor: pointer; }
+  .editable .icon-btn { margin-left: auto; background: transparent; border: none; cursor: pointer; padding: 0; }
 
   .avatar {
-    width: 48px;
-    height: 48px;
+    width: 32px;
+    height: 32px;
     border-radius: 9999px;
-    background: $color-chip-bg;
+    background: #dbeafe;
     display: grid;
     place-items: center;
+    flex-shrink: 0;
  
     @media (min-width: $bp-md) {
       width: 60px;
       height: 60px;
     }
-    .avatar-initial { font-family: $font-manrope; font-weight: 700; color: #2d4b9f; }
   }
 
   .avatar img {
-    width: 48px;
-    height: 48px;
+    width: 32px;
+    height: 32px;
      
     @media (min-width: $bp-md) {
       width: 60px;
       height: 60px;
     }
   }
-  .name-block { display: flex; flex-direction: column; gap: 2px; }
+  .name-block { display: flex; flex-direction: column; gap: 4px; }
   .name { 
-    font-family: $font-manrope; font-weight: 700; font-size: 16px; color: $color-text-primary; 
+    font-family: $font-manrope; 
+    font-weight: 600; 
+    font-size: 16px; 
+    color: $color-text-primary; 
 
     @media (min-width: $bp-md) {
+      font-weight: 700;
       font-size: 22px;
     }
   }
   .caption { 
-    font-family: $font-manrope; font-weight: 400; font-size: 14px; color: $color-footer-link; 
+    font-family: $font-manrope; 
+    font-weight: 600; 
+    font-size: 12px; 
+    color: $color-text-secondary; 
 
     @media (min-width: $bp-md) {
       font-size: 16px;
     }
   }
 
-  .grid-2 { display: grid; grid-template-columns: 1fr; gap: 32px; margin-bottom: 40px;
+  .grid-2 { 
+    display: grid; 
+    grid-template-columns: 1fr; 
+    gap: 16px; 
+    margin: 0;
+
     @media (min-width: $bp-md) { 
       grid-template-columns: 1fr 1fr; 
-      gap: 16px; 
-      margin-bottom: 48px;
+      gap: 48px; 
     } 
   }
-  .field { display: flex; flex-direction: column; gap: 8px; }
+  .field { display: flex; flex-direction: column; gap: 16px; }
   .field-disabled .input-card { background-color: #F8F8F8; }
   .field-disabled .value { color: $color-text-secondary }
   .field-label { 
-    font-family: $font-manrope; font-weight: 500; font-size: 13px; color: $color-footer-link; 
+    font-family: $font-manrope; 
+    font-weight: 600; 
+    font-size: 12px; 
+    color: $color-text-secondary; 
 
     @media (min-width: $bp-md) {
-      font-size: 15px;
+      font-size: 14px;
     }    
   }
-  .input-card { display: flex; align-items: center; gap: 12px; border: 1px solid $color-border; border-radius: 12px; padding: 14px 16px; background: #fff; min-height: 60px; }
+  .input-card { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    border: 1px solid $color-border; 
+    border-radius: 8px; 
+    padding: 16px; 
+    background: #fff; 
+    min-height: 60px; 
+
+    @media (min-width: $bp-md) {
+      min-height: 74px;
+    }
+  }
   .input-card:focus-within { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,.15); }
   .input-card-split { justify-content: space-between; }
-  .value { font-family: $font-manrope; font-weight: 500; font-size: 16px; color: $color-text-primary; }
-  .name-card { margin-bottom: 32px; }
+  .value { 
+    font-family: $font-manrope; 
+    font-weight: 600; 
+    font-size: 16px; 
+    color: $color-text-primary; 
+  }
+  .name-card { margin: 0; }
   .auth-row { display: flex; align-items: center; gap: 8px; }
-  .auth-state.enabled { color: #2F9752; font-family: $font-manrope; font-weight: 600; font-size: 14px; }
-  .auth-state.disabled { color: #dd483c; font-family: $font-manrope; font-weight: 600; font-size: 14px; }
+  .auth-state.enabled { 
+    color: #3fae64; 
+    font-family: $font-manrope; 
+    font-weight: 600; 
+    font-size: 16px; 
+  }
+  .auth-state.disabled { 
+    color: #dd483c; 
+    font-family: $font-manrope; 
+    font-weight: 600; 
+    font-size: 16px; 
+  }
 
-  .divider { height: 1px; background: $color-border; margin: 24px 0; }
+  .divider { 
+    height: 1px; 
+    background: $color-border; 
+    margin: 0; 
+    width: 100%;
+  }
 
-  .logout-row { margin: 56px 0 24px 0; }
+  .logout-row { 
+    margin: 0; 
+    max-width: none;
+    width: 100%;
+
+    @media (min-width: $bp-md) {
+      max-width: 250px;
+    }
+  }
   .btn-block { width: 100%; justify-content: center; }
-  .btn-secondary.btn-lg { max-width: 100%; width: 100%; @media (min-width: $bp-md) { max-width: 250px; } }
+  .btn-secondary.btn-lg { 
+    max-width: 100%; 
+    width: 100%; 
+    height: 52px;
+    font-size: 16px;
+    font-weight: 700;
+
+    @media (min-width: $bp-md) { 
+      max-width: 250px; 
+    } 
+  }
 
   // iOS-like switch
   .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
