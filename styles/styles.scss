@@ -972,11 +972,21 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 
   // Telegram Bot main card (unlinked/linked state)
   // Telegram bot + linked account row
-  .bot-row {
-    margin: 0 0 16px 0;
+.bot-row {
+  position: relative; /* allow absolute positioning of desktop CTA */
+  margin: 0 0 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: #ffffff;
+  border: 1px solid #EEEEEE;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+  .bot-row-main {
     display: flex;
     flex-direction: column;
-    gap: 0;
   }
 
   .bot-card {
@@ -984,17 +994,18 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     width: 100%;
   }
   .bot-card-main {
-    background: #ffffff;
-    border-radius: 12px;
+    background: transparent;
+    border-radius: 0;
     padding: 18px 16px 18px 16px;
     display: flex;
     align-items: center;
     gap: 16px;
     width: 100%;
-    border: 1px solid #EEEEEE;
+    border: none;
 
     @media (min-width: $bp-md) {
-      border-radius: 16px;
+      position: relative;
+      border-radius: 0;
       padding: 32px 24px 32px 24px;
       height: 156px;
       width: 100%;
@@ -1004,6 +1015,12 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     display: flex;
     align-items: center;
     gap: 12px;
+  }
+  .bot-card-right {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    gap: 16px;
   }
   .bot-card-avatar {
     width: 40px;
@@ -1035,38 +1052,37 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     color: #336AFF;
     text-decoration: none;
   }
-  .bot-card-right {
-    margin-left: auto;
+  .bot-card-cta {
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: flex-end;
+    padding: 0 16px 12px 16px;
 
     @media (min-width: $bp-md) {
+      justify-content: flex-end;
+      padding: 0;
       .btn {
         width: 132px;
         min-width: inherit;
       }
     }
-
   }
   .bot-card-status {
     font: 600 12px $font-manrope;
     color: $color-text-secondary;
+    display: flex;
     align-items: center;
-    justify-content: center;
-    justify-items: center;
-    vertical-align: middle;
   }
 
   // Linked account card (state 6) — styled from Figma cursor_linkedaccountcard
   .linked-account { 
-    display: block; margin: 0 0 12px 0; 
-    border: 1px solid #EEEEEE;
-    background: #ffffff;
-    border-radius: 16px;
-    width: 348px;
-    padding: 4px 4px;
-
+    display: block;
+    margin: 0;
+    border: none;
+    background: transparent;
+    border-radius: 0;
+    width: auto;
+    padding: 0;
   }
   .linked-account[hidden] { display: none; }
   .la-header-sm { font: 600 12px $font-manrope; color: #797A7B; }
@@ -1084,10 +1100,9 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   // Responsive layout for bot + linked account
   @media (max-width: ($bp-md - 1)) {
     // Full-width cards stacked vertically; vertical connector between them
-    .bot-row {
+    .bot-row-main {
       display: flex;
       flex-direction: column;
-      gap: 0; // no extra gap; connector defines visual spacing
       width: 100%;
     }
 
@@ -1103,9 +1118,10 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     .bot-card-main {
       display: grid;
       grid-template-columns: auto 1fr;
-      grid-template-rows: auto 1fr; // allow second row to stretch so CTA can sit at bottom
+      /* row 1: avatar + status, row 2: title/handle + CTA on same vertical line */
+      grid-template-rows: auto auto;
       column-gap: 12px;
-      row-gap: 8px;
+      row-gap: 6px;
       align-items: center;
     }
 
@@ -1133,45 +1149,39 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       grid-row: 2;
       grid-column: 1;
       gap: 0;
-      align-self: start;
+      align-self: center;
     }
 
-    #botCardCta {
+    .bot-card-cta {
       grid-row: 2;
       grid-column: 2;
-      justify-self: end;
-      align-self: end; // bottom-right within the card
-    }
-
-    .bot-row-connector {
-      display: flex;
+      justify-content: flex-end;
       align-items: center;
-      justify-content: center;
-      height: 16px; // vertical connector height
+      padding: 0;            // use card padding, no extra vertical space
     }
 
-    .bot-row-connector img {
-      display: block;
-      height: 16px;  // fixed height on mobile
-      width: auto;   // let SVG define width
+    .bot-row-divider {
+      height: 1px;
+      width: 100%;
+      background: #EEEEEE;
+      margin: 8px 16px 4px 16px;
     }
   }
 
   @media (min-width: $bp-md) {
-    .bot-row {
+    .bot-row-main {
       display: flex;
       flex-direction: row;
       align-items: stretch;
-      gap: 0;
       width: 100%;
     }
-    .bot-row-connector {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex: 0 0 16px;
-      min-width: 16px;
+
+    .bot-row-divider {
+      width: 1px;
+      background: #EEEEEE;
+      margin: 0 24px;
     }
+
     .bot-row .bot-card {
       flex: 1 1 auto;      // fill remaining width
       min-width: 0;
@@ -1193,22 +1203,23 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       height: 156px;
       display: flex;
       flex-direction: column;
+      justify-content: center; // vertically center linked account content
     }
     .la-card {
       width: 100%;
       display: flex;
       padding: 16px 20px 8px 20px;
       flex-direction: column;
-      flex: 1 1 auto; 
-      max-width: inherit; width: 100%;         // fill available height
+      max-width: inherit;
+      width: 100%;
     }
   }
 
-@media (max-width: ($bp-md - 1)) {
-  .la-card {
-    padding: 14px 12px 12px 12px;
+  @media (max-width: ($bp-md - 1)) {
+    .la-card {
+      padding: 14px 12px 12px 12px;
+    }
   }
-}
 
   // Small phones: allow full-width card
   .la-top { display: flex; align-items: flex-start; gap: 10px; }
@@ -1226,10 +1237,10 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     display: flex; 
     gap: 16px; 
     justify-content: flex-end; 
-    height: 36px;
+    height: 48px;
     background-color: #FCFCFC;
     padding: 0px 20px;
-    border-radius: 0 0 12px 12px;
+    border-radius: 0 0 16px 16px;
   }
   .la-action { appearance: none; background: none; border: none; color: #797A7B; font: 600 12px $font-manrope; cursor: pointer; padding: 0; display: inline-flex; align-items: center; gap: 3px; }
   .status-line {
@@ -1346,10 +1357,10 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     &::after {
       content: "";
       position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
       width: 0;
       height: 0;
+      left: 50%;
+      margin-left: -6px; // center the triangle (6px is half the arrow width)
       border-left: 6px solid transparent;
       border-right: 6px solid transparent;
     }

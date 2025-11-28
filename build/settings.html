@@ -130,78 +130,79 @@
                 </div>
             </div>
 
-            <!-- Telegram bot main row: bot card + connector + linked account card (desktop) -->
+            <!-- Telegram bot main row: bot card + linked account summary + CTA -->
             <div class="bot-row">
-                <div class="bot-card" id="botCard">
-                    <div class="bot-card-main">
-                        <div class="bot-card-left">
-                            <div class="bot-card-avatar">
-                                <img src="assets/bot_avatar.png" alt="XREX Pay Bot avatar" width="40" height="40">
-                            </div>
-                            <div class="bot-card-texts">
-                                <div class="bot-card-title">XREX Pay Bot</div>
-                                <a href="#" class="bot-card-handle" id="botHandleLink">@SanneXREX_bot</a>
-                            </div>
-                        </div>
-                        <div class="bot-card-right">
-                            <div class="bot-card-status" id="botCardStatus">
-                                <div class="status-row" id="statusRow" style="display:none;">
-                                    <div class="status-line">
-                                        <span class="status-value">Not linked</span>
-                                        <span class="status-tip-wrap">
-                                            <button class="status-info-btn" id="statusInfoBtn" aria-expanded="false" aria-controls="statusTip" type="button">
-                                                <img id="statusInfoIcon" src="assets/icon_info_unlinked.svg" width="16" height="16" alt="info">
-                                            </button>
-                                            <div class="status-tooltip below" id="statusTip" role="tooltip" hidden>
-                                                <div class="tip-title">Not linked to bot</div>
-                                                <div class="tip-body">Link your Telegram account to the bot and access XREX features directly in Telegram</div>
-                                            </div>
-                                        </span>
-                                        <span class="status-subline"><span class="status-meta"></span></span>
-                                    </div>
+                <div class="bot-row-main">
+                    <div class="bot-card" id="botCard">
+                        <div class="bot-card-main">
+                            <div class="bot-card-left">
+                                <div class="bot-card-avatar">
+                                    <img src="assets/bot_avatar.png" alt="XREX Pay Bot avatar" width="40" height="40">
+                                </div>
+                                <div class="bot-card-texts">
+                                    <div class="bot-card-title">XREX Pay Bot</div>
+                                    <a href="#" class="bot-card-handle" id="botHandleLink">@SanneXREX_bot</a>
                                 </div>
                             </div>
-                            <button class="btn btn-primary btn-md mobile-btn-sm js-start-link" id="botCardCta">Link now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="bot-row-connector" aria-hidden="true">
-                    <picture>
-                        <!-- Mobile / below desktop: vertical connector -->
-                        <source srcset="assets/line_connect_vertical.svg" media="(max-width: 1279px)">
-                        <!-- Desktop: horizontal connector -->
-                        <img src="assets/line_connect.svg" alt="" width="16" height="156">
-                    </picture>
-                </div>
-                <div class="la-divider" role="separator"></div>
-                <div id="linkedAccountSection" class="linked-account" hidden>
-                    <div class="la-card">
-                        <div class="la-header-row">
-                            <div class="la-header-sm">Telegram account linked to bot</div>
-                            <div class="la-header-date" id="linkedDateLabel">--</div>
-                        </div>
-                        <div class="la-top">
-                            <div class="la-avatar">
-                                <img class="la-avatar-phimg" src="assets/icon_tguser.svg" alt="no avatar" width="24" height="24">
-                                <img class="la-avatar-img" alt="avatar" hidden>
-                            </div>
-                            <div class="la-id">
-                                <div class="la-name">Telegram user</div>
-                                <div class="la-username">- -</div>
-                                <div class="la-tgid" id="linkedTgValue">Telegram ID: 736135332</div>
+                            <div class="bot-card-right">
+                                <div class="bot-card-status" id="botCardStatus">
+                                    <div class="status-row" id="statusRow">
+                                        <div class="status-line">
+                                            <!-- <span class="status-label">Status :</span> -->
+                                            <span class="status-value">Not linked</span>
+                                            <span class="status-tip-wrap">
+                                                <button class="status-info-btn" id="statusInfoBtn" aria-expanded="false" aria-controls="statusTip" type="button">
+                                                    <img id="statusInfoIcon" src="assets/icon_info_unlinked.svg" width="16" height="16" alt="info">
+                                                </button>
+                                                <div class="status-tooltip below" id="statusTip" role="tooltip" hidden>
+                                                    <div class="tip-title">Not linked to bot</div>
+                                                    <div class="tip-body">Link your Telegram account to the bot and access XREX features directly in Telegram</div>
+                                                </div>
+                                            </span>
+                                            <span class="status-subline"><span class="status-meta"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bot-card-cta">
+                                    <button class="btn btn-primary btn-md mobile-btn-sm js-start-link" id="botCardCta">Link now</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="la-actions">
-                        <button class="la-action" type="button" id="laSendTest">
-                            <img src="assets/icon_linked_sendtestmessage.svg" alt="" width="16" height="16">
-                            <span>Test message</span>
-                        </button>
-                        <button class="la-action" type="button" id="laUnlinkBtn">
-                            <img src="assets/icon_linked_unlink.svg" alt="" width="16" height="16">
-                            <span>Unlink</span>
-                        </button>
+                    <div class="bot-row-divider" aria-hidden="true"></div>
+                    <div id="linkedAccountSection" class="linked-account" hidden>
+                        <div class="la-card">
+                            <div class="la-header-row">
+                                <div class="la-header-sm">Telegram account linked to bot</div>
+                                <div class="la-header-date" id="linkedDateLabel">--</div>
+                            </div>
+                            <div class="la-top">
+                                <div class="la-avatar">
+                                    <img class="la-avatar-phimg" src="assets/icon_tguser.svg" alt="no avatar" width="24" height="24">
+                                    <img class="la-avatar-img" alt="avatar" hidden>
+                                </div>
+                                <div class="la-id">
+                                    <div class="la-name">Telegram user</div>
+                                    <div class="la-username">- -</div>
+                                    <div class="la-tgid" id="linkedTgValue">Telegram ID: 736135332</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div class="la-actions">
+                    <button class="la-action" type="button" id="laUnlinkBtn">
+                        <img src="assets/icon_linked_unlink.svg" alt="" width="16" height="16">
+                        <span>Unlink</span>
+                    </button>
+                    <button class="la-action" type="button" id="laSendTest">
+                        <img src="assets/icon_linked_sendtestmessage.svg" alt="" width="16" height="16">
+                        <span>Test message</span>
+                    </button>
+                    <button class="la-action la-action--gotobot" type="button" id="laGoToBot">
+                        <img src="assets/icon_link_openlink.svg" alt="" width="16" height="16">
+                        <span>Go to bot</span>
+                    </button>
                 </div>
             </div>
 

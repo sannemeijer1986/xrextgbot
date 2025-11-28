@@ -395,11 +395,14 @@
       syncAuthenticatorUI();
       // Sync the Status row visual state
       try { updateStatusRowUI(); } catch(_) {}
+      // Keep the bot-card CTA visibility in sync with current state/tab
+      try { updateBotCardCtaVisibility(); } catch(_) {}
       // Toggle linked account section (and connector) when state is 6
       try {
         var linked = document.getElementById('linkedAccountSection');
-        var connector = document.querySelector('.bot-row-connector');
-        if (linked) {
+        var connector = document.querySelector('.bot-row-divider');
+        var actions = document.querySelector('.la-actions');
+        if (linked || actions) {
           var st = (getProgress().state|0);
           var show = (st === 6);
           try {
@@ -422,10 +425,26 @@
               if (avatarImg0) { try { avatarImg0.removeAttribute('src'); } catch(_){} avatarImg0.hidden = true; }
             } catch(_) {}
           }
-          linked.hidden = !show;
-          linked.setAttribute('aria-hidden', show ? 'false' : 'true');
+          if (linked) {
+            linked.hidden = !show;
+            linked.setAttribute('aria-hidden', show ? 'false' : 'true');
+          }
           if (connector) {
             connector.style.display = show ? '' : 'none';
+          }
+          if (actions) {
+            var btnUnlink = document.getElementById('laUnlinkBtn');
+            var btnTest = document.getElementById('laSendTest');
+            var btnGo = document.getElementById('laGoToBot');
+            if (st === 6) {
+              if (btnUnlink) btnUnlink.style.display = 'inline-flex';
+              if (btnTest) btnTest.style.display = 'inline-flex';
+              if (btnGo) btnGo.style.display = 'none';
+            } else {
+              if (btnUnlink) btnUnlink.style.display = 'none';
+              if (btnTest) btnTest.style.display = 'none';
+              if (btnGo) btnGo.style.display = 'inline-flex';
+            }
           }
           if (show) {
             var v = linked.querySelector('#linkedTgValue');
@@ -1582,6 +1601,8 @@
     try { updateTopCta(); } catch(_) {}
     // Keep inline CTA text in sync when switching tabs
     try { updateInlineIntroCta(); } catch(_) {}
+    // Toggle bot-card CTA visibility based on active tab/state
+    try { updateBotCardCtaVisibility(); } catch(_) {}
     // Return whether Setup is actually active
     return !isIntro;
   }
@@ -1839,6 +1860,26 @@
     } catch(_) {}
   }
 
+  // Update visibility of the bot-card CTA inside the bot row
+  // - When state === 6 (linked): always show "Go to bot" on any tab
+  // - Otherwise: hide on Setup tab, show only on Introduction tab
+  function updateBotCardCtaVisibility(){
+    try {
+      var btn = document.getElementById('botCardCta');
+      if (!btn) return;
+      var p = getProgress();
+      var s = (p.state|0);
+      // Always visible when linked; label is handled via updateInlineIntroCta
+      if (s === 6) {
+        btn.style.display = 'inline-flex';
+        return;
+      }
+      var isSetupActive = tabSetup && tabSetup.classList.contains('active');
+      var hide = !!isSetupActive;
+      btn.style.display = hide ? 'none' : 'inline-flex';
+    } catch(_) {}
+  }
+
   // Update the inline Introduction CTA text to match state
   function updateInlineIntroCta(){
     try {
@@ -1849,14 +1890,9 @@
         try {
           if (!btn) return;
           btn.textContent = label;
-          // Primary style when unlinked, secondary when linked
-          if (s === 6) {
-            btn.classList.remove('btn-primary');
-            btn.classList.add('btn-secondary');
-          } else {
-            btn.classList.remove('btn-secondary');
-            btn.classList.add('btn-primary');
-          }
+          // Always keep primary styling on the top CTA
+          btn.classList.remove('btn-secondary');
+          btn.classList.add('btn-primary');
         } catch(_) {}
       });
       // Update the intro CTA section title based on state
@@ -2285,6 +2321,20 @@
       window.__xrex_poll_timer = timer;
 
       // Client never writes remote state; the bot updates the Redis-backed API.
+    } catch(_) {}
+  })();
+
+  // Footer "Go to bot" action in la-actions
+  (function wireFooterGoToBot(){
+    try {
+      var btn = document.getElementById('laGoToBot');
+      if (btn && !btn.__wired) {
+        btn.__wired = true;
+        btn.addEventListener('click', function(e){
+          e.preventDefault();
+          openGoToBotModal();
+        });
+      }
     } catch(_) {}
   })();
 })();
