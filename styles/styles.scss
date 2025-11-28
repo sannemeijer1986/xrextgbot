@@ -639,6 +639,11 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   }
 }
 
+.content-header-actions {
+  display: flex;
+  gap: 16px;
+}
+
 .mobile-menu-header {
   display: none;
   margin: 8px 0 12px 0;
@@ -981,7 +986,8 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   background: #ffffff;
   border: 1px solid #EEEEEE;
   border-radius: 16px;
-  overflow: hidden;
+  /* allow inner elements like the status tooltip to overflow outside the card */
+  overflow: visible;
 }
 
   .bot-row-main {
