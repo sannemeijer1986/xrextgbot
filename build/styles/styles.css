@@ -2045,7 +2045,7 @@ body.modal-locked {
   }
   .content .bot-row.bot-row--linked .bot-row-divider {
     flex: 0 0 auto;
-    margin: 24px 0;
+    margin: 24px 24px;
   }
   .content .bot-row.bot-row--linked .linked-account {
     flex: 1 1 0%;

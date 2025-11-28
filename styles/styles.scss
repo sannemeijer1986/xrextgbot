@@ -1243,7 +1243,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     }
     .bot-row.bot-row--linked .bot-row-divider {
       flex: 0 0 auto;
-      margin: 24px 0;
+      margin: 24px 24px;
     }
     .bot-row.bot-row--linked .linked-account {
       flex: 1 1 0%;   // div 3: fill remaining
