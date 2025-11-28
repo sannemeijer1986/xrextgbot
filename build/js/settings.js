@@ -32,6 +32,13 @@
       if (viewNow === 'menu') {
         document.body.classList.add('state-menu');
         document.body.classList.remove('state-content');
+        // In mobile menu view, sidebar icons should use their inactive variants
+        try {
+          document.querySelectorAll('.menu .menu-item[data-page] .menu-item-icon img').forEach(function(icon){
+            var inactiveSrc = icon.getAttribute('data-icon-inactive') || icon.getAttribute('src');
+            if (inactiveSrc) icon.setAttribute('src', inactiveSrc);
+          });
+        } catch(_) {}
       } else {
         document.body.classList.add('state-content');
         document.body.classList.remove('state-menu');
@@ -1941,13 +1948,15 @@
       // Toggle active class on sidebar items and swap active/inactive icons
       try {
         document.querySelectorAll('.menu .menu-item[data-page]').forEach(function(mi){
-          var isActive = mi.getAttribute('data-page') === page;
-          mi.classList.toggle('active', isActive);
+        var inMenuState = document.body.classList.contains('state-menu');
+        // In mobile menu view, we don't show active affordance or active icons
+        var isActive = !inMenuState && (mi.getAttribute('data-page') === page);
+        mi.classList.toggle('active', isActive);
           var icon = mi.querySelector('.menu-item-icon img');
           if (icon) {
             var activeSrc = icon.getAttribute('data-icon-active');
             var inactiveSrc = icon.getAttribute('data-icon-inactive') || icon.getAttribute('src');
-            if (isActive && activeSrc) {
+          if (isActive && activeSrc) {
               icon.setAttribute('src', activeSrc);
             } else if (inactiveSrc) {
               icon.setAttribute('src', inactiveSrc);

@@ -646,17 +646,19 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
 
 .mobile-menu-header {
   display: none;
-  margin: 8px 0 12px 0;
+  margin: 4px 0 8px 0;
   @media (min-width: $bp-md) { display: none; }
   .link-close-menu {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    color: #2250F7;
+    gap: 6px;
+    box-sizing: border-box;
+    color: #336AFF;
     text-decoration: none;
-    font-family: $font-manrope;
+    font-family: $font-sora;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 14px;
+    cursor: pointer;
     .x { font-weight: 700; font-size: 18px; line-height: 1; }
   }
 }
@@ -668,19 +670,24 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   body.state-menu .mobile-menu-header { display: block; }
   body.state-menu .sidebar { display: block; }
   // In State 1 (menu view) on mobile, suppress active styling
-  body.state-menu .sidebar .menu-item.active { color: #797A7B; }
-  body.state-menu .sidebar .menu-item.active .menu-item-icon { background: #f0f1f3; }
+  body.state-menu .sidebar .menu-item.active { color: $color-text-secondary; }
+  body.state-menu .sidebar .menu-item.active .menu-item-icon { background: #f3f4f6; }
   body.state-menu .container { flex-direction: column; gap: 12px; }
   body.state-menu .mobile-menu-header { width: 100%; }
   body.state-menu .mobile-menu-header .link-close-menu { width: 100%; display: inline-flex; }
   body.state-menu .sidebar { width: 100%; }
-  body.state-menu .sidebar .menu { background: #ffffff; padding: 0px; border-radius: 8px; width: 100%; }
+  body.state-menu .sidebar .menu { background: #ffffff; padding: 0px; border-radius: 8px; width: 100%; border: 1px solid $color-border; }
   // show a divider under each menu item on mobile without changing spacing (except last)
   body.state-menu .sidebar .menu-item { position: relative; border-radius: 0px; padding: 20px 20px; }
-  body.state-menu .sidebar .menu-item::after { content: ""; position: absolute; left: 20px; right: 20px; bottom: 0; height: 1px; background: $color-border; }
+  body.state-menu .sidebar .menu-item::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: $color-border; }
   body.state-menu .sidebar .menu-item:last-child::after { display: none; }
   body.state-menu .sidebar .menu-item:last-child { border-bottom: none; }
   body.state-menu .sidebar .menu-item-icon { width: 32px; height: 32px; }
+
+  // On mobile, keep expandable submenus always expanded (desktop can collapse)
+  .sidebar .submenu[hidden] {
+    display: flex !important;
+  }
 
   body.state-content .mobile-menu-header { display: none; }
   body.state-content .sidebar { display: none; }
@@ -720,17 +727,17 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     gap: 12px;
     padding: 12px;
     border-radius: 10px;
-    color: #797A7B;
+    color: $color-text-secondary;
     cursor: pointer;
     border: 1px solid transparent;
     font-family: $font-manrope;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 16px;
 
     &:hover { background: transparent; }
 
     &.active {
-      color: #336AFF;
+      color: #194AF9;
       .menu-item-icon { background: #EBF2FF; }
     }
 
@@ -953,17 +960,17 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   // Back button visible only on mobile
   .mobile-back {
     display: block;
-    margin: 0 0 0 -4px;
+  margin: 0 0 8px 0;
     @media (min-width: $bp-md) { display: none; }
     .link-back {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      color: #2250F7;
+      gap: 6px;
+      color: #336AFF;
       text-decoration: none;
-      font-family: $font-manrope;
+    font-family: $font-sora;
       font-weight: 700;
-      font-size: 16px;
+      font-size: 14px;
       .icon-back { width: 20px; height: 20px; display: inline-block; }
     }
   }
@@ -1243,7 +1250,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     }
     .bot-row.bot-row--linked .bot-row-divider {
       flex: 0 0 auto;
-      margin: 24px 24px;
+      margin: 24px 0;
     }
     .bot-row.bot-row--linked .linked-account {
       flex: 1 1 0%;   // div 3: fill remaining

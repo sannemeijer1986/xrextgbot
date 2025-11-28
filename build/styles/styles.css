@@ -1384,7 +1384,7 @@ body.modal-locked {
 
 .mobile-menu-header {
   display: none;
-  margin: 8px 0 12px 0;
+  margin: 4px 0 8px 0;
 }
 @media (min-width: 1280px) {
   .mobile-menu-header {
@@ -1394,12 +1394,14 @@ body.modal-locked {
 .mobile-menu-header .link-close-menu {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  color: #2250F7;
+  gap: 6px;
+  box-sizing: border-box;
+  color: #336AFF;
   text-decoration: none;
-  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 14px;
+  cursor: pointer;
 }
 .mobile-menu-header .link-close-menu .x {
   font-weight: 700;
@@ -1424,7 +1426,7 @@ body.modal-locked {
     color: #797A7B;
   }
   body.state-menu .sidebar .menu-item.active .menu-item-icon {
-    background: #f0f1f3;
+    background: #f3f4f6;
   }
   body.state-menu .container {
     flex-direction: column;
@@ -1445,6 +1447,7 @@ body.modal-locked {
     padding: 0px;
     border-radius: 8px;
     width: 100%;
+    border: 1px solid #eeeeee;
   }
   body.state-menu .sidebar .menu-item {
     position: relative;
@@ -1454,8 +1457,8 @@ body.modal-locked {
   body.state-menu .sidebar .menu-item::after {
     content: "";
     position: absolute;
-    left: 20px;
-    right: 20px;
+    left: 0;
+    right: 0;
     bottom: 0;
     height: 1px;
     background: #eeeeee;
@@ -1469,6 +1472,9 @@ body.modal-locked {
   body.state-menu .sidebar .menu-item-icon {
     width: 32px;
     height: 32px;
+  }
+  .sidebar .submenu[hidden] {
+    display: flex !important;
   }
   body.state-content .mobile-menu-header {
     display: none;
@@ -1512,14 +1518,14 @@ body.modal-locked {
   cursor: pointer;
   border: 1px solid transparent;
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
 }
 .sidebar .menu-item:hover {
   background: transparent;
 }
 .sidebar .menu-item.active {
-  color: #336AFF;
+  color: #194AF9;
 }
 .sidebar .menu-item.active .menu-item-icon {
   background: #EBF2FF;
@@ -1771,7 +1777,7 @@ body.modal-locked {
 }
 .content .mobile-back {
   display: block;
-  margin: 0 0 0 -4px;
+  margin: 0 0 8px 0;
 }
 @media (min-width: 1280px) {
   .content .mobile-back {
@@ -1781,12 +1787,12 @@ body.modal-locked {
 .content .mobile-back .link-back {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  color: #2250F7;
+  gap: 6px;
+  color: #336AFF;
   text-decoration: none;
-  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 14px;
 }
 .content .mobile-back .link-back .icon-back {
   width: 20px;
@@ -2045,7 +2051,7 @@ body.modal-locked {
   }
   .content .bot-row.bot-row--linked .bot-row-divider {
     flex: 0 0 auto;
-    margin: 24px 24px;
+    margin: 24px 0;
   }
   .content .bot-row.bot-row--linked .linked-account {
     flex: 1 1 0%;
