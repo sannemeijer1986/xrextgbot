@@ -498,7 +498,7 @@
                         if (uname) { userEl.textContent = '@' + uname; userEl.hidden = false; }
                         else { userEl.textContent = '- -'; userEl.hidden = false; }
                       }
-                      if (tgIdEl) tgIdEl.textContent = 'Telegram ID: ' + (tgId || '736135332');
+                      if (tgIdEl) tgIdEl.textContent = 'ID: ' + (tgId || '736135332');
                       if (avatarImg) {
                         if (photo) {
                           avatarImg.hidden = true;
@@ -717,18 +717,30 @@
         }
       } catch(_) {}
 
-      // Format date from updatedAt (match timeline datestamp: HH:MM:SS, MM/DD/YYYY)
-      function formatDate(iso){
+      // Date formatting helpers from updatedAt
+      // - formatDateOnly: MM/DD/YYYY (used for linked header + authorized meta)
+      // - formatDateTime: HH:MM:SS, MM/DD/YYYY (used for Unlinked meta in state 7)
+      function formatDateOnly(iso){
+        try {
+          var d = new Date(iso || '');
+          var pad = function(n){ return String(n).padStart(2,'0'); };
+          var mo = pad(d.getMonth() + 1);
+          var da = pad(d.getDate());
+          var yr = d.getFullYear();
+          return mo + '/' + da + '/' + yr;
+        } catch(_) { return ''; }
+      }
+      function formatDateTime(iso){
         try {
           var d = new Date(iso || '');
           var pad = function(n){ return String(n).padStart(2,'0'); };
           var hh = pad(d.getHours());
           var mm = pad(d.getMinutes());
+          var ss = pad(d.getSeconds());
           var mo = pad(d.getMonth() + 1);
           var da = pad(d.getDate());
           var yr = d.getFullYear();
-          // Format without seconds: HH:MM, MM/DD/YYYY
-          return hh + ':' + mm + ', ' + mo + '/' + da + '/' + yr;
+          return hh + ':' + mm + ':' + ss + ', ' + mo + '/' + da + '/' + yr;
         } catch(_) { return ''; }
       }
 
@@ -750,12 +762,12 @@
         }
         if (statusIcon) statusIcon.src = 'assets/icon_info_linked.svg';
         if (meta) {
-          meta.textContent = 'Authorized on ' + formatDate(p.updatedAt);
+          meta.textContent = 'Authorized on ' + formatDateOnly(p.updatedAt);
         }
         // Update linked account card datestamp (state 6)
         try {
           var dateEl = document.getElementById('linkedDateLabel');
-          if (dateEl) dateEl.textContent = formatDate(p.updatedAt);
+          if (dateEl) dateEl.textContent = formatDateOnly(p.updatedAt);
         } catch(_) {}
         // no inline unlink
       } else if (s === 7) {
@@ -772,12 +784,12 @@
           if (body3) body3.textContent = 'Link your Telegram account to the bot and access XREX features directly in Telegram';
         }
         if (statusIcon) statusIcon.src = 'assets/icon_info_unlinked.svg';
-        if (meta) meta.textContent = 'Unlinked on ' + formatDate(p.updatedAt);
+        if (meta) meta.textContent = 'Unlinked on ' + formatDateTime(p.updatedAt);
         // Mark row so CSS can place the Unlinked date on its own line/right-aligned
         row.classList.add('status-row--unlinked');
         try {
           var dateEl2 = document.getElementById('linkedDateLabel');
-          if (dateEl2) dateEl2.textContent = formatDate(p.updatedAt);
+          if (dateEl2) dateEl2.textContent = formatDateOnly(p.updatedAt);
         } catch(_) {}
         // no inline unlink
       } else {
