@@ -2020,6 +2020,31 @@ body.modal-locked {
     max-width: inherit;
     width: 100%;
   }
+  .content .bot-row.bot-row--linked .bot-card {
+    flex: 0 0 auto;
+    width: auto;
+  }
+  .content .bot-row.bot-row--linked .bot-card-main {
+    width: auto;
+    max-width: none;
+  }
+  .content .bot-row.bot-row--linked .bot-card-right {
+    display: none;
+  }
+  .content .bot-row.bot-row--linked .bot-row-divider {
+    flex: 0 0 auto;
+  }
+  .content .bot-row.bot-row--linked .linked-account {
+    flex: 1 1 0%;
+    width: auto;
+    max-width: none;
+  }
+  .content .bot-row.bot-row--linked .bot-row-cta-desktop {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    margin-left: 24px;
+  }
 }
 @media (max-width: 1279px) {
   .content .la-card {
@@ -2087,6 +2112,15 @@ body.modal-locked {
 }
 .content .la-divider {
   display: none;
+}
+.content .bot-row-cta-desktop {
+  display: none;
+}
+@media (min-width: 1280px) {
+  .content .bot-row-cta-desktop {
+    display: flex;
+    align-items: center;
+  }
 }
 .content .la-actions {
   display: flex;

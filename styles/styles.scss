@@ -1213,6 +1213,37 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       max-width: inherit;
       width: 100%;
     }
+
+    // In linked state (state 6), adjust layout:
+    // div1: bot-card (hug)
+    // div2: divider (hug)
+    // div3: linked-account (fills remaining)
+    // div4: desktop CTA (hug)
+    .bot-row.bot-row--linked .bot-card {
+      flex: 0 0 auto; // div 1: hug
+      width: auto;    // ensure width auto
+    }
+    .bot-row.bot-row--linked .bot-card-main {
+      width: auto;
+      max-width: none;
+    }
+    .bot-row.bot-row--linked .bot-card-right {
+      display: none;
+    }
+    .bot-row.bot-row--linked .bot-row-divider {
+      flex: 0 0 auto;
+    }
+    .bot-row.bot-row--linked .linked-account {
+      flex: 1 1 0%;   // div 3: fill remaining
+      width: auto;
+      max-width: none;
+    }
+    .bot-row.bot-row--linked .bot-row-cta-desktop {
+      display: flex;
+      align-items: center;
+      flex: 0 0 auto;
+      margin-left: 24px;
+    }
   }
 
   @media (max-width: ($bp-md - 1)) {
@@ -1233,6 +1264,21 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   .la-username { font: 600 12px $font-manrope; color: $color-text-primary; margin-bottom: -3px; }
   .la-tgid { font: 400 12px $font-manrope; color: #BCBDBD; margin-top: 4px; }
   .la-divider { display: none; }
+
+  // Desktop-only "Go to bot" CTA container (4th flex child of bot-row-main)
+  .bot-row-cta-desktop {
+    display: none;
+  }
+  .la-goto-desktop {
+    // visual style only; visibility handled via .bot-row-cta-desktop on desktop
+  }
+
+  @media (min-width: $bp-md) {
+    .bot-row-cta-desktop {
+      display: flex;
+      align-items: center;
+    }
+  }
   .la-actions { 
     display: flex; 
     gap: 16px; 

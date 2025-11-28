@@ -402,6 +402,7 @@
         var linked = document.getElementById('linkedAccountSection');
         var connector = document.querySelector('.bot-row-divider');
         var actions = document.querySelector('.la-actions');
+        var botRow = document.querySelector('.bot-row');
         if (linked || actions) {
           var st = (getProgress().state|0);
           var show = (st === 6);
@@ -436,15 +437,22 @@
             var btnUnlink = document.getElementById('laUnlinkBtn');
             var btnTest = document.getElementById('laSendTest');
             var btnGo = document.getElementById('laGoToBot');
+            var btnGoDesktop = document.getElementById('laGoToBotDesktop');
             if (st === 6) {
               if (btnUnlink) btnUnlink.style.display = 'inline-flex';
               if (btnTest) btnTest.style.display = 'inline-flex';
               if (btnGo) btnGo.style.display = 'none';
+              if (btnGoDesktop) btnGoDesktop.style.display = 'inline-flex';
             } else {
               if (btnUnlink) btnUnlink.style.display = 'none';
               if (btnTest) btnTest.style.display = 'none';
               if (btnGo) btnGo.style.display = 'inline-flex';
+              if (btnGoDesktop) btnGoDesktop.style.display = 'none';
             }
+          }
+          // Toggle a helper class on bot-row so CSS can hide bot-card-right on desktop
+          if (botRow) {
+            botRow.classList.toggle('bot-row--linked', st === 6 && show);
           }
           if (show) {
             var v = linked.querySelector('#linkedTgValue');
@@ -2328,6 +2336,20 @@
   (function wireFooterGoToBot(){
     try {
       var btn = document.getElementById('laGoToBot');
+      if (btn && !btn.__wired) {
+        btn.__wired = true;
+        btn.addEventListener('click', function(e){
+          e.preventDefault();
+          openGoToBotModal();
+        });
+      }
+    } catch(_) {}
+  })();
+
+  // Desktop linked-account "Go to bot" CTA inside linked-account card
+  (function wireDesktopGoToBot(){
+    try {
+      var btn = document.getElementById('laGoToBotDesktop');
       if (btn && !btn.__wired) {
         btn.__wired = true;
         btn.addEventListener('click', function(e){
