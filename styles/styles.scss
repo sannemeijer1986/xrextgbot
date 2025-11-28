@@ -670,18 +670,21 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
   body.state-menu .mobile-menu-header { display: block; }
   body.state-menu .sidebar { display: block; }
   // In State 1 (menu view) on mobile, suppress active styling
-  body.state-menu .sidebar .menu-item.active { color: $color-text-secondary; }
+  body.state-menu .sidebar .menu-item { color: #0F172A; }
+  body.state-menu .sidebar .menu-item.active { color: #0F172A; }
   body.state-menu .sidebar .menu-item.active .menu-item-icon { background: #f3f4f6; }
   body.state-menu .container { flex-direction: column; gap: 12px; }
   body.state-menu .mobile-menu-header { width: 100%; }
   body.state-menu .mobile-menu-header .link-close-menu { width: 100%; display: inline-flex; }
   body.state-menu .sidebar { width: 100%; }
   body.state-menu .sidebar .menu { background: #ffffff; padding: 0px; border-radius: 8px; width: 100%; border: 1px solid $color-border; }
-  // show a divider under each menu item on mobile without changing spacing (except last)
-  body.state-menu .sidebar .menu-item { position: relative; border-radius: 0px; padding: 20px 20px; }
-  body.state-menu .sidebar .menu-item::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: $color-border; }
-  body.state-menu .sidebar .menu-item:last-child::after { display: none; }
-  body.state-menu .sidebar .menu-item:last-child { border-bottom: none; }
+  body.state-menu .sidebar .menu-item { border-radius: 0px; padding: 20px 20px; }
+  body.state-menu .sidebar .menu-divider {
+    height: 1px;
+    background: $color-border;
+    margin: 0;
+    width: 100%;
+  }
   body.state-menu .sidebar .menu-item-icon { width: 32px; height: 32px; }
 
   // On mobile, keep expandable submenus always expanded (desktop can collapse)
@@ -745,7 +748,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       width: 40px;
       height: 40px;
       border-radius: 9999px;
-      background: #f3f4f6;
+      background: #EEEEEE;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -781,6 +784,7 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       color: #797A7B;
       text-decoration: none;
       font-family: $font-manrope;
+      font-weight: 600;
       font-size: 16px;
     }
   }
@@ -1289,6 +1293,8 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
     display: none;
   }
   .la-goto-desktop {
+    width: 132px;
+    min-width: 132px;
     // visual style only; visibility handled via .bot-row-cta-desktop on desktop
   }
 

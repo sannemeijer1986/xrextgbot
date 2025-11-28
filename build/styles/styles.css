@@ -1422,8 +1422,11 @@ body.modal-locked {
   body.state-menu .sidebar {
     display: block;
   }
+  body.state-menu .sidebar .menu-item {
+    color: #0F172A;
+  }
   body.state-menu .sidebar .menu-item.active {
-    color: #797A7B;
+    color: #0F172A;
   }
   body.state-menu .sidebar .menu-item.active .menu-item-icon {
     background: #f3f4f6;
@@ -1450,24 +1453,14 @@ body.modal-locked {
     border: 1px solid #eeeeee;
   }
   body.state-menu .sidebar .menu-item {
-    position: relative;
     border-radius: 0px;
     padding: 20px 20px;
   }
-  body.state-menu .sidebar .menu-item::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  body.state-menu .sidebar .menu-divider {
     height: 1px;
     background: #eeeeee;
-  }
-  body.state-menu .sidebar .menu-item:last-child::after {
-    display: none;
-  }
-  body.state-menu .sidebar .menu-item:last-child {
-    border-bottom: none;
+    margin: 0;
+    width: 100%;
   }
   body.state-menu .sidebar .menu-item-icon {
     width: 32px;
@@ -1534,7 +1527,7 @@ body.modal-locked {
   width: 40px;
   height: 40px;
   border-radius: 9999px;
-  background: #f3f4f6;
+  background: #EEEEEE;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1578,6 +1571,7 @@ body.modal-locked {
   color: #797A7B;
   text-decoration: none;
   font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 600;
   font-size: 16px;
 }
 @media (min-width: 1280px) {
@@ -2134,6 +2128,10 @@ body.modal-locked {
 }
 .content .bot-row-cta-desktop {
   display: none;
+}
+.content .la-goto-desktop {
+  width: 132px;
+  min-width: 132px;
 }
 @media (min-width: 1280px) {
   .content .bot-row-cta-desktop {
