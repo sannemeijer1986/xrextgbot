@@ -2199,6 +2199,20 @@ body.modal-locked {
     margin-left: 8px;
   }
 }
+.content .status-row--unlinked .status-subline {
+  text-align: right;
+}
+@media (min-width: 1280px) {
+  .content .status-row--unlinked .status-subline {
+    display: block;
+    width: 100%;
+    margin-top: 2px;
+  }
+}
+.content .status-row--unlinked .status-line {
+  justify-content: flex-end;
+  width: 100%;
+}
 .content .status-unlink {
   margin-left: 6px;
   color: #2563EB;

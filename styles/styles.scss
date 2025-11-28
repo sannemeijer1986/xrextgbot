@@ -1343,6 +1343,24 @@ body.modal-locked { position: fixed; left: 0; right: 0; width: 100%; }
       margin-left: 8px;
     }
   }
+
+// State 7 (unlinked) layout tweaks:
+// - place "Unlinked on ..." on its own line below the main status
+// - align that line to the right on both desktop and mobile
+.status-row--unlinked .status-subline {
+  text-align: right;
+  @media (min-width: $bp-md) {
+    display: block;
+    width: 100%;
+    margin-top: 2px;
+  }
+}
+
+// In state 7 also right-align the main status line (value + info icon)
+.status-row--unlinked .status-line {
+  justify-content: flex-end;
+  width: 100%;
+}
   .status-unlink { margin-left: 6px; color: #2563EB; font-size: 12px; font-weight: 600; text-decoration: none; }
   .status-unlink:hover, .status-unlink:focus { text-decoration: none; }
 

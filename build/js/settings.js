@@ -403,14 +403,16 @@
         var connector = document.querySelector('.bot-row-divider');
         var actions = document.querySelector('.la-actions');
         var botRow = document.querySelector('.bot-row');
-        if (linked || actions) {
+        if (linked || actions || botRow) {
           var st = (getProgress().state|0);
           var show = (st === 6);
+          var hideBotRowForAccount = false;
           try {
             var params = new URLSearchParams(window.location.search);
             var pageParam = params.get('page') || '';
             if (String(pageParam).toLowerCase() === 'account') {
               show = false;
+              hideBotRowForAccount = true;
             }
           } catch(_) {}
           // When hidden, also clear any previous values to avoid stale UI on fast-forward
@@ -451,8 +453,10 @@
             }
           }
           // Toggle a helper class on bot-row so CSS can hide bot-card-right on desktop
+          // Also hide the entire bot-row when viewing the Account page.
           if (botRow) {
             botRow.classList.toggle('bot-row--linked', st === 6 && show);
+            botRow.style.display = hideBotRowForAccount ? 'none' : '';
           }
           if (show) {
             var v = linked.querySelector('#linkedTgValue');
@@ -717,6 +721,9 @@
         } catch(_) { return ''; }
       }
 
+      // Reset row-level state classes used for layout tweaks (e.g. state 7)
+      row.classList.remove('status-row--unlinked');
+
       if (s >= 6 && s !== 7) {
         // Linked visual state
         if (statusValue) {
@@ -755,6 +762,8 @@
         }
         if (statusIcon) statusIcon.src = 'assets/icon_info_unlinked.svg';
         if (meta) meta.textContent = 'Unlinked on ' + formatDate(p.updatedAt);
+        // Mark row so CSS can place the Unlinked date on its own line/right-aligned
+        row.classList.add('status-row--unlinked');
         try {
           var dateEl2 = document.getElementById('linkedDateLabel');
           if (dateEl2) dateEl2.textContent = formatDate(p.updatedAt);
