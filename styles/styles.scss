@@ -1788,7 +1788,7 @@ color: #BCBDBD; font-weight: 300; font-size: 12px;
 
     .intro-footnote-link { color: $color-link; font-weight: 600; cursor: pointer; text-decoration: none;}
 
-    .cmd { color: $color-link; font-weight: 400; cursor: pointer; }
+    .cmd { color: $color-link; font-weight: 600; cursor: pointer; }
 
     @media (min-width: $bp-md) {
       padding: 32px;

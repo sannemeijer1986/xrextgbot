@@ -2715,7 +2715,7 @@ body.modal-locked {
 }
 .content .intro-content .cmd {
   color: #3F78FF;
-  font-weight: 400;
+  font-weight: 600;
   cursor: pointer;
 }
 @media (min-width: 1280px) {
